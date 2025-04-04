@@ -1,4 +1,4 @@
-#import "../src/lib.typ": defineConfig
+#import "@preview/tntt:0.1.0": defineConfig
 
 #let (
   // 布局函数
