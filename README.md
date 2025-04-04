@@ -36,7 +36,7 @@ $ typst init @preview/tntt
 
 非常感谢 [OrangeX](https://github.com/OrangeX4) 为南京大学学位论文 Typst 模板 [modern-nju-thesis](https://typst.app/universe/package/modern-nju-thesis) 所做的贡献，本项目移植自由 OrangeX 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
-移植过程中主要参考了 [清华大学学位论文 Word 模板](https://github.com/fatalerror-i/ThuWordThesis) 和 [清华大学学位论文 LaTeX 模板](https://github.com/fatalerror-i/ThuWordThesis)，在此表达感谢。
+移植过程中主要参考了 [清华大学学位论文 Word 模板](https://github.com/fatalerror-i/ThuWordThesis) 和 [清华大学学位论文 LaTeX 模板](https://github.com/tuna/thuthesis)，在此表达感谢。
 
 感谢 [纸叶姐姐](https://github.com/Myriad-Dreamin) 开发的 [Tinymist](https://github.com/Myriad-Dreamin/tinymist) 工具。
 
