@@ -8,7 +8,7 @@ description = "Tntt is Not a Tex Thesis Template for Tsinghua university..."
 repository = "https://github.com/chillcicada/tntt-template"
 keywords = ["Tsinghua University", "thesis"]
 categories = ["thesis"]
-exclude = [""]
+exclude = [".*"]
 compiler = "0.13.0"
 
 [template]

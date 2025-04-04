@@ -114,7 +114,7 @@
   if anonymous {
     v(6cm)
   } else {
-    image("../assets/logo.png", width: 20cm)
+    image("../assets/logo.jpg", width: 20cm)
   }
 
   // 将中文之间的空格间隙从 0.25 em 调整到 0.5 em

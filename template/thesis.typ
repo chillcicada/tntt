@@ -148,7 +148,7 @@
 )
 
 #figure(
-  image("media/logo.png", width: 50%),
+  image("media/logo.jpg", width: 50%),
   caption: [图片测试],
 ) <logo>
 
@@ -229,7 +229,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 附录内容，这里也可以加入图片，例如@fig:appendix-img。
 
 #figure(
-  image("media/logo.png", width: 20%),
+  image("media/logo.jpg", width: 20%),
   caption: [图片测试],
 ) <appendix-img>
 
