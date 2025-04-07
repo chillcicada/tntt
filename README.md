@@ -1,4 +1,4 @@
-# TnTT
+# TnTT: Typst and Tsinghua University Template
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
@@ -6,7 +6,7 @@
 
 ## 介绍
 
-TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩写。一个基于 [Typst](https://typst.app) 的非官方清华大学学位论文模板。
+TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩写。一个基于 [Typst](https://typst.app) 的**非官方**清华大学学位论文模板。
 
 **目前仅支持本科生的综合论文训练。**
 
@@ -23,7 +23,7 @@ $ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加
 
 ```typst
-#import "@preview/tntt:0.1.0": defineConfig
+#import "@preview/tntt:0.1.0": define-config
 ```
 
 来导入此模板。
@@ -75,7 +75,7 @@ $ typst init @preview/tntt
 Of course, you can also import this template in any Typst file by adding:
 
 ```typst
-#import "@preview/tntt:0.1.0": defineConfig
+#import "@preview/tntt:0.1.0": define-config
 ```
 
 ## Preview
