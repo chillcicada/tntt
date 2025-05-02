@@ -1,4 +1,4 @@
-#import "../font.typ": font-size, font-family
+#import "../utils/font.typ": font-size
 
 #import "../imports.typ": show-cn-fakebold
 
@@ -17,8 +17,6 @@
   spacing: 1.38em,
   body,
 ) = {
-  fonts = font-family + fonts
-
   pagebreak(weak: true, to: if twoside { "odd" })
 
   show: show-cn-fakebold

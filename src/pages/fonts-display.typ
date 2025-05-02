@@ -1,4 +1,4 @@
-#import "../font.typ": font-size, font-family
+#import "../utils/font.typ": font-size
 
 #import "../imports.typ": show-cn-fakebold
 
@@ -9,10 +9,7 @@
   size: font-size.小四,
   lang: "zh",
 ) = {
-  // 1. 默认参数
-  fonts = font-family + fonts
-
-  // 2. 辅助函数
+  // 辅助函数
   let display-font(cjk-name, latin-name) = [
     #set text(font: fonts.at(latin-name))
 
@@ -25,7 +22,7 @@
     *#cjk-name (#latin-name Latin Bold): The fanfare of birds announces the morning.*
   ]
 
-  // 3. 正式渲染
+  // 正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
   show: show-cn-fakebold
   set text(size: size, lang: lang, font: fonts.SongTi)

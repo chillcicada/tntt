@@ -1,5 +1,5 @@
 #import "../utils/datetime-display.typ": datetime-display
-#import "../font.typ": font-size, font-family
+#import "../utils/font.typ": font-size
 
 // 本科生封面
 #let cover(
@@ -23,7 +23,6 @@
   datetime-display: datetime-display,
 ) = {
   // 1.  默认参数
-  fonts = font-family + fonts
   info = (
     (
       title: ("基于 Typst 的", "清华大学学位论文"),

@@ -20,7 +20,7 @@
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
 
-#import "font.typ": font-family, font-size
+#import "utils/font.typ": font-size
 
 #let define-config(
   doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc"，文档类型，默认为本科生 bachelor
@@ -37,8 +37,6 @@
     _support_doctype.contains(doctype),
     message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "),
   )
-
-  fonts = font-family + fonts
 
   info = (
     (

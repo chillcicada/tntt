@@ -1,5 +1,5 @@
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../font.typ": font-size, font-family
+#import "../utils/font.typ": font-size
 
 // 本科生目录生成
 #let outline-config(
@@ -27,7 +27,6 @@
   ..args,
 ) = {
   // 1.  默认参数
-  fonts = font-family + fonts
   if title-text-args == auto {
     title-text-args = (font: fonts.SongTi, size: font-size.三号, weight: "bold")
   }

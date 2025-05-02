@@ -1,4 +1,4 @@
-#import "../font.typ": font-size, font-family
+#import "../utils/font.typ": font-size
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
@@ -48,7 +48,6 @@
   set page(numbering: "1")
 
   // 1.  默认参数
-  fonts = font-family + fonts
   if text-args == auto {
     text-args = (font: fonts.SongTi, size: font-size.小四)
   }

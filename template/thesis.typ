@@ -1,5 +1,35 @@
 #import "@preview/tntt:0.1.0": define-config
 
+/// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备
+/// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
+///   SongTi: 宋体，正文字体，通常对应西文中的 serif 字体
+///   HeiTi: 黑体，标题字体，通常对应西文中的 sans-serif 字体
+///   KaiTi: 楷体，通常对应西文中的 monospace 字体，用于说明性文本
+///   FangSong: 仿宋，通常用于注释、引文及权威性阐述
+///   Mono: 等宽字体，对于代码，会优先使用此项
+#let font-family = (
+  SongTi: (
+    (name: "Times New Roman", covers: "latin-in-cjk"),
+    "NSimSun",
+  ),
+  HeiTi: (
+    (name: "Arial", covers: "latin-in-cjk"),
+    "SimHei",
+  ),
+  KaiTi: (
+    (name: "Times New Roman", covers: "latin-in-cjk"),
+    "KaiTi",
+  ),
+  FangSong: (
+    (name: "Times New Roman", covers: "latin-in-cjk"),
+    "STFangSong",
+  ),
+  Mono: (
+    (name: "Courier New", covers: "latin-in-cjk"),
+    "SimHei",
+  ),
+)
+
 #let (
   // 布局函数
   twoside,
@@ -43,12 +73,14 @@
   ),
   // 参考文献源
   bibliography: bibliography.with("ref.bib"),
+  // 字体配置
+  fonts: font-family,
 )
 
 // 文稿设置
 #show: doc
 
-// 字体展示测试页
+// 字体展示测试页，在配置好字体后请注释此项
 #fonts-display()
 
 // 封面页

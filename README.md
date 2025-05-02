@@ -2,7 +2,7 @@
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
-简体中文 | [English](#tntt-1)
+简体中文 | [English](#tntt-typst-and-tsinghua-university-template-1)
 
 ## 介绍
 
@@ -52,9 +52,9 @@ $ typst init @preview/tntt
 
 ---
 
-# TnTT
+# TnTT: Typst and Tsinghua University Template
 
-English | [简体中文](#tntt)
+English | [简体中文](#tntt-typst-and-tsinghua-university-template)
 
 ## Introduction
 

@@ -1,4 +1,4 @@
-#import "../font.typ": font-size, font-family
+#import "../utils/font.typ": font-size
 
 #import "../imports.typ": show-cn-fakebold
 
@@ -9,8 +9,6 @@
   fonts: (:),
 ) = {
   if anonymous { return }
-
-  fonts = font-family + fonts
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
