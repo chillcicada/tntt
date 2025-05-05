@@ -1,4 +1,5 @@
-#import "@preview/tntt:0.1.0": define-config
+// #import "@preview/tntt:0.1.0": define-config
+#import "../src/lib.typ": define-config
 
 /// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备
 /// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
@@ -80,7 +81,7 @@
 // 文稿设置
 #show: doc
 
-// 字体展示测试页，在配置好字体后请注释此项
+// 字体展示测试页，在配置好字体后请注释或删除此项
 #fonts-display()
 
 // 封面页
