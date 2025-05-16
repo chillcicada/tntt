@@ -1,5 +1,5 @@
 // 成果页
-#let achv(
+#let achievement(
   anonymous: false,
   twoside: false,
   // 其他参数

@@ -1,13 +1,15 @@
 #import "../imports.typ": show-cn-fakebold
 
 // 文稿设置，可以进行一些像页面边距这类的全局设置
-#let doc(
-  // documentclass 传入参数
+#let meta(
+  // from entry
   info: (:),
-  // 其他参数
-  fallback: false, // 字体缺失时使用 fallback，不显示豆腐块
+  // options
   lang: "zh",
+  region: "cn",
   margin: (x: 89pt),
+  fallback: false, // 字体缺失时使用 fallback，不显示豆腐块
+  // self
   it,
 ) = {
   // 1.  默认参数
@@ -27,7 +29,9 @@
 
   // 3.  基本的样式设置
   show: show-cn-fakebold
-  set text(fallback: fallback, lang: lang)
+
+  set text(fallback: fallback, lang: lang, region: region)
+
   set page(margin: margin)
 
   // 4.  PDF 元信息
@@ -35,6 +39,33 @@
     title: (("",) + info.title).sum(),
     author: info.author,
   )
+
+  it
+}
+
+#let doc(
+  // from entry
+  fonts: (:),
+  // options
+  indent: 2em,
+  justify: true,
+  leading: 1.5 * 15.6pt - 0.7em,
+  spacing: 1.5 * 15.6pt - 0.7em,
+  // self
+  it,
+) = {
+  set par(
+    justify: justify,
+    leading: leading,
+    spacing: spacing,
+    first-line-indent: (amount: indent, all: true),
+  )
+
+  set list(indent: indent)
+
+  show raw: set text(font: fonts.Mono)
+
+  show terms: set par(first-line-indent: 0em)
 
   it
 }

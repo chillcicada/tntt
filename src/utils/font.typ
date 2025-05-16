@@ -1,3 +1,24 @@
+#let _support-font-family = (
+  "SongTi",
+  "HeiTi",
+  "KaiTi",
+  "FangSong",
+  "Mono",
+)
+
+#let font-check(font) = {
+  for key in font.keys() {
+    assert(
+      key in _support-font-family,
+      message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
+    )
+  }
+
+  font
+}
+
+
+/// Word compatible font size for CJK
 #let font-size = (
   初号: 42pt,
   小初: 36pt,
@@ -17,3 +38,5 @@
   七号: 5.5pt,
   小七: 5pt,
 )
+
+#let _support-font-size = font-size.keys()

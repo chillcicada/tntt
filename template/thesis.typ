@@ -1,13 +1,13 @@
 // #import "@preview/tntt:0.1.0": define-config
 #import "../src/lib.typ": define-config
 
-/// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备
+/// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备，
 /// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
-///   SongTi: 宋体，正文字体，通常对应西文中的 serif 字体
-///   HeiTi: 黑体，标题字体，通常对应西文中的 sans-serif 字体
-///   KaiTi: 楷体，通常对应西文中的 monospace 字体，用于说明性文本
-///   FangSong: 仿宋，通常用于注释、引文及权威性阐述
-///   Mono: 等宽字体，对于代码，会优先使用此项
+/// - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
+/// - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
+/// - KaiTi: 楷体，用于说明性文本和主观性的表达
+/// - FangSong: 仿宋，通常用于注释、引文及权威性阐述
+/// - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
 #let font-family = (
   SongTi: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
@@ -32,26 +32,28 @@
 )
 
 #let (
-  // 布局函数
+  /// global options
   twoside,
+  /// layouts
+  meta,
   doc,
-  preface,
-  mainmatter,
-  appendix,
-  // 页面函数
+  front-matter,
+  main-matter,
+  back-matter,
+  /// pages
   fonts-display,
   cover,
-  copy,
+  copyright,
   abstract,
   abstract-en,
-  outline-config,
+  outline-wrapper,
   figure-list,
   table-list,
   notation,
   bilingual-bibliography,
-  ack,
-  decl,
-  achv,
+  acknowledge,
+  declaration,
+  achievement,
 ) = define-config(
   doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc", 文档类型，默认为本科生 bachelor
   degree: "academic", // "academic" | "professional", 学位类型，默认为学术型 academic
@@ -68,8 +70,6 @@
     major-en: "Chemistry",
     supervisor: ("李四", "教授"),
     supervisor-en: "Professor My Supervisor",
-    // supervisor-ii: ("王五", "副教授"),
-    // supervisor-ii-en: "Professor My Supervisor",
     submit-date: datetime.today(),
   ),
   // 参考文献源
@@ -79,7 +79,7 @@
 )
 
 // 文稿设置
-#show: doc
+#show: meta
 
 // 字体展示测试页，在配置好字体后请注释或删除此项
 #fonts-display()
@@ -88,10 +88,12 @@
 #cover()
 
 // 授权页
-#copy()
+#copyright()
 
-// 前言
-#show: preface
+/// ------------ ///
+/// Front Matter ///
+/// ------------ ///
+#show: front-matter
 
 // 中文摘要
 #abstract(keywords: ("关键词1", "Keyword2", "关键词3"))[
@@ -104,7 +106,7 @@
 ]
 
 // 目录
-#outline-config()
+#outline-wrapper()
 
 // 插图目录
 #figure-list()
@@ -112,8 +114,10 @@
 // 表格目录
 #table-list()
 
-// 正文
-#show: mainmatter
+/// ----------- ///
+/// Main Matter ///
+/// ----------- ///
+#show: main-matter
 
 // 符号表
 #notation[
@@ -238,20 +242,22 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #bilingual-bibliography(full: true)
 
 // 致谢
-#ack[
+#acknowledge[
 
 ]
 
 // 声明页
-#decl()
+#declaration()
 
 // 手动分页
 #if twoside {
   pagebreak() + " "
 }
 
-// 附录
-#show: appendix
+/// ----------- ///
+/// Back Matter ///
+/// ----------- ///
+#show: back-matter
 
 = 附录
 
@@ -267,6 +273,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 ) <appendix-img>
 
 // 成果页
-#achv[
+#achievement[
   在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
 ]

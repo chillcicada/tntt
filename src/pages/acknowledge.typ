@@ -1,5 +1,5 @@
 // 致谢页
-#let ack(
+#let acknowledge(
   anonymous: false,
   twoside: false,
   // 其他参数

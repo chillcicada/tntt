@@ -1,9 +1,7 @@
 #import "../utils/font.typ": font-size
 
-#import "../imports.typ": show-cn-fakebold
-
 // 本科生授权页
-#let copy(
+#let copyright(
   anonymous: false,
   twoside: false,
   fonts: (:),
@@ -11,8 +9,6 @@
   if anonymous { return }
 
   pagebreak(weak: true, to: if twoside { "odd" })
-
-  show: show-cn-fakebold
 
   align(
     center,

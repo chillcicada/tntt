@@ -1,7 +1,5 @@
 #import "../utils/font.typ": font-size
 
-#import "../imports.typ": show-cn-fakebold
-
 // 本科生中文摘要页
 #let abstract(
   // documentclass 传入的参数
@@ -17,8 +15,6 @@
   spacing: 1.28em,
   body,
 ) = {
-  show: show-cn-fakebold
-
   pagebreak(weak: true, to: if twoside { "odd" })
   set text(font: fonts.SongTi, size: font-size.小四)
   set par(leading: leading, justify: true, spacing: spacing, first-line-indent: (amount: 2em, all: true))

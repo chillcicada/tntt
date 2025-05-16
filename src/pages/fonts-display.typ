@@ -6,7 +6,6 @@
   fonts: (:),
   size: font-size.小四,
 ) = {
-  // 辅助函数
   let display-font(cjk-name, latin-name) = [
     #line(length: 100%)
 
@@ -21,8 +20,7 @@
     *#cjk-name (#latin-name Latin Bold): The fanfare of birds announces the morning.*
   ]
 
-  // 正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
+  /// Render the page
   set text(size: size, font: fonts.SongTi)
 
   [
@@ -40,4 +38,7 @@
   )
 
   for it in font-list { display-font(..it) }
+
+  // Always break to odd page
+  pagebreak(to: "odd")
 }

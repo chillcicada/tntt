@@ -5,14 +5,11 @@
 
 #import "../imports.typ": i-figured
 
-#let mainmatter(
-  // documentclass 传入参数
+#let main-matter(
+  // from entry
   twoside: false,
   fonts: (:),
-  // 其他参数
-  leading: 1.5 * 15.6pt - 0.7em,
-  spacing: 1.5 * 15.6pt - 0.7em,
-  justify: true,
+  // options
   first-line-indent: (amount: 2em, all: true),
   numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
   // 正文字体与字号参数
@@ -42,6 +39,7 @@
   // equation 计数
   show-equation: i-figured.show-equation,
   ..args,
+  // self
   it,
 ) = {
   // 0.  标志前言结束
@@ -70,13 +68,7 @@
   // 3.  设置基本样式
   // 3.1 文本和段落样式
   set text(..text-args)
-  set par(
-    leading: leading,
-    justify: justify,
-    first-line-indent: first-line-indent,
-    spacing: spacing,
-  )
-  show raw: set text(font: fonts.Mono)
+
   // 3.2 脚注样式
   show footnote.entry: set text(font: fonts.SongTi, size: font-size.五号)
   // 3.3 设置 figure 的编号
@@ -89,9 +81,6 @@
   set figure.caption(separator: separator)
   show figure.caption: caption-style
   show figure.caption: set text(font: fonts.SongTi, size: font-size.五号)
-  // 3.6 优化列表显示
-  //     术语列表 terms 不应该缩进
-  show terms: set par(first-line-indent: 0pt)
 
   // 4.  处理标题
   // 4.1 设置标题的 Numbering

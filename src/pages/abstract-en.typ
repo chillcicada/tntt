@@ -1,7 +1,5 @@
 #import "../utils/font.typ": font-size
 
-#import "../imports.typ": show-cn-fakebold
-
 // 本科生英文摘要页
 #let abstract-en(
   // documentclass 传入的参数
@@ -19,7 +17,6 @@
 ) = {
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  show: show-cn-fakebold
   set text(font: fonts.SongTi, size: font-size.小四)
   set par(leading: leading, justify: true)
 

@@ -2,7 +2,7 @@
 #import "../utils/font.typ": font-size
 
 // 本科生目录生成
-#let outline-config(
+#let outline-wrapper(
   twoside: false,
   fonts: (:),
   // 其他参数
