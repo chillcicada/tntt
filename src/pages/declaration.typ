@@ -1,10 +1,13 @@
-#import "../utils/font.typ": font-size
+#import "../utils/font.typ": font-size, use-size
 
 // 本科生声明页
 #let declaration(
+  // from entry
   anonymous: false,
   twoside: false,
   fonts: (:),
+  // options
+  title-size: "小三",
 ) = {
   if anonymous { return }
 
@@ -14,7 +17,7 @@
     center,
     text(
       font: fonts.HeiTi,
-      size: font-size.小三,
+      size: use-size(title-size),
       "声　　明",
     ),
   )

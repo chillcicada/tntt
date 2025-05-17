@@ -1,5 +1,5 @@
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/font.typ": font-size
+#import "../utils/font.typ": font-size, use-size
 
 #import "../imports.typ": i-figured
 
@@ -15,7 +15,7 @@
   title-text-args: auto,
   // 字体与字号
   font: auto,
-  size: font-size.小四,
+  size: "小四",
   // 垂直间距
   above: 14pt,
   below: 14pt,
@@ -34,7 +34,7 @@
   pagebreak(weak: true, to: if twoside { "odd" })
 
   // 默认显示的字体
-  set text(font: font, size: size)
+  set text(font: font, size: use-size(size))
 
   {
     set align(center)
@@ -54,7 +54,5 @@
   i-figured.outline(target-kind: image, title: none)
 
   // 手动分页
-  if twoside {
-    pagebreak() + " "
-  }
+  if twoside { pagebreak() + " " }
 }

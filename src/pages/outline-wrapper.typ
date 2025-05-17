@@ -20,7 +20,7 @@
   // 垂直间距
   above: (25pt, 14pt),
   below: (14pt, 14pt),
-  indent: (0pt, 18pt, 28pt),
+  indent: (0pt, 28pt, 22pt),
   // 全都显示点号
   fill: (repeat([.], gap: 0.15em),),
   gap: .3em,

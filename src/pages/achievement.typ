@@ -1,17 +1,19 @@
 // 成果页
 #let achievement(
+  // from entry
   anonymous: false,
   twoside: false,
-  // 其他参数
+  // options
   title: "在学期间参加课题的研究成果",
   outlined: true,
-  body,
+  // self
+  it,
 ) = {
-  if not anonymous {
-    pagebreak(weak: true, to: if twoside { "odd" })
+  if anonymous { return }
 
-    [#heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>]
+  pagebreak(weak: true, to: if twoside { "odd" })
 
-    body
-  }
+  [#heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>]
+
+  it
 }

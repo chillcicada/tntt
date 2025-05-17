@@ -51,6 +51,8 @@
   justify: true,
   leading: 1.5 * 15.6pt - 0.7em,
   spacing: 1.5 * 15.6pt - 0.7em,
+  code-block-leading: 1em,
+  code-block-spacing: 1em,
   // self
   it,
 ) = {
@@ -64,6 +66,11 @@
   set list(indent: indent)
 
   show raw: set text(font: fonts.Mono)
+
+  show raw.where(block: true): set par(
+    leading: code-block-leading,
+    spacing: code-block-spacing,
+  )
 
   show terms: set par(first-line-indent: 0em)
 

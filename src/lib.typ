@@ -85,6 +85,7 @@
     ),
     // 前辅文
     front-matter: (..args) => front-matter(
+      twoside: twoside,
       ..args,
       fonts: fonts + args.named().at("fonts", default: (:)),
     ),

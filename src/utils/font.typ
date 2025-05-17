@@ -1,3 +1,4 @@
+/// Built-in font family for CJK
 #let _support-font-family = (
   "SongTi",
   "HeiTi",
@@ -16,7 +17,6 @@
 
   font
 }
-
 
 /// Word compatible font size for CJK
 #let font-size = (
@@ -40,3 +40,16 @@
 )
 
 #let _support-font-size = font-size.keys()
+
+#let size-check(size) = {
+  if type(size) == str { assert(_support-font-size.contains(size), message: "Unsupported font size: " + size) } else {
+    assert(type(size) == length, message: "Invalid font size type.")
+  }
+
+  size
+}
+
+#let use-size(size) = {
+  size = size-check(size)
+  if type(size) == str { font-size.at(size) } else { size }
+}
