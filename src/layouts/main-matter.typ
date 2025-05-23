@@ -1,7 +1,6 @@
-#import "../utils/font.typ": font-size
-#import "../utils/custom-numbering.typ": custom-numbering
-#import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
-#import "../utils/unpairs.typ": unpairs
+#import "../utils/font.typ": use-size
+#import "../utils/numbering.typ": custom-numbering
+#import "../utils/heading.typ": heading-display, active-heading, current-heading
 
 #import "../imports.typ": i-figured
 
@@ -10,49 +9,49 @@
   twoside: false,
   fonts: (:),
   // options
-  first-line-indent: (amount: 2em, all: true),
+  page-numbering: "1",
+  show-figure: i-figured.show-figure,
+  show-equation: i-figured.show-equation,
+  // TODO: remove this
   numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
-  // 正文字体与字号参数
-  text-args: auto,
-  // 标题字体与字号
-  heading-font: auto,
-  heading-size: (font-size.四号,),
   heading-weight: ("regular",),
   heading-above: (2 * 15.6pt - 0.7em, 2 * 15.6pt - 0.7em),
   heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
   heading-pagebreak: (true, false),
   heading-align: (center, auto),
-  // 页眉
   header-render: auto,
   header-vspace: 0em,
   display-header: false,
   skip-on-first-level: true,
   stroke-width: 0.5pt,
   reset-footnote: true,
-  // caption 的 separator
   separator: "  ",
-  // caption 样式
   caption-style: strong,
-  caption-size: font-size.五号,
-  // figure 计数
-  show-figure: i-figured.show-figure,
-  // equation 计数
-  show-equation: i-figured.show-equation,
+  caption-size: "五号",
   ..args,
   // self
   it,
 ) = {
-  // 0.  标志前言结束
-  set page(numbering: "1")
+  set page(numbering: page-numbering)
 
-  // 1.  默认参数
-  if text-args == auto {
-    text-args = (font: fonts.SongTi, size: font-size.小四)
+  show heading: i-figured.reset-counters
+
+  show math.equation.where(block: true): show-equation
+
+  show figure: show-figure
+  show figure.where(kind: table): set figure.caption(position: top)
+  set figure.caption(separator: separator)
+  show figure.caption: caption-style
+  show figure.caption: set text(font: fonts.SongTi, size: use-size(caption-size))
+
+  let unpairs(pairs) = {
+    let dict = (:)
+    for pair in pairs {
+      dict.insert(..pair)
+    }
+    dict
   }
-  // 1.1 字体与字号
-  if heading-font == auto {
-    heading-font = (fonts.HeiTi,)
-  }
+
   // 1.2 处理 heading- 开头的其他参数
   let heading-text-args-lists = args
     .named()
@@ -65,31 +64,12 @@
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
-  // 3.  设置基本样式
-  // 3.1 文本和段落样式
-  set text(..text-args)
-
-  // 3.2 脚注样式
-  show footnote.entry: set text(font: fonts.SongTi, size: font-size.五号)
-  // 3.3 设置 figure 的编号
-  show heading: i-figured.reset-counters
-  show figure: show-figure
-  // 3.4 设置 equation 的编号和假段落首行缩进
-  show math.equation.where(block: true): show-equation
-  // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
-  show figure.where(kind: table): set figure.caption(position: top)
-  set figure.caption(separator: separator)
-  show figure.caption: caption-style
-  show figure.caption: set text(font: fonts.SongTi, size: font-size.五号)
-
   // 4.  处理标题
   // 4.1 设置标题的 Numbering
   set heading(numbering: numbering)
   // 4.2 设置字体字号并加入假段落模拟首行缩进
   show heading: it => {
     set text(
-      font: array-at(heading-font, it.level),
-      size: array-at(heading-size, it.level),
       weight: array-at(heading-weight, it.level),
       ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
     )
@@ -137,7 +117,7 @@
               let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
                 heading-display(active-heading(level: 2, prev: false, loc))
               } else { "" }
-              set text(font: fonts.KaiTi, size: font-size.五号)
+              set text(font: fonts.KaiTi, size: use-size("五号"))
               stack(
                 first-level-heading + h(1fr) + second-level-heading,
                 v(0.25em),
@@ -163,6 +143,7 @@
       )
     }
   ))
+
   context {
     if calc.even(here().page()) {
       set page(numbering: "I", header: none)
@@ -170,6 +151,7 @@
       pagebreak() + " "
     }
   }
+
   counter(page).update(1)
 
   it

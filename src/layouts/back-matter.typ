@@ -1,4 +1,4 @@
-#import "../utils/custom-numbering.typ": custom-numbering
+#import "../utils/numbering.typ": custom-numbering
 
 #import "../imports.typ": i-figured
 

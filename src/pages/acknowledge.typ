@@ -1,19 +1,26 @@
-// 致谢页
+/// Acknowledgement Page
+///
+/// - anonymous ():
+/// - twoside ():
+/// - title ():
+/// - outlined ():
+/// - it ():
+/// -> acknowledge
 #let acknowledge(
   // from entry
   anonymous: false,
   twoside: false,
   // options
-  title: "致　　谢",
+  title: [致　　谢],
   outlined: true,
   // self
   it,
 ) = {
-  if not anonymous {
-    pagebreak(weak: true, to: if twoside { "odd" })
+  if anonymous { return }
 
-    [#heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>]
+  pagebreak(weak: true, to: if twoside { "odd" })
 
-    it
-  }
+  [#heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>]
+
+  it
 }

@@ -1,34 +1,52 @@
+/// ------ ///
+/// Layout ///
+/// ------ ///
+
 #import "layouts/doc.typ": meta, doc
+#import "layouts/front-matter.typ": front-matter
 #import "layouts/main-matter.typ": main-matter
-#import "layouts/front-matter.typ": front-matter
-#import "layouts/front-matter.typ": front-matter
 #import "layouts/back-matter.typ": back-matter
 
+/// ----- ///
+/// Pages ///
+/// ----- ///
+
+// before content
 #import "pages/fonts-display.typ": fonts-display
 #import "pages/cover.typ": cover
+
+// front matter
 #import "pages/copyright.typ": copyright
 #import "pages/abstract.typ": abstract
 #import "pages/abstract-en.typ": abstract-en
 #import "pages/outline-wrapper.typ": outline-wrapper
+#import "pages/notation.typ": notation
+
+// back matter
 #import "pages/figure-list.typ": figure-list
 #import "pages/table-list.typ": table-list
-#import "pages/notation.typ": notation
 #import "pages/acknowledge.typ": acknowledge
 #import "pages/declaration.typ": declaration
 #import "pages/achievement.typ": achievement
 
-#import "utils/bilingual-bibliography.typ": bilingual-bibliography
-#import "utils/custom-numbering.typ": custom-numbering
-#import "utils/custom-heading.typ": heading-display, active-heading, current-heading
+/// --------- ///
+/// Auxiliary ///
+/// --------- ///
 
-#import "utils/font.typ": font-size
+#import "imports.typ": cuti, i-figured
+
+#import "utils/text.typ": mask
+#import "utils/font.typ": use-size, fonts-check
+#import "utils/heading.typ": heading-display, active-heading, current-heading
+#import "utils/numbering.typ": custom-numbering
+#import "utils/bibliography.typ": bilingual-bibliography
 
 #let define-config(
-  doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc"，文档类型，默认为本科生 bachelor
-  degree: "academic", // "academic" | "professional"，学位类型，默认为学术型 academic
-  twoside: false, // 双面模式，会加入空白页，便于打印
-  anonymous: false, // 盲审模式
-  bibliography: none, // 原来的参考文献函数
+  doctype: "bachelor",
+  degree: "academic",
+  twoside: false,
+  anonymous: false,
+  bibliography: none,
   fonts: (:),
   info: (:),
 ) = {
@@ -81,19 +99,19 @@
     // 文稿设置
     doc: (..args) => doc(
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 前辅文
     front-matter: (..args) => front-matter(
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 正文
     main-matter: (..args) => main-matter(
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 后辅文
     back-matter: (..args) => back-matter(..args),
@@ -103,13 +121,13 @@
     // 字体展示页
     fonts-display: (..args) => fonts-display(
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 封面页
     cover: (..args) => cover(
       anonymous: anonymous,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
       info: info + args.named().at("info", default: (:)),
     ),
     // 授权页
@@ -117,42 +135,38 @@
       anonymous: anonymous,
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 中文摘要页
     abstract: (..args) => abstract(
       anonymous: anonymous,
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
     ),
     // 英文摘要页
     abstract-en: (..args) => abstract-en(
       anonymous: anonymous,
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
     ),
     // 目录页
     outline-wrapper: (..args) => outline-wrapper(
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
+    ),
+    // 符号表页
+    notation: (..args) => notation(
+      twoside: twoside,
+      ..args,
     ),
     // 插图目录页
     figure-list: (..args) => figure-list(
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
     ),
     // 表格目录页
     table-list: (..args) => table-list(
-      twoside: twoside,
-      ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
-    ),
-    // 符号表页
-    notation: (..args) => notation(
       twoside: twoside,
       ..args,
     ),
@@ -172,7 +186,6 @@
       anonymous: anonymous,
       twoside: twoside,
       ..args,
-      fonts: fonts + args.named().at("fonts", default: (:)),
     ),
     // 成果页
     achievement: (..args) => achievement(

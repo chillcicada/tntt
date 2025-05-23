@@ -1,4 +1,4 @@
-# TnTT: Typst and Tsinghua University Template
+# TnTT: Typst & Tsinghua University Template
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
@@ -14,7 +14,7 @@ TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩�
 
 您可以在 [Typst Web](https://typst.app) 应用程序中使用此模板，方法是单击仪表板上的“Start from template”并搜索 `tntt`，或单击 [此处](https://typst.app/app?template=tntt&version=0.2.0) 快速创建一个项目。
 
-或者，你也可以使用 `typst` 命令行工具来创建一个新的项目：
+或者，你也可以使用 `typst` 命令行工具来创建一个带有模板的新项目：
 
 ```bash
 typst init @preview/tntt
@@ -23,7 +23,8 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加
 
 ```typst
-#import "@preview/tntt:0.2.0": define-config
+#import "@preview/tntt:0.2.0"
+#import tntt: define-config
 ```
 
 来导入此模板。
@@ -64,6 +65,11 @@ typst init @preview/tntt
 
 感谢 [纸叶姐姐](https://github.com/Myriad-Dreamin) 开发的 [Tinymist](https://github.com/Myriad-Dreamin/tinymist) 工具。
 
+## 相关资源
+
+- [清华大学学位论文 Word 模板](https://github.com/fatalerror-i/ThuWordThesis)
+- [清华大学学位论文 LaTeX 模板](https://github.com/tuna/thuthesis)
+
 ## 许可证
 
 模板源代码采用 [MIT](LICENSE) 许可证分发，您可以自由使用、修改和分发，但不提供任何担保。
@@ -76,7 +82,7 @@ typst init @preview/tntt
 
 ---
 
-# TnTT: Typst and Tsinghua University Template
+# TnTT: Typst & Tsinghua University Template
 
 English | [简体中文](#tntt-typst-and-tsinghua-university-template)
 
@@ -90,7 +96,7 @@ TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua 
 
 You can use this template in the [Typst Web](https://typst.app) application by clicking "Start from template" on the dashboard and searching for `tntt`, or click [here](https://typst.app/app?template=tntt&version=0.2.0) to quickly create a project.
 
-Alternatively, you can use the `typst` command-line tool to create a new project:
+Alternatively, you can use the `typst` command-line tool to create a new project with template:
 
 ```bash
 typst init @preview/tntt
@@ -99,7 +105,8 @@ typst init @preview/tntt
 Of course, you can also import this template in any Typst file by adding:
 
 ```typst
-#import "@preview/tntt:0.2.0": define-config
+#import "@preview/tntt:0.2.0"
+#import tntt: define-config
 ```
 
 ## Instructions
@@ -137,6 +144,11 @@ Special thanks to [OrangeX4](https://github.com/OrangeX4) for their contribution
 During the porting process, we mainly referenced the [Tsinghua University Thesis Word Template](https://github.com/fatalerror-i/ThuWordThesis) and [Tsinghua University Thesis LaTeX Template](https://github.com/tuna/thuthesis). Our gratitude goes to their contributors.
 
 Thanks to [Myriad-Dreamin](https://github.com/Myriad-Dreamin) for developing the [Tinymist](https://github.com/Myriad-Dreamin/tinymist) tool.
+
+## Relevant Resources
+
+- [Tsinghua University Thesis Word Template](https://github.com/fatalerror-i/ThuWordThesis)
+- [Tsinghua University Thesis LaTeX Template](https://github.com/tuna/thuthesis)
 
 ## License
 

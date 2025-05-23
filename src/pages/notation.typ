@@ -1,35 +1,43 @@
 #let notation(
+  // from entry
   twoside: false,
-  title: "符号表",
-  outlined: true,
+  // options
+  outlined: false,
+  title: [符号表],
+  title-vspace: 1.28em,
   width: 350pt,
   columns: (60pt, 1fr),
   row-gutter: 16pt,
   ..args,
-  body,
+  // self
+  it,
 ) = {
+  pagebreak(weak: true, to: if twoside { "odd" })
+
   heading(
     level: 1,
     numbering: none,
     outlined: outlined,
-    title
+    title,
   )
 
-  align(center, block(width: width,
-    align(start, grid(
-      columns: columns,
-      row-gutter: row-gutter,
-      ..args,
-      // 解析 terms 内部结构以渲染到表格里
-      ..body.children
-        .filter(it => it.func() == terms.item)
-        .map(it => (it.term, it.description))
-        .flatten()
-    ))
-  ))
+  v(title-vspace)
 
-  // 手动分页
-  if twoside {
-    pagebreak() + " "
-  }
+  align(
+    center,
+    block(
+      width: width,
+      align(
+        start,
+        grid(
+          columns: columns,
+          row-gutter: row-gutter,
+          ..args,
+          ..it.children.filter(it => it.func() == terms.item).map(it => (it.term, it.description)).flatten()
+        ),
+      ),
+    ),
+  )
+
+  if twoside { pagebreak() + " " }
 }

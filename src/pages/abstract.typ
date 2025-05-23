@@ -1,37 +1,34 @@
-#import "../utils/font.typ": font-size
+#import "../utils/font.typ": use-size
 
-// 本科生中文摘要页
 #let abstract(
-  // documentclass 传入的参数
+  // from entry
   anonymous: false,
   twoside: false,
-  fonts: (:),
-  // 其他参数
-  keywords: (),
-  outline-title: "摘要",
+  // options
   outlined: false,
-  anonymous-info-keys: ("author", "supervisor", "supervisor-ii"),
-  leading: 1.28em,
-  spacing: 1.28em,
-  body,
+  title: [中文摘要],
+  title-vspace: 1.28em,
+  body-vspace: 1em,
+  back: [*关键词：*],
+  keywords: (),
+  keyword-sperator: "；",
+  // self
+  it,
 ) = {
   pagebreak(weak: true, to: if twoside { "odd" })
-  set text(font: fonts.SongTi, size: font-size.小四)
-  set par(leading: leading, justify: true, spacing: spacing, first-line-indent: (amount: 2em, all: true))
 
-  align(
-    center,
-    text(
-      size: font-size.小三,
-      font: fonts.HeiTi,
-      "摘要",
-    ),
+  heading(
+    level: 1,
+    outlined: outlined,
+    title,
   )
 
-  body
+  v(title-vspace)
 
-  v(1em)
+  it
 
-  [*关键词：*]
-  (("",) + keywords.intersperse("；")).sum()
+  v(body-vspace)
+
+  back
+  (("",) + keywords.intersperse(keyword-sperator)).sum()
 }

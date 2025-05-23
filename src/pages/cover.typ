@@ -1,5 +1,4 @@
-#import "../utils/datetime-display.typ": datetime-display
-#import "../utils/font.typ": font-size
+#import "../utils/font.typ": use-size
 
 // 本科生封面
 #let cover(
@@ -19,34 +18,13 @@
   anonymous-info-keys: ("author", "supervisor", "supervisor-ii"),
   bold-info-keys: ("title",),
   bold-level: "bold",
-  datetime-display: datetime-display,
 ) = {
-  // 1.  默认参数
-  info = (
-    (
-      title: ("基于 Typst 的", "清华大学学位论文"),
-      author: "张三",
-      department: "某学院",
-      major: "某专业",
-      supervisor: ("李四", "教授"),
-      submit-date: datetime.today(),
-    )
-      + info
-  )
-
-  // 2.  对参数进行处理
-  // 2.1 如果是字符串，则使用换行符将标题分隔为列表
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }
-  // 2.2 根据 min-title-lines 填充标题
-  info.title = info.title + range(min-title-lines - info.title.len()).map(it => "　")
-  // 2.3 处理提交日期
-  if type(info.submit-date) == datetime {
-    info.submit-date = datetime-display(info.submit-date)
-  }
 
-  // 3.  内置辅助函数
+  info.title = info.title + range(min-title-lines - info.title.len()).map(it => "　")
+
   let info-key(body) = {
     rect(
       width: 100%,
@@ -54,7 +32,7 @@
       stroke: none,
       text(
         font: fonts.at(info-key-font, default: "KaiTi"),
-        size: font-size.三号,
+        size: use-size("三号"),
         body,
       ),
     )
@@ -68,7 +46,7 @@
       stroke: (bottom: stoke-width + black),
       text(
         font: fonts.at(info-value-font, default: "SongTi"),
-        size: font-size.三号,
+        size: use-size("三号"),
         weight: if key in bold-info-keys { bold-level } else { "regular" },
         bottom-edge: "descender",
         body,
@@ -114,7 +92,7 @@
   }
 
   // 将中文之间的空格间隙从 0.25 em 调整到 0.5 em
-  text(size: font-size.一号, font: fonts.HeiTi, spacing: 200%)[综 合 论 文 训 练]
+  text(size: use-size("一号"), font: fonts.HeiTi, spacing: 200%)[综 合 论 文 训 练]
 
   if anonymous { v(155pt) } else { v(67pt) }
 
@@ -147,7 +125,7 @@
         } else { () }
       ),
       info-key("提交日期"),
-      info-long-value("submit-date", info.submit-date),
+      info-long-value("submit-date", info.submit-date.display("[year] 年 [month] 月 [day] 日")),
     ),
   )
 }

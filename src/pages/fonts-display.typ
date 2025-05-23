@@ -1,25 +1,34 @@
-#import "../utils/font.typ": font-size, use-size
+#import "../utils/font.typ": use-size
 
-// 字体显示测试页
+/// Fonts Display Page
+///
+/// - twoside (): whether to use two-sided printing
+/// - fonts (): fonts scheme
+/// - size (): font size
+/// - cjk-text (): CJK text to display
+/// - latin-text (): Latin text to display
+/// -> fonts-display
 #let fonts-display(
   // from entry
   twoside: false,
   fonts: (:),
   // options
   size: "小四",
+  cjk-text: "落霞与孤鹜齐飞，秋水共长天一色。",
+  latin-text: "The fanfare of birds announces the morning.",
 ) = {
   let display-font(cjk-name, latin-name) = [
     #line(length: 100%, stroke: .5pt)
 
     #set text(font: fonts.at(latin-name))
 
-    #cjk-name (#latin-name CJK Regular): 落霞与孤鹜齐飞，秋水共长天一色。
+    #cjk-name (#latin-name CJK Regular)：#cjk-text
 
-    #cjk-name (#latin-name Latin Regular): The fanfare of birds announces the morning.
+    #cjk-name (#latin-name Latin Regular): #latin-text
 
-    *#cjk-name (#latin-name CJK Bold): 落霞与孤鹜齐飞，秋水共长天一色。*
+    *#cjk-name (#latin-name CJK Bold)：#cjk-text*
 
-    *#cjk-name (#latin-name Latin Bold): The fanfare of birds announces the morning.*
+    *#cjk-name (#latin-name Latin Bold): #latin-text*
   ]
 
   /// Render the page

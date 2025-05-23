@@ -1,6 +1,8 @@
-#import "../imports.typ": show-cn-fakebold
+#import "../imports.typ": cuti
+#import cuti: show-cn-fakebold
 
-// 文稿设置，可以进行一些像页面边距这类的全局设置
+#import "../utils/font.typ": use-size
+
 #let meta(
   // from entry
   info: (:),
@@ -8,7 +10,7 @@
   lang: "zh",
   region: "cn",
   margin: (x: 89pt),
-  fallback: false, // 字体缺失时使用 fallback，不显示豆腐块
+  fallback: false,
   // self
   it,
 ) = {
@@ -53,9 +55,13 @@
   spacing: 1.5 * 15.6pt - 0.7em,
   code-block-leading: 1em,
   code-block-spacing: 1em,
+  heading-size: "小三",
+  body-size: "小四",
+  fontnote-size: "五号",
   // self
   it,
 ) = {
+  /// Paragraph
   set par(
     justify: justify,
     leading: leading,
@@ -63,16 +69,37 @@
     first-line-indent: (amount: indent, all: true),
   )
 
+  /// List
   set list(indent: indent)
 
+  /// Raw
   show raw: set text(font: fonts.Mono)
 
+  // unset paragraph for raw block
   show raw.where(block: true): set par(
     leading: code-block-leading,
     spacing: code-block-spacing,
   )
 
+  /// Term
   show terms: set par(first-line-indent: 0em)
+
+  /// Fontnote
+  show footnote.entry: set text(
+    font: fonts.SongTi,
+    size: use-size("五号"),
+  )
+
+  /// Heading
+  show heading: set text(font: fonts.HeiTi, size: use-size(heading-size))
+
+  show heading.where(level: 1): it => {
+    set text(weight: "regular")
+    align(center, it)
+  }
+
+  /// Body Text
+  set text(font: fonts.SongTi, size: use-size(body-size))
 
   it
 }

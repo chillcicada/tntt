@@ -1,5 +1,6 @@
-// #import "@preview/tntt:0.2.0": define-config
-#import "../src/lib.typ": define-config
+// #import "@preview/tntt:0.2.0"
+#import "../src/lib.typ" as tntt
+#import tntt: define-config
 
 /// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备，
 /// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
@@ -60,8 +61,8 @@
   declaration,
   achievement,
 ) = define-config(
-  doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc", 文档类型，默认为本科生 bachelor
-  degree: "academic", // "academic" | "professional", 学位类型，默认为学术型 academic
+  doctype: "bachelor",
+  degree: "academic",
   anonymous: false, // 盲审模式
   twoside: true, // 双面模式，会加入空白页，便于打印
   info: (
@@ -118,22 +119,16 @@
 // 目录
 #outline-wrapper()
 
-// 插图目录
-#figure-list()
-
-// 表格目录
-#table-list()
-
-/// ----------- ///
-/// Main Matter ///
-/// ----------- ///
-#show: main-matter
-
 // 符号表
 #notation[
   / DFT: 密度泛函理论 (Density functional theory)
   / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
 ]
+
+/// ----------- ///
+/// Main Matter ///
+/// ----------- ///
+#show: main-matter
 
 = 导　引
 
@@ -166,7 +161,14 @@
   caption: [字号与 pt 对应关系],
 )
 
-大部分情况下，您都无需关注内置模板的字体选项，除非您需要使用到一些特殊的字体或字号，或者需要使用到一些特殊的排版效果。
+大部分情况下，您都无需关注内置模板的字体选项，除非您需要使用到一些特殊的字体或字号，或者需要使用到一些特殊的排版效果。如果你想在一些场合使用中文字号，你可以使用模板提供的 `use-size` 函数，如：
+
+```typ
+#import tntt: use-size
+#text(size: use-size("小三"), "这将使这段文字显示为「小三」大小。")
+```
+
+`use-size` 允许传入形如 16pt 的 `length` 类型的参数，因而推荐使用。
 
 == 结构
 
@@ -178,11 +180,11 @@
   - 中文摘要（abstract） ← 前辅文从此页开始计数
   - 英文摘要（abstract-en）
   - 目录（outline-wrapper）
-  - 插图目录（figure-list）
-  - 表格目录（table-list）
   - 符号表（notation）
 - 正文（main matter） ← 正文重新计数
 - 后辅文（back matter）：即正文后部分
+  - 插图目录（figure-list）
+  - 表格目录（table-list）
   - 参考文献（bilingual-bibliography）
   - 致谢页（acknowledge）
   - 声明页（declaration）
@@ -352,12 +354,22 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 /// ----------- ///
 #show: back-matter
 
+// 插图目录
+#figure-list()
+
+// 表格目录
+#table-list()
+
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
 #bilingual-bibliography(full: true)
 
 // 致谢
 #acknowledge[
+  致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
+
+  #line(length: 100%)
+
   非常感谢 #link("https://github.com/OrangeX4")[OrangeX4] 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis")[modern-nju-thesis] 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
   移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis")[清华大学学位论文 Word 模板] 和 #link("https://github.com/tuna/thuthesis")[清华大学学位论文 LaTeX 模板]，在此表达感谢。
@@ -373,9 +385,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #declaration()
 
 // 手动分页
-#if twoside {
-  pagebreak() + " "
-}
+#if twoside { pagebreak() + " " }
 
 = 附录
 

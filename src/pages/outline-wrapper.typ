@@ -1,61 +1,47 @@
-#import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/font.typ": font-size
+#import "../utils/font.typ": use-size, _support-font-family
 
-// 本科生目录生成
 #let outline-wrapper(
+  // from entry
   twoside: false,
   fonts: (:),
-  // 其他参数
+  // options
   depth: 4,
-  title: "目　　录",
+  font: ("HeiTi", "SongTi"),
+  size: ("四号", "小四"),
   outlined: false,
-  title-vspace: 0pt,
-  title-text-args: auto,
-  // 引用页数的字体，这里用于显示 Times New Roman
-  reference-font: auto,
-  reference-size: font-size.小四,
-  // 字体与字号
-  font: auto,
-  size: (font-size.四号, font-size.小四),
-  // 垂直间距
+  title: [目　　录],
+  title-vspace: 1.28em,
   above: (25pt, 14pt),
   below: (14pt, 14pt),
   indent: (0pt, 28pt, 22pt),
-  // 全都显示点号
-  fill: (repeat([.], gap: 0.15em),),
   gap: .3em,
-  ..args,
+  fill: (repeat([.], gap: 0.15em),),
 ) = {
-  // 1.  默认参数
-  if title-text-args == auto {
-    title-text-args = (font: fonts.SongTi, size: font-size.三号, weight: "bold")
+  /// Parse the outline configuration
+  for it in font {
+    assert(
+      _support-font-family.contains(it),
+      message: "Font family " + it + " is not supported.",
+    )
   }
-  // 引用页数的字体，这里用于显示 Times New Roman
-  if reference-font == auto {
-    reference-font = fonts.SongTi
-  }
-  // 字体与字号
-  if font == auto {
-    font = (fonts.HeiTi, fonts.SongTi)
-  }
+  font = font.map(name => fonts.at(name))
 
-  // 2.  正式渲染
+  size = size.map(name => use-size(name))
+
+  /// Render the outline
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  // 默认显示的字体
-  set text(font: reference-font, size: reference-size)
-
-  {
-    set align(center)
-    text(..title-text-args, title)
-    // 标记一个不可见的标题用于目录生成
-    invisible-heading(level: 1, outlined: outlined, title)
-  }
+  heading(
+    level: 1,
+    outlined: outlined,
+    title,
+  )
 
   v(title-vspace)
 
-  // 目录样式
+  // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
+
   show outline.entry: entry => block(
     above: above.at(entry.level - 1, default: above.last()),
     below: below.at(entry.level - 1, default: below.last()),
@@ -83,6 +69,6 @@
     ),
   )
 
-  // 显示目录
+  // display the outline
   outline(title: none, depth: depth)
 }

@@ -1,5 +1,3 @@
-#import "../utils/font.typ": font-size
-
 /// Front matter layout
 #let front-matter(
   // from entry

@@ -1,10 +1,17 @@
-// 成果页
+/// Achievement Page
+///
+/// - anonymous ():
+/// - twoside ():
+/// - title ():
+/// - outlined ():
+/// - it ():
+/// -> achievement
 #let achievement(
   // from entry
   anonymous: false,
   twoside: false,
   // options
-  title: "在学期间参加课题的研究成果",
+  title: [在学期间参加课题的研究成果],
   outlined: true,
   // self
   it,
