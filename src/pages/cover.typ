@@ -1,12 +1,11 @@
 #import "../utils/font.typ": use-size
 
-// 本科生封面
 #let cover(
-  // documentclass 传入的参数
+  // from entry
   anonymous: false,
   fonts: (:),
   info: (:),
-  // 其他参数
+  // options
   stoke-width: 0.5pt,
   min-title-lines: 2,
   info-inset: (x: 0pt, bottom: 1pt),
@@ -80,18 +79,14 @@
   }
 
 
-  // 4.  正式渲染
-  // 居中对齐
   set align(center)
 
-  // 匿名化处理去掉封面标识
   if anonymous {
     v(6cm)
   } else {
     image("../assets/logo.jpg", width: 20cm)
   }
 
-  // 将中文之间的空格间隙从 0.25 em 调整到 0.5 em
   text(size: use-size("一号"), font: fonts.HeiTi, spacing: 200%)[综 合 论 文 训 练]
 
   if anonymous { v(155pt) } else { v(67pt) }

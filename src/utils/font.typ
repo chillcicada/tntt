@@ -5,6 +5,7 @@
   "KaiTi",
   "FangSong",
   "Mono",
+  "Math",
 )
 
 #let fonts-check(fonts) = {

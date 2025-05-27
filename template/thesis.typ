@@ -9,6 +9,7 @@
 /// - KaiTi: 楷体，用于说明性文本和主观性的表达
 /// - FangSong: 仿宋，通常用于注释、引文及权威性阐述
 /// - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
+/// - Math: 数学字体，通常用于数学公式和符号，推荐使用无衬线字体或楷体
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
@@ -34,6 +35,11 @@
   Mono: (
     (name: "DejaVu Sans Mono", covers: "latin-in-cjk"),
     "SimHei",
+  ),
+  Math: (
+    (name: "New Computer Modern", covers: "latin-in-cjk"),
+    "New Computer Modern Math",
+    "KaiTi",
   ),
 )
 
@@ -304,7 +310,7 @@ typst 语法可以参考 #link("https://typst.app/docs/")[Typst 官方文档] �
 
 可以像 Markdown 一样写行内公式 $x + y$，以及带编号的行间公式：
 
-$ phi.alt := (1 + sqrt(5)) / 2 $ <ratio>
+$ "黄金比例": phi.alt := (1 + sqrt(5)) / 2 $ <ratio>
 
 引用数学公式需要加上 `eqt:` 前缀，则由@eqt:ratio，我们有：
 
@@ -387,11 +393,17 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 手动分页
 #if twoside { pagebreak() + " " }
 
-= 附录
+= 外文资料的调研阅读报告
 
-== 附录子标题
+#align(center, lorem(10))
 
-=== 附录子子标题
+#lorem(100)
+
+== #lorem(3)
+
+#lorem(20)
+
+=== #lorem(3)
 
 附录内容，这里也可以加入图片，例如@fig:appendix-img。
 

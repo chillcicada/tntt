@@ -3,7 +3,7 @@
   twoside: false,
   // options
   outlined: false,
-  title: [符号表],
+  title: [符号对照表],
   title-vspace: 1.28em,
   width: 350pt,
   columns: (60pt, 1fr),
