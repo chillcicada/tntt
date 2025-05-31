@@ -17,8 +17,7 @@
 
 // front matter
 #import "pages/copyright.typ": copyright
-#import "pages/abstract.typ": abstract
-#import "pages/abstract-en.typ": abstract-en
+#import "pages/abstract.typ": abstract, abstract-en
 #import "pages/outline-wrapper.typ": outline-wrapper
 #import "pages/notation.typ": notation
 

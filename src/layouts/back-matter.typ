@@ -6,8 +6,9 @@
   // from entry
   fonts: (:),
   // options
-  heading-numbering: (first-level: "附录A ", depth: 4, format: "A.1 "),
+  heading-numbering: (first-level: "附录A　", depth: 4, format: "A.1 "),
   figure-numbering: "A.1",
+  figure-outlined: false,
   equation-numbering: "(A.1)",
   reset-counter: true,
   // self
@@ -21,7 +22,16 @@
       depth: heading-numbering.depth,
       heading-numbering.format,
     ),
+    bookmarked: false,
+    outlined: false,
   )
+
+  show heading.where(level: 1): set heading(
+    bookmarked: true,
+    outlined: true,
+  )
+
+  set figure(outlined: figure-outlined)
 
   show figure: i-figured.show-figure.with(numbering: figure-numbering)
 

@@ -1,3 +1,4 @@
+/// Notation Page
 #let notation(
   // from entry
   twoside: false,

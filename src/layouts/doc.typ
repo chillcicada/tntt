@@ -1,7 +1,7 @@
+#import "../utils/font.typ": use-size
+
 #import "../imports.typ": cuti
 #import cuti: show-cn-fakebold
-
-#import "../utils/font.typ": use-size
 
 #let meta(
   // from entry

@@ -1,5 +1,6 @@
 #import "../utils/font.typ": use-size
 
+/// Cover Page
 #let cover(
   // from entry
   anonymous: false,
