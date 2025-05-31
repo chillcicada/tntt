@@ -25,6 +25,7 @@
 // back matter
 #import "pages/figure-list.typ": figure-list
 #import "pages/table-list.typ": table-list
+#import "pages/equation-list.typ": equation-list
 #import "pages/acknowledge.typ": acknowledge
 #import "pages/declaration.typ": declaration
 #import "pages/achievement.typ": achievement
@@ -167,6 +168,11 @@
     ),
     // 表格目录页
     table-list: (..args) => table-list(
+      twoside: twoside,
+      ..args,
+    ),
+    // 公式目录页
+    equation-list: (..args) => equation-list(
       twoside: twoside,
       ..args,
     ),
