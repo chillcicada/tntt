@@ -53,9 +53,10 @@
   abstract,
   abstract-en,
   outline-wrapper,
+  notation,
   figure-list,
   table-list,
-  notation,
+  equation-list,
   bilingual-bibliography,
   acknowledge,
   declaration,
@@ -185,6 +186,7 @@
 - 后辅文（back matter）：即正文后部分
   - 插图目录（figure-list）
   - 表格目录（table-list）
+  - 公式目录（equation-list）
   - 参考文献（bilingual-bibliography）
   - 致谢页（acknowledge）
   - 声明页（declaration）
@@ -359,6 +361,9 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 表格目录
 #table-list()
+
+// 公式目录
+#equation-list()
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
