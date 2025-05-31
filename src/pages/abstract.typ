@@ -1,5 +1,4 @@
-#import "../utils/font.typ": use-size
-
+/// Abstract Page (Simplified Chinese version)
 #let abstract(
   // from entry
   anonymous: false,
@@ -32,3 +31,11 @@
   back
   (("",) + keywords.intersperse(keyword-sperator)).sum()
 }
+
+/// Abstract Page (English version)
+#let abstract-en(..args) = abstract(
+  title: [ABSTRACT],
+  back: [*Keywords: *],
+  keyword-sperator: "; ",
+  ..args,
+)

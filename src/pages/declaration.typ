@@ -1,3 +1,4 @@
+/// Declaration Page
 #let declaration(
   // from entry
   anonymous: false,

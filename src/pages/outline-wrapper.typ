@@ -1,4 +1,4 @@
-#import "../utils/font.typ": use-size, _support-font-family
+#import "../utils/font.typ": use-size, fonts-check
 
 #let outline-wrapper(
   // from entry
@@ -18,13 +18,7 @@
   fill: (repeat([.], gap: 0.15em),),
 ) = {
   /// Parse the outline configuration
-  for it in font {
-    assert(
-      _support-font-family.contains(it),
-      message: "Font family " + it + " is not supported.",
-    )
-  }
-  font = font.map(name => fonts.at(name))
+  font = fonts-check(font).map(name => fonts.at(name))
 
   size = size.map(name => use-size(name))
 

@@ -3,23 +3,39 @@
 #import "../imports.typ": i-figured
 
 #let back-matter(
+  // from entry
+  fonts: (:),
   // options
-  heading-numbering: custom-numbering.with(first-level: "", depth: 4, "1.1 "),
-  // figure 计数
-  show-figure: i-figured.show-figure.with(numbering: "1.1"),
-  // equation 计数
-  show-equation: i-figured.show-equation.with(numbering: "(1.1)"),
-  // 重置计数
-  reset-counter: false,
+  heading-numbering: (first-level: "附录A　", depth: 4, format: "A.1 "),
+  figure-numbering: "A.1",
+  figure-outlined: false,
+  equation-numbering: "(A.1)",
+  reset-counter: true,
   // self
   it,
 ) = {
-  set heading(numbering: heading-numbering)
   if reset-counter { counter(heading).update(0) }
-  // 设置 figure 的编号
-  show figure: show-figure
-  // 设置 equation 的编号
-  show math.equation.where(block: true): show-equation
+
+  set heading(
+    numbering: custom-numbering.with(
+      first-level: heading-numbering.first-level,
+      depth: heading-numbering.depth,
+      heading-numbering.format,
+    ),
+    bookmarked: false,
+    outlined: false,
+  )
+
+  show heading.where(level: 1): set heading(
+    bookmarked: true,
+    outlined: true,
+  )
+
+  set figure(outlined: figure-outlined)
+
+  show figure: i-figured.show-figure.with(numbering: figure-numbering)
+
+  show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
 
   it
 }

@@ -1,5 +1,6 @@
 #import "../imports.typ": i-figured
 
+/// Figure Index Page
 #let figure-list(
   // from entry
   twoside: false,

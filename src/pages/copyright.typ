@@ -1,6 +1,6 @@
 #import "../utils/font.typ": use-size
 
-/// Copyright page
+/// Copyright Page
 ///
 /// - anonymous (): whether to hide the signature
 /// - twoside (): whether to use two-sided printing

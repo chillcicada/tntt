@@ -1,6 +1,6 @@
 #import "../imports.typ": i-figured
 
-// 表格目录生成
+/// Table Index Page
 #let table-list(
   // from entry
   twoside: false,

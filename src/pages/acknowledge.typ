@@ -1,11 +1,4 @@
 /// Acknowledgement Page
-///
-/// - anonymous ():
-/// - twoside ():
-/// - title ():
-/// - outlined ():
-/// - it ():
-/// -> acknowledge
 #let acknowledge(
   // from entry
   anonymous: false,

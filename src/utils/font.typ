@@ -5,6 +5,7 @@
   "KaiTi",
   "FangSong",
   "Mono",
+  "Math",
 )
 
 #let fonts-check(fonts) = {
@@ -15,7 +16,14 @@
         message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
       )
     }
-  } else {
+  } else if type(fonts) == array {
+    for font in fonts {
+      assert(
+        _support-font-family.contains(font),
+        message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
+      )
+    }
+  } else if type(fonts) == str {
     assert(
       _support-font-family.contains(fonts),
       message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),

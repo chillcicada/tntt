@@ -1,7 +1,7 @@
+#import "../utils/font.typ": use-size
+
 #import "../imports.typ": cuti
 #import cuti: show-cn-fakebold
-
-#import "../utils/font.typ": use-size
 
 #let meta(
   // from entry
@@ -14,33 +14,20 @@
   // self
   it,
 ) = {
-  // 1.  默认参数
-  info = (
-    (
-      title: ("基于 Typst 的", "清华大学学位论文"),
-      author: "张三",
-    )
-      + info
-  )
+  if type(info.title) == str { info.title = info.title.split("\n") }
 
-  // 2.  对参数进行处理
-  // 2.1 如果是字符串，则使用换行符将标题分隔为列表
-  if type(info.title) == str {
-    info.title = info.title.split("\n")
-  }
-
-  // 3.  基本的样式设置
   show: show-cn-fakebold
 
   set text(fallback: fallback, lang: lang, region: region)
 
   set page(margin: margin)
 
-  // 4.  PDF 元信息
   set document(
     title: (("",) + info.title).sum(),
     author: info.author,
   )
+
+  set heading(bookmarked: true)
 
   it
 }
@@ -58,6 +45,10 @@
   heading-size: "小三",
   body-size: "小四",
   fontnote-size: "五号",
+  math-size: "小四",
+  underline-offset: .1em,
+  underline-stroke: .05em,
+  underline-evade: true,
   // self
   it,
 ) = {
@@ -90,6 +81,9 @@
     size: use-size("五号"),
   )
 
+  /// Math Equation
+  show math.equation: set text(font: fonts.Math, size: use-size(math-size))
+
   /// Heading
   show heading: set text(font: fonts.HeiTi, size: use-size(heading-size))
 
@@ -100,6 +94,13 @@
 
   /// Body Text
   set text(font: fonts.SongTi, size: use-size(body-size))
+
+  /// Underline
+  set underline(
+    offset: underline-offset,
+    stroke: underline-stroke,
+    evade: underline-evade,
+  )
 
   it
 }
