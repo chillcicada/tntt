@@ -1,5 +1,7 @@
 #import "../utils/font.typ": use-size, trim-en
-#import "../utils/text.typ": space-text
+#import "../utils/text.typ": space-text, mask-text
+
+// 1.25 leading/spaceing 1.5 * 15.6pt - 0.7em
 
 /// Cover Page
 #let cover(
@@ -8,12 +10,26 @@
   fonts: (:),
   info: (:),
   // options
-  cover-title: "综合论文训练",
+  title: "综合论文训练",
+  margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm),
+  grid-columns: (2.80cm, 0.82cm, 5.62cm),
+  grid-align: (center, left, left),
   column-gutter: -3pt,
   row-gutter: 16pt,
-  anonymous-info-keys: ("author", "supervisor"),
+  info-keys: ("department", "major", "author", "supervisor"), // The order of listed keys
+  info-items: (department: "院　　系", major: "专　　业", author: "姓　　名", supervisor: "指导教师"),
+  info-sperator: "：",
+  supervisor-sperator: "　",
 ) = {
-  set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
+  /// Prepare info
+  let use-anonymous = if anonymous { mask-text } else { space-text }
+
+  info.author = use-anonymous(info.author)
+
+  info.supervisor = info.supervisor.map(use-anonymous).join(if anonymous { "█" } else { supervisor-sperator })
+
+  /// Render cover page
+  set page(margin: margin)
 
   set align(center)
 
@@ -23,7 +39,7 @@
 
   v(-1em)
 
-  text(size: use-size("小初"), weight: "bold", space-text(cover-title, spacing: " "))
+  text(size: use-size("小初"), weight: "bold", space-text(title, spacing: " "))
 
   v(1em)
 
@@ -34,17 +50,13 @@
   v(6em)
 
   block(
-    width: 2.80cm + 0.82cm + 5.62cm,
+    width: grid-columns.sum(),
     grid(
-      columns: (2.80cm, 0.82cm, 5.62cm),
-      align: (center, left, left),
+      align: grid-align,
+      columns: grid-columns,
       column-gutter: column-gutter,
       row-gutter: row-gutter,
-      // content below
-      "系　　别", "：", info.department,
-      "专　　业", "：", info.major,
-      "姓　　名", "：", space-text(info.author),
-      "指导教师", "：", space-text(info.supervisor.at(0)) + "　" + space-text(info.supervisor.at(1)),
+      ..info-keys.map(k => (info-items.at(k), info-sperator, info.at(k, default: ""))).flatten()
     ),
   )
 

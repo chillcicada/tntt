@@ -7,15 +7,14 @@
   // options
   depth: 4,
   font: ("HeiTi", "SongTi"),
-  size: ("四号", "小四"),
+  size: ("小四",),
   outlined: false,
-  title: [目　　录],
-  title-vspace: 1.28em,
-  above: (25pt, 14pt),
-  below: (14pt, 14pt),
-  indent: (0pt, 28pt, 22pt),
+  title: [目　录],
+  above: (10.5pt, 11.8pt),
+  below: (11.4pt, 11.8pt),
+  indent: (0pt, 12pt, 12pt),
   gap: .3em,
-  fill: (repeat([.], gap: 0.15em),),
+  fill: (repeat([.], gap: .1pt),),
 ) = {
   /// Parse the outline configuration
   font = fonts-check(font).map(name => fonts.at(name))
@@ -30,8 +29,6 @@
     outlined: outlined,
     title,
   )
-
-  v(title-vspace)
 
   // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())

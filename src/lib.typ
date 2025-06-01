@@ -122,12 +122,14 @@
       anonymous: anonymous,
       twoside: twoside,
       ..args,
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 英文摘要页
     abstract-en: (..args) => abstract-en(
       anonymous: anonymous,
       twoside: twoside,
       ..args,
+      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 目录页
     outline-wrapper: (..args) => outline-wrapper(

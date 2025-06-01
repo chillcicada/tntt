@@ -38,11 +38,13 @@
   // options
   indent: 2em,
   justify: true,
-  leading: 1.5 * 15.6pt - 0.7em,
-  spacing: 1.5 * 15.6pt - 0.7em,
+  leading: 1em,
+  spacing: 1em,
   code-block-leading: 1em,
   code-block-spacing: 1em,
-  heading-size: "小三",
+  heading-size: "三号",
+  front-vspace: 27.5pt,
+  title-vspace: 21.2pt,
   body-size: "小四",
   fontnote-size: "五号",
   math-size: "小四",
@@ -89,7 +91,12 @@
 
   show heading.where(level: 1): it => {
     set text(weight: "regular")
+
+    v(front-vspace)
+
     align(center, it)
+
+    v(title-vspace)
   }
 
   /// Body Text
@@ -101,6 +108,8 @@
     stroke: underline-stroke,
     evade: underline-evade,
   )
+
+  /// Stroke
 
   it
 }

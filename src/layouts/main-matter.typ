@@ -10,10 +10,10 @@
   fonts: (:),
   // options
   page-numbering: "1",
-  heading-numbering: (first-level: "第一章 ", depth: 4, format: "1.1 "),
+  heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),
   heading-weight: ("regular",),
-  heading-above: (2 * 15.6pt - 0.7em, 2 * 15.6pt - 0.7em),
-  heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
+  // heading-above: (2 * 15.6pt - 0.7em, 2 * 15.6pt - 0.7em),
+  // heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
   heading-pagebreak: (true, false),
   heading-align: (center, auto),
   caption-separator: "  ",
@@ -68,8 +68,8 @@
       ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
     )
     set block(
-      above: array-at(heading-above, it.level),
-      below: array-at(heading-below, it.level),
+      // above: array-at(heading-above, it.level),
+      // below: array-at(heading-below, it.level),
     )
     it
   }

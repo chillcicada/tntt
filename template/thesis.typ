@@ -71,7 +71,7 @@
   doctype: "bachelor",
   degree: "academic",
   anonymous: false, // 盲审模式
-  twoside: true, // 双面模式，会加入空白页，便于打印
+  twoside: false, // 双面模式，会加入空白页，便于打印
   info: (
     title: "本科生综合论文训练标题",
     author: "某某某",
@@ -109,7 +109,7 @@
 #show: front-matter
 
 // 中文摘要
-#abstract(keywords: ("关键词1", "关键词2", "关键词3", "关键词4", "关键词5"))[
+#abstract(keywords: ("关键词 1", "关键词 2", "关键词 3", "关键词 4", "关键词 5"))[
   论文的摘要是对论文研究内容和成果的高度概括。摘要应对论文所研究的问题及其研究目的进行描述，对研究方法和过程进行简单介绍，对研究成果和所得结论进行概括。摘要应具有独立性和自明性，其内容应包含与论文全文同等量的主要信息。使读者即使不阅读全文，通过摘要就能了解论文的总体内容和主要成果。
 
   论文摘要的书写应力求精确、简明。切忌写成对论文书写内容进行提要的形式，尤其要避免“第 1 章……；第 2 章……；……”这种或类似的陈述方式。
@@ -118,7 +118,7 @@
 ]
 
 // 英文摘要
-#abstract-en(keywords: ("Keyword1", "Keyword2", "Keyword3", "Keyword4", "Keyword5"))[
+#abstract-en(keywords: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5"))[
   An abstract of a dissertation is a summary and extraction of research work and contributions. Included in an abstract should be description of research topic and research objective, brief introduction to methodology and research process, and summarization of conclusion and contributions of the research. An abstract should be characterized by independence and clarity and carry identical information with the dissertation. It should be such that the general idea and major contributions of the dissertation are conveyed without reading the dissertation.
 
   An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words “the first chapter”, “the second chapter” and the like should be avoided in the abstract.
@@ -158,7 +158,7 @@
 /// ----------- ///
 #show: main-matter
 
-= 导　　引
+= 导　引
 
 == 排印
 
@@ -263,7 +263,7 @@ typst 语法可以参考 #link("https://typst.app/docs/")[Typst 官方文档] �
 
 #align(center)[*以下部分为完整的示例，包含了大部分的功能和用法。*]
 
-= 导　　论
+= 导　论
 
 == 列表
 
@@ -365,7 +365,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [代码块],
 ) <code>
 
-= 正　　文
+= 正　文
 
 == 正文子标题
 
@@ -373,7 +373,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 正文内容
 
-= 结　　语
+= 结　语
 
 == 目前存在的问题
 
@@ -420,6 +420,10 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [图片测试],
 ) <appendix-img>
 
+= 其他内容
+
+不宜放在正文中，但有参考价值的内容，如公式的推演、编写的算法语言程序设计、图纸、数据表格等。没有相关内容请删除本章节。
+
 // 致谢
 #acknowledge[
   // mask 用于在匿名模式下隐藏内容
@@ -442,10 +446,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 声明页
 #declaration()
-
-= 其他内容
-
-不宜放在正文中，但有参考价值的内容，如公式的推演、编写的算法语言程序设计、图纸、数据表格等。没有相关内容请删除本章节。
 
 // 成果页
 #achievement[

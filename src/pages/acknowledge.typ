@@ -4,7 +4,7 @@
   anonymous: false,
   twoside: false,
   // options
-  title: [致　　谢],
+  title: [致　谢],
   outlined: true,
   // self
   it,

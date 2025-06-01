@@ -6,7 +6,7 @@
   // from entry
   fonts: (:),
   // options
-  heading-numbering: (first-level: "附录A　", depth: 4, format: "A.1 "),
+  heading-numbering: (first-level: "附录A", depth: 4, format: "A.1 "),
   figure-numbering: "A.1",
   figure-outlined: false,
   equation-numbering: "(A.1)",
