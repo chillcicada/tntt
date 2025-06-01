@@ -9,7 +9,7 @@
   // options
   lang: "zh",
   region: "cn",
-  margin: (x: 89pt),
+  margin: 3cm,
   fallback: false,
   // self
   it,
@@ -20,7 +20,7 @@
 
   set text(fallback: fallback, lang: lang, region: region)
 
-  set page(margin: margin)
+  set page(margin: margin, paper: "a4")
 
   set document(
     title: (("",) + info.title).sum(),

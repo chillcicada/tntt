@@ -19,12 +19,12 @@
 #import "pages/copyright.typ": copyright
 #import "pages/abstract.typ": abstract, abstract-en
 #import "pages/outline-wrapper.typ": outline-wrapper
-#import "pages/notation.typ": notation
-
-// back matter
 #import "pages/figure-list.typ": figure-list
 #import "pages/table-list.typ": table-list
 #import "pages/equation-list.typ": equation-list
+#import "pages/notation.typ": notation
+
+// back matter
 #import "pages/acknowledge.typ": acknowledge
 #import "pages/declaration.typ": declaration
 #import "pages/achievement.typ": achievement
@@ -35,8 +35,8 @@
 
 #import "imports.typ": cuti, i-figured
 
-#import "utils/text.typ": mask
-#import "utils/font.typ": use-size, fonts-check
+#import "utils/text.typ": mask-text, space-text
+#import "utils/font.typ": use-size, fonts-check, _use-fonts
 #import "utils/heading.typ": heading-display, active-heading, current-heading
 #import "utils/numbering.typ": custom-numbering
 #import "utils/bibliography.typ": bilingual-bibliography
@@ -57,27 +57,6 @@
     message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "),
   )
 
-  info = (
-    (
-      title: ("基于 Typst 的", "清华大学学位论文"),
-      title-en: "Thu Thesis Template for Typst",
-      author: "张三",
-      author-en: "Zhang San",
-      department: "某学院",
-      department-en: "XX Department",
-      major: "某专业",
-      major-en: "XX Major",
-      field: "某方向",
-      field-en: "XX Field",
-      supervisor: ("李四", "教授"),
-      supervisor-en: "Professor Li Si",
-      supervisor-ii: (),
-      supervisor-ii-en: "",
-      submit-date: datetime.today(),
-    )
-      + info
-  )
-
   return (
     /// ------- ///
     /// options ///
@@ -88,6 +67,7 @@
     doctype: doctype,
     twoside: twoside,
     anonymous: anonymous,
+    use-fonts: name => _use-fonts(fonts, name),
     /// ------- ///
     /// layouts ///
     /// ------- ///

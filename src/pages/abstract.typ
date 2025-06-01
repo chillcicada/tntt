@@ -28,13 +28,12 @@
 
   v(body-vspace)
 
-  back
-  (("",) + keywords.intersperse(keyword-sperator)).sum()
+  par(first-line-indent: 0pt, back + (("",) + keywords.intersperse(keyword-sperator)).sum())
 }
 
 /// Abstract Page (English version)
 #let abstract-en(..args) = abstract(
-  title: [ABSTRACT],
+  title: [Abstract],
   back: [*Keywords: *],
   keyword-sperator: "; ",
   ..args,
