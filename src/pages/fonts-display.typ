@@ -32,6 +32,8 @@
   ]
 
   /// Render the page
+  set page(margin: (y: 2.5cm))
+
   // use the built-in font Libertinus Serif to display the message
   text(font: "Libertinus Serif", orange, style: "italic")[
     Hint: If you cannot render the below text correctly or if there are discrepancies with what's expected, you should pay attention to the error message and read the instructions on font configuration in the README.

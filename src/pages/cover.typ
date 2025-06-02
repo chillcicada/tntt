@@ -1,4 +1,7 @@
-#import "../utils/font.typ": use-size
+#import "../utils/font.typ": use-size, trim-en
+#import "../utils/text.typ": space-text, mask-text
+
+// 1.25 leading/spaceing 1.5 * 15.6pt - 0.7em
 
 /// Cover Page
 #let cover(
@@ -7,121 +10,57 @@
   fonts: (:),
   info: (:),
   // options
-  stoke-width: 0.5pt,
-  min-title-lines: 2,
-  info-inset: (x: 0pt, bottom: 1pt),
-  info-key-width: 72pt,
-  info-key-font: "FangSong",
-  info-value-font: "FangSong",
+  title: "综合论文训练",
+  margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm),
+  grid-columns: (2.80cm, 0.82cm, 5.62cm),
+  grid-align: (center, left, left),
   column-gutter: -3pt,
-  row-gutter: 11.5pt,
-  anonymous-info-keys: ("author", "supervisor", "supervisor-ii"),
-  bold-info-keys: ("title",),
-  bold-level: "bold",
+  row-gutter: 16pt,
+  info-keys: ("department", "major", "author", "supervisor"), // The order of listed keys
+  info-items: (department: "院　　系", major: "专　　业", author: "姓　　名", supervisor: "指导教师"),
+  info-sperator: "：",
+  supervisor-sperator: "　",
 ) = {
-  if type(info.title) == str {
-    info.title = info.title.split("\n")
-  }
+  /// Prepare info
+  let use-anonymous = if anonymous { mask-text } else { space-text }
 
-  info.title = info.title + range(min-title-lines - info.title.len()).map(it => "　")
+  info.author = use-anonymous(info.author)
 
-  let info-key(body) = {
-    rect(
-      width: 100%,
-      inset: info-inset,
-      stroke: none,
-      text(
-        font: fonts.at(info-key-font, default: "KaiTi"),
-        size: use-size("三号"),
-        body,
-      ),
-    )
-  }
+  info.supervisor = info.supervisor.map(use-anonymous).join(if anonymous { "█" } else { supervisor-sperator })
 
-  let info-value(key, body) = {
-    set align(center)
-    rect(
-      width: 100%,
-      inset: info-inset,
-      stroke: (bottom: stoke-width + black),
-      text(
-        font: fonts.at(info-value-font, default: "SongTi"),
-        size: use-size("三号"),
-        weight: if key in bold-info-keys { bold-level } else { "regular" },
-        bottom-edge: "descender",
-        body,
-      ),
-    )
-  }
-
-  let info-long-value(key, body) = {
-    grid.cell(
-      colspan: 3,
-      info-value(
-        key,
-        if anonymous and (key in anonymous-info-keys) {
-          "██████████"
-        } else {
-          body
-        },
-      ),
-    )
-  }
-
-  let info-short-value(key, body) = {
-    info-value(
-      key,
-      if anonymous and (key in anonymous-info-keys) {
-        "█████"
-      } else {
-        body
-      },
-    )
-  }
-
+  /// Render cover page
+  set page(margin: margin)
 
   set align(center)
 
-  if anonymous {
-    v(6cm)
-  } else {
-    image("../assets/logo.jpg", width: 20cm)
-  }
+  set text(font: trim-en(fonts.at("HeiTi")))
 
-  text(size: use-size("一号"), font: fonts.HeiTi, spacing: 200%)[综 合 论 文 训 练]
+  image("../assets/logo.png", width: 7.81cm)
 
-  if anonymous { v(155pt) } else { v(67pt) }
+  v(-1em)
+
+  text(size: use-size("小初"), weight: "bold", space-text(title, spacing: " "))
+
+  v(1em)
+
+  text(size: use-size("一号"), info.title)
+
+  set text(size: use-size("三号"), font: trim-en(fonts.at("FangSong")))
+
+  v(6em)
 
   block(
-    width: 318pt,
+    width: grid-columns.sum(),
     grid(
-      columns: (info-key-width, 1fr, info-key-width, 1fr),
+      align: grid-align,
+      columns: grid-columns,
       column-gutter: column-gutter,
       row-gutter: row-gutter,
-      info-key("系　　别"),
-      info-long-value("department", info.department),
-      info-key("专　　业"),
-      info-long-value("major", info.major),
-      info-key("题　　目"),
-      ..info.title.map(s => info-long-value("title", s)).intersperse(info-key("　")),
-      info-key("姓　　名"),
-      info-long-value("author", info.author),
-      info-key("指导教师"),
-      info-short-value("supervisor", info.supervisor.at(0)),
-      info-key("职　　称"),
-      info-short-value("supervisor", info.supervisor.at(1)),
-      ..(
-        if info.supervisor-ii != () {
-          (
-            info-key("第二导师"),
-            info-short-value("supervisor-ii", info.supervisor-ii.at(0)),
-            info-key("职　　称"),
-            info-short-value("supervisor-ii", info.supervisor-ii.at(1)),
-          )
-        } else { () }
-      ),
-      info-key("提交日期"),
-      info-long-value("submit-date", info.submit-date.display("[year] 年 [month] 月 [day] 日")),
+      ..info-keys.map(k => (info-items.at(k), info-sperator, info.at(k, default: ""))).flatten()
     ),
   )
+
+  v(6em)
+
+  text(font: trim-en(fonts.at("SongTi")), info.submit-date)
 }

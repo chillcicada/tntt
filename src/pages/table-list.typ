@@ -5,8 +5,8 @@
   // from entry
   twoside: false,
   // options
-  title: [表格索引],
-  outlined: true,
+  title: [附表清单],
+  outlined: false,
 ) = {
   pagebreak(weak: true, to: if twoside { "odd" })
 

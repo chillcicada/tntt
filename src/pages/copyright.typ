@@ -1,39 +1,25 @@
 #import "../utils/font.typ": use-size
 
 /// Copyright Page
-///
-/// - anonymous (): whether to hide the signature
-/// - twoside (): whether to use two-sided printing
-/// - fonts (): fonts scheme
-/// - title (): the title of the page
-/// - title-size (): the size of the title
-/// - body (): body content
-/// - back (): back content
-/// -> copyright
 #let copyright(
   // from entry
   anonymous: false,
   twoside: false,
   fonts: (:),
   // options
-  title: [关于学位论文使用授权的说明],
+  title: [关于论文使用授权的说明],
   title-size: "二号",
   body: [
-    本人完全了解清华大学有关保留、使用学位论文的规定，即：学校有权保留学位论文的复印件，允许该论文被查阅和借阅；学校可以公布该论文的全部或部分内容，可以采用影印、缩印或其他复制手段保存该论文。
-
-    *（涉密的学位论文在解密后应遵守此规定）*
+    本人完全了解清华大学有关保留、使用综合论文训练论文的规定，即：学校有权保留论文的复印件，允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影印、缩印或其他复制手段保存论文。
   ],
-  back: [
-    签　　名：
-
-    导师签名：
-
-    日　　期：
-  ],
+  grid-columns: (2.99cm, 3.29cm, 2.96cm, 3.66cm),
+  back: ("作者签名： ", "导师签名：", "日　　期： ", "日　　期："),
 ) = {
   if anonymous { return }
 
   pagebreak(weak: true, to: if twoside { "odd" })
+
+  v(42.9pt)
 
   align(
     center,
@@ -44,14 +30,23 @@
     ),
   )
 
-  v(1em)
+  v(32.2pt)
 
-  body
+  par(leading: 16.4pt, text(size: use-size("四号"), body))
 
-  v(2em)
+  v(69.3pt)
 
-  grid(
-    columns: (1fr, 150pt),
-    [], align(left, back),
+  align(
+    center,
+    block(
+      width: grid-columns.sum(),
+      grid(
+        columns: grid-columns,
+        column-gutter: (-3pt, -2pt, 2pt),
+        row-gutter: 21.2pt,
+        align: center,
+        ..back.intersperse("")
+      ),
+    ),
   )
 }

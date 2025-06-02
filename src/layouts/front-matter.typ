@@ -1,7 +1,6 @@
 /// Front matter layout
 #let front-matter(
   // from entry
-  fonts: (:),
   twoside: false,
   // options
   page-start: 0,

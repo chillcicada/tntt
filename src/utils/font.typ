@@ -28,10 +28,18 @@
       _support-font-family.contains(fonts),
       message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
     )
+  } else {
+    assert(false, message: "Invalid font type, expected dictionary, array or string.")
   }
 
   fonts
 }
+
+#let trim-en(fonts) = { fonts.slice(1) }
+
+#let _use-fonts(fonts, name) = { fonts-check(fonts).at(name) }
+
+#let _use-cjk-fonts(fonts, name) = { trim-en(_use-fonts(fonts, name)) }
 
 /// Word compatible font size for CJK
 #let _builtin-font-size = (

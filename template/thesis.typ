@@ -37,7 +37,6 @@
     "SimHei",
   ),
   Math: (
-    (name: "New Computer Modern", covers: "latin-in-cjk"),
     "New Computer Modern Math",
     "KaiTi",
   ),
@@ -46,6 +45,7 @@
 #let (
   /// global options
   twoside,
+  use-fonts,
   /// layouts
   meta,
   doc,
@@ -59,10 +59,10 @@
   abstract,
   abstract-en,
   outline-wrapper,
-  notation,
   figure-list,
   table-list,
   equation-list,
+  notation,
   bilingual-bibliography,
   acknowledge,
   declaration,
@@ -71,19 +71,14 @@
   doctype: "bachelor",
   degree: "academic",
   anonymous: false, // 盲审模式
-  twoside: true, // 双面模式，会加入空白页，便于打印
+  twoside: false, // 双面模式，会加入空白页，便于打印
   info: (
-    title: ("基于 Typst 的", "清华大学学位论文"),
-    title-en: "My Title in English",
-    author: "张三",
-    author-en: "Ming Xing",
-    department: "某某系",
-    department-en: "School of Chemistry and Chemical Engineering",
-    major: "某某专业",
-    major-en: "Chemistry",
-    supervisor: ("李四", "教授"),
-    supervisor-en: "Professor My Supervisor",
-    submit-date: datetime.today(),
+    title: "本科生综合论文训练标题",
+    author: "某某某",
+    department: "××××",
+    major: "××××××××",
+    supervisor: ("某某某", "教授"),
+    submit-date: "二○二四年十一月",
   ),
   // 参考文献源
   bibliography: bibliography.with("ref.bib"),
@@ -114,22 +109,48 @@
 #show: front-matter
 
 // 中文摘要
-#abstract(keywords: ("关键词1", "Keyword2", "关键词3"))[
-  本文制作了清华大学本科学位论文 Typst 模板，规定了论文各部分内容格式与样式，详细介绍了模板的使用和制作方法，以帮助本科生进行学位论文写作，降低编辑论文格式的不规范性和额外工作量。
+#abstract(keywords: ("关键词 1", "关键词 2", "关键词 3", "关键词 4", "关键词 5"))[
+  论文的摘要是对论文研究内容和成果的高度概括。摘要应对论文所研究的问题及其研究目的进行描述，对研究方法和过程进行简单介绍，对研究成果和所得结论进行概括。摘要应具有独立性和自明性，其内容应包含与论文全文同等量的主要信息。使读者即使不阅读全文，通过摘要就能了解论文的总体内容和主要成果。
+
+  论文摘要的书写应力求精确、简明。切忌写成对论文书写内容进行提要的形式，尤其要避免“第 1 章……；第 2 章……；……”这种或类似的陈述方式。
+
+  关键词是为了文献标引工作、用以表示全文主要内容信息的单词或术语。每篇论文应选取 3～5 个关键词，每个关键词中间用分号分隔。
 ]
 
 // 英文摘要
-#abstract-en(keywords: ("Keyword1", "关键词2", "Keyword3"))[
-  This article creates a Tsinghua University undergraduate thesis Typst template, which stipulates formats and styles of each section and details usage and creation of template, with the purpose of supporting undergraduate students writing thesis, reducing non-standardization and additional workload in editing thesis format.
+#abstract-en(keywords: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5"))[
+  An abstract of a dissertation is a summary and extraction of research work and contributions. Included in an abstract should be description of research topic and research objective, brief introduction to methodology and research process, and summarization of conclusion and contributions of the research. An abstract should be characterized by independence and clarity and carry identical information with the dissertation. It should be such that the general idea and major contributions of the dissertation are conveyed without reading the dissertation.
+
+  An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words “the first chapter”, “the second chapter” and the like should be avoided in the abstract.
+
+  Keywords are terms used in a dissertation for indexing, reflecting core information of the dissertation. The number of keywords should be between 3 and 5, with semi-colons used in between to separate one another.
 ]
 
 // 目录
 #outline-wrapper()
 
+// 插图目录
+#figure-list()
+
+// 表格目录
+#table-list()
+
+// 公式目录
+// 不做要求
+// #equation-list()
+
 // 符号表
+// 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。
 #notation[
+  / D#sub[m]: 预混通道外径 (mm)
+
+  / $delta$: 总压损失系数，$delta = Delta p_(2-3) slash p_2 (%)$
+
   / DFT: 密度泛函理论 (Density functional theory)
   / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
+  / ONIOM: 分层算法 (Our own N-layered Integrated molecular Orbital and molecular Mechanics)
+
+  / TnTT: Typst & Tsinghua University Thesis Template （清华大学综合论文训练 Typst 模板）
 ]
 
 /// ----------- ///
@@ -137,7 +158,29 @@
 /// ----------- ///
 #show: main-matter
 
-= 导　　引
+= 引　言
+
+== 一级节标题第一条
+
+此部分是论文主体部分的文字格式示例。
+
+=== 二级节标题第一条
+
+主体部分一般从引言（绪论）开始，以结论结束。
+
+引言（绪论）应包括论文的研究目的、流程和方法等。
+
+论文研究领域的历史回顾，文献回溯，理论分析等内容，应独立成章，用足够的文字叙述。
+
+主体部分由于涉及的学科、选题、研究方法、结果表达方式等有很大的差异，不能作统一的规定。但是，必须实事求是、客观真切、准确完备、合乎逻辑、层次分明、简练可读。
+
+=== 二级节标题第二条
+
+论文中应引用与研究主题密切相关的参考文献。参考文献的写法应遵循国家标准《信息与文献 参考文献著录规则》（GB/T 7714—2015）；符合特定学科的通用范式，可使用APA或《清华大学学报（哲学社会科学版）》格式，且应全文统一，不能混用。此处是正文中引用参考文献的上标标注示例[1]。
+
+当论文中的字、词或短语，需要进一步加以说明，而又没有具体的文献来源时，用注释。注释一般在社会科学中用得较多。应控制论文中的注释数量，不宜过多。由于论文篇幅较长，建议采用文中编号加“脚注”的方式。此处是脚注格式规范示例①。
+
+= 导　引
 
 == 排印
 
@@ -187,12 +230,12 @@
   - 中文摘要（abstract） ← 前辅文从此页开始计数
   - 英文摘要（abstract-en）
   - 目录（outline-wrapper）
-  - 符号表（notation）
-- 正文（main matter） ← 正文重新计数
-- 后辅文（back matter）：即正文后部分
   - 插图目录（figure-list）
   - 表格目录（table-list）
   - 公式目录（equation-list）
+  - 符号表（notation）
+- 正文（main matter） ← 正文重新计数
+- 后辅文（back matter）：即正文后部分
   - 参考文献（bilingual-bibliography）
   - 致谢页（acknowledge）
   - 声明页（declaration）
@@ -242,7 +285,7 @@ typst 语法可以参考 #link("https://typst.app/docs/")[Typst 官方文档] �
 
 #align(center)[*以下部分为完整的示例，包含了大部分的功能和用法。*]
 
-= 导　　论
+= 导　论
 
 == 列表
 
@@ -344,7 +387,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [代码块],
 ) <code>
 
-= 正　　文
+= 正　文
 
 == 正文子标题
 
@@ -352,55 +395,27 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 正文内容
 
-= 结　　语
+= 结　语
 
 == 目前存在的问题
 
+#text(font: use-fonts("KaiTi"))[
+  - Typst 的中文支持仍然不够完善，部分功能可能无法正常使用。
+  - 部分字体在不同平台上的显示效果可能存在差异。
+  - 文档的排版和样式可能需要根据个人需求进行调整。
+]
+
 // 手动分页
-#if twoside {
-  pagebreak() + " "
-}
+#if twoside { pagebreak() + " " }
 
 /// ----------- ///
 /// Back Matter ///
 /// ----------- ///
 #show: back-matter
 
-// 插图目录
-#figure-list()
-
-// 表格目录
-#table-list()
-
-// 公式目录
-#equation-list()
-
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
 #bilingual-bibliography(full: true)
-
-// 致谢
-#acknowledge[
-  // mask 用于在匿名模式下隐藏内容
-  #import tntt: mask
-
-  致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
-
-  #line(length: 100%)
-
-  非常感谢 #link("https://github.com/OrangeX4")[OrangeX4] 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis")[modern-nju-thesis] 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
-
-  移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis")[清华大学学位论文 Word 模板] 和 #link("https://github.com/tuna/thuthesis")[清华大学学位论文 LaTeX 模板]，在此表达感谢。
-
-  感谢#link("https://github.com/Myriad-Dreamin")[纸叶#mask("姐姐")]开发的 #link("https://github.com/Myriad-Dreamin/tinymist")[Tinymist] 工具。
-
-  感谢 #link("https://typst.app/")[Typst] 团队的努力，感谢 Typst 中文社区。
-
-  感谢所有本项目的贡献者。
-]
-
-// 声明页
-#declaration()
 
 // 手动分页
 #if twoside { pagebreak() + " " }
@@ -428,6 +443,29 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 = 其他内容
 
 不宜放在正文中，但有参考价值的内容，如公式的推演、编写的算法语言程序设计、图纸、数据表格等。没有相关内容请删除本章节。
+
+// 致谢
+#acknowledge[
+  // mask 用于在匿名模式下隐藏内容
+  #import tntt: mask-text
+
+  致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
+
+  #line(length: 100%)
+
+  非常感谢 #link("https://github.com/OrangeX4")[OrangeX4] 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis")[modern-nju-thesis] 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
+
+  移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis")[清华大学学位论文 Word 模板] 和 #link("https://github.com/tuna/thuthesis")[清华大学学位论文 LaTeX 模板]，在此表达感谢。
+
+  感谢#link("https://github.com/Myriad-Dreamin")[纸叶#mask-text("姐姐")]开发的 #link("https://github.com/Myriad-Dreamin/tinymist")[Tinymist] 工具。
+
+  感谢 #link("https://typst.app/")[Typst] 团队的努力，感谢 Typst 中文社区。
+
+  感谢所有本项目的贡献者。
+]
+
+// 声明页
+#declaration()
 
 // 成果页
 #achievement[
