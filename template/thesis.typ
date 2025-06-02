@@ -1,4 +1,4 @@
-// #import "@preview/tntt:0.2.0"
+// #import "@preview/tntt:0.3.0"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config
 
@@ -134,10 +134,6 @@
 
 // 表格目录
 #table-list()
-
-// 公式目录
-// 不做要求
-// #equation-list()
 
 // 符号表
 // 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。

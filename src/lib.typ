@@ -85,7 +85,6 @@
     front-matter: (..args) => front-matter(
       twoside: twoside,
       ..args,
-      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
     ),
     // 正文
     main-matter: (..args) => main-matter(..args),

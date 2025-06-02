@@ -12,7 +12,7 @@ TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩�
 
 ## 使用
 
-您可以在 [Typst Web](https://typst.app) 应用程序中使用此模板，方法是单击仪表板上的“Start from template”并搜索 `tntt`，或单击 [此处](https://typst.app/app?template=tntt&version=0.2.0) 快速创建一个项目。
+您可以在 [Typst Web](https://typst.app) 应用程序中使用此模板，方法是单击仪表板上的“Start from template”并搜索 `tntt`，或单击 [此处](https://typst.app/app?template=tntt&version=0.3.0) 快速创建一个项目。
 
 或者，你也可以使用 `typst` 命令行工具来创建一个带有模板的新项目：
 
@@ -23,7 +23,7 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加
 
 ```typst
-#import "@preview/tntt:0.2.0"
+#import "@preview/tntt:0.3.0"
 #import tntt: define-config
 ```
 
@@ -94,7 +94,7 @@ TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua 
 
 ## Usage
 
-You can use this template in the [Typst Web](https://typst.app) application by clicking "Start from template" on the dashboard and searching for `tntt`, or click [here](https://typst.app/app?template=tntt&version=0.2.0) to quickly create a project.
+You can use this template in the [Typst Web](https://typst.app) application by clicking "Start from template" on the dashboard and searching for `tntt`, or click [here](https://typst.app/app?template=tntt&version=0.3.0) to quickly create a project.
 
 Alternatively, you can use the `typst` command-line tool to create a new project with template:
 
@@ -105,7 +105,7 @@ typst init @preview/tntt
 Of course, you can also import this template in any Typst file by adding:
 
 ```typst
-#import "@preview/tntt:0.2.0"
+#import "@preview/tntt:0.3.0"
 #import tntt: define-config
 ```
 
