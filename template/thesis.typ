@@ -369,7 +369,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 参考文献
 
-可以像这样引用参考文献：图书#[@蒋有绪1998]和会议#[@中国力学学会1990]。
+可以像这样引用参考文献：图书#[@zhukezhen1973]和会议#[@dupont1974bone]。
 
 == 代码块
 
@@ -411,17 +411,17 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
-#bilingual-bibliography(full: true)
+#bilingual-bibliography()
 
 // 手动分页
 #if twoside { pagebreak() + " " }
 
 // 附录
-= 外文资料的调研阅读报告或书面翻译
+= 外文资料的调研阅读报告（或书面翻译）
 
-#align(center, lorem(10))
+#align(center)[调研阅读报告题目（或书面翻译题目）]
 
-#lorem(100)
+写出至少 5000 外文印刷字符的调研阅读报告或者书面翻译 1-2 篇（不少于2 万外文印刷符）。
 
 == #lorem(3)
 
@@ -435,6 +435,8 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   image("media/logo.jpg", width: 20%),
   caption: [图片测试],
 ) <appendix-img>
+
+#align(center)[参考文献（或书面翻译对应的原文索引）]
 
 = 其他内容
 
