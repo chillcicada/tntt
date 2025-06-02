@@ -37,7 +37,6 @@
 
 #import "utils/text.typ": mask-text, space-text
 #import "utils/font.typ": use-size, fonts-check, _use-fonts
-#import "utils/heading.typ": heading-display, active-heading, current-heading
 #import "utils/numbering.typ": custom-numbering
 #import "utils/bibliography.typ": bilingual-bibliography
 
@@ -87,9 +86,15 @@
       ..args,
     ),
     // 正文
-    main-matter: (..args) => main-matter(..args),
+    main-matter: (..args) => main-matter(
+      twoside: twoside,
+      ..args,
+    ),
     // 后辅文
-    back-matter: (..args) => back-matter(..args),
+    back-matter: (..args) => back-matter(
+      twoside: twoside,
+      ..args,
+    ),
     /// ----- ///
     /// pages ///
     /// ----- ///

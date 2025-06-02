@@ -1,4 +1,5 @@
 #import "../utils/font.typ": use-size, _use-fonts
+#import "../utils/util.typ": array-at
 
 #let outline-wrapper(
   // from entry
@@ -30,16 +31,16 @@
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
 
   show outline.entry: entry => block(
-    above: above.at(entry.level - 1, default: above.last()),
-    below: below.at(entry.level - 1, default: below.last()),
+    above: array-at(above, entry.level),
+    below: array-at(below, entry.level),
     link(
       entry.element.location(),
       entry.indented(
         none,
         {
           text(
-            font: font.at(entry.level - 1, default: font.last()),
-            size: size.at(entry.level - 1, default: size.last()),
+            font: array-at(font, entry.level),
+            size: array-at(size, entry.level),
             {
               if entry.prefix() not in (none, []) {
                 entry.prefix()
