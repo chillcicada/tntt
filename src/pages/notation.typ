@@ -4,11 +4,10 @@
   twoside: false,
   // options
   outlined: false,
-  title: [符号对照表],
-  title-vspace: 1.28em,
-  width: 350pt,
-  columns: (60pt, 1fr),
-  row-gutter: 16pt,
+  title: [符号和缩略语说明],
+  width: 100%,
+  columns: (96pt, 1fr),
+  row-gutter: 12pt,
   ..args,
   // self
   it,
@@ -21,8 +20,6 @@
     outlined: outlined,
     title,
   )
-
-  v(title-vspace)
 
   align(
     center,

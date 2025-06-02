@@ -1,11 +1,11 @@
-#import "../utils/font.typ": use-size, fonts-check
+#import "../utils/font.typ": use-size, _use-fonts
 
 #let outline-wrapper(
   // from entry
   twoside: false,
   fonts: (:),
   // options
-  depth: 4,
+  depth: 3,
   font: ("HeiTi", "SongTi"),
   size: ("小四",),
   outlined: false,
@@ -17,18 +17,14 @@
   fill: (repeat([.], gap: .1pt),),
 ) = {
   /// Parse the outline configuration
-  font = fonts-check(font).map(name => fonts.at(name))
+  font = font.map(name => _use-fonts(fonts, name))
 
-  size = size.map(name => use-size(name))
+  size = size.map(use-size)
 
   /// Render the outline
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(
-    level: 1,
-    outlined: outlined,
-    title,
-  )
+  heading(level: 1, outlined: outlined, title)
 
   // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())

@@ -5,6 +5,7 @@
   twoside: false,
   // options
   title: [致　谢],
+  title-vspace: 2pt,
   outlined: true,
   // self
   it,
@@ -13,7 +14,9 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  [#heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>]
+  heading(level: 1, numbering: none, outlined: outlined, title)
+
+  v(title-vspace)
 
   it
 }
