@@ -467,5 +467,22 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 成果页
 #achievement[
+  #import tntt: use-size
+
+  #text(font: use-fonts("HeiTi"), size: use-size("四号"))[学术论文：]
+
+  1. ZHOU R, HU C, OU T, et al. Intelligent GRU-RIC Position-Loop Feedforward Compensation Control Method with Application to an Ultraprecision Motion Stage[J], IEEE Transactions on Industrial Informatics, 2024, 20(4): 5609-5621.
+  2. 杨轶, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究[J]. 中国机械工程, 2005, 16(14):1289-1291.
+  3. YANG Y, REN T L, ZHU Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
+
+  #v(2em)
+
+  #text(font: use-fonts("HeiTi"), size: use-size("四号"))[专利：]
+
+  4. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
+  5. REN T L, YANG Y, ZHU Y P, et al. Piezoelectric micro acoustic sensor based on ferroelectric materials: No.11/215, 102[P]. (美国发明专利申请号.)
+
+  #line(length: 100%)
+
   在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
 ]

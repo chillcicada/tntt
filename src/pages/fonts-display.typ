@@ -1,13 +1,6 @@
 #import "../utils/font.typ": use-size
 
 /// Fonts Display Page
-///
-/// - twoside (): whether to use two-sided printing
-/// - fonts (): fonts scheme
-/// - size (): font size
-/// - cjk-text (): CJK text to display
-/// - latin-text (): Latin text to display
-/// -> fonts-display
 #let fonts-display(
   // from entry
   twoside: false,
