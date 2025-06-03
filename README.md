@@ -1,5 +1,7 @@
 # TnTT: Typst & Tsinghua University Template
 
+<p align="center"><a href="https://nightly.link/chillcicada/tntt/workflows/build/main/thesis.zip"><img alt="Nightly Built PDF" src="https://custom-icon-badges.demolab.com/badge/-Nightly_Built_PDF-C9CBFF?style=for-the-badge&logo=view&logoColor=D9E0EE&labelColor=302D41" /></a></p>
+
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
 简体中文 | [English](#tntt-typst--tsinghua-university-template-1)
