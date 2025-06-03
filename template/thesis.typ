@@ -1,6 +1,6 @@
-// #import "@preview/tntt:0.2.0"
+// #import "@preview/tntt:0.3.0"
 #import "../src/lib.typ" as tntt
-#import tntt: define-config
+#import tntt: define-config, use-size
 
 /// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备，
 /// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
@@ -135,10 +135,6 @@
 // 表格目录
 #table-list()
 
-// 公式目录
-// 不做要求
-// #equation-list()
-
 // 符号表
 // 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。
 #notation[
@@ -267,9 +263,15 @@
 )
 ```
 
-其可设置*在字体展示页中*使宋体（SongTi）使用 Times New Roman 和 SimHei 字族。
+其可设置*在字体展示页中*使宋体（SongTi）使用 Times New Roman 和 SimHei 字族。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过字体的内置页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
 
-除了封面页和字体展示页外，所有内置页面均提供了适配双面打印的 `twoside` 选项，部分页面还提供了适用匿名模式的 `anonymous` 选项，*大部分情况下，您不需要额外配置这些页面*。在匿名模式下，封面页的信息会被隐藏，同时涉及个人信息的页面（如致谢页、成果页等）不会显示。
+```typ
+#abstract(back: text(font: use-fonts("KaiTi"))[*关键词：*])[
+  论文的摘要是对论文研究内容和成果的高度概括。摘要应对论文所研究的问题及其研究目的进行描述，对研究方法和过程进行简单介绍，对研究成果和所得结论进行概括。摘要应具有独立性和自明性，其内容应包含与论文全文同等量的主要信息。使读者即使不阅读全文，通过摘要就能了解论文的总体内容和主要成果。
+]
+```
+
+除了封面页和字体展示页外，大部分内置页面均提供了适配双面打印的 `twoside` 选项，部分页面还提供了适用匿名模式的 `anonymous` 选项，*大部分情况下，您不需要额外配置这些页面*。在匿名模式下，封面页的信息会被隐藏，同时涉及个人信息的页面（如致谢页、成果页等）不会显示。
 
 部分页面还提供了一些额外的个性化选项，但多数情况下您应该也不会使用到这些选项，您可以参考提供的注释信息和源码来进一步了解。
 
@@ -373,7 +375,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 参考文献
 
-可以像这样引用参考文献：图书#[@蒋有绪1998]和会议#[@中国力学学会1990]。
+可以像这样引用参考文献：图书#[@zhukezhen1973]和会议#[@dupont1974bone]。
 
 == 代码块
 
@@ -399,11 +401,13 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 目前存在的问题
 
-#text(font: use-fonts("KaiTi"))[
-  - Typst 的中文支持仍然不够完善，部分功能可能无法正常使用。
-  - 部分字体在不同平台上的显示效果可能存在差异。
-  - 文档的排版和样式可能需要根据个人需求进行调整。
-]
+- 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 Latex 中同样存在；
+- 文档的排版和样式可能需要根据个人需求进行调整，当前模板提供了最大限度的自由化选项，但目前尚未补全文档，可能需要一定的 Typst 使用经验才能上手，不过，并不鼓励修改内置的选项；
+- 目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
+  - 导出的 PDF 中编号信息缺失，但相较于不提供导出书签的官方 Word 版本，此问题可以忽略；
+  - 目前数学公式目录无法忽略附录中的公式，但由于数学公式索引并不启用，因而此问题也可以忽略；
+  - 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时由于 Word 排版引擎本身的限制（浮动行距等），因而无法做到完全一致；
+  - 当前 Typst 不支持多参考文献（Bibliography）实例，因而对附录部分和成就页部分的参考文献处理较为粗暴，可以理解为没有实现链接的 Word 参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献。
 
 // 手动分页
 #if twoside { pagebreak() + " " }
@@ -415,30 +419,46 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
-#bilingual-bibliography(full: true)
+#bilingual-bibliography()
 
 // 手动分页
 #if twoside { pagebreak() + " " }
 
 // 附录
-= 外文资料的调研阅读报告或书面翻译
+= 外文资料的调研阅读报告（或书面翻译）
 
-#align(center, lorem(10))
+#align(center)[调研阅读报告题目（或书面翻译题目）]
 
-#lorem(100)
+写出至少 5000 外文印刷字符的调研阅读报告或者书面翻译 1-2 篇（不少于2 万外文印刷符）。
 
 == #lorem(3)
 
-#lorem(20)
-
 === #lorem(3)
 
-附录内容，这里也可以加入图片，例如@fig:appendix-img。
+附录内容，这里也可以加入图片，例如@fig:appendix-img。默认情况下，附录内的图表不会加入到对应的索引中。
 
 #figure(
   image("media/logo.jpg", width: 20%),
   caption: [图片测试],
 ) <appendix-img>
+
+#v(22pt)
+
+#align(center)[参考文献（或书面翻译对应的原文索引）]
+
+#{
+  set text(size: use-size("五号"))
+
+  set enum(
+    body-indent: 20pt,
+    numbering: "[1]",
+    indent: 0pt,
+  )
+
+  [
+    + 某某某. 信息技术与信息服务国际研讨会论文集: A 集［C］北京：中国社会科学出版社，1994.
+  ]
+}
 
 = 其他内容
 
@@ -446,12 +466,12 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 致谢
 #acknowledge[
-  // mask 用于在匿名模式下隐藏内容
-  #import tntt: mask-text
-
   致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
 
   #line(length: 100%)
+
+  // mask 用于在匿名模式下隐藏内容
+  #import tntt: mask-text
 
   非常感谢 #link("https://github.com/OrangeX4")[OrangeX4] 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis")[modern-nju-thesis] 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
@@ -469,5 +489,20 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 成果页
 #achievement[
+  #text(font: use-fonts("HeiTi"), size: use-size("四号"))[学术论文：]
+
+  1. ZHOU R, HU C, OU T, et al. Intelligent GRU-RIC Position-Loop Feedforward Compensation Control Method with Application to an Ultraprecision Motion Stage[J], IEEE Transactions on Industrial Informatics, 2024, 20(4): 5609-5621.
+  2. 杨轶, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究[J]. 中国机械工程, 2005, 16(14):1289-1291.
+  3. YANG Y, REN T L, ZHU Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
+
+  #v(2em)
+
+  #text(font: use-fonts("HeiTi"), size: use-size("四号"))[专利：]
+
+  4. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
+  5. REN T L, YANG Y, ZHU Y P, et al. Piezoelectric micro acoustic sensor based on ferroelectric materials: No.11/215, 102[P]. (美国发明专利申请号.)
+
+  #line(length: 100%)
+
   在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
 ]

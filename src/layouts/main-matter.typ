@@ -1,11 +1,12 @@
 #import "../utils/font.typ": use-size
 #import "../utils/util.typ": array-at
 #import "../utils/numbering.typ": custom-numbering
-#import "../utils/heading.typ": heading-display, active-heading, current-heading
 
 #import "../imports.typ": i-figured
 
 #let main-matter(
+  // from entry
+  twoside: false,
   // options
   page-numbering: "1",
   heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),

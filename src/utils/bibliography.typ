@@ -1,9 +1,10 @@
 // Authors: csimide, OrangeX4
+// Modified by: chillcicada
 // Tested only on GB-7714-2015-Numeric
 #let bilingual-bibliography(
   bibliography: none,
-  title: "参考文献",
-  full: false,
+  title: [参考文献],
+  full: true,
   style: "gb-7714-2015-numeric",
   mapping: (:),
   extra-comma-before-et-al-trans: false,
@@ -15,13 +16,16 @@
 
   // Please fill in the remaining mapping table here
   mapping = (
-    //"等": "et al",
-    "卷": "Vol.",
-    "册": "Bk.",
-    // "译": ", tran",
-    // "等译": "et al. tran",
-    // 注: 请见下方译者数量判断部分。
-  ) + mapping
+    (
+      //"等": "et al",
+      "卷": "Vol.",
+      "册": "Bk.",
+      // "译": ", tran",
+      // "等译": "et al. tran",
+      // 注: 请见下方译者数量判断部分。
+    )
+      + mapping
+  )
 
   let to-string(content) = {
     if content.has("text") {
@@ -94,24 +98,28 @@
           3. GB/T 7714-2015 P8 7.2 小节规定：“译”前需加逗号。因此单个作者的情形，“译” 会被替换为 ", trans"。与“等”并用时的情况请见上一条注。
           如果工作不正常，可以考虑换为简单关键词替换，即注释这段情况，取消 13 行 mapping 内 `译` 条目的注释。
       */
-      reptext = reptext.replace(regex("\].+?译"), itt => {
-        // 我想让上面这一行匹配变成非贪婪的，但加问号后没啥效果？
-        let comma-in-itt = itt.text.replace(regex(",?\s?译"), "").matches(",")
-        if (
-          type(comma-in-itt) == array and 
-          comma-in-itt.len() >= (
-              if allow-comma-in-name {2} else {1}
-            )
+      reptext = reptext.replace(
+        regex("\].+?译"),
+        itt => {
+          // 我想让上面这一行匹配变成非贪婪的，但加问号后没啥效果？
+          let comma-in-itt = itt.text.replace(regex(",?\s?译"), "").matches(",")
+          if (
+            type(comma-in-itt) == array
+              and comma-in-itt.len()
+                >= (
+                  if allow-comma-in-name { 2 } else { 1 }
+                )
           ) {
-          if extra-comma-before-et-al-trans {
-            itt.text.replace(regex(",?\s?译"), ", tran")
+            if extra-comma-before-et-al-trans {
+              itt.text.replace(regex(",?\s?译"), ", tran")
+            } else {
+              itt.text.replace(regex(",?\s?译"), " tran")
+            }
           } else {
-            itt.text.replace(regex(",?\s?译"), " tran")
+            itt.text.replace(regex(",?\s?译"), ", trans")
           }
-        } else {
-          itt.text.replace(regex(",?\s?译"), ", trans")
-        }
-      })
+        },
+      )
 
       // `等` 特殊处理：`等`后方接内容也需要译作 `et al.`，如 `等译` 需要翻译为 `et al. trans`
       reptext = reptext.replace(
@@ -142,10 +150,5 @@
     }
   }
 
-  set text(lang: "zh")
-  bibliography(
-    title: title,
-    full: full,
-    style: style,
-  )
+  bibliography(title: title, full: full, style: style)
 }

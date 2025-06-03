@@ -1,8 +1,6 @@
 #import "../utils/font.typ": use-size, trim-en
 #import "../utils/text.typ": space-text, mask-text
 
-// 1.25 leading/spaceing 1.5 * 15.6pt - 0.7em
-
 /// Cover Page
 #let cover(
   // from entry

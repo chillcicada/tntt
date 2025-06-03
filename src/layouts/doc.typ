@@ -55,7 +55,7 @@
   body-font: "SongTi",
   body-size: "小四",
   footnote-font: "SongTi",
-  footnote-size: "五号",
+  footnote-size: "小五",
   math-font: "Math",
   math-size: "小四",
   raw-font: "Mono",
@@ -67,6 +67,9 @@
   underline-offset: .1em,
   underline-stroke: .05em,
   underline-evade: true,
+  bibliography-font: "SongTi",
+  bibliography-size: "五号",
+  bibliography-spacing: 12pt,
   // self
   it,
 ) = {
@@ -148,6 +151,11 @@
 
   show figure.caption: caption-style
   show figure.caption: set text(font: use-fonts(caption-font), size: use-size(caption-size))
+
+  /// Bibliography
+  show bibliography: set text(font: use-fonts(bibliography-font), size: use-size(bibliography-size))
+
+  show bibliography: set par(spacing: bibliography-spacing)
 
   it
 }

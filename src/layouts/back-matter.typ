@@ -3,6 +3,8 @@
 #import "../imports.typ": i-figured
 
 #let back-matter(
+  // from entry
+  twoside: false,
   // options
   heading-numbering: (first-level: "附录A", depth: 4, format: "A.1 "),
   figure-numbering: "A.1",
