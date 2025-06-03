@@ -21,7 +21,7 @@ jobs:
 
       - name: Install Fonts
         run: |
-          curl -sSL https://github.com/chillcicada/tntt/releases/download/v0.2.0/fonts.zip -o fonts.zip
+          curl -sSL https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
           mkdir -p fonts
           unzip -q fonts.zip
           rm fonts.zip

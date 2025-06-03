@@ -30,7 +30,7 @@
   ),
   FangSong: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
-    "STFangSong",
+    "FangSong",
   ),
   Mono: (
     (name: "DejaVu Sans Mono", covers: "latin-in-cjk"),
