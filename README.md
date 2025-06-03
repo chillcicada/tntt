@@ -2,7 +2,7 @@
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
-简体中文 | [English](#tntt-typst-and-tsinghua-university-template-1)
+简体中文 | [English](#tntt-typst--tsinghua-university-template-1)
 
 ## 介绍
 
@@ -44,10 +44,13 @@ typst init @preview/tntt
 - KaiTi: 楷体，用于说明性文本和主观性的表达
 - FangSong: 仿宋，通常用于注释、引文及权威性阐述
 - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
+- Math: 数学字体，中文字体默认使用楷体
 
 对于 win10/11 用户或安装了对应字体的 Linux 用户，相应的字体配置为 `SimSun/NSimSun`、`SimHei`、`KaiTi`、`STFangSong`，对于 macOS 用户，相应的字体配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`，此外，您也可以用 `Noto Serif CJK`、`Noto Sans CJK` 等来替代宋体和黑体。
 
 本模板内置了对 win10/11 字体的相关字体配置。
+
+对于使用 webapp 的用户，由于其默认不提供内置的上述字体，因而需要手动将字体文件上传到 webapp 中，您可以在 [release 页面](https://github.com/chillcicada/tntt/releases/)下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
 
 ---
 
@@ -84,7 +87,7 @@ typst init @preview/tntt
 
 # TnTT: Typst & Tsinghua University Template
 
-English | [简体中文](#tntt-typst-and-tsinghua-university-template)
+English | [简体中文](#tntt-typst--tsinghua-university-template)
 
 ## Introduction
 
@@ -119,15 +122,18 @@ Before starting your edits, please briefly read the following font configuration
 
 This template primarily serves Chinese typesetting and includes built-in configurations for common Chinese font families:
 
-- **SongTi**: Song typeface (serif), the main body font, typically corresponding to Western serif fonts.
-- **HeiTi**: Hei typeface (sans-serif), used for headings, analogous to Western sans-serif fonts.
-- **KaiTi**: Kai typeface, used for explanatory text and subjective expressions.
+- **SongTi**: SongTi typeface (serif), the main body font, typically corresponding to Western serif fonts.
+- **HeiTi**: HeiTi typeface (sans-serif), used for headings, analogous to Western sans-serif fonts.
+- **KaiTi**: KaiTi typeface, used for explanatory text and subjective expressions.
 - **FangSong**: FangSong typeface, typically used for annotations, citations, and authoritative explanations.
 - **Mono**: Monospace font, prioritized for code. It is recommended to use Hei or Kai typefaces for Chinese characters, or popular Chinese monospace fonts.
+- **Math**: Math font, with the default Chinese font set to KaiTi.
 
 For Windows 10/11 users or Linux users with corresponding fonts installed, the font configurations are `SimSun/NSimSun`, `SimHei`, `KaiTi`, and `STFangSong`. For macOS users, the configurations are `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. Additionally, you may use `Noto Serif CJK` or `Noto Sans CJK` as alternatives for Song and Hei typefaces.
 
 This template includes built-in font configurations optimized for Windows 10/11 systems.
+
+For users of the Typst webapp, since it does not provide the above fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release page](https://github.com/chillcicada/tntt/releases/), extract and upload it to your project. The webapp will automatically recognize the font files.
 
 ---
 
