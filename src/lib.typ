@@ -35,7 +35,7 @@
 
 #import "imports.typ": cuti, i-figured
 
-#import "utils/text.typ": mask-text, space-text
+#import "utils/text.typ": mask-text, space-text, distr-text
 #import "utils/font.typ": use-size, fonts-check, _use-fonts
 #import "utils/numbering.typ": custom-numbering
 #import "utils/bibliography.typ": bilingual-bibliography
