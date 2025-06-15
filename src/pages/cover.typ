@@ -1,5 +1,5 @@
-#import "../utils/font.typ": use-size, trim-en
-#import "../utils/text.typ": space-text, mask-text
+#import "../utils/font.typ": use-size, _use-cjk-fonts
+#import "../utils/text.typ": space-text, distr-text
 
 /// Cover Page
 #let cover(
@@ -17,33 +17,38 @@
   info-keys: ("department", "major", "author", "supervisor"), // The order of listed keys
   info-items: (department: "院　　系", major: "专　　业", author: "姓　　名", supervisor: "指导教师"),
   info-sperator: "：",
-  supervisor-sperator: "　",
+  supervisor-sperator: " ",
+  title-font: "HeiTi",
+  body-font: "FangSong",
+  back-font: "SongTi",
+  author-width: 4,
+  supervisor-width: 8,
 ) = {
   /// Prepare info
-  let use-anonymous = if anonymous { mask-text } else { space-text }
+  let use-cjk-fonts(name) = _use-cjk-fonts(fonts, name)
 
-  info.author = use-anonymous(info.author)
+  let use-anonymous(s, w, m: "█") = if anonymous { m * w } else { distr-text(s, width: w * 1em) }
 
-  info.supervisor = info.supervisor.map(use-anonymous).join(if anonymous { "█" } else { supervisor-sperator })
+  info.author = use-anonymous(info.author, author-width)
+
+  info.supervisor = use-anonymous(info.supervisor.join(supervisor-sperator), supervisor-width)
 
   /// Render cover page
   set page(margin: margin)
 
   set align(center)
 
-  set text(font: trim-en(fonts.at("HeiTi")))
-
   image("../assets/logo.png", width: 7.81cm)
 
   v(-1em)
 
-  text(size: use-size("小初"), weight: "bold", space-text(title, spacing: " "))
+  text(size: use-size("小初"), font: use-cjk-fonts(title-font), weight: "bold", space-text(title))
 
   v(1em)
 
-  text(size: use-size("一号"), info.title)
+  text(size: use-size("一号"), font: use-cjk-fonts(title-font), info.title)
 
-  set text(size: use-size("三号"), font: trim-en(fonts.at("FangSong")))
+  set text(size: use-size("三号"), font: use-cjk-fonts(body-font))
 
   v(6em)
 
@@ -60,5 +65,5 @@
 
   v(6em)
 
-  text(font: trim-en(fonts.at("SongTi")), info.submit-date)
+  text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date)
 }
