@@ -64,6 +64,10 @@
 
 #let _support-font-size = _builtin-font-size.keys()
 
+/// Size type check with CJK font sizes.
+///
+/// - size (str | length): the font size to check, available cjk font sizes
+/// -> str | length
 #let size-check(size) = {
   if type(size) == str { assert(_support-font-size.contains(size), message: "Unsupported font size: " + size) } else {
     assert(type(size) == length, message: "Invalid font size type.")
@@ -72,6 +76,10 @@
   size
 }
 
+/// Make cjk font size compatible with normal size
+///
+/// - size (str | length): the font size to use, available cjk font sizes
+/// -> length
 #let use-size(size) = {
   size = size-check(size)
   if type(size) == str { _builtin-font-size.at(size) } else { size }
