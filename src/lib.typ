@@ -29,12 +29,13 @@
 #import "pages/declaration.typ": declaration
 #import "pages/achievement.typ": achievement
 
+// after content
+
 /// --------- ///
 /// Auxiliary ///
 /// --------- ///
 
-#import "imports.typ": cuti, i-figured
-
+#import "imports.typ": *
 #import "utils/text.typ": mask-text, space-text, distr-text
 #import "utils/font.typ": use-size, fonts-check, _use-fonts
 #import "utils/numbering.typ": custom-numbering
@@ -70,7 +71,7 @@
     /// ------- ///
     /// layouts ///
     /// ------- ///
-    // 元信息
+    // 文档元信息
     meta: (..args) => meta(
       ..args,
       info: info + args.named().at("info", default: (:)),
