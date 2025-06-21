@@ -4,35 +4,96 @@
 #import "../imports.typ": cuti
 #import cuti: show-cn-fakebold
 
+/// Meta Information for the Document / PDF
+///
+/// - info (dictionary): The metadata for the document, including title and author.
+/// - strict (bool): Whether to enable strict check mode for text rendering.
+/// - lang (text.lang): The language of the document, default is "zh" (Chinese).
+/// - region (text.region): The region for the document, default is "cn" (China Mainland).
+/// - margin (margin): The margin settings for the document.
+/// - paper (str): The paper size for the document, default is "a4".
+/// - fallback (bool): Whether to use fallback fonts.
+/// - bookmarked (bool): Whether to enable bookmarking for all heading in the PDF.
+///   If set false, the PDF will only bookmark the outlined headings.
+/// - it (content): The content of the document.
+/// -> content
 #let meta(
   // from entry
   info: (:),
+  strict: false,
   // options
   lang: "zh",
   region: "cn",
   margin: 3cm,
+  paper: "a4",
   fallback: false,
+  bookmarked: true,
   // self
   it,
 ) = {
-  if type(info.title) == str { info.title = info.title.split("\n") }
+  if type(info.title) == str { info.title = info.title.split("\n") } else {
+    assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
+  }
 
+  // Fix for Chinese fake bold rendering
   show: show-cn-fakebold
 
   set text(fallback: fallback, lang: lang, region: region)
 
-  set page(margin: margin, paper: "a4")
+  set heading(bookmarked: bookmarked)
 
-  set document(
-    title: (("",) + info.title).sum(),
-    author: info.author,
-  )
+  set page(margin: margin, paper: paper)
 
-  set heading(bookmarked: true)
+  set document(title: info.title.sum(), author: info.author)
+
+  if strict {
+    assert(
+      info.title.sum().clusters().len() <= 25,
+      message: "文档标题过长, 请确保标题长度不超过 25 个字符",
+    )
+  }
 
   it
 }
 
+/// Document Configuration
+///
+/// - fonts (dictionary): A dictionary of font names and their corresponding styles.
+/// - indent (length): Paragraph indentation.
+/// - justify (bool): Whether to justify text in paragraphs.
+/// - leading (length): The leading (line height) for paragraphs.
+/// - spacing (length): The spacing (line spacing) between paragraphs.
+/// - code-block-leading (length): The leading for code blocks.
+/// - code-block-spacing (length): The spacing for code blocks.
+/// - heading-font (array): The font for headings.
+/// - heading-size (array): The size of headings, can be length value or str.
+/// - heading-front-vspace (array): The vertical space before the heading.
+/// - heading-back-vspace (array): The vertical space after the heading.
+/// - heading-above (array): The space above the heading.
+/// - heading-below (array): The space below the heading.
+/// - heading-align (array): The alignment of headings.
+/// - heading-weight (array): The font weight for headings.
+/// - heading-pagebreak (array): Whether to insert a page break before the headings.
+/// - body-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"):
+/// - body-size (length | str): The size of body text, can be length value or str.
+/// - footnote-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for footnotes.
+/// - footnote-size (length | str): The size of footnotes, can be length value or str.
+/// - math-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for math equations.
+/// - math-size (length | str): The size of math equations, can be length value or str.
+/// - raw-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for raw text.
+/// - raw-size (length | str): The size of raw text, can be length value or str.
+/// - caption-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"):
+/// - caption-size (length | str): The size of captions, can be length value or str.
+/// - caption-style (function): The style of captions.
+/// - caption-separator (str): The separator for captions.
+/// - underline-offset (length): The offset for underlines.
+/// - underline-stroke (stroke): The stroke for underlines.
+/// - underline-evade (bool): Whether to evade underlines for certain elements.
+/// - bibliography-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for bibliography entries.
+/// - bibliography-size (length | str): The size of bibliography entries, can be length value or str.
+/// - bibliography-spacing (length): The spacing for bibliography entries.
+/// - it (content): The content of the document.
+/// -> content
 #let doc(
   // from entry
   fonts: (:),
@@ -74,7 +135,7 @@
   it,
 ) = {
   /// Auxiliary functions
-  let use-fonts(name) = { _use-fonts(fonts, name) }
+  let use-fonts = name => _use-fonts(fonts, name)
 
   /// Render the document with the specified fonts and styles.
   /// Paragraph

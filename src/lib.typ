@@ -30,6 +30,7 @@
 #import "pages/achievement.typ": achievement
 
 // after content
+// TODO: add feedback table
 
 /// --------- ///
 /// Auxiliary ///
@@ -41,11 +42,23 @@
 #import "utils/numbering.typ": custom-numbering
 #import "utils/bibliography.typ": bilingual-bibliography
 
+/// Define the configuration for the document.
+///
+/// - doctype ("bachelor"):
+/// - degree ("academic"):
+/// - twoside (bool):
+/// - anonymous (bool):
+/// - strict (bool): Whether to enable strict check mode for text rendering.
+/// - bibliography ():
+/// - fonts (dictionary):
+/// - info (dictionary):
+/// -> dictionary
 #let define-config(
   doctype: "bachelor",
   degree: "academic",
   twoside: false,
   anonymous: false,
+  strict: false,
   bibliography: none,
   fonts: (:),
   info: (:),
@@ -73,6 +86,7 @@
     /// ------- ///
     // 文档元信息
     meta: (..args) => meta(
+      strict: strict,
       ..args,
       info: info + args.named().at("info", default: (:)),
     ),

@@ -1,4 +1,14 @@
 /// Notation Page
+///
+/// - twoside (bool): Whether to use two-sided layout.
+/// - outlined (bool): Whether to outline the page.
+/// - title (content): The title of the notation page.
+/// - width (length | relative): The width of the notation grid.
+/// - columns (array): The widths of the grid columns for terms and descriptions.
+/// - row-gutter (length): The vertical space between rows.
+/// - args (dictionary): Additional arguments for the grid layout.
+/// - it (content): The content of the notation page.
+/// -> content
 #let notation(
   // from entry
   twoside: false,

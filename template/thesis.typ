@@ -71,6 +71,7 @@
   doctype: "bachelor",
   degree: "academic",
   anonymous: false, // 盲审模式
+  strict: true, // 严格模式，开启后会检查字体配置是否正确
   twoside: false, // 双面模式，会加入空白页，便于打印
   info: (
     title: "本科生综合论文训练标题",

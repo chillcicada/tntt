@@ -2,6 +2,16 @@
 
 #import "../imports.typ": i-figured
 
+/// Back Matter Layout
+///
+/// - twoside (bool): Whether to use two-sided layout.
+/// - heading-numbering (str): The numbering format for headings.
+/// - figure-numbering (str): The numbering format for figures.
+/// - figure-outlined (bool): Whether to outline figure numbers in figures index page.
+/// - equation-numbering (str): The numbering format for equations.
+/// - reset-counter (bool): Whether to reset the heading counter.
+/// - it (content): The content to be displayed in the back matter.
+/// -> content
 #let back-matter(
   // from entry
   twoside: false,
@@ -26,10 +36,7 @@
     outlined: false,
   )
 
-  show heading.where(level: 1): set heading(
-    bookmarked: true,
-    outlined: true,
-  )
+  show heading.where(level: 1): set heading(bookmarked: true, outlined: true)
 
   set figure(outlined: figure-outlined)
 

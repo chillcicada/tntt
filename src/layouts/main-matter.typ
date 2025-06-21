@@ -4,6 +4,14 @@
 
 #import "../imports.typ": i-figured
 
+/// Main Matter Layout
+///
+/// - twoside (bool): Whether to use two-sided layout.
+/// - page-numbering (str): The numbering format for the page.
+/// - heading-numbering (str): The numbering format for headings.
+/// - reset-footnote (bool): Whether to reset the footnote counter.
+/// - it (content): The content to be displayed in the main matter.
+/// -> content
 #let main-matter(
   // from entry
   twoside: false,
