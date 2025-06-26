@@ -18,6 +18,7 @@
   // options
   page-numbering: "1",
   heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),
+  equation-numbering: "(1-1)",
   reset-footnote: true,
   // self
   it,
@@ -26,17 +27,15 @@
 
   show heading: i-figured.reset-counters
 
-  set heading(
-    numbering: custom-numbering.with(
-      first-level: heading-numbering.first-level,
-      depth: heading-numbering.depth,
-      heading-numbering.format,
-    ),
-  )
+  set heading(numbering: custom-numbering.with(
+    first-level: heading-numbering.first-level,
+    depth: heading-numbering.depth,
+    heading-numbering.format,
+  ))
 
   show figure: i-figured.show-figure
 
-  show math.equation.where(block: true): i-figured.show-equation
+  show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
 
   set page(header: { if reset-footnote { counter(footnote).update(0) } })
 
