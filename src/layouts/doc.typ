@@ -1,4 +1,4 @@
-#import "../utils/font.typ": use-size, _use-fonts
+#import "../utils/font.typ": _use-fonts, use-size
 #import "../utils/util.typ": array-at
 
 #import "../imports.typ": cuti
@@ -117,6 +117,7 @@
   body-size: "小四",
   footnote-font: "SongTi",
   footnote-size: "小五",
+  footnote-numbering: "①",
   math-font: "Math",
   math-size: "小四",
   raw-font: "Mono",
@@ -139,12 +140,7 @@
 
   /// Render the document with the specified fonts and styles.
   /// Paragraph
-  set par(
-    justify: justify,
-    leading: leading,
-    spacing: spacing,
-    first-line-indent: (amount: indent, all: true),
-  )
+  set par(justify: justify, leading: leading, spacing: spacing, first-line-indent: (amount: indent, all: true))
 
   /// List
   set list(indent: indent)
@@ -165,10 +161,7 @@
       weight: array-at(heading-weight, it.level),
     )
 
-    set block(
-      above: array-at(heading-above, it.level),
-      below: array-at(heading-below, it.level),
-    )
+    set block(above: array-at(heading-above, it.level), below: array-at(heading-below, it.level))
 
     v(array-at(heading-front-vspace, it.level))
 
@@ -181,7 +174,22 @@
   set text(font: use-fonts(body-font), size: use-size(body-size))
 
   /// Fontnote
-  show footnote.entry: set text(font: use-fonts(footnote-font), size: use-size(footnote-size))
+  set footnote(numbering: footnote-numbering)
+
+  // unset super style, only for bachelor thesis
+  show footnote: it => {
+    show super: it => { it.body }
+    it
+  }
+
+  show footnote.entry: it => {
+    set text(font: use-fonts(footnote-font), size: use-size(footnote-size))
+
+    par(hanging-indent: 1.5em, first-line-indent: 0em)[
+      #numbering(it.note.numbering, ..counter(footnote).at(it.note.location()))
+      #it.note.body
+    ]
+  }
 
   /// Math Equation
   show math.equation: set text(font: use-fonts(math-font), size: use-size(math-size))
@@ -202,8 +210,6 @@
     evade: underline-evade,
   )
 
-  /// Stroke
-
   /// Figure
   show figure.where(kind: table): set figure.caption(position: top)
 
@@ -214,6 +220,12 @@
   show figure.caption: set text(font: use-fonts(caption-font), size: use-size(caption-size))
 
   /// Bibliography
+  // unset super style, for bachelor thesis
+  show cite: it => {
+    show super: it => { it.body }
+    it
+  }
+
   show bibliography: set text(font: use-fonts(bibliography-font), size: use-size(bibliography-size))
 
   show bibliography: set par(spacing: bibliography-spacing)
