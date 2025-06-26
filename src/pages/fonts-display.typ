@@ -1,9 +1,14 @@
 #import "../utils/font.typ": use-size
 
 /// Fonts Display Page
+///
+/// - fonts (dictionary): The dictionary of fonts to be displayed.
+/// - size (length | str): The size of the font to be used for display.
+/// - cjk-text (text): The CJK text to be displayed.
+/// - latin-text (text): The Latin text to be displayed.
+/// -> content
 #let fonts-display(
   // from entry
-  twoside: false,
   fonts: (:),
   // options
   size: "小四",

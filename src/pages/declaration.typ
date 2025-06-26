@@ -1,6 +1,15 @@
 #import "../utils/font.typ": use-size
 
 /// Declaration Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool): Whether to use two-sided layout.
+/// - title (content): The title of the declaration page.
+/// - back-vspace (length): The vertical space after the body.
+/// - outlined (bool): Whether to outline the page.
+/// - body (content): The body content of the declaration page.
+/// - back (content): The back text for signatures.
+/// -> content
 #let declaration(
   // from entry
   anonymous: false,

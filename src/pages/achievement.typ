@@ -1,4 +1,11 @@
 /// Achievement Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool): Whether to use two-sided layout.
+/// - title (content): The title of the achievement page.
+/// - outlined (bool): Whether to outline the page.
+/// - it (content): The content of the achievement page.
+/// -> content
 #let achievement(
   // from entry
   anonymous: false,

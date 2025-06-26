@@ -1,3 +1,9 @@
+/// Equation List Page
+///
+/// - twoside (bool): Whether to use two-sided printing
+/// - title (content): The title of the equation index page
+/// - outlined (bool): Whether to outline the page
+/// -> content
 #let equation-list(
   // from entry
   twoside: false,

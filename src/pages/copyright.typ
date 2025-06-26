@@ -1,6 +1,16 @@
 #import "../utils/font.typ": use-size
 
 /// Copyright Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool): Whether to use two-sided layout.
+/// - fonts (dictionary): The font family to use, should be a dictionary.
+/// - title (content): The title of the copyright page.
+/// - title-size (length | str): The size of the title font.
+/// - body (content): The body content of the copyright page.
+/// - grid-columns (array): The widths of the grid columns for signatures.
+/// - back (array): The back text for signatures, should be an array of strings.
+/// -> content
 #let copyright(
   // from entry
   anonymous: false,

@@ -1,6 +1,21 @@
 #import "../utils/font.typ": use-size, _use-fonts
 #import "../utils/util.typ": array-at
 
+/// Outline Wrapper Page
+///
+/// - twoside (bool): Whether to use two-sided printing
+/// - fonts (dictionary): The font family to use.
+/// - depth (int): The maximum depth of the outline.
+/// - font (array): The font family for each heading level.
+/// - size (array): The font size for each heading level.
+/// - outlined (bool): Whether to outline the page.
+/// - title (content): The title of the outline page.
+/// - above (array): The vertical space above each heading based on its level.
+/// - below (array): The vertical space below each heading based on its level.
+/// - indent (array): The indentation for each heading level.
+/// - gap (length): The gap between the heading and the numbering.
+/// - fill (array): The fill content for the outline entries.
+/// -> content
 #let outline-wrapper(
   // from entry
   twoside: false,

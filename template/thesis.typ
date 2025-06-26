@@ -1,4 +1,4 @@
-// #import "@preview/tntt:0.3.1"
+// #import "@preview/tntt:0.3.2"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 
@@ -46,6 +46,7 @@
   /// global options
   twoside,
   use-fonts,
+  use-cjk-fonts,
   /// layouts
   meta,
   doc,
@@ -71,6 +72,7 @@
   doctype: "bachelor",
   degree: "academic",
   anonymous: false, // 盲审模式
+  strict: true, // 严格模式，开启后会检查字体配置是否正确
   twoside: false, // 双面模式，会加入空白页，便于打印
   info: (
     title: "本科生综合论文训练标题",
@@ -138,43 +140,35 @@
 // 符号表
 // 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。
 #notation[
+  / $"a", "c"_1, "c"_2$: 临时替换变量
+
   / D#sub[m]: 预混通道外径 (mm)
+  / Ga: 空气质量流量 (kg/s)
+  / Ma: 进口空气马赫数，$"Ma" = v_2 slash gamma R T_2$
 
+  / gamma: 比热比=1.4
   / $delta$: 总压损失系数，$delta = Delta p_(2-3) slash p_2 (%)$
+  / $phi_"LLO"$: 贫燃着火极限
 
+  / CFD: 计算流体力学 (Computational Fluid Dynamics)
   / DFT: 密度泛函理论 (Density functional theory)
-  / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
+  / LBO: 贫燃熄火极限 (Lean Blowout Value)
   / ONIOM: 分层算法 (Our own N-layered Integrated molecular Orbital and molecular Mechanics)
+  / PES: 势能面 (Potential Energy Surface)
+  / PIV: 颗粒图像速度仪 (Particle Image Velocimetry)
+  / SCF: 自洽场 (Self-Consistent Field)
+  / SCRF: 自洽反应场 (Self-Consistent Reaction Field)
+  / TS: 过渡态 (Transition State)
+  / TST: 过渡态理论 (Transition State Theory)
+  / ZPE: 零点振动能 (Zero Vibration Energy)
 
-  / TnTT: Typst & Tsinghua University Thesis Template （清华大学综合论文训练 Typst 模板）
+  / TnTT: 清华大学综合论文训练 Typst 模板 (Typst & Tsinghua University Thesis Template)
 ]
 
 /// ----------- ///
 /// Main Matter ///
 /// ----------- ///
 #show: main-matter
-
-= 引　言
-
-== 一级节标题第一条
-
-此部分是论文主体部分的文字格式示例。
-
-=== 二级节标题第一条
-
-主体部分一般从引言（绪论）开始，以结论结束。
-
-引言（绪论）应包括论文的研究目的、流程和方法等。
-
-论文研究领域的历史回顾，文献回溯，理论分析等内容，应独立成章，用足够的文字叙述。
-
-主体部分由于涉及的学科、选题、研究方法、结果表达方式等有很大的差异，不能作统一的规定。但是，必须实事求是、客观真切、准确完备、合乎逻辑、层次分明、简练可读。
-
-=== 二级节标题第二条
-
-论文中应引用与研究主题密切相关的参考文献。参考文献的写法应遵循国家标准《信息与文献 参考文献著录规则》（GB/T 7714—2015）；符合特定学科的通用范式，可使用APA或《清华大学学报（哲学社会科学版）》格式，且应全文统一，不能混用。此处是正文中引用参考文献的上标标注示例[1]。
-
-当论文中的字、词或短语，需要进一步加以说明，而又没有具体的文献来源时，用注释。注释一般在社会科学中用得较多。应控制论文中的注释数量，不宜过多。由于论文篇幅较长，建议采用文中编号加“脚注”的方式。此处是脚注格式规范示例①。
 
 = 导　引
 
@@ -279,107 +273,106 @@
 
 *除了使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
 
-typst 语法可以参考 #link("https://typst.app/docs/")[Typst 官方文档] 和 #link("https://typst-doc-cn.github.io/docs/")[Typst 中国社区的翻译]，常见问题可以参考 #link("https://typst.dev/guide/")[Typst 中文社区导航]，进阶学习可以参考 #link("https://typst.dev/tutorial/")[小蓝书]。
+typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方文档]) 和 #link("https://typst-doc-cn.github.io/docs/", underline[Typst 中国社区的翻译])，常见问题可以参考 #link("https://typst.dev/guide/", underline[Typst 中文社区导航])，进阶学习可以参考 #link("https://typst.dev/tutorial/", underline[小蓝书])。
 
-此外，对于一些常用的工具，您可以查找 #link("https://typst.app/universe/")[universe] 中的包进一步了解，本模板旨在提供基础的开箱即用的功能，您可以在此基础上进行扩展和修改。
+此外，对于一些常用的工具，您可以查找 #link("https://typst.app/universe/", underline[universe]) 中的包进一步了解，本模板旨在提供基础的开箱即用的功能，您可以在此基础上进行扩展和修改。
 
 #line(length: 100%)
 
 #align(center)[*以下部分为完整的示例，包含了大部分的功能和用法。*]
 
-= 导　论
+= 引　言
 
-== 列表
+== 一级节标题第一条
 
-=== 无序列表
+此部分是论文主体部分的文字格式示例。
 
-- 无序列表项一
-- 无序列表项二
-  - 无序子列表项一
-  - 无序子列表项二
+=== 二级节标题第一条
 
-=== 有序列表
+主体部分一般从引言（绪论）开始，以结论结束。
 
-+ 有序列表项一
-+ 有序列表项二
-  + 有序子列表项一
-  + 有序子列表项二
+引言（绪论）应包括论文的研究目的、流程和方法等。
 
-=== 术语列表
+论文研究领域的历史回顾，文献回溯，理论分析等内容，应独立成章，用足够的文字叙述。
 
-/ 术语一: 术语解释
-/ 术语二: 术语解释
+主体部分由于涉及的学科、选题、研究方法、结果表达方式等有很大的差异，不能作统一的规定。但是，必须实事求是、客观真切、准确完备、合乎逻辑、层次分明、简练可读。
 
-== 图表
+=== 二级节标题第二条
 
-引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:logo。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
+论文中应引用与研究主题密切相关的参考文献。参考文献的写法应遵循国家标准《信息与文献 参考文献著录规则》（GB/T 7714—2015）；符合特定学科的通用范式，可使用APA或《清华大学学报（哲学社会科学版）》格式，且应全文统一，不能混用。此处是正文中引用参考文献的上标标注示例@zhangkun1994。
 
-#align(
-  center,
-  (
-    stack(dir: ltr)[
-      #figure(
-        table(
-          align: center + horizon,
-          columns: 4,
-          [t], [1], [2], [3],
-          [y], [0.3s], [0.4s], [0.8s],
-        ),
-        caption: [常规表],
-      ) <timing>
-    ][
-      #h(50pt)
-    ][
-      #figure(
-        table(
-          columns: 4,
-          stroke: none,
-          table.hline(),
-          [t], [1], [2], [3],
-          table.hline(stroke: .5pt),
-          [y], [0.3s], [0.4s], [0.8s],
-          table.hline(),
-        ),
-        caption: [三线表],
-      ) <timing-tlt>
-    ]
-  ),
-)
+当论文中的字、词或短语，需要进一步加以说明，而又没有具体的文献来源时，用注释。注释一般在社会科学中用得较多。应控制论文中的注释数量，不宜过多。由于论文篇幅较长，建议采用文中编号加“脚注”的方式。此处是脚注格式规范示例#footnote[脚注处序号“①，……，⑩”的字体是“正文”，不是“上标”，序号与脚注内容文字之间空半个汉字符，脚注的段落格式为：单倍行距，段前空0磅，段后空0磅，悬挂缩进1.5字符；字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
 
-除此之外，社区也提供了 #link("https://typst.app/universe/package/tablem")[tablem] 用于创建类似 markdown 写法的表格。
+可以像这样引用参考文献：图书#[@zhukezhen1973]和会议#cite(<dupont1974bone>)。
 
-#figure(
-  image("media/logo.jpg", width: 50%),
-  caption: [图片测试],
-) <logo>
+= 图、表及表达式示例
 
-== 数学公式
+引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。引用数学公式需要加上 `eqt:` 前缀。
 
-可以像 Markdown 一样写行内公式 $x + y$，以及带编号的行间公式：
+== 论文中图的示例
 
-$ "黄金比例": phi.alt := (1 + sqrt(5)) / 2 $ <ratio>
+图应具有“自明性”，即只看图、图题和图例，不阅读正文，就可理解图意。示例如下：
 
-引用数学公式需要加上 `eqt:` 前缀，则由@eqt:ratio，我们有：
+#figure(image("media/图的示例.png", width: 9.74cm), caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱]) <example>
 
-$ F_n = floor(1 / sqrt(5) phi.alt^n) $
+@fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱。
 
-我们也可以通过 `<->` 标签来标识该行间公式不需要编号
+== 论文中表的示例
+
+表应具有“自明性”。表的编排，一般是内容和测试项目由左至右横读，数据依序竖读。示例如下：
+
+#[
+  #set text(size: use-size("五号"))
+
+  #figure(
+    table(
+      align: (x, y) => { if x == 4 and y >= 1 { left + horizon } else { center + horizon } },
+      columns: (2.25cm, 2.75cm, 2.25cm, 2.75cm, 5cm),
+      stroke: none,
+      table.hline(stroke: 1.5pt),
+      [], [文字举例], [中文字体、字号要求], [英文及数字字体、字号要求], [其他格式要求],
+      table.hline(stroke: .75pt),
+      [章标题], [第1章 引言], [黑体三号字], [Arial三号], [居中书写，单倍行距，段前空24磅，段后空18磅],
+      [一级节标题], [4.1 标题示例], [黑体四号字], [Arial 14pt], [居左书写，行距为固定值20磅，段前空24磅，段后空6磅],
+      [二级节标题], [3.2.2 标题示例], [黑体13pt字], [Arial 13pt], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅],
+      [三级节标题],
+      [5.3.3.2 标题示例],
+      [黑体小四号字],
+      [Arial 12pt],
+      [居左书写，行距为固定值20磅，段前空12磅，段后空6磅。],
+      table.hline(stroke: 1.5pt),
+    ),
+    caption: [字体、字型、字号及段落格式要求],
+  ) <example>
+]
+
+@tbl:example 为字体、字型、字号及段落格式要求。
+
+除此之外，社区也提供了 #link("https://typst.app/universe/package/tablem", underline[tablem]) 用于创建类似 markdown 写法的表格。
+
+== 论文中表达式的示例
+
+表达式主要是指数字表达式，例如数学表达式，也包括文字表达式。示例如下：
+
+$
+  "NH"^+_4 + 2"O"_2 -> "NO"^-_3 + "H"_2"O" + 2"H"^+
+$ <example>
+
+@eqt:example 为铵与氧气的反应。
+
+默认情况下，行间公式都会自动编号，可以通过 `<->` 标签来标识该行间公式不需要编号：
 
 $ y = integral_1^2 x^2 dif x $ <->
 
-而后续数学公式仍然能正常编号。
+后续数学公式仍然能正常编号。
 
 $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
-对于一些常用的写法，社区提供了 #link("https://typst.app/universe/package/physica")[physica] 包来简化物理公式的书写和 #link("https://typst.app/universe/package/unify")[unify] 包来便于创建单位。
+此外，也可以像 Markdown 一样写行内公式 $x + y$。对于一些常用的写法，社区提供了 #link("https://typst.app/universe/package/physica", underline[physica]) 包来简化物理公式的书写和 #link("https://typst.app/universe/package/unify", underline[unify]) 包来便于创建单位。
 
-== 参考文献
+== 论文中代码块的示例
 
-可以像这样引用参考文献：图书#[@zhukezhen1973]和会议#[@dupont1974bone]。
-
-== 代码块
-
-代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
+*此部分在规范中未做要求。*代码块支持语法高亮。引用时需要加上 `lst:`，如 @lst:example。
 
 #figure(
   ```py
@@ -387,27 +380,46 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     return x + y
   ```,
   caption: [代码块],
-) <code>
+) <example>
 
-= 正　文
+社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建伪代码，如：
 
-== 正文子标题
+#[
+  #import "@preview/lovelace:0.3.0": pseudocode-list
 
-=== 正文子子标题
-
-正文内容
+  #figure(
+    pseudocode-list[
+      + do something
+      + do something else
+      + *while* still something to do
+        + do even more
+        + *if* not done yet *then*
+          + wait a bit
+          + resume working
+        + *else*
+          + go home
+        + *end*
+      + *end*
+    ],
+    caption: [伪代码示例],
+  )
+]
 
 = 结　语
 
 == 目前存在的问题
 
 - 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 Latex 中同样存在；
-- 文档的排版和样式可能需要根据个人需求进行调整，当前模板提供了最大限度的自由化选项，但目前尚未补全文档，可能需要一定的 Typst 使用经验才能上手，不过，并不鼓励修改内置的选项；
-- 目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
-  - 导出的 PDF 中编号信息缺失，但相较于不提供导出书签的官方 Word 版本，此问题可以忽略；
-  - 目前数学公式目录无法忽略附录中的公式，但由于数学公式索引并不启用，因而此问题也可以忽略；
-  - 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时由于 Word 排版引擎本身的限制（浮动行距等），因而无法做到完全一致；
-  - 当前 Typst 不支持多参考文献（Bibliography）实例，因而对附录部分和成就页部分的参考文献处理较为粗暴，可以理解为没有实现链接的 Word 参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献。
+- 文档的排版和样式可能需要根据个人需求进行调整，当前模板提供了最大限度的自由化选项，但目前尚未补全文档，可能需要一定的 Typst 使用经验才能上手，不过，并不鼓励修改内置的选项。
+
+目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
+
+- 导出的 PDF 中*编号信息*缺失，但相较于不提供导出书签的官方 Word 版本，此问题可以忽略；
+- 目前数学公式目录无法忽略附录中的公式，但由于数学公式索引并不启用，因而此问题也可以忽略；
+- 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时由于 Word 排版引擎本身的限制（浮动行距等），因而无法做到完全一致；
+- 当前 Typst 不支持多参考文献实例，因而对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现链接的 Word 参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
+
+此外，由于官方提供的 Word 模板中也存在诸多问题，同时很多事项并未在规范中注明，因而存在一些合理出入。
 
 // 手动分页
 #if twoside { pagebreak() + " " }
@@ -437,10 +449,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 附录内容，这里也可以加入图片，例如@fig:appendix-img。默认情况下，附录内的图表不会加入到对应的索引中。
 
-#figure(
-  image("media/logo.jpg", width: 20%),
-  caption: [图片测试],
-) <appendix-img>
+#figure(image("media/图的示例.png", width: 50%), caption: [图片测试]) <appendix-img>
 
 #v(22pt)
 
@@ -466,20 +475,32 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 致谢
 #acknowledge[
+  #show "×": set text(font: use-cjk-fonts("SongTi"))
+
   致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
+
+  #line(length: 100%)
+
+  衷心感谢指导教师××教授对本人的精心指导。他的言传身教将使我终生受益。
+
+  感谢×××××实验室××教授，以及×××××全体老师和同窗们的热情帮助和支持！
+
+  ……
+
+  本课题承蒙×××××基金资助，特此致谢。
 
   #line(length: 100%)
 
   // mask 用于在匿名模式下隐藏内容
   #import tntt: mask-text
 
-  非常感谢 #link("https://github.com/OrangeX4")[OrangeX4] 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis")[modern-nju-thesis] 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
+  非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
-  移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis")[清华大学学位论文 Word 模板] 和 #link("https://github.com/tuna/thuthesis")[清华大学学位论文 LaTeX 模板]，在此表达感谢。
+  移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis", underline[清华大学学位论文 Word 模板]) 和 #link("https://github.com/tuna/thuthesis", underline[清华大学学位论文 LaTeX 模板])，在模板更新的过程中主要参考了官方提供的 Word 模板，在此表达感谢。
 
-  感谢#link("https://github.com/Myriad-Dreamin")[纸叶#mask-text("姐姐")]开发的 #link("https://github.com/Myriad-Dreamin/tinymist")[Tinymist] 工具。
+  感谢 #link("https://github.com/Myriad-Dreamin", underline[纸叶#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi"))]) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具。
 
-  感谢 #link("https://typst.app/")[Typst] 团队的努力，感谢 Typst 中文社区。
+  感谢 #link("https://typst.app/", underline[Typst]) 团队的努力，感谢 Typst 中文社区。
 
   感谢所有本项目的贡献者。
 ]

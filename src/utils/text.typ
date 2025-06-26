@@ -37,7 +37,7 @@
 #let _distr-text(text, width: auto) = {
   block(
     width: width,
-    stack(dir: ltr, ..text.clusters().map(x => [#x]).intersperse(1fr)),
+    stack(dir: ltr, ..text.clusters().intersperse(1fr)),
   )
 }
 
