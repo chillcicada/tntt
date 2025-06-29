@@ -121,6 +121,9 @@
 
 // 英文摘要
 #abstract-en(keywords: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5"))[
+  // TODO: use _builtin-fonts-get-en
+  #set text(font: "Times New Roman")
+
   An abstract of a dissertation is a summary and extraction of research work and contributions. Included in an abstract should be description of research topic and research objective, brief introduction to methodology and research process, and summarization of conclusion and contributions of the research. An abstract should be characterized by independence and clarity and carry identical information with the dissertation. It should be such that the general idea and major contributions of the dissertation are conveyed without reading the dissertation.
 
   An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words “the first chapter”, “the second chapter” and the like should be avoided in the abstract.
@@ -324,6 +327,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 #[
   #set text(size: use-size("五号"))
 
+  // @typstyle off
   #figure(
     table(
       align: (x, y) => { if x == 4 and y >= 1 { left + horizon } else { center + horizon } },
@@ -335,15 +339,12 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
       [章标题], [第1章 引言], [黑体三号字], [Arial三号], [居中书写，单倍行距，段前空24磅，段后空18磅],
       [一级节标题], [4.1 标题示例], [黑体四号字], [Arial 14pt], [居左书写，行距为固定值20磅，段前空24磅，段后空6磅],
       [二级节标题], [3.2.2 标题示例], [黑体13pt字], [Arial 13pt], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅],
-      [三级节标题],
-      [5.3.3.2 标题示例],
-      [黑体小四号字],
-      [Arial 12pt],
-      [居左书写，行距为固定值20磅，段前空12磅，段后空6磅。],
+      [三级节标题], [5.3.3.2 标题示例], [黑体小四号字], [Arial 12pt], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅。],
       table.hline(stroke: 1.5pt),
     ),
     caption: [字体、字型、字号及段落格式要求],
   ) <example>
+  // @typstyle on
 ]
 
 @tbl:example 为字体、字型、字号及段落格式要求。
@@ -358,7 +359,7 @@ $
   "NH"^+_4 + 2"O"_2 -> "NO"^-_3 + "H"_2"O" + 2"H"^+
 $ <example>
 
-@eqt:example 为铵与氧气的反应。
+@eqt:example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
 
 默认情况下，行间公式都会自动编号，可以通过 `<->` 标签来标识该行间公式不需要编号：
 
@@ -370,9 +371,9 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 此外，也可以像 Markdown 一样写行内公式 $x + y$。对于一些常用的写法，社区提供了 #link("https://typst.app/universe/package/physica", underline[physica]) 包来简化物理公式的书写和 #link("https://typst.app/universe/package/unify", underline[unify]) 包来便于创建单位。
 
-== 论文中代码块的示例
+== 论文中代码块和算法的示例
 
-*此部分在规范中未做要求。*代码块支持语法高亮。引用时需要加上 `lst:`，如 @lst:example。
+*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮。引用时需要加上 `lst:`，如 @lst:example。
 
 #figure(
   ```py
@@ -382,7 +383,9 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [代码块],
 ) <example>
 
-社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建伪代码，如：
+此外，社区也提供了 #link("https://typst.app/universe/package/codly", underline[codly]) 和 #link("https://typst.app/universe/package/zebraw", underline[zebraw]) 包用于创建更美观的代码块。
+
+对于算法和伪代码，社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建，如：
 
 #[
   #import "@preview/lovelace:0.3.0": pseudocode-list
