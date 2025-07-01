@@ -37,18 +37,6 @@
 
 #let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
 
-#let _builtin-fonts-get-en(fonts) = {
-  let en-font = fonts.at(0)
-
-  if type(en-font) == str {
-    en-font
-  } else if type(en-font) == dictionary {
-    en-font.name
-  } else {
-    assert(false, message: "Invalid font type, expected string or dictionary.")
-  }
-}
-
 #let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
 
 #let _use-cjk-fonts(fonts, name) = _builtin-fonts-trim-en(_use-fonts(fonts, name))
