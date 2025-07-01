@@ -1,5 +1,5 @@
-#import "../utils/font.typ": use-size, _use-cjk-fonts, _use-fonts
-#import "../utils/text.typ": space-text, distr-text
+#import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
+#import "../utils/text.typ": distr-text, space-text
 
 /// Cover Page
 ///
@@ -48,7 +48,12 @@
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
 
-  let use-anonymous(s, w, m: "█") = if anonymous { m * w } else { distr-text(s, width: w) }
+  let use-anonymous(s, w) = if anonymous {
+    // use outset to fix the base line of the font
+    rect(fill: black, width: w, height: 1em, outset: (top: 2pt, bottom: -2pt))
+  } else {
+    distr-text(s, width: w)
+  }
 
   info.author = use-anonymous(info.author, author-width)
 
@@ -75,26 +80,19 @@
 
   v(8.7em)
 
-  text(
-    size: use-size("三号"),
-    font: use-cjk-fonts(body-font),
-    block(
-      width: grid-columns.sum(),
-      grid(
-        align: grid-align,
-        columns: grid-columns,
-        column-gutter: column-gutter,
-        row-gutter: row-gutter,
-        ..info-keys
-          .map(k => (
-            distr-text(info-items.at(k), width: _max-info-item-width * 1em),
-            info-sperator,
-            info.at(k, default: ""),
-          ))
-          .flatten()
-      ),
-    ),
-  )
+  text(size: use-size("三号"), font: use-cjk-fonts(body-font), block(width: grid-columns.sum(), grid(
+    align: grid-align,
+    columns: grid-columns,
+    column-gutter: column-gutter,
+    row-gutter: row-gutter,
+    ..info-keys
+      .map(k => (
+        distr-text(info-items.at(k), width: _max-info-item-width * 1em),
+        info-sperator,
+        info.at(k, default: ""),
+      ))
+      .flatten()
+  )))
 
   v(9.4em)
 

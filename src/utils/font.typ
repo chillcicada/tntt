@@ -35,11 +35,11 @@
   fonts
 }
 
-#let trim-en(fonts) = { fonts.slice(1) }
+#let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
 
-#let _use-fonts(fonts, name) = { fonts-check(fonts).at(name) }
+#let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
 
-#let _use-cjk-fonts(fonts, name) = { trim-en(_use-fonts(fonts, name)) }
+#let _use-cjk-fonts(fonts, name) = _builtin-fonts-trim-en(_use-fonts(fonts, name))
 
 /// Word compatible font size for CJK
 #let _builtin-font-size = (
