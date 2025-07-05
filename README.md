@@ -16,20 +16,26 @@ TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩�
 
 您可以在 [Typst Web](https://typst.app) 应用程序中使用此模板，方法是单击仪表板上的“Start from template”并搜索 `tntt`，或单击 [此处](https://typst.app/app?template=tntt&version=0.3.2) 快速创建一个项目。
 
-或者，你也可以使用 `typst` 命令行工具来创建一个带有模板的新项目：
+或者，您也可以使用 `typst` 命令行工具来创建一个带有模板的新项目：
 
 ```bash
 typst init @preview/tntt
 ```
 
-当然，您也可以在任意 typst 文件中添加
+当然，您也可以在任意 typst 文件中添加如下内容来导入此模板。
 
 ```typst
 #import "@preview/tntt:0.3.2"
 #import tntt: define-config
 ```
 
-来导入此模板。
+此外，您可以通过克隆本仓库来使用夜间版本：
+
+```bash
+git clone https://github.com/chillcicada/tntt.git --depth 1
+```
+
+然后修改 `template/thesis.typ` 来编辑您的论文。
 
 ## 导引
 
@@ -113,6 +119,14 @@ Of course, you can also import this template in any Typst file by adding:
 #import "@preview/tntt:0.3.2"
 #import tntt: define-config
 ```
+
+Besides, you can clone this repository to use the nightly version:
+
+```bash
+git clone https://github.com/chillcicada/tntt.git --depth 1
+```
+
+Then modify `template/thesis.typ` to edit your thesis.
 
 ## Instructions
 
