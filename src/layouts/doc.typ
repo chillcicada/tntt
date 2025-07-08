@@ -1,4 +1,4 @@
-#import "../utils/font.typ": _use-fonts, use-size
+#import "../utils/font.typ": _use-en-font, _use-fonts, use-size
 #import "../utils/util.typ": array-at
 
 #import "../imports.typ": cuti
@@ -173,6 +173,9 @@
   /// Body Text
   set text(font: use-fonts(body-font), size: use-size(body-size))
 
+  /// Smartquote
+  show smartquote: set text(font: _use-en-font(fonts, body-font))
+
   /// Fontnote
   set footnote(numbering: footnote-numbering)
 
@@ -230,5 +233,6 @@
 
   show bibliography: set par(spacing: bibliography-spacing)
 
+  /// Content
   it
 }
