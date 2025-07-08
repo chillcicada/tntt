@@ -35,15 +35,13 @@
   fonts
 }
 
-#let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
+#let _builtin-fonts-get-en(fonts) = fonts.at(0)
 
-#let _builtin-fonts-get-en(fonts) = {
-  fonts.at(0)
-}
+#let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
 
 #let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
 
-#let _use-en-fonts(fonts, name) = _builtin-fonts-get-en(_use-fonts(fonts, name))
+#let _use-en-font(fonts, name) = _builtin-fonts-get-en(_use-fonts(fonts, name))
 
 #let _use-cjk-fonts(fonts, name) = _builtin-fonts-trim-en(_use-fonts(fonts, name))
 

@@ -1,4 +1,4 @@
-#import "../utils/font.typ": _use-en-fonts, _use-fonts, use-size
+#import "../utils/font.typ": _use-en-font, _use-fonts, use-size
 #import "../utils/util.typ": array-at
 
 #import "../imports.typ": cuti
@@ -174,7 +174,7 @@
   set text(font: use-fonts(body-font), size: use-size(body-size))
 
   /// Smartquote
-  show smartquote: set text(font: _use-en-fonts(fonts, body-font))
+  show smartquote: set text(font: _use-en-font(fonts, body-font))
 
   /// Fontnote
   set footnote(numbering: footnote-numbering)
