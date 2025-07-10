@@ -1,4 +1,4 @@
-// #import "@preview/tntt:0.3.2"
+// #import "@preview/tntt:0.3.3"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 
