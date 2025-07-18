@@ -34,7 +34,7 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
 
   align(center, block(width: width, align(start, grid(
     columns: columns,

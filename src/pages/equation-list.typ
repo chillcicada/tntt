@@ -17,6 +17,7 @@
     level: 1,
     numbering: none,
     outlined: outlined,
+    bookmarked: true,
     title,
   )
 

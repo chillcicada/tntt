@@ -132,5 +132,6 @@
     }
   }
 
+  show heading.where(level: 1): set heading(bookmarked: true)
   bibliography(title: title, full: full, style: style)
 }

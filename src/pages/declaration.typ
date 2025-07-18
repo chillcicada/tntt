@@ -27,7 +27,7 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
 
   body
 

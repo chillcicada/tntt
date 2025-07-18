@@ -13,8 +13,6 @@
 /// - margin (margin): The margin settings for the document.
 /// - paper (str): The paper size for the document, default is "a4".
 /// - fallback (bool): Whether to use fallback fonts.
-/// - bookmarked (bool): Whether to enable bookmarking for all heading in the PDF.
-///   If set false, the PDF will only bookmark the outlined headings.
 /// - it (content): The content of the document.
 /// -> content
 #let meta(
@@ -27,7 +25,6 @@
   margin: 3cm,
   paper: "a4",
   fallback: false,
-  bookmarked: true,
   // self
   it,
 ) = {
@@ -39,8 +36,6 @@
   show: show-cn-fakebold
 
   set text(fallback: fallback, lang: lang, region: region)
-
-  set heading(bookmarked: bookmarked)
 
   set page(margin: margin, paper: paper)
 

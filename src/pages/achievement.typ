@@ -20,7 +20,7 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
 
   // reset indent
   set par(first-line-indent: 0pt)
