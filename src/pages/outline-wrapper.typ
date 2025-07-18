@@ -1,4 +1,4 @@
-#import "../utils/font.typ": use-size, _use-fonts
+#import "../utils/font.typ": _use-fonts, use-size
 #import "../utils/util.typ": array-at
 
 /// Outline Wrapper Page
@@ -40,37 +40,29 @@
   /// Render the outline
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, outlined: outlined, title)
+  heading(level: 1, outlined: outlined, bookmarked: true, title)
 
   // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
 
-  show outline.entry: entry => block(
-    above: array-at(above, entry.level),
-    below: array-at(below, entry.level),
-    link(
-      entry.element.location(),
-      entry.indented(
-        none,
-        {
-          text(
-            font: array-at(font, entry.level),
-            size: array-at(size, entry.level),
-            {
-              if entry.prefix() not in (none, []) {
-                entry.prefix()
-                h(gap)
-              }
-              entry.body()
-            },
-          )
-          box(width: 1fr, inset: (x: .25em), fill.at(entry.level - 1, default: fill.last()))
-          entry.page()
-        },
-        gap: 0pt,
-      ),
+  show outline.entry: entry => block(above: array-at(above, entry.level), below: array-at(below, entry.level), link(
+    entry.element.location(),
+    entry.indented(
+      none,
+      {
+        text(font: array-at(font, entry.level), size: array-at(size, entry.level), {
+          if entry.prefix() not in (none, []) {
+            entry.prefix()
+            h(gap)
+          }
+          entry.body()
+        })
+        box(width: 1fr, inset: (x: .25em), fill.at(entry.level - 1, default: fill.last()))
+        entry.page()
+      },
+      gap: 0pt,
     ),
-  )
+  ))
 
   // display the outline
   outline(title: none, depth: depth)

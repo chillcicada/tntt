@@ -40,7 +40,7 @@
   /// Render the abstract page
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, outlined: outlined, title)
+  heading(level: 1, outlined: outlined, bookmarked: true, title)
 
   it
 

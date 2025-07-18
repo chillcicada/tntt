@@ -36,7 +36,7 @@
     outlined: false,
   )
 
-  show heading.where(level: 1): set heading(bookmarked: true, outlined: true)
+  show heading.where(level: 1): set heading(outlined: true)
 
   set figure(outlined: figure-outlined)
 
