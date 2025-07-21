@@ -13,6 +13,7 @@
 /// - margin (margin): The margin settings for the document.
 /// - paper (str): The paper size for the document, default is "a4".
 /// - fallback (bool): Whether to use fallback fonts.
+/// - use-fakebold (bool): Whether to use fake bold rendering for Chinese text.
 /// - it (content): The content of the document.
 /// -> content
 #let meta(
@@ -25,6 +26,7 @@
   margin: 3cm,
   paper: "a4",
   fallback: false,
+  use-fakebold: true,
   // self
   it,
 ) = {
@@ -33,7 +35,7 @@
   }
 
   // Fix for Chinese fake bold rendering
-  show: show-cn-fakebold
+  show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
 
   set text(fallback: fallback, lang: lang, region: region)
 
