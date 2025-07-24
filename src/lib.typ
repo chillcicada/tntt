@@ -39,6 +39,7 @@
 #import "imports.typ": *
 #import "utils/text.typ": distr-text, mask-text, space-text
 #import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check, use-size
+#import "utils/page.typ": _use-twoside
 #import "utils/numbering.typ": custom-numbering
 #import "utils/bibliography.typ": bilingual-bibliography
 
@@ -80,6 +81,7 @@
     doctype: doctype,
     twoside: twoside,
     anonymous: anonymous,
+    use-twoside: _use-twoside(twoside),
     use-fonts: name => _use-fonts(fonts, name),
     use-cjk-fonts: name => _use-cjk-fonts(fonts, name),
     /// ------- ///

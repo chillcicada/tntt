@@ -47,6 +47,7 @@
   twoside,
   use-fonts,
   use-cjk-fonts,
+  use-twoside,
   /// layouts
   meta,
   doc,
@@ -430,7 +431,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 *本模板是基于 MIT 协议开源的，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。此外，如果您有问题，建议您到 Github 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
 
 // 手动分页
-#if twoside { pagebreak() + " " }
+#use-twoside
 
 /// ----------- ///
 /// Back Matter ///
@@ -442,7 +443,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #bilingual-bibliography()
 
 // 手动分页
-#if twoside { pagebreak() + " " }
+#use-twoside
 
 // 附录
 = 外文资料的调研阅读报告（或书面翻译）
