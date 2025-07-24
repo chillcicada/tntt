@@ -74,7 +74,7 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 
 移植过程中主要参考了 [清华大学学位论文 Word 模板](https://github.com/fatalerror-i/ThuWordThesis) 和 [清华大学学位论文 LaTeX 模板](https://github.com/tuna/thuthesis)，在此表达感谢。
 
-感谢 [纸叶姐姐](https://github.com/Myriad-Dreamin) 开发的 [Tinymist](https://github.com/Myriad-Dreamin/tinymist) 工具。
+感谢 [纸夜姐姐](https://github.com/Myriad-Dreamin) 开发的 [Tinymist](https://github.com/Myriad-Dreamin/tinymist) 工具。
 
 ## 相关资源
 
