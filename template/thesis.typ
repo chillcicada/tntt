@@ -507,7 +507,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
   移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis", underline[清华大学学位论文 Word 模板]) 和 #link("https://github.com/tuna/thuthesis", underline[清华大学学位论文 LaTeX 模板])，在模板更新的过程中主要参考了官方提供的 Word 模板，在此表达感谢。
 
-  感谢 #link("https://github.com/Myriad-Dreamin", underline[纸叶#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi"))]) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具。
+  感谢 #link("https://www.myriad-dreamin.com/", underline[纸夜])#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi")) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具，您可以通过 #link("https://afdian.com/a/camiyoru", underline[Afdian]) 对纸夜大大进行捐赠来支持他的工作。
 
   感谢 #link("https://typst.app/", underline[Typst]) 团队的努力，感谢 Typst 中文社区。
 
