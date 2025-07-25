@@ -1,4 +1,4 @@
-// #import "@preview/tntt:0.3.3"
+// #import "@preview/tntt:0.3.4"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 
@@ -47,6 +47,7 @@
   twoside,
   use-fonts,
   use-cjk-fonts,
+  use-twoside,
   /// layouts
   meta,
   doc,
@@ -279,7 +280,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 #line(length: 100%)
 
-#align(center)[*以下部分为完整的示例，包含了大部分的功能和用法。*]
+#align(center)[*以下部分为完整的示例，参考了 2024 本科生综合论文训练 Word 模板提供的内容，包含了大部分的功能和用法。*]
 
 = 引　言
 
@@ -402,8 +403,10 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
       + *end*
     ],
     caption: [伪代码示例],
-  )
+  ) <example-pseudocode>
 ]
+
+使用 @fig:example-pseudocode 引用该伪代码示例。
 
 = 结　语
 
@@ -414,19 +417,21 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
 
-- 导出的 PDF 中*编号信息*缺失，但相较于不提供导出书签的官方 Word 版本，#strike[此问题可以忽略]，此问题已被解决；
-- 目前数学公式目录无法忽略附录中的公式，但由于数学公式索引并不启用，因而此问题也可以忽略；
-- 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时由于 Word 排版引擎本身的限制（浮动行距等），因而无法做到完全一致；
+- #text(gray)[导出的 PDF 中*编号信息*缺失，但相较于不提供导出书签的官方 Word 版本，]#strike[此问题可以忽略]，*此问题已被解决*；
+- #text(gray)[目前数学公式目录无法忽略附录中的公式，但由于数学公式索引并不启用，]因而此问题也可以忽略；
+- 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时因 Word 排版引擎本身的限制（浮动行距等），无法做到完全一致；
 - 当前 Typst 不支持多参考文献实例，因而对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现链接的 Word 参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
 
-此外，由于官方提供的 Word 模板中也存在诸多问题，同时很多事项并未在规范中注明，因而存在一些合理出入。
+此外，由于官方提供的 Word 模板中也存在诸多问题，很多事项并未在规范中完全注明，因而一些出入是合理的。
+
+更多对 Typst 引擎的讨论参见社区提供的 #link("https://typst-doc-cn.github.io/clreq/", underline[clreq 文档])。
 
 == 许可证
 
-*本模板是基于 MIT 协议开源的，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))。如果您有问题，建议您到 Github 仓库讨论。
+*本模板是基于 MIT 协议开源的，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。此外，如果您有问题，建议您到 Github 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
 
 // 手动分页
-#if twoside { pagebreak() + " " }
+#use-twoside
 
 /// ----------- ///
 /// Back Matter ///
@@ -438,7 +443,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #bilingual-bibliography()
 
 // 手动分页
-#if twoside { pagebreak() + " " }
+#use-twoside
 
 // 附录
 = 外文资料的调研阅读报告（或书面翻译）
@@ -502,7 +507,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
   移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis", underline[清华大学学位论文 Word 模板]) 和 #link("https://github.com/tuna/thuthesis", underline[清华大学学位论文 LaTeX 模板])，在模板更新的过程中主要参考了官方提供的 Word 模板，在此表达感谢。
 
-  感谢 #link("https://github.com/Myriad-Dreamin", underline[纸叶#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi"))]) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具。
+  感谢 #link("https://www.myriad-dreamin.com/", underline[纸夜])#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi")) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具，您可以通过 #link("https://afdian.com/a/camiyoru", underline[Afdian]) 对纸夜大大进行捐赠来支持他的工作。
 
   感谢 #link("https://typst.app/", underline[Typst]) 团队的努力，感谢 Typst 中文社区。
 
