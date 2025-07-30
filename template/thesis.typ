@@ -13,8 +13,7 @@
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
-/// 对于 Linux 用户，可以使用 `Noto Serif CJK`、`Noto Sans CJK`、`Noto Serif Mono CJK` 或
-/// `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等
+/// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等
 #let font-family = (
   SongTi: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
@@ -124,7 +123,7 @@
 #abstract-en(keywords: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5"))[
   An abstract of a dissertation is a summary and extraction of research work and contributions. Included in an abstract should be description of research topic and research objective, brief introduction to methodology and research process, and summarization of conclusion and contributions of the research. An abstract should be characterized by independence and clarity and carry identical information with the dissertation. It should be such that the general idea and major contributions of the dissertation are conveyed without reading the dissertation.
 
-  An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words “the first chapter”, “the second chapter” and the like should be avoided in the abstract.
+  An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words "the first chapter", "the second chapter" and the like should be avoided in the abstract.
 
   Keywords are terms used in a dissertation for indexing, reflecting core information of the dissertation. The number of keywords should be between 3 and 5, with semi-colons used in between to separate one another.
 ]
@@ -314,7 +313,10 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 图应具有“自明性”，即只看图、图题和图例，不阅读正文，就可理解图意。示例如下：
 
-#figure(image("media/图的示例.png", width: 9.74cm), caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱]) <example>
+#figure(
+  image("media/图的示例.png", width: 9.74cm),
+  caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱],
+) <example>
 
 @fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱。
 

@@ -54,11 +54,33 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
 - Math: 数学字体，中文字体默认使用楷体
 
-对于 win10/11 用户或安装了对应字体的 Linux 用户，相应的字体配置为 `SimSun/NSimSun`、`SimHei`、`KaiTi`、`STFangSong`，对于 macOS 用户，相应的字体配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`，此外，您也可以用 `Noto Serif CJK`、`Noto Sans CJK` 等来替代宋体和黑体。
+对于 win10/11 用户或安装了对应字体的 Linux 用户，相应的字体配置为 `SimSun/NSimSun`、`SimHei`、`KaiTi`、`FangSong`，对于 macOS 用户，建议的字体配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`，此外，您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体（**由于目前 Typst 不支持可变字体，请不要使用 Noto 系列字体（如 `Noto Sans CJK SC`）！**）。
 
-本模板内置了对 win10/11 字体的相关字体配置。
+本模板内置了对 win10/11 字体的相关字体配置，相关的字体位于 [release](https://github.com/chillcicada/tntt/releases/)，windows 中文系统会默认提供上述字体，下载后可通过指定字体路径来使用，如：
 
-对于使用 webapp 的用户，由于其默认不提供内置的上述字体，因而需要手动将字体文件上传到 webapp 中，您可以在 [release 页面](https://github.com/chillcicada/tntt/releases/)下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
+```bash
+# 下载字体到当前目录并解压到 fonts 目录
+curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
+unzip -q fonts.zip && rm fonts.zip
+
+# 在 typst 编译时中指定字体路径
+typst compile thesis.typ --font-path fonts
+# 或（对于克隆本仓库的用户）
+typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
+```
+
+对于使用 VSCode + Tinymist 的用户（更多选项参见 Tinymist [相关文档](https://myriad-dreamin.github.io/tinymist/)）：
+
+```jsonc
+// .vscode/settings.json
+{
+  "tinymist.fontPaths": [
+    "${workspaceFolder}/fonts"
+  ]
+}
+```
+
+对于使用 webapp 的用户，由于其默认不提供内置的上述字体，因而需要手动将字体文件上传到 webapp 中，您可以在 [release](https://github.com/chillcicada/tntt/releases/) 下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
 
 ---
 
@@ -138,18 +160,40 @@ Before starting your edits, please briefly read the following font configuration
 
 This template primarily serves Chinese typesetting and includes built-in configurations for common Chinese font families:
 
-- **SongTi**: SongTi typeface (serif), the main body font, typically corresponding to Western serif fonts.
-- **HeiTi**: HeiTi typeface (sans-serif), used for headings, analogous to Western sans-serif fonts.
-- **KaiTi**: KaiTi typeface, used for explanatory text and subjective expressions.
-- **FangSong**: FangSong typeface, typically used for annotations, citations, and authoritative explanations.
+- **SongTi**: SongTi (serif), the main body font, typically corresponding to Western serif fonts.
+- **HeiTi**: HeiTi (sans-serif), used for headings, analogous to Western sans-serif fonts.
+- **KaiTi**: KaiTi, used for explanatory text and subjective expressions.
+- **FangSong**: FangSong, typically used for annotations, citations, and authoritative explanations.
 - **Mono**: Monospace font, prioritized for code. It is recommended to use Hei or Kai typefaces for Chinese characters, or popular Chinese monospace fonts.
 - **Math**: Math font, with the default Chinese font set to KaiTi.
 
-For Windows 10/11 users or Linux users with corresponding fonts installed, the font configurations are `SimSun/NSimSun`, `SimHei`, `KaiTi`, and `STFangSong`. For macOS users, the configurations are `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. Additionally, you may use `Noto Serif CJK` or `Noto Sans CJK` as alternatives for Song and Hei typefaces.
+For Windows 10/11 users or Linux users with corresponding fonts installed, the font configurations are `SimSun/NSimSun`, `SimHei`, `KaiTi`, and `FangSong`. For macOS users, the configurations are `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. Additionally, you may use `Source Han Serif` or `Source Han Sans` as alternatives for Song and Hei typefaces (**Note: Typst currently does not support variable fonts, so please do not use Noto series fonts, `Noto Sans CJK SC` for example!**).
 
-This template includes built-in font configurations optimized for Windows 10/11 systems.
+This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release](https://github.com/chillcicada/tntt/releases/). Windows Chinese systems will typically provide these fonts by default. After downloading, you can specify the font path for Typst, such as:
 
-For users of the Typst webapp, since it does not provide the above fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release page](https://github.com/chillcicada/tntt/releases/), extract and upload it to your project. The webapp will automatically recognize the font files.
+```bash
+# Download the fonts to the current directory and unzip them to the fonts directory
+curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
+unzip -q fonts.zip && rm fonts.zip
+
+# Specify the font path for Typst compilation
+typst compile thesis.typ --font-path fonts
+# Or (for users who cloned this repository)
+typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
+```
+
+For users of VSCode with Tinymist (see more options in the Tinymist [documentation](https://myriad-dreamin.github.io/tinymist/)):
+
+```jsonc
+// .vscode/settings.json
+{
+  "tinymist.fontPaths": [
+    "${workspaceFolder}/fonts"
+  ]
+}
+```
+
+For users of the Typst webapp, since it does not provide the above fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release](https://github.com/chillcicada/tntt/releases/), extract and upload it to your project. The webapp will automatically recognize the font files.
 
 ---
 
