@@ -44,10 +44,7 @@
   set document(title: info.title.sum(), author: info.author)
 
   if strict {
-    assert(
-      info.title.sum().clusters().len() <= 25,
-      message: "文档标题过长, 请确保标题长度不超过 25 个字符",
-    )
+    assert(info.title.sum().clusters().len() <= 25, message: "文档标题过长，请确保标题长度不超过 25 个字符")
   }
 
   it
