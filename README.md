@@ -10,7 +10,9 @@
 
 TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩写。一个基于 [Typst][Typst] 的**非官方**清华大学学位论文模板。
 
-**目前仅支持本科生的综合论文训练。**
+> [!IMPORTANT]
+>
+> **目前仅支持本科生的综合论文训练。请使用 Typst 最新版进行编辑。**
 
 ## 使用
 
@@ -123,7 +125,9 @@ English | [简体中文](#tntt-typst--tsinghua-university-template)
 
 TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University". An unofficial Tsinghua University thesis template based on [Typst][Typst].
 
-**Currently, it only supports the Comprehensive Thesis Training for undergraduates.**
+> [!IMPORTANT]
+>
+> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Please use the latest version of Typst for editing.**
 
 ## Usage
 
@@ -197,7 +201,7 @@ For users of the Typst webapp, since it does not provide the above fonts by defa
 
 ---
 
-For further usage instructions, please refer to the [template][Template]. It is recommended to start from the template for an improved reading experience.
+For further usage instructions and examples, please refer to the [template][Template]. It is recommended to start from the template for an improved using experience.
 
 ## Preview
 
