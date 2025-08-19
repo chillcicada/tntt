@@ -13,8 +13,7 @@
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
-/// 对于 Linux 用户，可以使用 `Noto Serif CJK`、`Noto Sans CJK`、`Noto Serif Mono CJK` 或
-/// `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等
+/// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等
 #let font-family = (
   SongTi: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
@@ -44,7 +43,6 @@
 
 #let (
   /// global options
-  twoside,
   use-fonts,
   use-cjk-fonts,
   use-twoside,
@@ -124,7 +122,7 @@
 #abstract-en(keywords: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5"))[
   An abstract of a dissertation is a summary and extraction of research work and contributions. Included in an abstract should be description of research topic and research objective, brief introduction to methodology and research process, and summarization of conclusion and contributions of the research. An abstract should be characterized by independence and clarity and carry identical information with the dissertation. It should be such that the general idea and major contributions of the dissertation are conveyed without reading the dissertation.
 
-  An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words “the first chapter”, “the second chapter” and the like should be avoided in the abstract.
+  An abstract should be concise and to the point. It is a misunderstanding to make an abstract an outline of the dissertation and words "the first chapter", "the second chapter" and the like should be avoided in the abstract.
 
   Keywords are terms used in a dissertation for indexing, reflecting core information of the dissertation. The number of keywords should be between 3 and 5, with semi-colons used in between to separate one another.
 ]
@@ -181,7 +179,7 @@
 
 原则上，如果您使用英文撰写，也无需涉及到深度的字体配置修改，默认提供的字体配置尊重西文字体，即您的字体配置可以无缝切换到西文排版，具体参考上文提供的内置字族与西文的对应关系。
 
-除了预定义的字族外，文档默认提供了与 Word 相容的中文字号习惯，对于内置的字体选项，除了传入 length 外，可以直接传入中文字号，如：
+除了预定义的字族外，文档默认提供了与 Word 相容的中文字号习惯，对于内置的字体选项，除了传入 `length` 值外，可以直接传入中文字号，如：
 
 ```typ
 #fonts-display(size: "小三")
@@ -314,7 +312,10 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 图应具有“自明性”，即只看图、图题和图例，不阅读正文，就可理解图意。示例如下：
 
-#figure(image("media/图的示例.png", width: 9.74cm), caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱]) <example>
+#figure(
+  image("media/图的示例.png", width: 9.74cm),
+  caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱],
+) <example>
 
 @fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱。
 
