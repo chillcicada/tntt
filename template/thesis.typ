@@ -270,7 +270,7 @@
 
 == 参考
 
-*除了使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
+*除了项目封面使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
 
 typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方文档]) 和 #link("https://typst-doc-cn.github.io/docs/", underline[Typst 中国社区的翻译])，常见问题可以参考 #link("https://typst.dev/guide/", underline[Typst 中文社区导航])，进阶学习可以参考 #link("https://typst.dev/tutorial/", underline[小蓝书])。
 
@@ -390,6 +390,8 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   #import "@preview/lovelace:0.3.0": pseudocode-list
 
   #figure(
+    kind: "algorithm",
+    supplement: [算法],
     pseudocode-list[
       + do something
       + do something else
@@ -407,13 +409,13 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ) <example-pseudocode>
 ]
 
-使用 @fig:example-pseudocode 引用该伪代码示例。
+使用 @alg:example-pseudocode 引用该伪代码示例。
 
 = 结　语
 
 == 目前存在的问题
 
-- 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 Latex 中同样存在；
+- 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 LaTeX 中同样存在；
 - 文档的排版和样式可能需要根据个人需求进行调整，当前模板提供了最大限度的自由化选项，但目前尚未补全文档，可能需要一定的 Typst 使用经验才能上手，不过，并不鼓励修改内置的选项。
 
 目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
@@ -429,7 +431,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 许可证
 
-*本模板是基于 MIT 协议开源的，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。此外，如果您有问题，建议您到 Github 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
+*本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。此外，如果您有问题，建议您到 Github 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
 
 // 手动分页
 #use-twoside

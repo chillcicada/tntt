@@ -122,7 +122,7 @@
   caption-separator: "  ",
   underline-offset: .1em,
   underline-stroke: .05em,
-  underline-evade: true,
+  underline-evade: false,
   bibliography-font: "SongTi",
   bibliography-size: "五号",
   bibliography-spacing: 12pt,

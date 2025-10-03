@@ -61,7 +61,7 @@
     heading(..args, outlined: false, bookmarked: true, numbering: none, numbered-body)
   }
 
-  show figure: i-figured.show-figure
+  show figure: i-figured.show-figure.with(extra-prefixes: ("algorithm": "alg:"))
 
   show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
 
