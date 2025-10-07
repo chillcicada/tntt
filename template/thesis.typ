@@ -10,6 +10,7 @@
 /// - FangSong: 仿宋，通常用于注释、引文及权威性阐述
 /// - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
 /// - Math: 数学字体，通常用于数学公式和符号，推荐使用无衬线字体或楷体
+/// 除 Math 数学字体外，修改西文字体时请使用 `latin-in-cjk` 覆盖范围的字体，以确保中英文混排时符号的协调性
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
@@ -506,13 +507,15 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   // mask 用于在匿名模式下隐藏内容
   #import tntt: mask-text
 
-  非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
+  #par(first-line-indent: 0em)[关于 TnTT 模板的致谢如下：]
+
+  非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植于由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
   移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis", underline[清华大学学位论文 Word 模板]) 和 #link("https://github.com/tuna/thuthesis", underline[清华大学学位论文 LaTeX 模板])，在模板更新的过程中主要参考了官方提供的 Word 模板，在此表达感谢。
 
   感谢 #link("https://www.myriad-dreamin.com/", underline[纸夜])#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi")) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具，您可以通过 #link("https://afdian.com/a/camiyoru", underline[Afdian]) 对纸夜大大进行捐赠来支持他的工作。
 
-  感谢 #link("https://typst.app/", underline[Typst]) 团队的努力，感谢 Typst 中文社区。
+  感谢 #link("https://github.com/typst", underline[Typst 团队]) 的努力，感谢 #link("https://github.com/typst-doc-cn", underline[Typst 中文社区])。
 
   感谢所有本项目的贡献者。
 ]
