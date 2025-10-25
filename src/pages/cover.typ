@@ -49,8 +49,8 @@
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
 
   let use-anonymous(s, w) = if anonymous {
-    // use outset to fix the base line of the font
-    rect(fill: black, width: w, height: 1em, outset: (top: 2pt, bottom: -2pt))
+    // use the outside to fix the font baseline shift issue
+    block(width: w, fill: black, "", outset: (y: 2pt))
   } else {
     distr-text(s, width: w)
   }
