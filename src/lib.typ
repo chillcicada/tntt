@@ -1,7 +1,7 @@
 #import "imports.typ": *
-#import "utils/text.typ": distr-text, mask-text, space-text
-#import "utils/font.typ": fonts-check, use-size
+#import "utils/font.typ": use-size
 #import "utils/numbering.typ": custom-numbering
+#import "utils/text.typ": distr-text, mask-text, space-text
 
 /// Define the configuration for the document.
 ///
@@ -62,18 +62,18 @@
   /// Auxiliary ///
   /// --------- ///
 
-  import "utils/font.typ": _use-cjk-fonts, _use-fonts
+  import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
   import "utils/page.typ": _use-twoside
-  import "utils/util.typ": str2bool
+  import "utils/util.typ": str2bool as _str2bool
   import "utils/bibliography.typ": bilingual-bibliography
 
   /// ------- ///
   /// Process ///
   /// ------- ///
 
-  if type(twoside) == str { twoside = str2bool(twoside) }
-  if type(anonymous) == str { anonymous = str2bool(anonymous) }
-  if type(strict) == str { strict = str2bool(strict) }
+  if type(twoside) == str { twoside = _str2bool(twoside) }
+  if type(anonymous) == str { anonymous = _str2bool(anonymous) }
+  if type(strict) == str { strict = _str2bool(strict) }
 
   let _support_doctype = ("bachelor",)
 
@@ -105,7 +105,7 @@
       info: info + args.named().at("info", default: (:)),
     ),
     // 文稿设置
-    doc: (..args) => doc(..args, fonts: fonts-check(fonts + args.named().at("fonts", default: (:)))),
+    doc: (..args) => doc(..args, fonts: _fonts-check(fonts + args.named().at("fonts", default: (:)))),
     // 前辅文
     front-matter: (..args) => front-matter(
       twoside: twoside,
@@ -125,30 +125,30 @@
     /// pages ///
     /// ----- ///
     // 字体展示页
-    fonts-display: (..args) => fonts-display(..args, fonts: fonts-check(
+    fonts-display: (..args) => fonts-display(..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 封面页
     cover: (..args) => cover(
       anonymous: anonymous,
       ..args,
-      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
+      fonts: _fonts-check(fonts + args.named().at("fonts", default: (:))),
       info: info + args.named().at("info", default: (:)),
     ),
     // 授权页
-    copyright: (..args) => copyright(anonymous: anonymous, twoside: twoside, ..args, fonts: fonts-check(
+    copyright: (..args) => copyright(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 中文摘要页
-    abstract: (..args) => abstract(anonymous: anonymous, twoside: twoside, ..args, fonts: fonts-check(
+    abstract: (..args) => abstract(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 英文摘要页
-    abstract-en: (..args) => abstract-en(anonymous: anonymous, twoside: twoside, ..args, fonts: fonts-check(
+    abstract-en: (..args) => abstract-en(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 目录页
-    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: fonts-check(
+    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 符号表页
