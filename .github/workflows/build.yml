@@ -13,21 +13,37 @@ jobs:
   render-paper:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: typst-community/setup-typst@v4
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
         with:
           typst-version: ^0.14.0
 
       - name: Install Fonts
         run: |
           curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
-          unzip -q fonts.zip
-          rm fonts.zip
+          unzip -q fonts.zip && rm fonts.zip
 
-      - run: typst c template/thesis.typ --root . thesis.pdf --font-path fonts
+      - name: Make Configurable Inputs
+        run: |
+          sed -i \
+            -e 's/doctype: "bachelor"/doctype: sys.inputs.at("doctype", default: "bachelor")/g' \
+            -e 's/degree: "academic"/degree: sys.inputs.at("degree", default: "academic")/g' \
+            -e 's/anonymous: false/anonymous: sys.inputs.at("anonymous", default: false)/g' \
+            -e 's/strict: true/strict: sys.inputs.at("strict", default: true)/g' \
+            template/thesis.typ
 
-      - uses: actions/upload-artifact@v4
+      - name: Render Thesis
+        run: |
+          ./template/thesis.typ --font-path fonts bachelor.pdf
+          ./template/thesis.typ --font-path fonts bachelor-anonymous.pdf --input anonymous=true
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: thesis
-          path: thesis.pdf
+          name: bachelor-thesis
+          path: |
+            bachelor.pdf
+            bachelor-anonymous.pdf
