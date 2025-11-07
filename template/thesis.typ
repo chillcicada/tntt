@@ -1,5 +1,5 @@
 #!/usr/bin/env -S typst c --root ..
-// #import "@preview/tntt:0.3.4"
+// #import "@preview/tntt:0.4.0"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 
@@ -181,7 +181,7 @@
 #fonts-display(size: 15pt)
 ```
 
-上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下：
+上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下@tbl:font-size 所示：
 
 #figure(
   table(
@@ -193,7 +193,7 @@
     [小七], [5pt],
   ),
   caption: [字号与 pt 对应关系],
-)
+) <font-size>
 
 大部分情况下，您都无需关注内置模板的字体选项，除非您需要使用到一些特殊的字体或字号，或者需要使用到一些特殊的排版效果。如果你想在一些场合使用中文字号，你可以使用模板提供的 `use-size` 函数，如：
 
@@ -301,7 +301,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 = 图、表及表达式示例
 
-引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。引用数学公式需要加上 `eqt:` 前缀。
+引用图表时，为了支持编号按章计数，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号，引用数学公式需要加上 `eqt:` 前缀。
 
 == 论文中图的示例
 
