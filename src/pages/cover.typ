@@ -59,7 +59,8 @@
 
   info.supervisor = use-anonymous(info.supervisor.join(supervisor-sperator), supervisor-width)
 
-  let _max-info-item-width = calc.max(..info-items.values().map(v => v.clusters().len()))
+  // Calculate suitable width of info items
+  let _info-item-width = calc.max(..info-items.values().map(v => v.clusters().len())) * 1em
 
   /// Render cover page
   set page(margin: margin)
@@ -87,7 +88,7 @@
     row-gutter: row-gutter,
     ..info-keys
       .map(k => (
-        distr-text(info-items.at(k), width: _max-info-item-width * 1em),
+        distr-text(info-items.at(k), width: _info-item-width),
         info-sperator,
         info.at(k, default: ""),
       ))
