@@ -1,47 +1,7 @@
-/// ------ ///
-/// Layout ///
-/// ------ ///
-
-#import "layouts/doc.typ": doc, meta
-#import "layouts/front-matter.typ": front-matter
-#import "layouts/main-matter.typ": main-matter
-#import "layouts/back-matter.typ": back-matter
-
-/// ----- ///
-/// Pages ///
-/// ----- ///
-
-// before content
-#import "pages/fonts-display.typ": fonts-display
-#import "pages/cover.typ": cover
-
-// front matter
-#import "pages/copyright.typ": copyright
-#import "pages/abstract.typ": abstract, abstract-en
-#import "pages/outline-wrapper.typ": outline-wrapper
-#import "pages/figure-list.typ": figure-list
-#import "pages/table-list.typ": table-list
-#import "pages/equation-list.typ": equation-list
-#import "pages/notation.typ": notation
-
-// back matter
-#import "pages/acknowledge.typ": acknowledge
-#import "pages/declaration.typ": declaration
-#import "pages/achievement.typ": achievement
-
-// after content
-// TODO: add feedback table
-
-/// --------- ///
-/// Auxiliary ///
-/// --------- ///
-
 #import "imports.typ": *
-#import "utils/text.typ": distr-text, mask-text, space-text
-#import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check, use-size
-#import "utils/page.typ": _use-twoside
+#import "utils/font.typ": use-size
 #import "utils/numbering.typ": custom-numbering
-#import "utils/bibliography.typ": bilingual-bibliography
+#import "utils/text.typ": distr-text, mask-text, space-text
 
 /// Define the configuration for the document.
 ///
@@ -64,6 +24,57 @@
   fonts: (:),
   info: (:),
 ) = {
+  /// ------ ///
+  /// Layout ///
+  /// ------ ///
+
+  import "layouts/doc.typ": doc, meta
+  import "layouts/front-matter.typ": front-matter
+  import "layouts/main-matter.typ": main-matter
+  import "layouts/back-matter.typ": back-matter
+
+  /// ----- ///
+  /// Pages ///
+  /// ----- ///
+
+  // before content
+  import "pages/fonts-display.typ": fonts-display
+  import "pages/cover.typ": cover
+
+  // front matter
+  import "pages/copyright.typ": copyright
+  import "pages/abstract.typ": abstract, abstract-en
+  import "pages/outline-wrapper.typ": outline-wrapper
+  import "pages/figure-list.typ": figure-list
+  import "pages/table-list.typ": table-list
+  import "pages/equation-list.typ": equation-list
+  import "pages/notation.typ": notation
+
+  // back matter
+  import "pages/acknowledge.typ": acknowledge
+  import "pages/declaration.typ": declaration
+  import "pages/achievement.typ": achievement
+
+  // after content
+  // TODO: add feedback table
+
+  /// --------- ///
+  /// Auxiliary ///
+  /// --------- ///
+
+  import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
+  import "utils/page.typ": _use-twoside
+  import "utils/util.typ": str2bool as _str2bool
+  import "utils/bibliography.typ": bilingual-bibliography
+
+  /// ------- ///
+  /// Process ///
+  /// ------- ///
+
+  if type(twoside) == str { twoside = _str2bool(twoside) }
+  if type(anonymous) == str { anonymous = _str2bool(anonymous) }
+  if type(strict) == str { strict = _str2bool(strict) }
+
   let _support_doctype = ("bachelor",)
 
   assert(
@@ -94,7 +105,7 @@
       info: info + args.named().at("info", default: (:)),
     ),
     // 文稿设置
-    doc: (..args) => doc(..args, fonts: fonts-check(fonts + args.named().at("fonts", default: (:)))),
+    doc: (..args) => doc(..args, fonts: _fonts-check(fonts + args.named().at("fonts", default: (:)))),
     // 前辅文
     front-matter: (..args) => front-matter(
       twoside: twoside,
@@ -114,30 +125,30 @@
     /// pages ///
     /// ----- ///
     // 字体展示页
-    fonts-display: (..args) => fonts-display(..args, fonts: fonts-check(
+    fonts-display: (..args) => fonts-display(..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 封面页
     cover: (..args) => cover(
       anonymous: anonymous,
       ..args,
-      fonts: fonts-check(fonts + args.named().at("fonts", default: (:))),
+      fonts: _fonts-check(fonts + args.named().at("fonts", default: (:))),
       info: info + args.named().at("info", default: (:)),
     ),
     // 授权页
-    copyright: (..args) => copyright(anonymous: anonymous, twoside: twoside, ..args, fonts: fonts-check(
+    copyright: (..args) => copyright(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 中文摘要页
-    abstract: (..args) => abstract(anonymous: anonymous, twoside: twoside, ..args, fonts: fonts-check(
+    abstract: (..args) => abstract(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 英文摘要页
-    abstract-en: (..args) => abstract-en(anonymous: anonymous, twoside: twoside, ..args, fonts: fonts-check(
+    abstract-en: (..args) => abstract-en(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 目录页
-    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: fonts-check(
+    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: _fonts-check(
       fonts + args.named().at("fonts", default: (:)),
     )),
     // 符号表页

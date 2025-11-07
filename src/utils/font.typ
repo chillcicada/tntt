@@ -8,7 +8,7 @@
   "Math",
 )
 
-#let fonts-check(fonts) = {
+#let _fonts-check(fonts) = {
   if type(fonts) == dictionary {
     for key in fonts.keys() {
       assert(
@@ -39,7 +39,7 @@
 
 #let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
 
-#let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
+#let _use-fonts(fonts, name) = _fonts-check(fonts).at(name)
 
 #let _use-en-font(fonts, name) = _builtin-fonts-get-en(_use-fonts(fonts, name)).name
 
@@ -72,8 +72,10 @@
 ///
 /// - size (str | length): the font size to check, available cjk font sizes
 /// -> str | length
-#let size-check(size) = {
-  if type(size) == str { assert(_support-font-size.contains(size), message: "Unsupported font size: " + size) } else {
+#let _size-check(size) = {
+  if type(size) == str {
+    assert(_support-font-size.contains(size), message: "Unsupported font size: " + size)
+  } else {
     assert(type(size) == length, message: "Invalid font size type.")
   }
 
@@ -85,6 +87,6 @@
 /// - size (str | length): the font size to use, available cjk font sizes
 /// -> length
 #let use-size(size) = {
-  size = size-check(size)
+  size = _size-check(size)
   if type(size) == str { _builtin-font-size.at(size) } else { size }
 }

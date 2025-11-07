@@ -1,15 +1,10 @@
-// #import "@preview/tntt:0.3.4"
+#!/usr/bin/env -S typst c --root ..
+// #import "@preview/tntt:0.4.0"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 
 /// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备，
-/// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
-/// - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
-/// - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
-/// - KaiTi: 楷体，用于说明性文本和主观性的表达
-/// - FangSong: 仿宋，通常用于注释、引文及权威性阐述
-/// - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
-/// - Math: 数学字体，通常用于数学公式和符号，推荐使用无衬线字体或楷体
+/// 请勿修改 font-family 中定义的键值，除 Math 数学字体外，修改西文字体时请使用 `latin-in-cjk` 覆盖字体范围
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
@@ -186,7 +181,7 @@
 #fonts-display(size: 15pt)
 ```
 
-上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下：
+上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下@tbl:font-size 所示：
 
 #figure(
   table(
@@ -198,7 +193,7 @@
     [小七], [5pt],
   ),
   caption: [字号与 pt 对应关系],
-)
+) <font-size>
 
 大部分情况下，您都无需关注内置模板的字体选项，除非您需要使用到一些特殊的字体或字号，或者需要使用到一些特殊的排版效果。如果你想在一些场合使用中文字号，你可以使用模板提供的 `use-size` 函数，如：
 
@@ -270,7 +265,7 @@
 
 == 参考
 
-*除了使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
+*除了项目封面使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
 
 typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方文档]) 和 #link("https://typst-doc-cn.github.io/docs/", underline[Typst 中国社区的翻译])，常见问题可以参考 #link("https://typst.dev/guide/", underline[Typst 中文社区导航])，进阶学习可以参考 #link("https://typst.dev/tutorial/", underline[小蓝书])。
 
@@ -306,7 +301,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 = 图、表及表达式示例
 
-引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。引用数学公式需要加上 `eqt:` 前缀。
+引用图表时，为了支持编号按章计数，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号，引用数学公式需要加上 `eqt:` 前缀。
 
 == 论文中图的示例
 
@@ -317,7 +312,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
   caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱],
 ) <example>
 
-@fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱。
+@fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
 
 == 论文中表的示例
 
@@ -390,6 +385,8 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   #import "@preview/lovelace:0.3.0": pseudocode-list
 
   #figure(
+    kind: "algorithm",
+    supplement: [算法],
     pseudocode-list[
       + do something
       + do something else
@@ -407,13 +404,13 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ) <example-pseudocode>
 ]
 
-使用 @fig:example-pseudocode 引用该伪代码示例。
+使用 @alg:example-pseudocode 引用该伪代码示例。
 
 = 结　语
 
 == 目前存在的问题
 
-- 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 Latex 中同样存在；
+- 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 LaTeX 中同样存在；
 - 文档的排版和样式可能需要根据个人需求进行调整，当前模板提供了最大限度的自由化选项，但目前尚未补全文档，可能需要一定的 Typst 使用经验才能上手，不过，并不鼓励修改内置的选项。
 
 目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
@@ -429,7 +426,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 许可证
 
-*本模板是基于 MIT 协议开源的，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。此外，如果您有问题，建议您到 Github 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
+*本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。此外，如果您有问题，建议您到 Github 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
 
 // 手动分页
 #use-twoside
@@ -504,13 +501,15 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   // mask 用于在匿名模式下隐藏内容
   #import tntt: mask-text
 
-  非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
+  #par(first-line-indent: 0em)[关于 TnTT 模板的致谢如下：]
+
+  非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植于由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
   移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis", underline[清华大学学位论文 Word 模板]) 和 #link("https://github.com/tuna/thuthesis", underline[清华大学学位论文 LaTeX 模板])，在模板更新的过程中主要参考了官方提供的 Word 模板，在此表达感谢。
 
   感谢 #link("https://www.myriad-dreamin.com/", underline[纸夜])#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi")) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具，您可以通过 #link("https://afdian.com/a/camiyoru", underline[Afdian]) 对纸夜大大进行捐赠来支持他的工作。
 
-  感谢 #link("https://typst.app/", underline[Typst]) 团队的努力，感谢 Typst 中文社区。
+  感谢 #link("https://github.com/typst", underline[Typst 团队]) 的努力，感谢 #link("https://github.com/typst-doc-cn", underline[Typst 中文社区])。
 
   感谢所有本项目的贡献者。
 ]
