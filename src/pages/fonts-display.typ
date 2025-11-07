@@ -30,7 +30,7 @@
   }
 
   /// Render the page
-  set page(margin: (y: 2.5cm))
+  set page(margin: auto)
 
   // use the built-in font Libertinus Serif to display the message
   text(red)[
