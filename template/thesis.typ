@@ -309,10 +309,10 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 #figure(
   image("media/图的示例.png", width: 9.74cm),
-  caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。] ],
+  caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱],
 ) <example>
 
-@fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱。
+@fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
 
 == 论文中表的示例
 

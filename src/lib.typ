@@ -1,47 +1,7 @@
-/// ------ ///
-/// Layout ///
-/// ------ ///
-
-#import "layouts/doc.typ": doc, meta
-#import "layouts/front-matter.typ": front-matter
-#import "layouts/main-matter.typ": main-matter
-#import "layouts/back-matter.typ": back-matter
-
-/// ----- ///
-/// Pages ///
-/// ----- ///
-
-// before content
-#import "pages/fonts-display.typ": fonts-display
-#import "pages/cover.typ": cover
-
-// front matter
-#import "pages/copyright.typ": copyright
-#import "pages/abstract.typ": abstract, abstract-en
-#import "pages/outline-wrapper.typ": outline-wrapper
-#import "pages/figure-list.typ": figure-list
-#import "pages/table-list.typ": table-list
-#import "pages/equation-list.typ": equation-list
-#import "pages/notation.typ": notation
-
-// back matter
-#import "pages/acknowledge.typ": acknowledge
-#import "pages/declaration.typ": declaration
-#import "pages/achievement.typ": achievement
-
-// after content
-// TODO: add feedback table
-
-/// --------- ///
-/// Auxiliary ///
-/// --------- ///
-
 #import "imports.typ": *
 #import "utils/text.typ": distr-text, mask-text, space-text
-#import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check, use-size
-#import "utils/page.typ": _use-twoside
+#import "utils/font.typ": fonts-check, use-size
 #import "utils/numbering.typ": custom-numbering
-#import "utils/bibliography.typ": bilingual-bibliography
 
 /// Define the configuration for the document.
 ///
@@ -64,6 +24,57 @@
   fonts: (:),
   info: (:),
 ) = {
+  /// ------ ///
+  /// Layout ///
+  /// ------ ///
+
+  import "layouts/doc.typ": doc, meta
+  import "layouts/front-matter.typ": front-matter
+  import "layouts/main-matter.typ": main-matter
+  import "layouts/back-matter.typ": back-matter
+
+  /// ----- ///
+  /// Pages ///
+  /// ----- ///
+
+  // before content
+  import "pages/fonts-display.typ": fonts-display
+  import "pages/cover.typ": cover
+
+  // front matter
+  import "pages/copyright.typ": copyright
+  import "pages/abstract.typ": abstract, abstract-en
+  import "pages/outline-wrapper.typ": outline-wrapper
+  import "pages/figure-list.typ": figure-list
+  import "pages/table-list.typ": table-list
+  import "pages/equation-list.typ": equation-list
+  import "pages/notation.typ": notation
+
+  // back matter
+  import "pages/acknowledge.typ": acknowledge
+  import "pages/declaration.typ": declaration
+  import "pages/achievement.typ": achievement
+
+  // after content
+  // TODO: add feedback table
+
+  /// --------- ///
+  /// Auxiliary ///
+  /// --------- ///
+
+  import "utils/font.typ": _use-cjk-fonts, _use-fonts
+  import "utils/page.typ": _use-twoside
+  import "utils/util.typ": str2bool
+  import "utils/bibliography.typ": bilingual-bibliography
+
+  /// ------- ///
+  /// Process ///
+  /// ------- ///
+
+  if type(twoside) == str { twoside = str2bool(twoside) }
+  if type(anonymous) == str { anonymous = str2bool(anonymous) }
+  if type(strict) == str { strict = str2bool(strict) }
+
   let _support_doctype = ("bachelor",)
 
   assert(
