@@ -4,14 +4,7 @@
 #import tntt: define-config, use-size
 
 /// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备，
-/// 请勿修改 font-family 中定义的键值，一般情况下，其含义为：
-/// - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
-/// - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
-/// - KaiTi: 楷体，用于说明性文本和主观性的表达
-/// - FangSong: 仿宋，通常用于注释、引文及权威性阐述
-/// - Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
-/// - Math: 数学字体，通常用于数学公式和符号，推荐使用无衬线字体或楷体
-/// 除 Math 数学字体外，修改西文字体时请使用 `latin-in-cjk` 覆盖范围的字体，以确保中英文混排时符号的协调性
+/// 请勿修改 font-family 中定义的键值，除 Math 数学字体外，修改西文字体时请使用 `latin-in-cjk` 覆盖字体范围
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
@@ -316,7 +309,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 #figure(
   image("media/图的示例.png", width: 9.74cm),
-  caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱],
+  caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。] ],
 ) <example>
 
 @fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱。

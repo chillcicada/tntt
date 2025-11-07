@@ -32,7 +32,7 @@
       depth: heading-numbering.depth,
       heading-numbering.format,
     ),
-    bookmarked: false,
+    bookmarked: true,
     outlined: false,
   )
 
