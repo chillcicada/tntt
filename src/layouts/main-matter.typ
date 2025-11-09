@@ -9,7 +9,7 @@
 /// - twoside (bool): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
 /// - heading-numbering (str): The numbering format for headings.
-/// - reset-footnote (bool): Whether to reset the footnote counter.
+/// - reset-footnote (bool): Whether to reset the footnote counter by page.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -27,13 +27,14 @@
 
   show heading: i-figured.reset-counters
 
-  set heading(numbering: custom-numbering.with(
-    first-level: heading-numbering.first-level,
-    depth: heading-numbering.depth,
-    heading-numbering.format,
-  ))
-
-  set heading(bookmarked: true)
+  set heading(
+    numbering: custom-numbering.with(
+      first-level: heading-numbering.first-level,
+      depth: heading-numbering.depth,
+      heading-numbering.format,
+    ),
+    bookmarked: true,
+  )
 
   show figure: i-figured.show-figure.with(extra-prefixes: ("algorithm": "alg:"))
 

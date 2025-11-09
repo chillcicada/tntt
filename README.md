@@ -27,7 +27,7 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加如下内容来导入此模板。
 
 ```typst
-#import "@preview/tntt:0.3.4"
+#import "@preview/tntt:0.4.0"
 #import tntt: define-config
 ```
 
@@ -142,7 +142,7 @@ typst init @preview/tntt
 Of course, you can also import this template in any Typst file by adding:
 
 ```typst
-#import "@preview/tntt:0.3.4"
+#import "@preview/tntt:0.4.0"
 #import tntt: define-config
 ```
 
@@ -233,7 +233,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 <!-- Markdown Links -->
 
 [Typst]: https://typst.app
-[Quick Start]: https://typst.app/app?template=tntt&version=0.3.4
+[Quick Start]: https://typst.app/app?template=tntt&version=0.4.0
 [Typst Docs]: https://typst.app/docs
 [Typst CN]: https://typst.dev
 [Tinymist]: https://github.com/Myriad-Dreamin/tinymist
