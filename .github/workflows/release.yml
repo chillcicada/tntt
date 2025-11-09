@@ -59,19 +59,20 @@ jobs:
 
       - name: Release package
         run: |
-          mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME"
+          mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/$PKG_VERSION"
 
-          cp -r src "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
-          cp -r template "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
-          cp thumbnail.png "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
-          cp typst.toml "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
-          cp README.md "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
-          cp LICENSE "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+          cp -r src "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/PKG_VERSION/"
+          cp -r template "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/PKG_VERSION/"
+          cp thumbnail.png "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/PKG_VERSION/"
+          cp typst.toml "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/PKG_VERSION/"
+          cp README.md "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/PKG_VERSION/"
+          cp LICENSE "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/PKG_VERSION/"
 
           GIT_USER_NAME="$(git log -1 --pretty=format:'%an')"
           GIT_USER_EMAIL="$(git log -1 --pretty=format:'%ae')"
 
           cd typst-packages
+          git branch -D "${PKG_NAME}-${PKG_VERSION}" || true
           git config user.name "${GIT_USER_NAME}"
           git config user.email "${GIT_USER_EMAIL}"
           git checkout -b "${PKG_NAME}-${PKG_VERSION}"
