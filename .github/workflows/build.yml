@@ -19,7 +19,7 @@ jobs:
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
         with:
-          typst-version: ^0.14.0
+          typst-version: latest
 
       - name: Install Fonts
         run: |

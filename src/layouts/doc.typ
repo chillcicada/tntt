@@ -72,6 +72,8 @@
 /// - body-size (length | str): The size of body text, can be length value or str.
 /// - footnote-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for footnotes.
 /// - footnote-size (length | str): The size of footnotes, can be length value or str.
+/// - footnote-style ("normal" | "super"): The style of footnotes, can be "normal" or "super".
+/// - footnote-numbering (str): The numbering style for footnotes.
 /// - math-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for math equations.
 /// - math-size (length | str): The size of math equations, can be length value or str.
 /// - raw-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for raw text.
@@ -83,6 +85,7 @@
 /// - underline-offset (length): The offset for underlines.
 /// - underline-stroke (stroke): The stroke for underlines.
 /// - underline-evade (bool): Whether to evade underlines for certain elements.
+/// - cite-style ("normal" | "super"): The style of citations, can be "normal" or "super".
 /// - bibliography-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for bibliography entries.
 /// - bibliography-size (length | str): The size of bibliography entries, can be length value or str.
 /// - bibliography-spacing (length): The spacing for bibliography entries.
@@ -111,6 +114,7 @@
   body-size: "小四",
   footnote-font: "SongTi",
   footnote-size: "小五",
+  footnote-style: "normal",
   footnote-numbering: "①",
   math-font: "Math",
   math-size: "小四",
@@ -123,6 +127,7 @@
   underline-offset: .1em,
   underline-stroke: .05em,
   underline-evade: false,
+  cite-style: "normal",
   bibliography-font: "SongTi",
   bibliography-size: "五号",
   bibliography-spacing: 12pt,
@@ -173,11 +178,11 @@
   /// Fontnote
   set footnote(numbering: footnote-numbering)
 
-  // unset super style, only for bachelor thesis
-  show footnote: it => {
+  show footnote: it => if footnote-style == "normal" {
+    // unset super style, only for bachelor thesis
     show super: it => { it.body }
     it
-  }
+  } else if footnote-style == "super" { it } else { panic("Unknown footnote-style: " + cite-style) }
 
   show footnote.entry: it => {
     set text(font: use-fonts(footnote-font), size: use-size(footnote-size))
@@ -217,11 +222,11 @@
   show figure.caption: set text(font: use-fonts(caption-font), size: use-size(caption-size))
 
   /// Bibliography
-  // unset super style, for bachelor thesis
-  show cite: it => {
+  show cite: it => if cite-style == "normal" {
+    // unset super style, for bachelor thesis
     show super: it => { it.body }
     it
-  }
+  } else if cite-style == "super" { it } else { panic("Unknown cite-style: " + cite-style) }
 
   show bibliography: set text(font: use-fonts(bibliography-font), size: use-size(bibliography-size))
 

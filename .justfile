@@ -1,6 +1,7 @@
 # list all available recipes
+[private]
 default:
-  @just --list
+  @just --list --unsorted
 
 # update thumbnail
 thumbnail:
