@@ -15,6 +15,7 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: contains(github.event.ref, 'refs/tags/') && github.event.base_ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,6 +45,8 @@ jobs:
             exit 1
           fi
 
+      - name: Prepare package files
+        run: |
           sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/thesis.typ
           sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/thesis.typ
 
