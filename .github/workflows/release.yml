@@ -1,0 +1,80 @@
+name: Release package
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+env:
+  REGISTRY_REPO: chillcicada/typst-packages
+  PATH_PREFIX: packages/preview
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: contains(github.event.ref, 'refs/tags/') && github.event.base_ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup typst
+        uses: typst-community/setup-typst@v4
+        with:
+          typst-version: latest
+
+      - name: Install Fonts
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
+          unzip -q fonts.zip && rm fonts.zip
+
+      - name: Update thumbnail
+        run: typst c -f png --pages 3 --font-path fonts --root . template/thesis.typ thumbnail.png
+
+      - name: Determine and check package metadata
+        run: |
+          PKG_PREFIX=$(grep -oP 'name\s*=\s*"\K[^"]*' typst.toml)
+          VERSION=$(grep -oP 'version\s*=\s*"\K[^"]*' typst.toml)
+          echo "PKG_NAME=${PKG_PREFIX}" >> "${GITHUB_ENV}"
+          echo "PKG_VERSION=${VERSION}" >> "${GITHUB_ENV}"
+
+          if [[ "${GITHUB_REF_NAME}" != "v${VERSION}" ]]; then
+            echo "package version ${VERSION} does not match release tag ${GITHUB_REF_NAME}" >&2
+            exit 1
+          fi
+
+      - name: Prepare package files
+        run: |
+          sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/thesis.typ
+          sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/thesis.typ
+
+      - name: Checkout package registry
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.REGISTRY_REPO }}
+          token: ${{ secrets.REGISTRY_TOKEN }}
+          path: typst-packages
+
+      - name: Release package
+        run: |
+          mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME"
+
+          cp -r src "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+          cp -r template "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+          cp thumbnail.png "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+          cp typst.toml "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+          cp README.md "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+          cp LICENSE "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/"
+
+          GIT_USER_NAME="$(git log -1 --pretty=format:'%an')"
+          GIT_USER_EMAIL="$(git log -1 --pretty=format:'%ae')"
+
+          cd typst-packages
+          git config user.name "${GIT_USER_NAME}"
+          git config user.email "${GIT_USER_EMAIL}"
+          git checkout -b "${PKG_NAME}-${PKG_VERSION}"
+          git add .
+          git commit -m "${PKG_NAME}:${PKG_VERSION}"
+          git push --set-upstream origin "${PKG_NAME}-${PKG_VERSION}"
