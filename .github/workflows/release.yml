@@ -18,7 +18,7 @@ jobs:
     if: contains(github.event.ref, 'refs/tags/') && github.event.base_ref == 'refs/heads/main'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup typst
         uses: typst-community/setup-typst@v4
@@ -30,9 +30,6 @@ jobs:
           curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
           unzip -q fonts.zip && rm fonts.zip
 
-      - name: Update thumbnail
-        run: typst c -f png --pages 3 --font-path fonts --root . template/thesis.typ thumbnail.png
-
       - name: Determine and check package metadata
         run: |
           PKG_PREFIX=$(grep -oP 'name\s*=\s*"\K[^"]*' typst.toml)
@@ -40,6 +37,7 @@ jobs:
           echo "PKG_NAME=${PKG_PREFIX}" >> "${GITHUB_ENV}"
           echo "PKG_VERSION=${VERSION}" >> "${GITHUB_ENV}"
 
+          # Version check for typst.toml
           if [[ "${GITHUB_REF_NAME}" != "v${VERSION}" ]]; then
             echo "package version ${VERSION} does not match release tag ${GITHUB_REF_NAME}" >&2
             exit 1
@@ -47,11 +45,18 @@ jobs:
 
       - name: Prepare package files
         run: |
+          # Template adjustments
           sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/thesis.typ
           sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/thesis.typ
 
+          # README adjustments
+          sed -i '/> \[!IMPORTANT\]/{N;d;}' README.md
+
+          # Update thumbnail
+          typst c -f png --pages 3 --font-path fonts --root . template/thesis.typ thumbnail.png
+
       - name: Checkout package registry
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.REGISTRY_REPO }}
           token: ${{ secrets.REGISTRY_TOKEN }}
