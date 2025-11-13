@@ -31,7 +31,7 @@ typst init @preview/tntt
 #import tntt: define-config
 ```
 
-此外，您可以通过克隆本仓库来使用夜间版本：
+此外，由于模板频繁更新，您也可以通过克隆本仓库来使用夜间版本：
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -146,7 +146,7 @@ Of course, you can also import this template in any Typst file by adding:
 #import tntt: define-config
 ```
 
-Besides, you can clone this repository to use the nightly version:
+Besides, due to frequency update to the template, you can also clone this repository to use the nightly version:
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
