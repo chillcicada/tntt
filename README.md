@@ -31,7 +31,7 @@ typst init @preview/tntt
 #import tntt: define-config
 ```
 
-此外，由于模板频繁更新，您也可以通过克隆本仓库来使用夜间版本：
+此外，由于模板频繁更新，您也可以通过克隆源仓库来使用夜间版本：
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -71,7 +71,7 @@ typst compile thesis.typ --font-path fonts
 typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 ```
 
-对于使用 VSCode + Tinymist 的用户（更多选项参见 [Tinymist 文档][Tinymist Docs]）：
+对于使用 VSCode + Tinymist 的用户（其他编辑器和更多选项参见 [Tinymist 文档][Tinymist Docs]）：
 
 ```jsonc
 // .vscode/settings.json
@@ -82,7 +82,7 @@ typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 }
 ```
 
-对于使用 webapp 的用户，由于其默认不提供中文字体，需要手动将字体文件上传到 webapp 中，您可以在 [release][Release] 下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
+对于使用 webapp 的用户，由于其默认不提供所需的中文字体，需要手动将字体文件上传到 webapp 中，您可以在 [release][Release] 下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
 
 ---
 
@@ -102,7 +102,7 @@ typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 
 ## 相关资源
 
-- [清华大学学位论文 Word 模板][THU Word Thesis]
+- [清华大学学位论文 Word 模板][THU Word Thesis]（已过时，建议使用教务处提供的 Word 模板）
 - [清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]
 
 ## 许可证
@@ -146,7 +146,7 @@ Of course, you can also import this template in any Typst file by adding:
 #import tntt: define-config
 ```
 
-Besides, due to frequency update to the template, you can also clone this repository to use the nightly version:
+Besides, due to frequency update to the template, you can also clone the source repository to use the nightly version:
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -186,7 +186,7 @@ typst compile thesis.typ --font-path fonts
 typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 ```
 
-For users of VSCode with Tinymist (see more options in the [Tinymist Documentation][Tinymist Docs]):
+For users of VSCode with Tinymist (see other editors and more options in the [Tinymist Documentation][Tinymist Docs]):
 
 ```jsonc
 // .vscode/settings.json
@@ -197,7 +197,7 @@ For users of VSCode with Tinymist (see more options in the [Tinymist Documentati
 }
 ```
 
-For users of the Typst webapp, since it does not provide the above fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
+For users of the Typst webapp, since it does not provide the required fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
 
 ---
 
@@ -217,7 +217,7 @@ Thanks to [Myriad-Dreamin][Myriad-Dreamin] for developing the [Tinymist][Tinymis
 
 ## Relevant Resources
 
-- [Tsinghua University Thesis Word Template][THU Word Thesis]
+- [Tsinghua University Thesis Word Template][THU Word Thesis] (Marked as Outdated, it is recommended to use the Word template provided by the Academic Affairs Office)
 - [Tsinghua University Thesis LaTeX Template][THU LaTeX Thesis]
 
 ## License
