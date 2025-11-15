@@ -47,7 +47,7 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 
 ### 字体配置
 
-本模板主要服务于中文排版，因而内置了常用的中文字族信息，即：
+本模板主要服务于中文排版，依照论文字体排印要求设置了相应的中文字族信息，即：
 
 - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
 - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
@@ -58,7 +58,7 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 
 对于 win10/11 用户或安装了对应字体的 Linux 用户，相应的字体配置为 `SimSun/NSimSun`、`SimHei`、`KaiTi`、`FangSong`，对于 macOS 用户，建议的字体配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`，此外，您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体（**由于目前 Typst 不支持可变字体，请不要使用 Noto 系列字体（如 `Noto Sans CJK SC`）！**）。
 
-本模板内置了对 Win10/11 字体的相关字体配置，相关的字体位于 [release][Release]，Windows 中文系统会默认提供上述字体，Linux 用户下载字体后可通过指定字体路径来使用，如：
+本模板内置了对 Win10/11 字体的相关字体配置，相关的字体位于 [release][Release]，Windows 中文系统会默认提供上述字体。Linux 和 Mac 用户如果需要严格使用论文要求的字体，下载字体后可通过指定字体路径来使用，如：
 
 ```bash
 # 下载字体到当前目录并解压到 fonts 目录
@@ -162,7 +162,7 @@ Before starting your edits, please briefly read the following font configuration
 
 ### Font Configuration
 
-This template primarily serves Chinese typesetting and includes built-in configurations for common Chinese font families:
+This template primarily serves Chinese typesetting and includes the corresponding Chinese font families according to thesis typography requirements, namely:
 
 - **SongTi**: SongTi (serif), the main body font, typically corresponding to Western serif fonts.
 - **HeiTi**: HeiTi (sans-serif), used for headings, analogous to Western sans-serif fonts.
@@ -173,7 +173,7 @@ This template primarily serves Chinese typesetting and includes built-in configu
 
 For Windows 10/11 users or Linux users with corresponding fonts installed, the font configurations are `SimSun/NSimSun`, `SimHei`, `KaiTi`, and `FangSong`. For macOS users, the configurations are `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. Additionally, you may use `Source Han Serif` or `Source Han Sans` as alternatives for Song and Hei typefaces (**Note: Typst currently does not support variable fonts, so please do not use Noto series fonts, `Noto Sans CJK SC` for example!**).
 
-This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release][Release]. Windows Chinese systems will typically provide these fonts by default. Linux users can specify the font path for Typst after downloading fonts, such as:
+This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release][Release]. Windows Chinese systems will typically provide these fonts by default. Linux and Mac users who need to strictly use the required fonts can specify the font path after downloading fonts, for example:
 
 ```bash
 # Download the fonts to the current directory and unzip them to the fonts directory

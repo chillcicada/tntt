@@ -82,5 +82,7 @@ jobs:
           git config user.email "${GIT_USER_EMAIL}"
           git checkout -b "${PKG_NAME}-${PKG_VERSION}"
           git add .
-          git commit -m "${PKG_NAME}:${PKG_VERSION}"
+          git commit -m "${PKG_NAME}:${PKG_VERSION}
+
+          * Auto-generated release commit by GitHub Actions"
           git push --set-upstream origin "${PKG_NAME}-${PKG_VERSION}" --force

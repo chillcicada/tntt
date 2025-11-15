@@ -9,6 +9,8 @@
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo`
 ///
 /// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等
+///
+/// 相关字体可在 https://github.com/chillcicada/tntt/releases/ 下载，仅供学习和研究使用，请勿用于商业用途
 #let font-family = (
   SongTi: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
