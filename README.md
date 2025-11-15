@@ -31,7 +31,7 @@ typst init @preview/tntt
 #import tntt: define-config
 ```
 
-此外，您可以通过克隆本仓库来使用夜间版本：
+此外，由于模板频繁更新，您也可以通过克隆源仓库来使用夜间版本：
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -47,7 +47,7 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 
 ### 字体配置
 
-本模板主要服务于中文排版，因而内置了常用的中文字族信息，即：
+本模板主要服务于中文排版，依照论文字体排印要求设置了相应的中文字族信息，即：
 
 - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
 - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
@@ -58,7 +58,7 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 
 对于 win10/11 用户或安装了对应字体的 Linux 用户，相应的字体配置为 `SimSun/NSimSun`、`SimHei`、`KaiTi`、`FangSong`，对于 macOS 用户，建议的字体配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`，此外，您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体（**由于目前 Typst 不支持可变字体，请不要使用 Noto 系列字体（如 `Noto Sans CJK SC`）！**）。
 
-本模板内置了对 Win10/11 字体的相关字体配置，相关的字体位于 [release][Release]，Windows 中文系统会默认提供上述字体，下载后可通过指定字体路径来使用，如：
+本模板内置了对 Win10/11 字体的相关字体配置，相关的字体位于 [release][Release]，Windows 中文系统会默认提供上述字体。Linux 和 Mac 用户如果需要严格使用论文要求的字体，下载字体后可通过指定字体路径来使用，如：
 
 ```bash
 # 下载字体到当前目录并解压到 fonts 目录
@@ -67,11 +67,11 @@ unzip -q fonts.zip && rm fonts.zip
 
 # 在 typst 编译时中指定字体路径
 typst compile thesis.typ --font-path fonts
-# 或（对于克隆本仓库的用户）
+# 或（对于克隆源仓库的用户）
 typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 ```
 
-对于使用 VSCode + Tinymist 的用户（更多选项参见 [Tinymist 文档][Tinymist Docs]）：
+对于使用 VSCode + Tinymist 的用户（其他编辑器和更多选项参见 [Tinymist 文档][Tinymist Docs]）：
 
 ```jsonc
 // .vscode/settings.json
@@ -82,7 +82,7 @@ typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 }
 ```
 
-对于使用 webapp 的用户，由于其默认不提供中文字体，需要手动将字体文件上传到 webapp 中，您可以在 [release][Release] 下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
+对于使用 webapp 的用户，由于其默认不提供所需的中文字体，需要手动将字体文件上传到 webapp 中，您可以在 [release][Release] 下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
 
 ---
 
@@ -102,7 +102,7 @@ typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 
 ## 相关资源
 
-- [清华大学学位论文 Word 模板][THU Word Thesis]
+- [清华大学学位论文 Word 模板][THU Word Thesis]（已过时，建议使用教务处提供的 Word 模板）
 - [清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]
 
 ## 许可证
@@ -146,7 +146,7 @@ Of course, you can also import this template in any Typst file by adding:
 #import tntt: define-config
 ```
 
-Besides, you can clone this repository to use the nightly version:
+Besides, due to frequency update to the template, you can also clone the source repository to use the nightly version:
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -162,7 +162,7 @@ Before starting your edits, please briefly read the following font configuration
 
 ### Font Configuration
 
-This template primarily serves Chinese typesetting and includes built-in configurations for common Chinese font families:
+This template primarily serves Chinese typesetting and includes the corresponding Chinese font families according to thesis typography requirements, namely:
 
 - **SongTi**: SongTi (serif), the main body font, typically corresponding to Western serif fonts.
 - **HeiTi**: HeiTi (sans-serif), used for headings, analogous to Western sans-serif fonts.
@@ -173,7 +173,7 @@ This template primarily serves Chinese typesetting and includes built-in configu
 
 For Windows 10/11 users or Linux users with corresponding fonts installed, the font configurations are `SimSun/NSimSun`, `SimHei`, `KaiTi`, and `FangSong`. For macOS users, the configurations are `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. Additionally, you may use `Source Han Serif` or `Source Han Sans` as alternatives for Song and Hei typefaces (**Note: Typst currently does not support variable fonts, so please do not use Noto series fonts, `Noto Sans CJK SC` for example!**).
 
-This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release][Release]. Windows Chinese systems will typically provide these fonts by default. After downloading, you can specify the font path for Typst, such as:
+This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release][Release]. Windows Chinese systems will typically provide these fonts by default. Linux and Mac users who need to strictly use the required fonts can specify the font path after downloading fonts, for example:
 
 ```bash
 # Download the fonts to the current directory and unzip them to the fonts directory
@@ -182,11 +182,11 @@ unzip -q fonts.zip && rm fonts.zip
 
 # Specify the font path for Typst compilation
 typst compile thesis.typ --font-path fonts
-# Or (for users who cloned this repository)
+# Or (for users who cloned the source repository)
 typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
 ```
 
-For users of VSCode with Tinymist (see more options in the [Tinymist Documentation][Tinymist Docs]):
+For users of VSCode with Tinymist (see other editors and more options in the [Tinymist Documentation][Tinymist Docs]):
 
 ```jsonc
 // .vscode/settings.json
@@ -197,7 +197,7 @@ For users of VSCode with Tinymist (see more options in the [Tinymist Documentati
 }
 ```
 
-For users of the Typst webapp, since it does not provide the above fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
+For users of the Typst webapp, since it does not provide the required fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
 
 ---
 
@@ -217,7 +217,7 @@ Thanks to [Myriad-Dreamin][Myriad-Dreamin] for developing the [Tinymist][Tinymis
 
 ## Relevant Resources
 
-- [Tsinghua University Thesis Word Template][THU Word Thesis]
+- [Tsinghua University Thesis Word Template][THU Word Thesis] (Marked as Outdated, it is recommended to use the Word template provided by the Academic Affairs Office)
 - [Tsinghua University Thesis LaTeX Template][THU LaTeX Thesis]
 
 ## License

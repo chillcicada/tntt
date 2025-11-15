@@ -59,7 +59,7 @@
 
   text(green)[_Now you can remove the *`fonts-display`* page from the document._]
 
-  align(right)[*Typst Version: v#sys.version*]
+  align(right)[*Typst v#sys.version* & *Template v#toml("../../typst.toml").package.version*]
 
   // Always break to odd page
   pagebreak(to: "odd")
