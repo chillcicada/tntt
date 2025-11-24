@@ -45,13 +45,7 @@
     *字体展示页 | 请调整字体配置至正确在 PDF 中渲染*
   ]
 
-  let font-list = (
-    ("宋体", "SongTi"),
-    ("黑体", "HeiTi"),
-    ("楷体", "KaiTi"),
-    ("仿宋", "FangSong"),
-    ("等宽", "Mono"),
-  )
+  let font-list = (("宋体", "SongTi"), ("黑体", "HeiTi"), ("楷体", "KaiTi"), ("仿宋", "FangSong"), ("等宽", "Mono"))
 
   for it in font-list { display-font(..it) }
 

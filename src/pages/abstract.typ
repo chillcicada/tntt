@@ -3,7 +3,6 @@
 /// Abstract Page (Simplified Chinese version)
 ///
 /// - fonts (dictionary): the font family to use, should be a dictionary
-/// - anonymous (bool): anonymous mode
 /// - twoside (bool): two-sided printing
 /// - outlined (bool): whether to outline the page
 /// - title (content): the title of the abstract page
@@ -19,7 +18,6 @@
 #let abstract(
   // from entry
   fonts: (:),
-  anonymous: false,
   twoside: false,
   // options
   outlined: false,

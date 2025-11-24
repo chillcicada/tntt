@@ -28,22 +28,25 @@ jobs:
 
       - name: Make Configurable Inputs
         run: |
-          sed -i \
+          sed -i template/thesis.typ \
             -e 's/doctype: "bachelor"/doctype: sys.inputs.at("doctype", default: "bachelor")/g' \
             -e 's/degree: "academic"/degree: sys.inputs.at("degree", default: "academic")/g' \
             -e 's/anonymous: false/anonymous: sys.inputs.at("anonymous", default: false)/g' \
-            -e 's/strict: true/strict: sys.inputs.at("strict", default: true)/g' \
-            template/thesis.typ
+            -e 's/twoside: false/twoside: sys.inputs.at("twoside", default: false)/g'
 
       - name: Render Thesis
         run: |
-          ./template/thesis.typ --font-path fonts bachelor.pdf
-          ./template/thesis.typ --font-path fonts bachelor-anonymous.pdf --input anonymous=true
+          ./template/thesis.typ --font-path fonts bachelor-academic.pdf
+          ./template/thesis.typ --font-path fonts bachelor-academic-anonymous.pdf --input anonymous=true
+          ./template/thesis.typ --font-path fonts bachelor-academic-twoside.pdf --input twoside=true
+          ./template/thesis.typ --font-path fonts bachelor-academic-anonymous-twoside.pdf --input anonymous=true --input twoside=true
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: thesis
           path: |
-            bachelor.pdf
-            bachelor-anonymous.pdf
+            bachelor-academic.pdf
+            bachelor-academic-anonymous.pdf
+            bachelor-academic-twoside.pdf
+            bachelor-academic-anonymous-twoside.pdf

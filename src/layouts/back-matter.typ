@@ -24,6 +24,10 @@
   // self
   it,
 ) = {
+  // Page break
+  pagebreak(weak: true, to: if twoside { "odd" })
+
+  // Reset the counter and numbering
   if reset-counter { counter(heading).update(0) }
 
   set heading(

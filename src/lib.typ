@@ -5,20 +5,20 @@
 
 /// Define the configuration for the document.
 ///
-/// - doctype ("bachelor"):
-/// - degree ("academic"):
-/// - twoside (bool):
-/// - anonymous (bool):
+/// - doctype ("bachelor"): The document type.
+/// - degree ("academic"): The degree type.
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool): Whether to use two-sided printing.
 /// - strict (bool): Whether to enable strict check mode for text rendering.
-/// - bibliography ():
-/// - fonts (dictionary):
-/// - info (dictionary):
+/// - bibliography (): The bibliography entry.
+/// - fonts (dictionary): The font family to use.
+/// - info (dictionary): The information to be displayed in the document.
 /// -> dictionary
 #let define-config(
   doctype: "bachelor",
   degree: "academic",
-  twoside: false,
   anonymous: false,
+  twoside: false,
   strict: false,
   bibliography: none,
   fonts: (:),
@@ -55,16 +55,13 @@
   import "pages/declaration.typ": declaration
   import "pages/achievement.typ": achievement
 
-  // after content
-  // TODO: add feedback table
-
   /// --------- ///
   /// Auxiliary ///
   /// --------- ///
 
   import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
   import "utils/page.typ": _use-twoside
-  import "utils/util.typ": str2bool as _str2bool
+  import "utils/util.typ": extend-dict as _extend-dict, str2bool as _str2bool
   import "utils/bibliography.typ": bilingual-bibliography
 
   /// ------- ///
@@ -76,11 +73,13 @@
   if type(strict) == str { strict = _str2bool(strict) }
 
   let _support_doctype = ("bachelor",)
+  assert(_support_doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "))
 
-  assert(
-    _support_doctype.contains(doctype),
-    message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "),
-  )
+  let _support_degree = ("academic",)
+  assert(_support_degree.contains(degree), message: "不支持的学位类型, 目前支持的有: " + _support_degree.join(", "))
+
+  let _extend_info(args) = _extend-dict(info, args, "info")
+  let _extend_fonts(args) = _fonts-check(_extend-dict(fonts, args, "fonts"))
 
   return (
     /// ------- ///
@@ -99,100 +98,45 @@
     /// layouts ///
     /// ------- ///
     // 文档元信息
-    meta: (..args) => meta(
-      strict: strict,
-      ..args,
-      info: info + args.named().at("info", default: (:)),
-    ),
+    meta: (..args) => meta(strict: strict, ..args, info: _extend_info(args)),
     // 文稿设置
-    doc: (..args) => doc(..args, fonts: _fonts-check(fonts + args.named().at("fonts", default: (:)))),
+    doc: (..args) => doc(..args, fonts: _extend_fonts(args)),
     // 前辅文
-    front-matter: (..args) => front-matter(
-      twoside: twoside,
-      ..args,
-    ),
+    front-matter: (..args) => front-matter(twoside: twoside, ..args),
     // 正文
-    main-matter: (..args) => main-matter(
-      twoside: twoside,
-      ..args,
-    ),
+    main-matter: (..args) => main-matter(twoside: twoside, ..args),
     // 后辅文
-    back-matter: (..args) => back-matter(
-      twoside: twoside,
-      ..args,
-    ),
+    back-matter: (..args) => back-matter(twoside: twoside, ..args),
     /// ----- ///
     /// pages ///
     /// ----- ///
     // 字体展示页
-    fonts-display: (..args) => fonts-display(..args, fonts: _fonts-check(
-      fonts + args.named().at("fonts", default: (:)),
-    )),
+    fonts-display: (..args) => fonts-display(..args, fonts: _extend_fonts(args)),
     // 封面页
-    cover: (..args) => cover(
-      anonymous: anonymous,
-      ..args,
-      fonts: _fonts-check(fonts + args.named().at("fonts", default: (:))),
-      info: info + args.named().at("info", default: (:)),
-    ),
+    cover: (..args) => cover(anonymous: anonymous, ..args, fonts: _extend_fonts(args), info: _extend_info(args)),
     // 授权页
-    copyright: (..args) => copyright(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
-      fonts + args.named().at("fonts", default: (:)),
-    )),
+    copyright: (..args) => copyright(anonymous: anonymous, twoside: twoside, ..args, fonts: _extend_fonts(args)),
     // 中文摘要页
-    abstract: (..args) => abstract(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
-      fonts + args.named().at("fonts", default: (:)),
-    )),
+    abstract: (..args) => abstract(twoside: twoside, ..args, fonts: _extend_fonts(args)),
     // 英文摘要页
-    abstract-en: (..args) => abstract-en(anonymous: anonymous, twoside: twoside, ..args, fonts: _fonts-check(
-      fonts + args.named().at("fonts", default: (:)),
-    )),
+    abstract-en: (..args) => abstract-en(twoside: twoside, ..args, fonts: _extend_fonts(args)),
     // 目录页
-    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: _fonts-check(
-      fonts + args.named().at("fonts", default: (:)),
-    )),
+    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: _extend_fonts(args)),
     // 符号表页
-    notation: (..args) => notation(
-      twoside: twoside,
-      ..args,
-    ),
+    notation: (..args) => notation(twoside: twoside, ..args),
     // 插图目录页
-    figure-list: (..args) => figure-list(
-      twoside: twoside,
-      ..args,
-    ),
+    figure-list: (..args) => figure-list(twoside: twoside, ..args),
     // 表格目录页
-    table-list: (..args) => table-list(
-      twoside: twoside,
-      ..args,
-    ),
+    table-list: (..args) => table-list(twoside: twoside, ..args),
     // 公式目录页
-    equation-list: (..args) => equation-list(
-      twoside: twoside,
-      ..args,
-    ),
+    equation-list: (..args) => equation-list(twoside: twoside, ..args),
     // 参考文献页
-    bilingual-bibliography: (..args) => bilingual-bibliography(
-      bibliography: bibliography,
-      ..args,
-    ),
+    bilingual-bibliography: (..args) => bilingual-bibliography(bibliography: bibliography, ..args),
     // 致谢页
-    acknowledge: (..args) => acknowledge(
-      anonymous: anonymous,
-      twoside: twoside,
-      ..args,
-    ),
+    acknowledge: (..args) => acknowledge(anonymous: anonymous, twoside: twoside, ..args),
     // 声明页
-    declaration: (..args) => declaration(
-      anonymous: anonymous,
-      twoside: twoside,
-      ..args,
-    ),
+    declaration: (..args) => declaration(anonymous: anonymous, twoside: twoside, ..args),
     // 成果页
-    achievement: (..args) => achievement(
-      anonymous: anonymous,
-      twoside: twoside,
-      ..args,
-    ),
+    achievement: (..args) => achievement(anonymous: anonymous, twoside: twoside, ..args),
   )
 }
