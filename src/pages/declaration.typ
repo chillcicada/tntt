@@ -1,5 +1,3 @@
-#import "../utils/font.typ": use-size
-
 /// Declaration Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
@@ -24,6 +22,8 @@
   back: "签  名：____________  日  期：____________",
 ) = {
   if anonymous { return }
+
+  import "../utils/font.typ": use-size
 
   pagebreak(weak: true, to: if twoside { "odd" })
 

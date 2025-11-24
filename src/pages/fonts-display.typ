@@ -1,5 +1,3 @@
-#import "../utils/font.typ": use-size
-
 /// Fonts Display Page
 ///
 /// - fonts (dictionary): The dictionary of fonts to be displayed.
@@ -15,6 +13,8 @@
   cjk-text: "落霞与孤鹜齐飞，秋水共长天一色。",
   latin-text: "The fanfare of birds announces the morning.",
 ) = {
+  import "../utils/font.typ": use-size
+
   let display-font(cjk-name, latin-name) = {
     line(length: 100%, stroke: .3pt)
 

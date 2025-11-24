@@ -1,4 +1,3 @@
-#import "../utils/font.typ": _use-fonts
 
 /// Abstract Page (Simplified Chinese version)
 ///
@@ -32,6 +31,8 @@
   // self
   it,
 ) = {
+  import "../utils/font.typ": _use-fonts
+
   /// Auxiliary function to handle the font usage
   let use-fonts = name => _use-fonts(fonts, name)
 

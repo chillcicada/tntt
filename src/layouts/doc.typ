@@ -1,9 +1,3 @@
-#import "../utils/font.typ": _use-en-font, _use-fonts, use-size
-#import "../utils/util.typ": array-at
-
-#import "../imports.typ": cuti
-#import cuti: show-cn-fakebold
-
 /// Meta Information for the Document / PDF
 ///
 /// - info (dictionary): The metadata for the document, including title and author.
@@ -30,6 +24,9 @@
   // self
   it,
 ) = {
+  import "../imports.typ": cuti
+  import cuti: show-cn-fakebold
+
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
   }
@@ -134,6 +131,9 @@
   // self
   it,
 ) = {
+  import "../utils/font.typ": _use-en-font, _use-fonts, use-size
+  import "../utils/util.typ": array-at
+
   /// Auxiliary functions
   let use-fonts = name => _use-fonts(fonts, name)
 

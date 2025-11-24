@@ -1,7 +1,3 @@
-#import "../utils/numbering.typ": custom-numbering
-
-#import "../imports.typ": i-figured
-
 /// Back Matter Layout
 ///
 /// - twoside (bool): Whether to use two-sided layout.
@@ -24,6 +20,10 @@
   // self
   it,
 ) = {
+  import "../utils/numbering.typ": custom-numbering
+
+  import "../imports.typ": i-figured
+
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 

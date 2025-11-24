@@ -1,6 +1,3 @@
-#import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
-#import "../utils/text.typ": distr-text, space-text
-
 /// Cover Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode
@@ -44,6 +41,9 @@
   author-width: 4em,
   supervisor-width: 8em,
 ) = {
+  import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
+  import "../utils/text.typ": distr-text, space-text
+
   /// Prepare info
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
