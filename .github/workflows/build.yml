@@ -41,7 +41,7 @@ jobs:
           ./template/thesis.typ --font-path fonts bachelor-anonymous.pdf --input anonymous=true
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: thesis
           path: |
