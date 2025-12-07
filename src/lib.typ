@@ -54,6 +54,7 @@
   import "pages/acknowledge.typ": acknowledge
   import "pages/declaration.typ": declaration
   import "pages/achievement.typ": achievement
+  import "pages/record-sheet.typ": record-sheet
 
   /// --------- ///
   /// Auxiliary ///
@@ -138,5 +139,7 @@
     declaration: (..args) => declaration(anonymous: anonymous, twoside: twoside, ..args),
     // 成果页
     achievement: (..args) => achievement(anonymous: anonymous, twoside: twoside, ..args),
+    // 论文训练记录表
+    record-sheet: (..args) => record-sheet(anonymous: anonymous, twoside: twoside, ..args, info: _extend_info(args)),
   )
 }

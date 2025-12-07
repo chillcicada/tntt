@@ -42,3 +42,13 @@
 }
 
 #let distr-text(body, ..args) = _use-content(_distr-text, body, ..args)
+
+/// Create a vertical stack of text clusters.
+///
+/// - text (str): the text to stack
+/// - spacing (length): the spacing between lines
+/// -> content
+#let _use-stack(text, spacing: 3.6pt) = stack(dir: ttb, ..text.clusters(), spacing: spacing)
+
+#let use-stack(body, ..args) = _use-content(_use-stack, body, ..args)
+

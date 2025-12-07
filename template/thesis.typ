@@ -64,6 +64,7 @@
   acknowledge,
   declaration,
   achievement,
+  record-sheet,
 ) = define-config(
   doctype: "bachelor",
   degree: "academic",
@@ -77,6 +78,8 @@
     major: "××××××××",
     supervisor: ("某某某", "教授"),
     submit-date: "二○二四年十一月",
+    student-id: "2022000000",
+    class: "××××××",
   ),
   // 参考文献源
   bibliography: bibliography.with("ref.bib"),
@@ -536,3 +539,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
   在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
 ]
+
+// 论文训练记录表
+#record-sheet()
