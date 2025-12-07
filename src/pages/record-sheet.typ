@@ -1,3 +1,22 @@
+/// Record Sheet Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool): Whether to use two-sided layout.
+/// - info (dictonary): Information about the student and thesis.
+/// - title (content): The title of the record sheet page.
+/// - prefill (bool): Whether to prefill the student information.
+/// - rows (list(length)): The heights of the table rows.
+/// - columns (list(length)): The widths of the table columns.
+/// - author (content): The name of the student.
+/// - student-id (content): The student ID.
+/// - class (content): The class of the student.
+/// - thesis-title (content): The title of the thesis.
+/// - content (content): The main content and progress arrangement.
+/// - mid-term-comment (content): The mid-term assessment comments.
+/// - instructor-comment (content): The instructor's comments.
+/// - reviewer-comment (content): The reviewer's comments.
+/// - defense-comment (content): The defense committee's comments.
+/// -> content
 #let record-sheet(
   // from entry
   anonymous: false,
@@ -6,6 +25,8 @@
   // options
   title: [综合论文训练记录表],
   prefill: true,
+  rows: (1cm, 1cm, 12cm, 6.5cm),
+  columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr),
   author: [],
   student-id: [],
   class: [],
@@ -48,8 +69,8 @@
 
     table(
       stroke: .5pt,
-      rows: (1cm, 1cm, 12cm, 6.5cm),
-      columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr),
+      rows: rows,
+      columns: columns,
       align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
       [学生姓名], author, [学号], student-id, [班级], class,
       [论文题目], table.cell(colspan: 5, thesis-title),
