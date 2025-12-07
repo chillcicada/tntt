@@ -25,6 +25,9 @@ jobs:
         with:
           typst-version: latest
 
+      - name: Setup just
+        uses: extractions/setup-just@v3
+
       - name: Install Fonts
         run: |
           curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
@@ -45,15 +48,15 @@ jobs:
 
       - name: Prepare package files
         run: |
+          # Update thumbnail
+          typst c -f png --pages 3 --font-path fonts --root . template/thesis.typ thumbnail.png
+
           # Template adjustments
           sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/thesis.typ
           sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/thesis.typ
 
           # README adjustments
           sed -i '/> \[!IMPORTANT\]/{N;d;}' README.md
-
-          # Update thumbnail
-          typst c -f png --pages 3 --font-path fonts --root . template/thesis.typ thumbnail.png
 
       - name: Checkout package registry
         uses: actions/checkout@v6
