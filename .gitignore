@@ -1,5 +1,6 @@
 /fonts/
 .temp/
 .vscode/
+.zed/
 *.pdf
 record*.json

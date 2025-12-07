@@ -8,11 +8,11 @@
 
 ## 介绍
 
-TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩写。一个基于 [Typst][Typst] 的**非官方**清华大学学位论文模板。
+TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩写。一个基于 [Typst][Typst] 的**非官方**清华大学（THU）学位论文模板。
 
 > [!IMPORTANT]
 >
-> **目前仅支持本科生的综合论文训练。请使用 Typst 最新版进行编辑。**
+> **目前仅支持本科生的综合论文训练。由于 Typst 尚未稳定，本模板会持续追踪最新的发布版本，因而请使用 Typst 最新版进行编辑，以确保能使用上新的特性并减少不兼容问题。**
 
 ## 使用
 
@@ -35,9 +35,15 @@ typst init @preview/tntt
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
+# 使用 ssh
+# git clone git@github.com:chillcicada/tntt.git --depth 1
 ```
 
-然后修改 `template/thesis.typ` 来编辑您的论文，如在使用中遇到字体渲染问题，请参阅 [导引](#导引) 部分。
+然后修改 `template/thesis.typ` 来编辑您的论文。
+
+---
+
+如在使用中遇到字体渲染问题，请参阅 [字体配置](#字体配置) 部分。
 
 ## 导引
 
@@ -65,10 +71,12 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# 在 typst 编译时中指定字体路径
+# 在 typst 编译时中指定字体路径，假设 thesis.typ 为入口文件
 typst compile thesis.typ --font-path fonts
 # 或（对于克隆源仓库的用户）
-typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
+typst compile template/thesis.typ --root . --font-path fonts
+# 将 typst 文件视作脚本运行（仅对于克隆源仓库的 UNIX 用户）
+# ./template/thesis.typ --font-path fonts
 ```
 
 对于使用 VSCode + Tinymist 的用户（其他编辑器和更多选项参见 [Tinymist 文档][Tinymist Docs]）：
@@ -123,11 +131,11 @@ English | [简体中文](#tntt-typst--tsinghua-university-template)
 
 ## Introduction
 
-TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University". An unofficial Tsinghua University thesis template based on [Typst][Typst].
+TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University". An unofficial Tsinghua University (THU) thesis template based on [Typst][Typst].
 
 > [!IMPORTANT]
 >
-> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Please use the latest version of Typst for editing.**
+> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Since Typst is not yet stable, this template will continuously track the latest released version. Therefore, please use the latest version of Typst for editing to ensure you can use new features and reduce compatibility issues.**
 
 ## Usage
 
@@ -150,9 +158,15 @@ Besides, due to frequency update to the template, you can also clone the source 
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
+# with ssh
+# git clone git@github.com:chillcicada/tntt.git --depth 1
 ```
 
-Then modify `template/thesis.typ` to edit your thesis. If you encounter font rendering issues, please refer to the [Instructions](#instructions) section.
+Then modify `template/thesis.typ` to edit your thesis.
+
+---
+
+If you encounter font rendering issues, please refer to the [Font Configuration](#font-configuration) section.
 
 ## Instructions
 
@@ -176,14 +190,16 @@ For Windows 10/11 users or Linux users with corresponding fonts installed, the f
 This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release][Release]. Windows Chinese systems will typically provide these fonts by default. Linux and Mac users who need to strictly use the required fonts can specify the font path after downloading fonts, for example:
 
 ```bash
-# Download the fonts to the current directory and unzip them to the fonts directory
+# Download the fonts zip to the current directory and unzip it to the fonts directory
 curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# Specify the font path for Typst compilation
+# Specify the font path for typst compilation, take thesis.typ as the entry file
 typst compile thesis.typ --font-path fonts
 # Or (for users who cloned the source repository)
-typst compile template/thesis.typ --root . thesis.pdf --font-path fonts
+typst compile template/thesis.typ --root . --font-path fonts
+# Run typst file as script (for only UNIX users who cloned the source repository)
+# ./template/thesis.typ --font-path fonts
 ```
 
 For users of VSCode with Tinymist (see other editors and more options in the [Tinymist Documentation][Tinymist Docs]):
@@ -197,7 +213,7 @@ For users of VSCode with Tinymist (see other editors and more options in the [Ti
 }
 ```
 
-For users of the Typst webapp, since it does not provide the required fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
+For the users of Typst webapp, since it does not provide the required fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
 
 ---
 
@@ -207,7 +223,7 @@ For further usage instructions and examples, please refer to the [template][Temp
 
 ![preview][Preview]
 
-## Acknowledgements
+## Acknowledgments
 
 Special thanks to [OrangeX4][OrangeX4] for their contributions to the Nanjing University thesis template [modern-nju-thesis][NJU Thesis]. This project is adapted from the modern-nju-thesis template maintained by OrangeX4 and [nju-lug][nju-lug]. We appreciate their work.
 

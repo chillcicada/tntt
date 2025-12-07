@@ -15,7 +15,7 @@
   it,
 ) = {
   // Page break
-  if twoside { pagebreak() + " " }
+  pagebreak(weak: true, to: if twoside { "odd" })
 
   // Reset the counter
   counter(page).update(page-start)

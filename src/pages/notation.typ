@@ -48,8 +48,4 @@
       } else { (it.term, it.description) }) // terms.item
       .flatten()
   ))))
-
-  /// Notation page is the last page of the front matter,
-  /// so we need to ensure it ends with a page break before the main matter in two-sided mode.
-  if twoside { pagebreak() + " " }
 }

@@ -10,3 +10,5 @@
     panic("Cannot convert string to bool: " + s)
   }
 }
+
+#let extend-dict(dict, args, index) = { dict + args.named().at(index, default: (:)) }

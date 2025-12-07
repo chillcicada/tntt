@@ -1,6 +1,3 @@
-#import "../utils/font.typ": _use-fonts, use-size
-#import "../utils/util.typ": array-at
-
 /// Outline Wrapper Page
 ///
 /// - twoside (bool): Whether to use two-sided printing
@@ -32,6 +29,9 @@
   gap: .3em,
   fill: (repeat([.], gap: .1pt),),
 ) = {
+  import "../utils/font.typ": _use-fonts, use-size
+  import "../utils/util.typ": array-at
+
   /// Parse the outline configuration
   font = font.map(name => _use-fonts(fonts, name))
 

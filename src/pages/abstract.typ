@@ -1,9 +1,7 @@
-#import "../utils/font.typ": _use-fonts
 
 /// Abstract Page (Simplified Chinese version)
 ///
 /// - fonts (dictionary): the font family to use, should be a dictionary
-/// - anonymous (bool): anonymous mode
 /// - twoside (bool): two-sided printing
 /// - outlined (bool): whether to outline the page
 /// - title (content): the title of the abstract page
@@ -19,7 +17,6 @@
 #let abstract(
   // from entry
   fonts: (:),
-  anonymous: false,
   twoside: false,
   // options
   outlined: false,
@@ -34,6 +31,8 @@
   // self
   it,
 ) = {
+  import "../utils/font.typ": _use-fonts
+
   /// Auxiliary function to handle the font usage
   let use-fonts = name => _use-fonts(fonts, name)
 

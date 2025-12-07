@@ -1,9 +1,3 @@
-#import "../utils/font.typ": use-size
-#import "../utils/util.typ": array-at
-#import "../utils/numbering.typ": custom-numbering
-
-#import "../imports.typ": i-figured
-
 /// Main Matter Layout
 ///
 /// - twoside (bool): Whether to use two-sided layout.
@@ -23,6 +17,12 @@
   // self
   it,
 ) = {
+  import "../utils/font.typ": use-size
+  import "../utils/util.typ": array-at
+  import "../utils/numbering.typ": custom-numbering
+
+  import "../imports.typ": i-figured
+
   set page(numbering: page-numbering)
 
   show heading: i-figured.reset-counters

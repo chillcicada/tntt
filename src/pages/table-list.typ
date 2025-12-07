@@ -1,5 +1,3 @@
-#import "../imports.typ": i-figured
-
 /// Table Index Page
 ///
 /// - twoside (bool): Whether to use two-sided printing
@@ -13,15 +11,11 @@
   title: [附表清单],
   outlined: false,
 ) = {
+  import "../imports.typ": i-figured
+
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(
-    level: 1,
-    numbering: none,
-    outlined: outlined,
-    bookmarked: true,
-    title,
-  )
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
 
   i-figured.outline(target-kind: table, title: none)
 }
