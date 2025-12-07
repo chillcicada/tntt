@@ -1,5 +1,5 @@
 #!/usr/bin/env -S typst c --root ..
-// #import "@preview/tntt:0.4.0"
+// #import "@preview/tntt:0.4.1"
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 

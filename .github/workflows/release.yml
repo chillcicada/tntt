@@ -39,7 +39,7 @@ jobs:
 
           # Version check for typst.toml
           if [[ "${GITHUB_REF_NAME}" != "v${VERSION}" ]]; then
-            echo "package version ${VERSION} does not match release tag ${GITHUB_REF_NAME}" >&2
+            echo "package v${VERSION} does not match release tag ${GITHUB_REF_NAME}" >&2
             exit 1
           fi
 
