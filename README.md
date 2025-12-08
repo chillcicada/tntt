@@ -4,7 +4,7 @@
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
-简体中文 | [English](#tntt-typst--tsinghua-university-template-1)
+简体中文 | [English](#Introduction)
 
 ## 介绍
 
@@ -127,7 +127,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 # TnTT: Typst & Tsinghua University Template
 
-English | [简体中文](#tntt-typst--tsinghua-university-template)
+English | [简体中文](#介绍)
 
 ## Introduction
 
