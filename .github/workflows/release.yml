@@ -25,9 +25,6 @@ jobs:
         with:
           typst-version: latest
 
-      - name: Setup just
-        uses: extractions/setup-just@v3
-
       - name: Install Fonts
         run: |
           curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
