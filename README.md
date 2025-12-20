@@ -8,17 +8,17 @@
 
 ## 介绍
 
-TnTT 是 Tntt is Not a Tex Thesis Template for Tsinghua university 的递归缩写。一个基于 [Typst][Typst] 的**非官方**清华大学（THU）学位论文模板。
+TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归缩写，一个基于 [Typst][Typst] 的**非官方**清华大学（THU）学位论文模板。
 
 > [!IMPORTANT]
 >
-> **目前仅支持本科生的综合论文训练。由于 Typst 尚未稳定，本模板会持续追踪最新的发布版本，因而请使用 Typst 最新版进行编辑，以确保能使用上新的特性并减少不兼容问题。**
+> **目前仅支持本科生的综合论文训练。由于 Typst 尚未稳定，本模板会持续追踪最新发布版本。因此，请使用 Typst 的最新版进行编辑，以确保能使用上新的特性并避免兼容性问题。**
 
 ## 使用
 
-您可以在 [Typst Web][Typst] 应用程序中使用此模板，方法是单击仪表板上的「**Start from template**」并搜索 `tntt` 来创建项目，或单击 [此处][Quick Start] 来快速创建。
+您可以在 [Typst Web][Typst] 应用中使用此模板：仪表板上单击「**Start from template**」，搜索 `tntt` 即可创建项目；或直接单击[此处][Quick Start]来快速创建。
 
-或者，您也可以使用 `typst` 命令行工具来创建一个带有模板的新项目：
+您也可以使用 `typst` 命令行工具来创建基于此模板的新项目：
 
 ```bash
 typst init @preview/tntt
@@ -31,7 +31,7 @@ typst init @preview/tntt
 #import tntt: define-config
 ```
 
-此外，由于模板频繁更新，您也可以通过克隆源仓库来使用夜间版本：
+此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本：
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -39,47 +39,47 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 # git clone git@github.com:chillcicada/tntt.git --depth 1
 ```
 
-然后修改 `template/thesis.typ` 来编辑您的论文。
+随后，修改 `template/thesis.typ` 即可开始编辑您的论文。
 
 ---
 
-如在使用中遇到字体渲染问题，请参阅 [字体配置](#字体配置) 部分。
+若在使用中遇到字体渲染问题，请参阅[字体配置](#字体配置)部分。
 
 ## 导引
 
-如果您对 [Typst 语法][Typst Docs] 并不熟悉，请参阅 [中文社区导航][Typst CN] 获得快速指引。推荐使用 [Tinymist][Tinymist] 或 [Typst Webapp][Typst] 来编辑项目。**对于重要的论文及其材料，您应该及时备份并进行版本管理来避免内容丢失。**
+如果您对 [Typst 语法][Typst Docs]并不熟悉，可参阅[中文社区导航][Typst CN]快速入门。推荐使用 [Tinymist][Tinymist] 或 [Typst Webapp][Typst] 来编辑项目。**对于论文等重要材料，请务必及时备份并进行版本管理，以防内容丢失。**
 
-在开始编辑之前，请简单阅读如下的字体配置说明：
+在开始编辑之前，如果您对 Typst 字体配置不了解，建议先阅读以下的字体配置说明：
 
 ### 字体配置
 
-本模板主要服务于中文排版，依照论文字体排印要求设置了相应的中文字族信息，即：
+本模板主要面向中文排版，并依照论文字体规范设置了相应的中文字族信息，即：
 
 - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
 - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
-- KaiTi: 楷体，用于说明性文本和主观性的表达
+- KaiTi: 楷体，适用于说明性文本和主观性表述
 - FangSong: 仿宋，通常用于注释、引文及权威性阐述
-- Mono: 等宽字体，对于代码，会优先使用此项，推荐中文字体使用黑体或楷体，或者一些流行的中文等宽字体
-- Math: 数学字体，中文字体默认使用楷体
+- Mono: 等宽字体，适用于代码。暂不清楚相关规范，默认西文字体为 Typst 内置的 `DejaVu Sans Mono`，建议中文字体选用黑体或楷体，或使用常见的中文等宽字体，默认为 `HeiTi`
+- Math: 数学字体。暂不清楚相关规范，默认西文字体为 Typst 内置的 `New Computer Modern Math`，中文字体为 `HeiTi`
 
-对于 win10/11 用户或安装了对应字体的 Linux 用户，相应的字体配置为 `SimSun/NSimSun`、`SimHei`、`KaiTi`、`FangSong`，对于 macOS 用户，建议的字体配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`，此外，您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体（**由于目前 Typst 不支持可变字体，请不要使用 Noto 系列字体（如 `Noto Sans CJK SC`）！**）。
+对于 Windows 10/11 用户或安装了相应字体的 Linux 用户，可使用字体配置 `NSimSun`、`SimHei`、`KaiTi`、`FangSong`，这与 Word 论文模板中的字体配置完全相同，也是本模板默认的字体配置；对于 MacOS 用户，除了安装上述字体外，建议配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`。您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体。**请注意，由于 Typst 目前对可变字体支持有限，请勿使用 Noto 系列（如 `Noto Sans CJK SC`）等可变字体**。
 
-本模板内置了对 Win10/11 字体的相关字体配置，相关的字体位于 [release][Release]，Windows 中文系统会默认提供上述字体。Linux 和 Mac 用户如果需要严格使用论文要求的字体，下载字体后可通过指定字体路径来使用，如：
+本模板已内置适用于 Windows 10/11 系统的字体配置，中文版 Windows 系统通常已预装这些字体。Linux 和 MacOS 用户如需严格使用论文要求的字体，可将本地 Windows 对应字体提取、下载并安装到系统中，或在下载后通过指定字体路径来使用，如：
 
 ```bash
-# 下载字体到当前目录并解压到 fonts 目录
+# 将字体压缩包下载至当前目录，并解压到 fonts 文件夹，仅供参考
 curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# 在 typst 编译时中指定字体路径，假设 thesis.typ 为入口文件
+# 在 typst 编译时指定字体路径，假设 thesis.typ 为入口文件
 typst compile thesis.typ --font-path fonts
-# 或（对于克隆源仓库的用户）
+# 或（适用于克隆源代码仓库的用户）
 typst compile template/thesis.typ --root . --font-path fonts
-# 将 typst 文件视作脚本运行（仅对于克隆源仓库的 UNIX 用户）
+# 将 typst 文件视作脚本运行（仅适用于克隆源仓库代码的 UNIX 用户）
 # ./template/thesis.typ --font-path fonts
 ```
 
-对于使用 VSCode + Tinymist 的用户（其他编辑器和更多选项参见 [Tinymist 文档][Tinymist Docs]）：
+对于使用 VSCode + Tinymist 的用户（其他编辑器及更多设置请参考 [Tinymist 文档][Tinymist Docs]）：
 
 ```jsonc
 // .vscode/settings.json
@@ -90,11 +90,11 @@ typst compile template/thesis.typ --root . --font-path fonts
 }
 ```
 
-对于使用 webapp 的用户，由于其默认不提供所需的中文字体，需要手动将字体文件上传到 webapp 中，您可以在 [release][Release] 下找到提供的字体包并解压上传到您的项目中，webapp 会自动识别字体文件。
+对于使用 Typst Web 应用的用户，由于默认未提供所需中文字体，您需要手动将字体文件上传至项目中，webapp 将自动识别字体文件（请勿上传压缩包）。
 
 ---
 
-对于更多的使用说明和示例，已经内置于 [模板][Template] 中，推荐从模板创建，获得更好的使用体验。
+更多使用说明与示例已内置在[模板][Template]中，建议从模板创建项目以获得更好的体验。
 
 ## 预览
 
@@ -102,15 +102,15 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 ## 致谢
 
-非常感谢 [OrangeX4][OrangeX4] 为南京大学学位论文 Typst 模板 [modern-nju-thesis][NJU Thesis] 所做的贡献，本项目移植自由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
+衷心感谢 [OrangeX4][OrangeX4] 为南京大学学位论文 Typst 模板 [modern-nju-thesis][NJU Thesis] 所做的贡献。本项目移植自由 OrangeX4 及 [nju-lug][nju-lug] 维护的 modern-nju-thesis 模板，感谢他们的出色工作。
 
-移植过程中主要参考了 [清华大学学位论文 Word 模板][THU Word Thesis] 和 [清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]，在此表达感谢。
+在移植过程中，主要参考了[清华大学学位论文 Word 模板][THU Word Thesis]、[清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]以及教务下发的 Word 和 PDF 模板，在此表达感谢。
 
-感谢 [纸夜~~姐姐~~][Myriad-Dreamin] 开发的 [Tinymist][Tinymist] 工具。
+感谢[纸夜][Myriad-Dreamin]开发 [Tinymist][Tinymist] 工具。
 
 ## 相关资源
 
-- [清华大学学位论文 Word 模板][THU Word Thesis]（已过时，建议使用教务处提供的 Word 模板）
+- [清华大学学位论文 Word 模板][THU Word Thesis]（已过时，非常建议使用教务处下发的 Word 模板）
 - [清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]
 
 ## 许可证
@@ -119,7 +119,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 > [!IMPORTANT]
 >
-> 本项目中包含清华大学校徽与校名的图形文件，用于制作制作本科生综合论文训练封面。这些图形取自 [清华大学视觉形象系统][THU VI System]，项目维护者未进行任何修改。
+> 本项目中包含清华大学校徽与校名的图形文件，用于制作制作本科生综合论文训练封面。这些图形取自[清华大学视觉形象系统][THU VI System]，项目维护者未进行任何修改。
 >
 > **请注意：相关图形与文字都是清华大学的注册商标，除此模板外，请勿用于任何其他用途。**
 
@@ -131,30 +131,30 @@ English | [简体中文](#介绍)
 
 ## Introduction
 
-TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University". An unofficial Tsinghua University (THU) thesis template based on [Typst][Typst].
+TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University", as an **unofficial** Tsinghua University (THU) thesis template based on [Typst][Typst].
 
 > [!IMPORTANT]
 >
-> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Since Typst is not yet stable, this template will continuously track the latest released version. Therefore, please use the latest version of Typst for editing to ensure you can use new features and reduce compatibility issues.**
+> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, please use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
 
 ## Usage
 
-You can use this template in the [Typst Web][Typst] application by clicking "Start from template" on the dashboard and searching for `tntt` to create a project, or click [here][Quick Start] to quickly start.
+You can use this template in the [Typst Web][Typst] by clicking "Start from template" on the dashboard and searching for `tntt` to create a project, or simply click [here][Quick Start] to get started quickly.
 
-Alternatively, you can use the `typst` command-line tool to create a new project with template:
+Alternatively, you can use the `typst` command-line tool to create a new project based on this template:
 
 ```bash
 typst init @preview/tntt
 ```
 
-Of course, you can also import this template in any Typst file by adding:
+Of course, you can also import the template in any Typst file by adding:
 
 ```typst
 #import "@preview/tntt:0.4.1"
 #import tntt: define-config
 ```
 
-Besides, due to frequency update to the template, you can also clone the source repository to use the nightly version:
+In addition, due to frequency updates, you may clone the source repository to use the latest nightly version:
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -162,7 +162,7 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 # git clone git@github.com:chillcicada/tntt.git --depth 1
 ```
 
-Then modify `template/thesis.typ` to edit your thesis.
+Then modify `template/thesis.typ` to start editing your thesis.
 
 ---
 
@@ -170,39 +170,39 @@ If you encounter font rendering issues, please refer to the [Font Configuration]
 
 ## Instructions
 
-If you are unfamiliar with [Typst Syntax][Typst Docs], please refer to the [Chinese Community Navigation][Typst CN] for quick guidance. It is recommended to use [Tinymist][Tinymist] or the [Typst Webapp][Typst] to edit you project. **For important thesis and its materials, you should promptly back up and implement version control to avoid content loss.**
+If you are not familiar with [Typst Syntax][Typst Docs], you can refer to [Chinese Community Navigation][Typst CN] for a quick start. It is recommended to use [Tinymist][Tinymist] or [Typst Webapp][Typst] for editing. **For important materials like your thesis, please back up your work regularly and use version control to prevent data loss.**
 
-Before starting your edits, please briefly read the following font configuration instructions:
+Before you begin editing, if you have no idea about Typst font configuration, please read the following font configuration notes first:
 
 ### Font Configuration
 
-This template primarily serves Chinese typesetting and includes the corresponding Chinese font families according to thesis typography requirements, namely:
+This template is designed primarily for Chinese typesetting and includes corresponding Chinese font families according to thesis typography standards:
 
-- **SongTi**: SongTi (serif), the main body font, typically corresponding to Western serif fonts.
-- **HeiTi**: HeiTi (sans-serif), used for headings, analogous to Western sans-serif fonts.
-- **KaiTi**: KaiTi, used for explanatory text and subjective expressions.
-- **FangSong**: FangSong, typically used for annotations, citations, and authoritative explanations.
-- **Mono**: Monospace font, prioritized for code. It is recommended to use Hei or Kai typefaces for Chinese characters, or popular Chinese monospace fonts.
-- **Math**: Math font, with the default Chinese font set to KaiTi.
+- **SongTi**: Serif typeface, used for the main body text.
+- **HeiTi**: Sans-serif typeface, used for headings.
+- **KaiTi**: Standard Chinese typeface, suitable for explanatory text and subjective expressions.
+- **FangSong**: Standard Chinese typeface, typically used for annotations, citations, and authoritative explanations.
+- **Mono**: Monospace typeface, used for code. The relevant specifications are not yet clear. The default Western font is Typst's built-in `DejaVu Sans Mono`. For Chinese typeface, Heiti or KaiTi is recommended, or commonly used Chinese monospace font, default to `HeiTi`.
+- **Math**: Math typeface. The relevant specifications are not yet clear. The default Western font is Typst's built-in `New Computer Modern Math`, with Chinese typeface default to `KaiTi`.
 
-For Windows 10/11 users or Linux users with corresponding fonts installed, the font configurations are `SimSun/NSimSun`, `SimHei`, `KaiTi`, and `FangSong`. For macOS users, the configurations are `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. Additionally, you may use `Source Han Serif` or `Source Han Sans` as alternatives for Song and Hei typefaces (**Note: Typst currently does not support variable fonts, so please do not use Noto series fonts, `Noto Sans CJK SC` for example!**).
+For Windows 10/11 users or Linux users with corresponding fonts installed, you can use the font configuration `NSimSun`, `SimHei`, `KaiTi`, and `FangSong`, which matched the Word thesis template exactly. For MacOS users, besides installing the above fonts, the recommended configuration is `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. You may also replace `SongTi` and `HeiTi` with fonts such as `Source Han Serif` or `Source Han Sans`. **Please note that currently Typst has limited support variable fonts, do not use variable fonts like the Noto series (e.g. `Noto Sans CJK SC`)**).
 
-This template includes built-in font configurations for Windows 10/11 systems, and the relevant fonts can be found in the [release][Release]. Windows Chinese systems will typically provide these fonts by default. Linux and Mac users who need to strictly use the required fonts can specify the font path after downloading fonts, for example:
+This template includes built-in font configuration for Windows 10/11 systems, Chinese‑language Windows systems usually come with these fonts preinstalled. Linux and MacOS users who need to strictly adhere the required thesis fonts canYou can extract, download, and install the corresponding local Windows font to the system, or use it after downloading by specifying the font path, for example:
 
 ```bash
-# Download the fonts zip to the current directory and unzip it to the fonts directory
+# Download the fonts zip to the current directory and extract it to the fonts folder, for reference only
 curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# Specify the font path for typst compilation, take thesis.typ as the entry file
+# Specify the font path when compiling, assuming thesis.typ is the entry file
 typst compile thesis.typ --font-path fonts
 # Or (for users who cloned the source repository)
 typst compile template/thesis.typ --root . --font-path fonts
-# Run typst file as script (for only UNIX users who cloned the source repository)
+# Run typst file as script (for UNIX users who cloned the source repository only)
 # ./template/thesis.typ --font-path fonts
 ```
 
-For users of VSCode with Tinymist (see other editors and more options in the [Tinymist Documentation][Tinymist Docs]):
+For users of VSCode with Tinymist (other editors and more options are documented in the [Tinymist Documentation][Tinymist Docs]):
 
 ```jsonc
 // .vscode/settings.json
@@ -213,11 +213,11 @@ For users of VSCode with Tinymist (see other editors and more options in the [Ti
 }
 ```
 
-For the users of Typst webapp, since it does not provide the required fonts by default, you need to manually upload the font files to your project. You can find the provided font package in the [release][Release], extract and upload it to your project. The webapp will automatically recognize the font files.
+For users of the Typst Webapp, since the required Chinese fonts are not provided by default, you need to manually upload the font files to your project. The webapp will automatically recognize the font files (please do not upload compressed files).
 
 ---
 
-For further usage instructions and examples, please refer to the [template][Template]. It is recommended to start from the template for an improved using experience.
+Further instructions and examples are included in the [template][Template]. Starting a project from the template is recommended for a better experience.
 
 ## Preview
 
@@ -225,15 +225,15 @@ For further usage instructions and examples, please refer to the [template][Temp
 
 ## Acknowledgments
 
-Special thanks to [OrangeX4][OrangeX4] for their contributions to the Nanjing University thesis template [modern-nju-thesis][NJU Thesis]. This project is adapted from the modern-nju-thesis template maintained by OrangeX4 and [nju-lug][nju-lug]. We appreciate their work.
+Special thanks to [OrangeX4][OrangeX4] for their contributions to the Nanjing University thesis template [modern-nju-thesis][NJU Thesis]. This project is adapted from the modern-nju-thesis template maintained by OrangeX4 and [nju-lug][nju-lug]. We greatly appreciate their work.
 
-During the porting process, we mainly referenced the [Tsinghua University Thesis Word Template][THU Word Thesis] and [Tsinghua University Thesis LaTeX Template][THU LaTeX Thesis]. Our gratitude goes to their contributors.
+During the adaptation process, we mainly referred the [Tsinghua University Thesis Word Template][THU Word Thesis], [Tsinghua University Thesis LaTeX Template][THU LaTeX Thesis], and Word & PDF templates issued by the Academic Affairs Office. Our gratitude goes to them and their contributors.
 
 Thanks to [Myriad-Dreamin][Myriad-Dreamin] for developing the [Tinymist][Tinymist] tool.
 
 ## Relevant Resources
 
-- [Tsinghua University Thesis Word Template][THU Word Thesis] (Marked as Outdated, it is recommended to use the Word template provided by the Academic Affairs Office)
+- [Tsinghua University Thesis Word Template][THU Word Thesis] (Marked as Outdated, it is highly recommended to use the Word template issued by the Academic Affairs Office)
 - [Tsinghua University Thesis LaTeX Template][THU LaTeX Thesis]
 
 ## License
@@ -244,7 +244,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 >
 > This project contains the Tsinghua University emblem and name graphics for creating the Comprehensive Thesis Training cover for undergraduates. These graphics are obtained from the [Tsinghua University Visual Identity System][THU VI System] without any modification by the maintainers.
 >
-> **Please note: The related graphics and text are registered trademarks of Tsinghua University. Except for this template, they should not be used for any other purposes.**
+> **Please note that the related graphics and text are registered trademarks of Tsinghua University. Except for this template, they must not be used for any other purpose.**
 
 <!-- Markdown Links -->
 
@@ -253,7 +253,6 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [Typst Docs]: https://typst.app/docs
 [Typst CN]: https://typst.dev
 [Tinymist]: https://github.com/Myriad-Dreamin/tinymist
-[Release]: https://github.com/chillcicada/tntt/releases/
 [Tinymist Docs]: https://myriad-dreamin.github.io/tinymist/
 [OrangeX4]: https://github.com/OrangeX4
 [NJU Thesis]: https://typst.app/universe/package/modern-nju-thesis
