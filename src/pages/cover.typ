@@ -59,14 +59,13 @@
     block(width: w, fill: black, "", outset: (y: 2pt))
   } else { distr-text(s, width: w) }
 
-
   info.author = use-anonymous(info.author, author-width)
   // @typstyle off
   info.supervisor = info.supervisor.chunks(2).intersperse("")
     .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(supervisor-sperator), supervisor-width) })
 
   /// Render cover page
-  set page(margin: margin)
+  set page(margin: margin, background: image("../../thumbnail.png"))
 
   set align(center)
 
@@ -82,19 +81,18 @@
 
   text(size: use-size("一号"), font: use-fonts(title-font), info.title)
 
-  v(8.7em)
-
-  text(size: use-size("三号"), font: use-cjk-fonts(body-font), block(width: grid-columns.sum(), grid(
-    align: grid-align,
-    columns: grid-columns,
-    column-gutter: column-gutter,
-    row-gutter: row-gutter,
-    ..info-keys
-      .map(k => (distr-text(info-items.at(k), width: info-item-width), info-sperator, info.at(k, default: "")))
-      .flatten()
+  place(center, dy: 11.5em, text(size: use-size("三号"), font: use-cjk-fonts(body-font), block(
+    width: grid-columns.sum(),
+    grid(
+      align: grid-align,
+      columns: grid-columns,
+      column-gutter: column-gutter,
+      row-gutter: row-gutter,
+      ..info-keys
+        .map(k => (distr-text(info-items.at(k), width: info-item-width), info-sperator, info.at(k, default: "")))
+        .flatten()
+    ),
   )))
 
-  v(9.4em)
-
-  text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date)
+  place(bottom + center, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date), dy: -5.4em)
 }
