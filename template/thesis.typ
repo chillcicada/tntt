@@ -77,6 +77,7 @@
     department: "××××",
     major: "××××××××",
     supervisor: ("某某某", "教授"),
+    // supervisor: ("某某某", "教授", "某某", "副教授"),
     submit-date: "二○二四年十一月",
     student-id: "2022000000",
     class: "××××××",

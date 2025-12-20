@@ -44,23 +44,25 @@
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
   import "../utils/text.typ": distr-text, space-text
 
+  /// Precheck
+  assert(calc.even(info.supervisor.len()), message: "Supervisor info must be in pairs of name and position.")
+
   /// Prepare info
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
 
+  // Calculate suitable width of info items
+  let info-item-width = calc.max(..info-items.values().map(v => v.clusters().len())) * 1em
+
   let use-anonymous(s, w) = if anonymous {
     // use the outside to fix the font baseline shift issue
     block(width: w, fill: black, "", outset: (y: 2pt))
-  } else {
-    distr-text(s, width: w)
-  }
+  } else { distr-text(s, width: w) }
 
   info.author = use-anonymous(info.author, author-width)
-
-  info.supervisor = use-anonymous(info.supervisor.join(supervisor-sperator), supervisor-width)
-
-  // Calculate suitable width of info items
-  let _info-item-width = calc.max(..info-items.values().map(v => v.clusters().len())) * 1em
+  // @typstyle off
+  info.supervisor = info.supervisor.chunks(2).intersperse("")
+    .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(supervisor-sperator), supervisor-width) })
 
   /// Render cover page
   set page(margin: margin)
@@ -79,23 +81,18 @@
 
   text(size: use-size("一号"), font: use-fonts(title-font), info.title)
 
-  v(8.7em)
-
-  text(size: use-size("三号"), font: use-cjk-fonts(body-font), block(width: grid-columns.sum(), grid(
-    align: grid-align,
-    columns: grid-columns,
-    column-gutter: column-gutter,
-    row-gutter: row-gutter,
-    ..info-keys
-      .map(k => (
-        distr-text(info-items.at(k), width: _info-item-width),
-        info-sperator,
-        info.at(k, default: ""),
-      ))
-      .flatten()
+  place(center, dy: 11.5em, text(size: use-size("三号"), font: use-cjk-fonts(body-font), block(
+    width: grid-columns.sum(),
+    grid(
+      align: grid-align,
+      columns: grid-columns,
+      column-gutter: column-gutter,
+      row-gutter: row-gutter,
+      ..info-keys
+        .map(k => (distr-text(info-items.at(k), width: info-item-width), info-sperator, info.at(k, default: "")))
+        .flatten()
+    ),
   )))
 
-  v(9.4em)
-
-  text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date)
+  place(bottom + center, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date), dy: -5.4em)
 }
