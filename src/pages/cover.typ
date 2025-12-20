@@ -57,15 +57,13 @@
   let use-anonymous(s, w) = if anonymous {
     // use the outside to fix the font baseline shift issue
     block(width: w, fill: black, "", outset: (y: 2pt))
-  } else {
-    distr-text(s, width: w)
-  }
+  } else { distr-text(s, width: w) }
 
 
   info.author = use-anonymous(info.author, author-width)
   // @typstyle off
   info.supervisor = info.supervisor.chunks(2).intersperse("")
-    .map(p => if p == "" { ("", "") } else { _use-anonymous(p.join(supervisor-sperator), supervisor-width) })
+    .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(supervisor-sperator), supervisor-width) })
 
   /// Render cover page
   set page(margin: margin)
