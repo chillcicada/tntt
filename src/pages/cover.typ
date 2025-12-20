@@ -65,7 +65,7 @@
     .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(supervisor-sperator), supervisor-width) })
 
   /// Render cover page
-  set page(margin: margin, background: image("../../thumbnail.png"))
+  set page(margin: margin)
 
   set align(center)
 
