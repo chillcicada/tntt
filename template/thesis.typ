@@ -63,6 +63,7 @@
   declaration,
   achievement,
   record-sheet,
+  compat,
 ) = define-config(
   doctype: "bachelor",
   degree: "academic",
@@ -85,6 +86,9 @@
   // 字体配置
   fonts: font-family,
 )
+
+// 兼容旧引用格式
+#show: compat
 
 // 文稿设置
 #show: meta
@@ -317,6 +321,8 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 引用图表时，可以直接使用`<lab>`和`@ref`来引用，如 @fig-example、@tbl-example 和 @eq-example。
 
+注：也支持旧的`i-figure`格式的引用，如 `@fig:fig-example`, `@tbl:`, `@eq:`, `@lst:`, `@alg:` 等：@fig:fig-example，@tbl:tbl-example，@eqt:eq-example，@lst:lst-example，@alg:example-pseudocode。
+
 == 论文中图的示例
 
 图应具有“自明性”，即只看图、图题和图例，不阅读正文，就可理解图意。示例如下：
@@ -331,7 +337,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 你可以轻松地做到子图排列：
 
 #figure(
-  grid(columns: (1fr,) * 2)[
+  grid(columns: (1fr,) * 2, align: bottom)[
     #figure(
       image("media/图的示例.png", width: 80%),
       numbering: none,
