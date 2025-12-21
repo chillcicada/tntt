@@ -124,7 +124,7 @@
   underline-offset: .1em,
   underline-stroke: .05em,
   underline-evade: false,
-  cite-style: "normal",
+  cite-style: "super",
   bibliography-font: "SongTi",
   bibliography-size: "五号",
   bibliography-spacing: 12pt,
@@ -182,7 +182,7 @@
     // unset super style, only for bachelor thesis
     show super: it => { it.body }
     it
-  } else if footnote-style == "super" { it } else { panic("Unknown footnote-style: " + cite-style) }
+  } else if footnote-style == "super" { it } else { panic("Unknown footnote-style: " + footnote-style) }
 
   show footnote.entry: it => {
     set text(font: use-fonts(footnote-font), size: use-size(footnote-size))
