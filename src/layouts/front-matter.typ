@@ -14,6 +14,11 @@
   // self
   it,
 ) = {
+  import "../imports.typ": better-numbering
+  show: better-numbering.with(
+    reset-figure-kinds: (table, image, raw, "algorithm"),
+  )
+
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 

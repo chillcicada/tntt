@@ -12,7 +12,7 @@
   // options
   page-numbering: "1",
   heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),
-  equation-numbering: "(1-1)",
+  equation-numbering: "1-1",
   reset-footnote: true,
   // self
   it,
@@ -20,12 +20,15 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": array-at
   import "../utils/numbering.typ": custom-numbering
+  import "../imports.typ": better-numbering
 
-  import "../imports.typ": i-figured
+  show: better-numbering.with(
+    eq-outline: equation-numbering,
+    fig-outline: heading-numbering.format,
+    reset-figure-kinds: (table, image, raw, "algorithm"),
+  )
 
   set page(numbering: page-numbering)
-
-  show heading: i-figured.reset-counters
 
   set heading(
     numbering: custom-numbering.with(
@@ -35,10 +38,6 @@
     ),
     bookmarked: true,
   )
-
-  show figure: i-figured.show-figure.with(extra-prefixes: ("algorithm": "alg:"))
-
-  show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
 
   set page(header: { if reset-footnote { counter(footnote).update(0) } })
 

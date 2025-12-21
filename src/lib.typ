@@ -82,6 +82,11 @@
   let _extend_info(args) = _extend-dict(info, args, "info")
   let _extend_fonts(args) = _fonts-check(_extend-dict(fonts, args, "fonts"))
 
+  /// ------- ///
+  /// compat  ///
+  /// ------- ///
+  import "compat/compat.typ": compat
+
   return (
     /// ------- ///
     /// options ///
@@ -141,5 +146,9 @@
     achievement: (..args) => achievement(anonymous: anonymous, twoside: twoside, ..args),
     // 论文训练记录表
     record-sheet: (..args) => record-sheet(anonymous: anonymous, twoside: twoside, ..args, info: _extend_info(args)),
+    /// --------- ///
+    /// compat  ///
+    /// --------- ///
+    compat: body => compat(body),
   )
 }

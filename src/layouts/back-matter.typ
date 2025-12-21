@@ -15,17 +15,13 @@
   heading-numbering: (first-level: "附录A", depth: 4, format: "A.1 "),
   figure-numbering: "A.1",
   figure-outlined: false,
-  equation-numbering: "(A.1)",
+  equation-numbering: "A.1",
   reset-counter: true,
   // self
   it,
 ) = {
   import "../utils/numbering.typ": custom-numbering
-
-  import "../imports.typ": i-figured
-
-  // Page break
-  pagebreak(weak: true, to: if twoside { "odd" })
+  import "../imports.typ": better-numbering
 
   // Reset the counter and numbering
   if reset-counter { counter(heading).update(0) }
@@ -44,9 +40,13 @@
 
   set figure(outlined: figure-outlined)
 
-  show figure: i-figured.show-figure.with(numbering: figure-numbering)
+  show: better-numbering.with(
+    eq-outline: equation-numbering,
+    fig-outline: figure-numbering,
+  )
 
-  show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
+  // Page break
+  pagebreak(weak: true, to: if twoside { "odd" })
 
   it
 }
