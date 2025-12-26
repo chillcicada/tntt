@@ -1,7 +1,6 @@
 /// Front Matter Layout
 ///
 /// - twoside (bool): Whether to use two-sided layout.
-/// - page-start (int): The page number to start from.
 /// - page-numbering (str): The numbering format for the page.
 /// - it (content): The content to be displayed in the front matter.
 /// -> content
@@ -9,7 +8,6 @@
   // from entry
   twoside: false,
   // options
-  page-start: 0,
   page-numbering: "I",
   // self
   it,
@@ -18,7 +16,7 @@
   pagebreak(weak: true, to: if twoside { "odd" })
 
   // Reset the counter
-  counter(page).update(page-start)
+  counter(page).update(1)
   set page(numbering: page-numbering)
 
   it

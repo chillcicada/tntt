@@ -23,8 +23,10 @@
 
   import "../imports.typ": i-figured
 
-  set page(numbering: page-numbering)
+  // Page break
+  pagebreak(weak: true, to: if twoside { "odd" })
 
+  // Reset the counter and numbering
   show heading: i-figured.reset-counters
 
   set heading(
@@ -40,14 +42,7 @@
 
   show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
 
-  set page(header: { if reset-footnote { counter(footnote).update(0) } })
-
-  context {
-    if calc.even(here().page()) {
-      set page(numbering: "I", header: none)
-      pagebreak() + " "
-    }
-  }
+  set page(numbering: page-numbering, header: { if reset-footnote { counter(footnote).update(0) } })
 
   counter(page).update(1)
 
