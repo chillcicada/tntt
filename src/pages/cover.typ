@@ -94,5 +94,5 @@
     ),
   )))
 
-  place(bottom + center, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date), dy: -5.4em)
+  place(bottom + center, dy: -5.4em, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date))
 }
