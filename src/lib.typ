@@ -58,6 +58,7 @@
   import "pages/achievement.typ": achievement
   import "pages/record-sheet.typ": record-sheet
   import "pages/advisor-comment.typ": advisor-comment
+  import "pages/resolution.typ": resolution
 
   /// --------- ///
   /// Auxiliary ///
@@ -149,7 +150,7 @@
     achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 论文训练记录表 | Record Sheet Page
     record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend_info(args)),
-    // 指导教师/指导小组评语页 | Advisor Comments Page
+    // 指导教师/指导小组评语页 | Advisor Comment Page
     advisor-comment: (..args) => advisor-comment(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 答辩委员会决议书页 | Committee Resolution Page
     resolution: (..args) => resolution(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),

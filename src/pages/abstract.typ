@@ -2,10 +2,9 @@
 ///
 /// - fonts (dictionary): the font family to use, should be a dictionary.
 /// - twoside (bool): two-sided printing.
-/// - doctype ("bachelor" | "master"): the document type.
+/// - title (content): the title of the abstract page.
 /// - outlined (bool): whether to outline the page.
 /// - bookmarked (bool): whether to add a bookmark for the page.
-/// - title (content): the title of the abstract page.
 /// - indent-back (bool): whether to indent the back text.
 /// - back (content): the back text, default is [*关键词：*].
 /// - back-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): the font for the back text.
@@ -19,11 +18,10 @@
   // from entry
   fonts: (:),
   twoside: false,
-  doctype: "bachelor",
   // options
+  title: [摘　要],
   outlined: false,
   bookmarked: true,
-  title: [摘　要],
   indent-back: false,
   back: [*关键词：*],
   back-font: "HeiTi",
@@ -34,10 +32,8 @@
   // self
   it,
 ) = {
-  /// Import utilities
   import "../utils/font.typ": _use-fonts
 
-  /// Auxiliary function to handle the font usage
   let use-fonts = name => _use-fonts(fonts, name)
 
   /// Render the abstract page
