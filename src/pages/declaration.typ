@@ -3,9 +3,10 @@
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool): Whether to use two-sided layout.
 /// - title (content): The title of the declaration page.
-/// - back-vspace (length): The vertical space after the body.
 /// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - body (content): The body content of the declaration page.
+/// - back-vspace (length): The vertical space after the body.
 /// - back (content): The back text for signatures.
 /// -> content
 #let declaration(
@@ -15,16 +16,17 @@
   doctype: "bachelor",
   // options
   title: [声　明],
-  back-vspace: 38pt,
   outlined: true,
   bookmarked: true,
   body: [],
+  back-vspace: 38pt,
   back: "签  名：____________  日  期：____________",
 ) = {
   if anonymous { return }
 
   import "../utils/font.typ": use-size
 
+  /// Render declaration page
   pagebreak(weak: true, to: if twoside { "odd" })
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)

@@ -1,4 +1,4 @@
-#let roster(
+#let resolution(
   // from entry
   anonymous: false,
   twoside: false,

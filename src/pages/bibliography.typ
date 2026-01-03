@@ -1,7 +1,7 @@
 // Authors: csimide, OrangeX4
 // Modified by: chillcicada
 // Tested only on GB-7714-2015-Numeric
-#let bilingual-bibliography(
+#let bibliography-wrapper(
   bibliography: none,
   title: [参考文献],
   full: true,

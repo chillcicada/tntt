@@ -8,7 +8,7 @@
   "Math",
 )
 
-#let _fonts-check(fonts) = {
+#let fonts-check(fonts) = {
   if type(fonts) == dictionary {
     for key in fonts.keys() {
       assert(
@@ -39,7 +39,7 @@
 
 #let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
 
-#let _use-fonts(fonts, name) = _fonts-check(fonts).at(name)
+#let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
 
 #let _use-en-font(fonts, name) = _builtin-fonts-get-en(_use-fonts(fonts, name)).name
 

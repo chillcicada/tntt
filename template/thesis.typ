@@ -50,6 +50,7 @@
   /// pages
   fonts-display,
   cover,
+  cover-en,
   copyright,
   abstract,
   abstract-en,
@@ -58,11 +59,13 @@
   table-list,
   equation-list,
   notation,
-  bilingual-bibliography,
+  bibliography-wrapper,
   acknowledge,
   declaration,
   achievement,
   record-sheet,
+  advisor-comment,
+  resolution,
 ) = define-config(
   doctype: "bachelor",
   degree: "academic",
@@ -442,14 +445,14 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 *本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
 
+// 中英双语参考文献
+// 默认使用 gb-7714-2015-numeric 样式
+#bibliography-wrapper()
+
 /// ----------- ///
 /// Back Matter ///
 /// ----------- ///
 #show: back-matter
-
-// 中英双语参考文献
-// 默认使用 gb-7714-2015-numeric 样式
-#bilingual-bibliography()
 
 // 附录
 // 自2026届综合论文训练起，学校针对开题环节原要求“写出至少5000外文印刷字符的调研阅读报告或者书面翻译1～2篇（不少于2万外文印刷符）”不再做限制要求，请关注院系对此部分的需求进行调整

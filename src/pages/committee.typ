@@ -1,4 +1,4 @@
-#let roster(
+#let committee(
   // from entry
   anonymous: false,
   twoside: false,

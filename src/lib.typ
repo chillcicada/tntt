@@ -1,7 +1,7 @@
 #import "imports.typ": *
 #import "utils/font.typ": use-size
 #import "utils/numbering.typ": custom-numbering
-#import "utils/text.typ": distr-text, mask-text, space-text
+#import "utils/text.typ": distr-text, mask-text, space-text, v-text
 
 /// Define the configuration for the document.
 ///
@@ -39,39 +39,41 @@
 
   // before content
   import "pages/fonts-display.typ": fonts-display
-  import "pages/cover.typ": cover
+  import "pages/cover.typ": cover, cover-en
+  import "pages/committee.typ": committee
+  import "pages/copyright.typ": copyright
 
   // front matter
-  import "pages/copyright.typ": copyright
   import "pages/abstract.typ": abstract, abstract-en
   import "pages/outline-wrapper.typ": outline-wrapper
   import "pages/figure-list.typ": figure-list
   import "pages/table-list.typ": table-list
   import "pages/equation-list.typ": equation-list
   import "pages/notation.typ": notation
+  import "pages/bibliography.typ": bibliography-wrapper
 
   // back matter
   import "pages/acknowledge.typ": acknowledge
   import "pages/declaration.typ": declaration
   import "pages/achievement.typ": achievement
   import "pages/record-sheet.typ": record-sheet
+  import "pages/advisor-comment.typ": advisor-comment
 
   /// --------- ///
   /// Auxiliary ///
   /// --------- ///
 
-  import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
+  import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check
   import "utils/page.typ": _use-twoside
-  import "utils/util.typ": extend-dict as _extend-dict, str2bool as _str2bool
-  import "utils/bibliography.typ": bilingual-bibliography
+  import "utils/util.typ": extend-dict, str2bool
 
   /// ------- ///
   /// Process ///
   /// ------- ///
 
-  if type(twoside) == str { twoside = _str2bool(twoside) }
-  if type(anonymous) == str { anonymous = _str2bool(anonymous) }
-  if type(strict) == str { strict = _str2bool(strict) }
+  if type(twoside) == str { twoside = str2bool(twoside) }
+  if type(anonymous) == str { anonymous = str2bool(anonymous) }
+  if type(strict) == str { strict = str2bool(strict) }
 
   let _support_doctype = ("bachelor", "master", "doctor", "postdoctor")
   assert(_support_doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "))
@@ -80,8 +82,8 @@
   let _support_degree = ("academic",)
   assert(_support_degree.contains(degree), message: "不支持的学位类型, 目前支持的有: " + _support_degree.join(", "))
 
-  let _extend_info(args) = _extend-dict(info, args, "info")
-  let _extend_fonts(args) = _fonts-check(_extend-dict(fonts, args, "fonts"))
+  let extend_info(args) = extend-dict(info, args, "info")
+  let extend_fonts(args) = fonts-check(extend-dict(fonts, args, "fonts"))
 
   // @typstyle off
   return (
@@ -101,40 +103,44 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: (..args) => meta(strict: strict, ..args, info: _extend_info(args)),
+    meta: (..args) => meta(strict: strict, ..args, info: extend_info(args)),
     // 文稿设置 | Document Layout Configuration
-    doc: (..args) => doc(..args, fonts: _extend_fonts(args)),
-    // 前辅文设置 | Front Matter Configuration
+    doc: (..args) => doc(..args, fonts: extend_fonts(args)),
+    // 前辅文设置 | Front Matter Layout Configuration
     front-matter: (..args) => front-matter(twoside: twoside, ..args),
-    // 正文设置 | Main Matter Configuration
+    // 正文设置 | Main Matter Layout Configuration
     main-matter: (..args) => main-matter(twoside: twoside, ..args),
-    // 后辅文设置 | Back Matter Configuration
+    // 后辅文设置 | Back Matter Layout Configuration
     back-matter: (..args) => back-matter(twoside: twoside, ..args),
     /// ----- ///
     /// pages ///
     /// ----- ///
     // 字体展示页 | Fonts Display Page
-    fonts-display: (..args) => fonts-display(..args, fonts: _extend_fonts(args)),
-    // 封面页 | Cover Page
-    cover: (..args) => cover(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: _extend_fonts(args), info: _extend_info(args)),
+    fonts-display: (..args) => fonts-display(..args, fonts: extend_fonts(args)),
+    // 中文封面页 | Cover Page
+    cover: (..args) => cover(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend_fonts(args), info: extend_info(args)),
+    // 英文封面页 | Cover (English) Page
+    cover-en: (..args) => cover-en(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend_fonts(args), info: extend_info(args)),
+    // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
+    committee: (..args) => committee(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 授权页 | Copyright Page
-    copyright: (..args) => copyright(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, fonts: _extend_fonts(args)),
+    copyright: (..args) => copyright(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 中文摘要页 | Abstract Page
-    abstract: (..args) => abstract(twoside: twoside, ..args, fonts: _extend_fonts(args)),
+    abstract: (..args) => abstract(twoside: twoside, ..args, fonts: extend_fonts(args)),
     // 英文摘要页 | Abstract (English) Page
-    abstract-en: (..args) => abstract-en(twoside: twoside, ..args, fonts: _extend_fonts(args)),
+    abstract-en: (..args) => abstract-en(twoside: twoside, ..args, fonts: extend_fonts(args)),
     // 目录页 | Outline Page
-    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: _extend_fonts(args)),
-    // 符号表页 | Notation Page
-    notation: (..args) => notation(twoside: twoside, ..args),
+    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: extend_fonts(args)),
     // 插图目录页 | Figure List Page
     figure-list: (..args) => figure-list(twoside: twoside, ..args),
     // 表格目录页 | Table List Page
     table-list: (..args) => table-list(twoside: twoside, ..args),
     // 公式目录页 | Equation List Page
     equation-list: (..args) => equation-list(twoside: twoside, ..args),
+    // 符号表页 | Notation Page
+    notation: (..args) => notation(twoside: twoside, ..args),
     // 参考文献页 | Bibliography Page
-    bilingual-bibliography: (..args) => bilingual-bibliography(bibliography: bibliography, ..args),
+    bibliography-wrapper: (..args) => bibliography-wrapper(bibliography: bibliography, ..args),
     // 致谢页 | Acknowledge Page
     acknowledge: (..args) => acknowledge(anonymous: anonymous, twoside: twoside, ..args),
     // 声明页 | Declaration Page
@@ -142,6 +148,10 @@
     // 成果页 | Achievement Page
     achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 论文训练记录表 | Record Sheet Page
-    record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: _extend_info(args)),
+    record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend_info(args)),
+    // 指导教师/指导小组评语页 | Advisor Comments Page
+    advisor-comment: (..args) => advisor-comment(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    // 答辩委员会决议书页 | Committee Resolution Page
+    resolution: (..args) => resolution(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
   )
 }
