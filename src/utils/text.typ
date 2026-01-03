@@ -18,6 +18,11 @@
 /// -> str
 #let _mask-text(text, mask: "█") = mask * text.clusters().len()
 
+/// Replace all characters in a string with a mask character.
+///
+/// - body (content | str): the text to be masked
+/// - mask (str): the character to use as a mask
+/// -> str
 #let mask-text(body, ..args) = _use-content(_mask-text, body, ..args)
 
 /// Space out characters in a string with a specified spacing.
@@ -27,6 +32,11 @@
 /// -> str
 #let _space-text(text, space: " ") = text.split("").join(space).trim()
 
+/// Space out characters in a string with a specified spacing.
+///
+/// - body (content | str): the text to space out
+/// - space (str): the space to use between characters
+/// -> str
 #let space-text(body, ..args) = _use-content(_space-text, body, ..args)
 
 /// Create a text block with distributed text.
@@ -34,13 +44,13 @@
 /// - text (str): the text to distribute
 /// - width (length): the width of the block, defaults to auto
 /// -> content
-#let _distr-text(text, width: auto) = {
-  block(
-    width: width,
-    stack(dir: ltr, ..text.clusters().intersperse(1fr)),
-  )
-}
+#let _distr-text(text, width: auto) = block(width: width, stack(dir: ltr, ..text.clusters().intersperse(1fr)))
 
+/// Create a text block with distributed text.
+///
+/// - body (content | str): the text to distribute
+/// - width (length): the width of the block, defaults to auto
+/// -> content
 #let distr-text(body, ..args) = _use-content(_distr-text, body, ..args)
 
 /// Create a vertical stack of text clusters.
@@ -48,7 +58,12 @@
 /// - text (str): the text to stack
 /// - spacing (length): the spacing between lines
 /// -> content
-#let _use-stack(text, spacing: 3.6pt) = stack(dir: ttb, ..text.clusters(), spacing: spacing)
+#let _v-text(text, spacing: 3.6pt) = stack(dir: ttb, ..text.clusters(), spacing: spacing)
 
-#let use-stack(body, ..args) = _use-content(_use-stack, body, ..args)
+/// Create a vertical stack of text clusters.
+///
+/// - body (content | str): the text to stack
+/// - spacing (length): the spacing between lines
+/// -> content
+#let v-text(body, ..args) = _use-content(_v-text, body, ..args)
 

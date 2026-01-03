@@ -10,10 +10,11 @@
   // options
   title: [公式清单],
   outlined: false,
+  bookmarked: true,
 ) = {
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   outline(title: none, target: math.equation.where(block: true))
 }

@@ -8,7 +8,7 @@
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo` 作为替代
 ///
-/// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等作为配置
+/// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等进行配置
 #let font-family = (
   SongTi: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
@@ -50,6 +50,7 @@
   /// pages
   fonts-display,
   cover,
+  cover-en,
   copyright,
   abstract,
   abstract-en,
@@ -63,6 +64,8 @@
   declaration,
   achievement,
   record-sheet,
+  advisor-comment,
+  resolution,
 ) = define-config(
   doctype: "bachelor",
   degree: "academic",
@@ -239,7 +242,7 @@
 - `main-matter`：正文布局
 - `back-matter`：后辅文布局
 
-除此之外，还有一个额外的 `meta` 用于控制文档元信息，其中包含了*基础的文本设置*（语言、区域和字体回滚开关）和*页面设置*，同时也包含了 *PDF 的元信息*（标题、作者等）。
+除此之外，还有一个额外的 `meta` 用于控制文档元配置，其中包含了*基础的文本设置*（语言、区域和字体回滚开关）和*页面设置*，同时也包含了 *PDF 的元信息*（标题、作者等）。
 
 得益于 typst 的设计，可以在封面后使用 `doc` 来控制封面后所有内容的布局，其中主要为*段落设置*（两端对齐、行距、段距等）和一些默认的*文本设置*等。`front-matter` 和 `main-matter` 包含一个计数器，其中，后者还包含一些额外的正文文本配置。原则上讲，扉页（title page，未包括在论文中）和版权页（copyright page）不需要计数器，因而将其置于 `#show: front-matter` 规则之前，尽管在排版上其实质为前辅文的一部分。`back-matter` 包含了重置计数器的开关和一些额外的图表排序设置。
 
@@ -442,14 +445,14 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 *本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
 
+// 中英双语参考文献
+// 默认使用 gb-7714-2015-numeric 样式
+#bilingual-bibliography()
+
 /// ----------- ///
 /// Back Matter ///
 /// ----------- ///
 #show: back-matter
-
-// 中英双语参考文献
-// 默认使用 gb-7714-2015-numeric 样式
-#bilingual-bibliography()
 
 // 附录
 // 自2026届综合论文训练起，学校针对开题环节原要求“写出至少5000外文印刷字符的调研阅读报告或者书面翻译1～2篇（不少于2万外文印刷符）”不再做限制要求，请关注院系对此部分的需求进行调整
@@ -549,5 +552,23 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
 ]
 
-// 论文训练记录表
+// 论文训练记录表，仅用于本科生的综合论文训练
 #record-sheet()
+
+#advisor-comment[
+  论文提出了……
+]
+
+#resolution[
+  论文提出了……
+
+  论文取得的主要创新性成果包括：
+
+  1. ……
+  2. ……
+  3. ……
+
+  论文工作表明作者在 ××××× 具有 ××××× 知识，具有 ×××× 能力，论文 ××××，答辩 ××××。
+
+  答辩委员会表决，（× 票/一致）同意通过论文答辩，并建议授予 ×××（姓名）×××（门类）学博士/硕士学位。
+]

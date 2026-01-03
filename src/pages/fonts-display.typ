@@ -15,6 +15,8 @@
 ) = {
   import "../utils/font.typ": use-size
 
+  let font-list = (("宋体", "SongTi"), ("黑体", "HeiTi"), ("楷体", "KaiTi"), ("仿宋", "FangSong"), ("等宽", "Mono"))
+
   let display-font(cjk-name, latin-name) = {
     line(length: 100%, stroke: .3pt)
 
@@ -29,9 +31,9 @@
     ]
   }
 
-  /// Render the page
   set page(margin: auto)
 
+  /// Render the page
   // use the built-in font Libertinus Serif to display the message
   text(red)[
     _Hint: If you cannot render the below text correctly or find any discrepancies with what's expected, you should pay attention to the error message and read the instructions on font configuration._
@@ -45,8 +47,6 @@
     *字体展示页 | 请调整字体配置至正确在 PDF 中渲染*
   ]
 
-  let font-list = (("宋体", "SongTi"), ("黑体", "HeiTi"), ("楷体", "KaiTi"), ("仿宋", "FangSong"), ("等宽", "Mono"))
-
   for it in font-list { display-font(..it) }
 
   line(length: 100%)
@@ -55,6 +55,5 @@
 
   align(right)[*Typst v#sys.version* & *Template v#toml("../../typst.toml").package.version*]
 
-  // Always break to odd page
-  pagebreak(to: "odd")
+  pagebreak(to: "odd") // Always page break to odd page
 }

@@ -2,6 +2,7 @@
 ///
 /// - twoside (bool): Whether to use two-sided layout.
 /// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - title (content): The title of the notation page.
 /// - width (length | relative): The width of the notation grid.
 /// - columns (array): The widths of the grid columns for terms and descriptions.
@@ -16,6 +17,7 @@
   twoside: false,
   // options
   outlined: false,
+  bookmarked: true,
   title: [符号和缩略语说明],
   width: 100%,
   columns: (96pt, 1fr),
@@ -26,6 +28,7 @@
   // self
   it,
 ) = {
+  /// Precheck
   assert(type(row-gutter) == length, message: "row-gutter must be a length value here.")
 
   let blank-row-gutter = if blank-row-gutter == none { 1.5 * row-gutter }
@@ -34,18 +37,15 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   align(center, block(width: width, align(start, grid(
     columns: columns,
     row-gutter: row-gutter,
     ..args,
-    ..it
-      .children
-      .filter(it => it.func() == parbreak or it.func() == terms.item)
-      .map(it => if (it.func() == parbreak) {
-        grid.cell(none, colspan: 2, inset: (y: blank-row-inset))
-      } else { (it.term, it.description) }) // terms.item
+    // @typstyle off
+    ..it.children.filter(it => it.func() == parbreak or it.func() == terms.item)
+      .map(it => if (it.func() == parbreak) {grid.cell(none, colspan: 2, inset: (y: blank-row-inset)) } else { (it.term, it.description) })
       .flatten()
   ))))
 }

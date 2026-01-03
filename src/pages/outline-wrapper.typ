@@ -22,6 +22,7 @@
   font: ("HeiTi", "SongTi"),
   size: ("小四",),
   outlined: false,
+  bookmarked: true,
   title: [目　录],
   above: (10.5pt, 11.8pt),
   below: (11.4pt, 11.8pt),
@@ -40,7 +41,7 @@
   /// Render the outline
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 
   // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
