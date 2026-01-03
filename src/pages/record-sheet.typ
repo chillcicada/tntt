@@ -3,7 +3,10 @@
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
+/// - doctype ("bachelor"): The document type, this page is only for bachelor's thesis.
 /// - title (content): The title of the record sheet page.
+/// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - prefill (bool): Whether to prefill the student information.
 /// - rows (list(length)): The heights of the table rows.
 /// - columns (list(length)): The widths of the table columns.
@@ -22,8 +25,11 @@
   anonymous: false,
   twoside: false,
   info: (:),
+  doctype: "bachelor",
   // options
   title: [综合论文训练记录表],
+  outlined: false,
+  bookmarked: false,
   prefill: true,
   rows: (1cm, 1cm, 12cm, 6.5cm),
   columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr),
@@ -37,7 +43,10 @@
   reviewer-comment: [],
   defense-comment: [],
 ) = {
+  /// Precheck
   if anonymous { return }
+
+  if doctype not in ("bachelor",) { return }
 
   import "../utils/font.typ": use-size
   import "../utils/text.typ": use-stack
@@ -55,7 +64,7 @@
 
   set text(size: use-size("五号"))
 
-  heading(level: 1, numbering: none, outlined: false, bookmarked: false, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   {
     show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) { strong(it) } else { it }

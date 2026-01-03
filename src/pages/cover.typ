@@ -24,6 +24,8 @@
   anonymous: false,
   fonts: (:),
   info: (:),
+  doctype: "bachelor",
+  degree: "academic",
   // options
   title: "综合论文训练",
   margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm),
@@ -41,11 +43,12 @@
   author-width: 4em,
   supervisor-width: 8em,
 ) = {
-  import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
-  import "../utils/text.typ": distr-text, space-text
-
   /// Precheck
   assert(calc.even(info.supervisor.len()), message: "Supervisor info must be in pairs of name and position.")
+
+  /// Import utilities
+  import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
+  import "../utils/text.typ": distr-text, space-text
 
   /// Prepare info
   let use-fonts = name => _use-fonts(fonts, name)
@@ -55,7 +58,7 @@
   let info-item-width = calc.max(..info-items.values().map(v => v.clusters().len())) * 1em
 
   let use-anonymous(s, w) = if anonymous {
-    // use the outside to fix the font baseline shift issue
+    // use the outset shift to fix the font baseline shift issue
     block(width: w, fill: black, "", outset: (y: 2pt))
   } else { distr-text(s, width: w) }
 
@@ -96,3 +99,5 @@
 
   place(bottom + center, dy: -5.4em, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date))
 }
+
+#let cover-en() = {}

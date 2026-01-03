@@ -15,6 +15,8 @@
 ) = {
   import "../utils/font.typ": use-size
 
+  let font-list = (("宋体", "SongTi"), ("黑体", "HeiTi"), ("楷体", "KaiTi"), ("仿宋", "FangSong"), ("等宽", "Mono"))
+
   let display-font(cjk-name, latin-name) = {
     line(length: 100%, stroke: .3pt)
 
@@ -45,8 +47,6 @@
     *字体展示页 | 请调整字体配置至正确在 PDF 中渲染*
   ]
 
-  let font-list = (("宋体", "SongTi"), ("黑体", "HeiTi"), ("楷体", "KaiTi"), ("仿宋", "FangSong"), ("等宽", "Mono"))
-
   for it in font-list { display-font(..it) }
 
   line(length: 100%)
@@ -55,6 +55,5 @@
 
   align(right)[*Typst v#sys.version* & *Template v#toml("../../typst.toml").package.version*]
 
-  // Always break to odd page
-  pagebreak(to: "odd")
+  pagebreak(to: "odd") // Always break to odd page
 }

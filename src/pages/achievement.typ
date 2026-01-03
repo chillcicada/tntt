@@ -10,9 +10,11 @@
   // from entry
   anonymous: false,
   twoside: false,
+  doctype: "bachelor",
   // options
   title: [在学期间参加课题的研究成果],
   outlined: true,
+  bookmarked: true,
   // self
   it,
 ) = {
@@ -20,7 +22,7 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   // reset indent
   set par(first-line-indent: 0pt)

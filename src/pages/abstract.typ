@@ -1,25 +1,28 @@
-
 /// Abstract Page (Simplified Chinese version)
 ///
-/// - fonts (dictionary): the font family to use, should be a dictionary
-/// - twoside (bool): two-sided printing
-/// - outlined (bool): whether to outline the page
-/// - title (content): the title of the abstract page
-/// - indent-back (bool): whether to indent the back text
-/// - back (content): the back text, default is [*关键词：*]
-/// - back-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): the font for the back text
-/// - back-vspace (length): the vertical space after the abstract content
-/// - keywords (array): keywords to be included in the abstract
-/// - keyword-sperator (str): the separator for keywords, default is "；"
-/// - keyword-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): the font for the keywords
-/// - it (content): the main content of the abstract page
+/// - fonts (dictionary): the font family to use, should be a dictionary.
+/// - twoside (bool): two-sided printing.
+/// - doctype ("bachelor" | "master"): the document type.
+/// - outlined (bool): whether to outline the page.
+/// - bookmarked (bool): whether to add a bookmark for the page.
+/// - title (content): the title of the abstract page.
+/// - indent-back (bool): whether to indent the back text.
+/// - back (content): the back text, default is [*关键词：*].
+/// - back-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): the font for the back text.
+/// - back-vspace (length): the vertical space after the abstract content.
+/// - keywords (array): keywords to be included in the abstract.
+/// - keyword-sperator (str): the separator for keywords, default is "；".
+/// - keyword-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): the font for the keywords.
+/// - it (content): the main content of the abstract page.
 /// -> content
 #let abstract(
   // from entry
   fonts: (:),
   twoside: false,
+  doctype: "bachelor",
   // options
   outlined: false,
+  bookmarked: true,
   title: [摘　要],
   indent-back: false,
   back: [*关键词：*],
@@ -31,6 +34,7 @@
   // self
   it,
 ) = {
+  /// Import utilities
   import "../utils/font.typ": _use-fonts
 
   /// Auxiliary function to handle the font usage
@@ -39,7 +43,7 @@
   /// Render the abstract page
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 
   it
 

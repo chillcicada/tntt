@@ -5,6 +5,7 @@
 /// - title (content): The title of the acknowledgement page.
 /// - title-vspace (length): The vertical space after the title.
 /// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - it (content): The content of the acknowledgement page.
 /// -> content
 #let acknowledge(
@@ -15,6 +16,7 @@
   title: [致　谢],
   title-vspace: 2pt,
   outlined: true,
+  bookmarked: true,
   // self
   it,
 ) = {
@@ -22,7 +24,7 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   v(title-vspace)
 

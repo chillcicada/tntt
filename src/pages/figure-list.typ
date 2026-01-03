@@ -10,12 +10,13 @@
   // options
   title: [插图清单],
   outlined: false,
+  bookmarked: true,
 ) = {
   import "../imports.typ": i-figured
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   i-figured.outline(target-kind: image, title: none)
 }
