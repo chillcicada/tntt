@@ -59,7 +59,7 @@
   table-list,
   equation-list,
   notation,
-  bibliography-wrapper,
+  bilingual-bibliography,
   acknowledge,
   declaration,
   achievement,
@@ -447,7 +447,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
-#bibliography-wrapper()
+#bilingual-bibliography()
 
 /// ----------- ///
 /// Back Matter ///

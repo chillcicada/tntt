@@ -50,7 +50,7 @@
   import "pages/table-list.typ": table-list
   import "pages/equation-list.typ": equation-list
   import "pages/notation.typ": notation
-  import "pages/bibliography.typ": bibliography-wrapper
+  import "pages/bilingual-bibliography.typ": bilingual-bibliography
 
   // back matter
   import "pages/acknowledge.typ": acknowledge
@@ -140,7 +140,7 @@
     // 符号表页 | Notation Page
     notation: (..args) => notation(twoside: twoside, ..args),
     // 参考文献页 | Bibliography Page
-    bibliography-wrapper: (..args) => bibliography-wrapper(bibliography: bibliography, ..args),
+    bilingual-bibliography: (..args) => bilingual-bibliography(bibliography: bibliography, ..args),
     // 致谢页 | Acknowledge Page
     acknowledge: (..args) => acknowledge(anonymous: anonymous, twoside: twoside, ..args),
     // 声明页 | Declaration Page
