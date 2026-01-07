@@ -4,6 +4,7 @@
 /// - twoside (bool): Whether to use two-sided layout.
 /// - doctype ("bachelor"): The document type.
 /// - title (content): The title of the copyright page.
+/// - title-size (length | str): The size of the title font.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - body (content): The body content of the copyright page.
@@ -17,6 +18,7 @@
   doctype: "bachelor",
   // options
   title: [关于论文使用授权的说明],
+  title-size: "二号",
   outlined: false,
   bookmarked: false,
   body: [],
@@ -28,9 +30,10 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty
 
+  // TODO: we need a less invasive method
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, {
     v(0.91em)
-    text(size: use-size("二号"), title)
+    text(size: use-size(title-size), title)
     v(1.42em)
   })
 
