@@ -2,8 +2,10 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool): Whether to use two-sided layout.
+/// - doctype (string): The document type.
 /// - title (content): The title of the achievement page.
 /// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - it (content): The content of the achievement page.
 /// -> content
 #let achievement(
@@ -22,21 +24,8 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
+  // TODO: the default title is affected by doctype
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
-
-  // reset indent
-  set par(first-line-indent: 0pt)
-
-  set list(
-    indent: 0pt,
-    body-indent: 1.2em,
-  )
-
-  set enum(
-    indent: 0pt,
-    numbering: "[1]",
-    body-indent: 1.2em,
-  )
 
   it
 }

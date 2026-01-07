@@ -25,13 +25,13 @@
   if anonymous { return }
 
   import "../utils/font.typ": use-size
+  import "../utils/util.typ": is-not-empty
 
-  /// Render declaration page
   pagebreak(weak: true, to: if twoside { "odd" })
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
-  if body not in (none, []) { body } else if doctype == "bachelor" {
+  if is-not-empty(body) { body } else if doctype == "bachelor" {
     [
       本人郑重声明：所呈交的综合论文训练论文，是本人在导师指导下，独立进行研究工作所取得的成果。尽我所知，除文中已经注明引用的内容外，本论文的研究成果不包含任何他人享有著作权的内容。对本论文所涉及的研究工作做出贡献的其他个人和集体，均已在文中以明确方式标明。
     ]
@@ -41,7 +41,7 @@
     ]
   } else { body } // fallback
 
-  v(back-vspace)
+  v(back-vspace) // TODO: adjust space according to the doctype
 
   text(size: use-size(13pt), align(right, back))
 }

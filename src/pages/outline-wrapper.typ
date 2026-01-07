@@ -5,8 +5,9 @@
 /// - depth (int): The maximum depth of the outline.
 /// - font (array): The font family for each heading level.
 /// - size (array): The font size for each heading level.
-/// - outlined (bool): Whether to outline the page.
 /// - title (content): The title of the outline page.
+/// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add bookmarks for the page.
 /// - above (array): The vertical space above each heading based on its level.
 /// - below (array): The vertical space below each heading based on its level.
 /// - indent (array): The indentation for each heading level.
@@ -21,9 +22,9 @@
   depth: 3,
   font: ("HeiTi", "SongTi"),
   size: ("小四",),
+  title: [目　录],
   outlined: false,
   bookmarked: true,
-  title: [目　录],
   above: (10.5pt, 11.8pt),
   below: (11.4pt, 11.8pt),
   indent: (0pt, 12pt, 12pt),

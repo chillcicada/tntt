@@ -50,6 +50,8 @@
   import "pages/table-list.typ": table-list
   import "pages/equation-list.typ": equation-list
   import "pages/notation.typ": notation
+
+  // main matter
   import "pages/bilingual-bibliography.typ": bilingual-bibliography
 
   // back matter

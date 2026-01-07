@@ -28,7 +28,6 @@
   // self
   it,
 ) = {
-  /// Precheck
   assert(type(row-gutter) == length, message: "row-gutter must be a length value here.")
 
   let blank-row-gutter = if blank-row-gutter == none { 1.5 * row-gutter }

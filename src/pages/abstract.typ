@@ -5,9 +5,9 @@
 /// - title (content): the title of the abstract page.
 /// - outlined (bool): whether to outline the page.
 /// - bookmarked (bool): whether to add a bookmark for the page.
-/// - indent-back (bool): whether to indent the back text.
 /// - back (content): the back text, default is [*关键词：*].
 /// - back-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): the font for the back text.
+/// - back-indent (length): the first line indent for the back text.
 /// - back-vspace (length): the vertical space after the abstract content.
 /// - keywords (array): keywords to be included in the abstract.
 /// - keyword-sperator (str): the separator for keywords, default is "；".
@@ -22,10 +22,10 @@
   title: [摘　要],
   outlined: false,
   bookmarked: true,
-  indent-back: false,
   back: [*关键词：*],
   back-font: "HeiTi",
-  back-vspace: 20.1pt,
+  back-indent: 0em,
+  back-vspace: 1.7em,
   keywords: (),
   keyword-sperator: "；",
   keyword-font: "SongTi",
@@ -36,7 +36,6 @@
 
   let use-fonts = name => _use-fonts(fonts, name)
 
-  /// Render the abstract page
   pagebreak(weak: true, to: if twoside { "odd" })
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
@@ -46,7 +45,7 @@
   v(back-vspace)
 
   par(
-    first-line-indent: if indent-back { 2em } else { 0em },
+    first-line-indent: back-indent,
     text(font: use-fonts(back-font), back) + text(font: use-fonts(keyword-font), keywords.join(keyword-sperator)),
   )
 }

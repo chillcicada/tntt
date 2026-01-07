@@ -6,11 +6,9 @@
   // options
   title: [学位论文指导小组、公开评阅人和答辩委员会名单],
 ) = {
-  /// Precheck
   if anonymous { return }
 
-  if doctype not in ("master",) { return }
+  if doctype not in ("master", "doctor", "postdoc") { return }
 
-  /// Render cover page
   pagebreak(weak: true, to: if twoside { "odd" })
 }

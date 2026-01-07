@@ -28,7 +28,6 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty
 
-  /// Render copyright page
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, {
     v(0.91em)
     text(size: use-size("二号"), title)

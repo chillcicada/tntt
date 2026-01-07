@@ -533,6 +533,12 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 成果页
 #achievement[
+  // Reset the indent for this page
+  #set par(first-line-indent: 0pt)
+  #set list(indent: 0pt, body-indent: 1.2em)
+  #set enum(indent: 0pt, numbering: "[1]", body-indent: 1.2em)
+
+
   #text(font: use-fonts("HeiTi"), size: use-size("四号"))[学术论文：]
 
   1. ZHOU R, HU C, OU T, et al. Intelligent GRU-RIC Position-Loop Feedforward Compensation Control Method with Application to an Ultraprecision Motion Stage[J], IEEE Transactions on Industrial Informatics, 2024, 20(4): 5609-5621.
