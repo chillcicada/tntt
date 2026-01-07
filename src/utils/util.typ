@@ -12,3 +12,5 @@
 }
 
 #let extend-dict(dict, args, index) = { dict + args.named().at(index, default: (:)) }
+
+#let is-not-empty(c) = c not in (none, "", [])

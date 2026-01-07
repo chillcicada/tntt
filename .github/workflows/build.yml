@@ -41,6 +41,11 @@ jobs:
           ./template/thesis.typ --font-path fonts bachelor-academic-twoside.pdf --input twoside=true
           ./template/thesis.typ --font-path fonts bachelor-academic-anonymous-twoside.pdf --input anonymous=true --input twoside=true
 
+          ./template/thesis.typ --font-path fonts master-academic.pdf --input doctype=master
+          ./template/thesis.typ --font-path fonts master-academic-anonymous.pdf --input doctype=master --input anonymous=true
+          ./template/thesis.typ --font-path fonts master-academic-twoside.pdf --input doctype=master --input twoside=true
+          ./template/thesis.typ --font-path fonts master-academic-anonymous-twoside.pdf --input doctype=master --input anonymous=true --input twoside=true
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v5
         with:
@@ -50,3 +55,8 @@ jobs:
             bachelor-academic-anonymous.pdf
             bachelor-academic-twoside.pdf
             bachelor-academic-anonymous-twoside.pdf
+
+            master-academic.pdf
+            master-academic-anonymous.pdf
+            master-academic-twoside.pdf
+            master-academic-anonymous-twoside.pdf

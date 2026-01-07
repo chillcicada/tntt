@@ -22,7 +22,7 @@
 ) = {
   if anonymous { return }
 
-  if doctype not in ("master", "doctor", "postdoctor") { return }
+  if doctype not in ("master", "doctor", "postdoc") { return }
 
   pagebreak(weak: true, to: if twoside { "odd" })
 

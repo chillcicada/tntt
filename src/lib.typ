@@ -76,7 +76,7 @@
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
   if type(strict) == str { strict = str2bool(strict) }
 
-  let _support_doctype = ("bachelor", "master", "doctor", "postdoctor")
+  let _support_doctype = ("bachelor", "master", "doctor", "postdoc")
   assert(_support_doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "))
 
   // "academic" "professional"

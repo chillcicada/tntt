@@ -27,7 +27,7 @@
   doctype: "bachelor",
   degree: "academic",
   // options
-  title: "综合论文训练",
+  title: [综合论文训练],
   margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm),
   grid-columns: (3.00cm, 0.82cm, 5.62cm),
   grid-align: (center, left, left),
@@ -100,4 +100,8 @@
   place(bottom + center, dy: -5.4em, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date))
 }
 
-#let cover-en() = {}
+#let cover-en(doctype: "master", ..args) = {
+  if doctype not in ("master", "doctor", "postdoc") { return }
+
+  cover(..args)
+}

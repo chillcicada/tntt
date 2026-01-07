@@ -37,7 +37,7 @@
 )
 
 #let (
-  /// global options
+  /// global utilities
   use-fonts,
   use-cjk-fonts,
   use-twoside,
@@ -67,7 +67,7 @@
   advisor-comment,
   resolution,
 ) = define-config(
-  doctype: "bachelor",
+  doctype: "bachelor", // 论文类型，可选值：bachelor、master、doctor、postdoc
   degree: "academic",
   anonymous: false, // 盲审模式
   twoside: false, // 双面模式，会加入空白页，便于打印
@@ -77,16 +77,13 @@
     author: "某某某",
     department: "××××",
     major: "××××××××",
-    supervisor: ("某某某", "教授"),
-    // supervisor: ("某某某", "教授", "某某", "副教授"),
+    supervisor: ("某某某", "教授"), // supervisor: ("某某某", "教授", "某某", "副教授"),
     submit-date: "二○二四年十一月",
     student-id: "2022000000",
     class: "××××××",
   ),
-  // 参考文献源
-  bibliography: bibliography.with("ref.bib"),
-  // 字体配置
-  fonts: font-family,
+  bibliography: bibliography.with("ref.bib"), // 参考文献源
+  fonts: font-family, // 字体配置
 )
 
 // 文稿设置
@@ -97,6 +94,8 @@
 
 // 封面页
 #cover()
+
+#cover-en()
 
 /// ----------- ///
 /// Doc Layouts ///

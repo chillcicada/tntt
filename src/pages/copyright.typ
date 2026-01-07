@@ -26,6 +26,7 @@
   if anonymous { return }
 
   import "../utils/font.typ": use-size
+  import "../utils/util.typ": is-not-empty
 
   /// Render copyright page
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, {
@@ -38,7 +39,7 @@
     set text(size: use-size("四号"))
     set par(leading: 16.4pt, spacing: 16.4pt)
 
-    if body != [] { body } else if doctype == "bachelor" {
+    if is-not-empty(body) { body } else if doctype == "bachelor" {
       [
         本人完全了解清华大学有关保留、使用综合论文训练论文的规定，即：学校有权保留论文的复印件，允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影印、缩印或其他复制手段保存论文。
       ]
