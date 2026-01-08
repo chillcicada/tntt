@@ -69,6 +69,8 @@
   {
     show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) { strong(it) } else { it }
 
+    set par(first-line-indent: 0em)
+
     let cell-with-back(body, back) = table.cell(colspan: 5, grid(
       columns: 1fr,
       rows: (1fr, auto),

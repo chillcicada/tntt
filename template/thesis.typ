@@ -51,6 +51,7 @@
   fonts-display,
   cover,
   cover-en,
+  committee,
   copyright,
   abstract,
   abstract-en,
@@ -67,7 +68,9 @@
   advisor-comment,
   resolution,
 ) = define-config(
-  doctype: "bachelor", // 论文类型，可选值：bachelor、master、doctor、postdoc
+  // 论文类型，可选值：bachelor、master、doctor、postdoc
+  // 部分页面会根据论文类型自动调整，对于不需要的页面会自动忽略
+  doctype: "bachelor",
   degree: "academic",
   anonymous: false, // 盲审模式
   twoside: false, // 双面模式，会加入空白页，便于打印
@@ -92,9 +95,10 @@
 // 字体展示测试页，在配置好字体后请注释或删除此项
 #fonts-display()
 
-// 封面页
+// 中文封面页
 #cover()
 
+// 英文封面页，仅适用于研究生及以上
 #cover-en()
 
 /// ----------- ///
@@ -102,7 +106,11 @@
 /// ----------- ///
 #show: doc
 
+// 学位论文指导小组、公开评阅人和答辩委员会名单，仅适用于研究生及以上
+#committee()
+
 // 授权页
+// 对于本科生和硕士生及以上会应用不同的样式，也可以自定义输入内容
 #copyright()
 
 /// ------------ ///
@@ -142,7 +150,7 @@
 #notation[
   / $"a", "c"_1, "c"_2$: 临时替换变量
 
-  / D#sub[m]: 预混通道外径 (mm)
+  / $"D"_"m"$: 预混通道外径 (mm)
   / Ga: 空气质量流量 (kg/s)
   / Ma: 进口空气马赫数，$"Ma" = v_2 slash gamma R T_2$
 
@@ -214,9 +222,12 @@
 
 *本模板提供的文档结构*可分为四个层次，其涵义如下：
 
-- 封面（cover）
-- 前辅文（front matter）：即正文前部分
+- 文档前内容：封面、授权页等相对独立的内容
+  - 中文封面（cover）
+  - 英文封面（cover-en） ← 仅适用于研究生及以上
+  - 指导小组与答辩委员会名单（committee） ← 仅适用于研究生及以上
   - 授权页（copyright）
+- 前辅文（front-matter）：即正文前部分
   - 中文摘要（abstract） ← 前辅文从此页开始计数
   - 英文摘要（abstract-en）
   - 目录（outline-wrapper）
@@ -224,13 +235,17 @@
   - 表格目录（table-list）
   - 公式目录（equation-list）
   - 符号表（notation）
-- 正文（main matter） ← 正文重新计数
-- 后辅文（back matter）：即正文后部分
-  - 参考文献（bilingual-bibliography）
+- 正文（main-matter） ← 正文重新计数
+  - 正文内容
+  - 参考文献（bilingual-bibliography） ← 正文内容结束
+- 后辅文（back-matter）：即正文后部分
+  - 附录内容
   - 致谢页（acknowledge）
   - 声明页（declaration）
-  - 附录（appendix）
-  - 成果页（achievement）
+  - 简历/个人成果页（achievement）
+  - 综合论文训练记录表（record-sheet） ← 仅适用于本科生
+  - 指导教师评语（advisor-comment） ← 仅适用于硕士生及以上
+  - 答辩委员会决议书（resolution） ← 仅适用于硕士生及以上
 
 == 布局
 
@@ -267,7 +282,7 @@
 )
 ```
 
-其可设置*在字体展示页中*使宋体（SongTi）使用 Times New Roman 和 SimHei 字族。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过字体的内置页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
+其可设置*在字体展示页中*使宋体（SongTi）字族使用 Times New Roman 和 SimHei 字族。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过字体的内置页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
 
 ```typ
 #abstract(back: text(font: use-fonts("KaiTi"))[*关键词：*])[
@@ -432,7 +447,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
 
 - #text(gray)[导出的 PDF 中*编号信息*缺失，但相较于不提供导出书签的官方 Word 版本，]#strike[此问题可以忽略]，*此问题已被解决*；
-- #text(gray)[目前数学公式目录无法忽略附录中的公式，但由于数学公式索引并不启用，]因而此问题也可以忽略；
+- #text(gray)[目前公式索引无法忽略附录中的公式，但由于学校对公式索引并无要求，]因而此问题也可以忽略；
 - 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时因 Word 排版引擎本身的限制（浮动行距受字体影响等），无法做到完全一致；
 - 当前 Typst 不支持多参考文献实例，因而对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现链接的 Word 参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
 
@@ -442,7 +457,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 许可证
 
-*本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #link("mailto:2210227279@qq.com") 发送邮件。
+*本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #underline(link("mailto:2210227279@qq.com")) 发送邮件。
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
@@ -454,7 +469,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #show: back-matter
 
 // 附录
-// 自2026届综合论文训练起，学校针对开题环节原要求“写出至少5000外文印刷字符的调研阅读报告或者书面翻译1～2篇（不少于2万外文印刷符）”不再做限制要求，请关注院系对此部分的需求进行调整
+// 对于本科生：请关注院系对此部分的具体需求进行调整
 = 外文资料的调研阅读报告（或书面翻译）
 
 #align(center)[调研阅读报告题目（或书面翻译题目）]
@@ -496,6 +511,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 致谢
 #acknowledge[
+  // 强制让 × 使用中文字体显示
   #show "×": set text(font: use-cjk-fonts("SongTi"))
 
   致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
@@ -512,16 +528,13 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
   #line(length: 100%)
 
-  // mask 用于在匿名模式下隐藏内容
-  #import tntt: mask-text
-
-  #par(first-line-indent: 0em)[关于 TnTT 模板的致谢如下：]
+  #par(first-line-indent: 0em)[*关于 TnTT 模板的致谢如下：*]
 
   非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植于由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
   移植过程中主要参考了 #link("https://github.com/fatalerror-i/ThuWordThesis", underline[清华大学学位论文 Word 模板]) 和 #link("https://github.com/tuna/thuthesis", underline[清华大学学位论文 LaTeX 模板])，在模板更新的过程中主要参考了官方提供的 Word 模板，在此表达感谢。
 
-  感谢 #link("https://www.myriad-dreamin.com/", underline[纸夜])#text(mask-text("姐姐"), font: use-cjk-fonts("SongTi")) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具，您可以通过 #link("https://afdian.com/a/camiyoru", underline[Afdian]) 对纸夜大大进行捐赠来支持他的工作。
+  感谢 #link("https://www.myriad-dreamin.com/", underline[纸夜]) 开发的 #link("https://github.com/Myriad-Dreamin/tinymist", underline[Tinymist])工具，您可以通过 #link("https://afdian.com/a/camiyoru", underline[Afdian]) 对纸夜大大进行捐赠来支持他的工作。
 
   感谢 #link("https://github.com/typst", underline[Typst 团队]) 的努力，感谢 #link("https://github.com/typst-doc-cn", underline[Typst 中文社区])。
 
@@ -529,15 +542,15 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 ]
 
 // 声明页
+// 对于本科生和硕士生及以上会应用不同的样式，也可以自定义输入内容
 #declaration()
 
 // 成果页
 #achievement[
-  // Reset the indent for this page
+  // 为此部分重新设置缩进
   #set par(first-line-indent: 0pt)
   #set list(indent: 0pt, body-indent: 1.2em)
   #set enum(indent: 0pt, numbering: "[1]", body-indent: 1.2em)
-
 
   #text(font: use-fonts("HeiTi"), size: use-size("四号"))[学术论文：]
 
@@ -557,13 +570,39 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
 ]
 
-// 论文训练记录表，仅用于本科生的综合论文训练
-#record-sheet()
+// 论文训练记录表，仅适用于本科生的综合论文训练
+// 此部分内容没有固定格式要求，以下内容仅供参考
+#record-sheet(
+  // 主要内容以及进度安排
+  content: [
+    #v(2em)
 
+    *主要内容*：针对……问题，通过……方法/实验，提出了……，实现了……，验证了……；
+
+    #v(1em)
+
+    *进度安排*：2024年11月～12月，完成文献调研与开题报告撰写；2025年1月～3月，完成实验设计与数据收集；2025年4月～5月，完成数据分析与论文撰写；2025年6月，完成论文修改与答辩准备。
+  ],
+  mid-term-comment: [
+    论文提出了……
+  ],
+  instructor-comment: [
+    论文提出了……
+  ],
+  reviewer-comment: [
+    论文提出了……
+  ],
+  defense-comment: [
+    论文提出了……
+  ]
+)
+
+// 指导教师评语，仅适用于研究生及以上
 #advisor-comment[
   论文提出了……
 ]
 
+// 答辩委员会决议书，仅适用于研究生及以上
 #resolution[
   论文提出了……
 
