@@ -38,6 +38,8 @@
 
   set page(margin: margin, paper: paper)
 
+  set heading(bookmarked: true)
+
   set document(title: info.title.sum(), author: info.author)
 
   if strict {
@@ -54,6 +56,7 @@
 /// - justify (bool): Whether to justify text in paragraphs.
 /// - leading (length): The leading (line height) for paragraphs.
 /// - spacing (length): The spacing (line spacing) between paragraphs.
+/// - reset-footnote (bool): Whether to reset the footnote counter by page.
 /// - code-block-leading (length): The leading for code blocks.
 /// - code-block-spacing (length): The spacing for code blocks.
 /// - heading-font (array): The font for headings.
@@ -96,6 +99,7 @@
   justify: true,
   leading: 0.98em,
   spacing: 0.98em,
+  reset-footnote: true,
   code-block-leading: 1em,
   code-block-spacing: 1em,
   heading-font: ("HeiTi",),
@@ -138,6 +142,9 @@
   let use-fonts = name => _use-fonts(fonts, name)
 
   /// Render the document with the specified fonts and styles.
+  /// Page
+  set page(header: { if reset-footnote { counter(footnote).update(0) } })
+
   /// Paragraph
   set par(justify: justify, leading: leading, spacing: spacing, first-line-indent: (amount: indent, all: true))
 

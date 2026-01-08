@@ -15,7 +15,7 @@
   heading-numbering: (first-level: "附录A", depth: 4, format: "A.1 "),
   figure-numbering: "A.1",
   figure-outlined: false,
-  equation-numbering: "(A.1)",
+  equation-numbering: "(A-1)",
   reset-counter: true,
   // self
   it,
@@ -36,10 +36,10 @@
       depth: heading-numbering.depth,
       heading-numbering.format,
     ),
-    bookmarked: true,
     outlined: false,
   )
 
+  // Only level 1 headings of the appendix are shown in the outline
   show heading.where(level: 1): set heading(outlined: true)
 
   set figure(outlined: figure-outlined)
