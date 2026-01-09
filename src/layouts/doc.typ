@@ -50,7 +50,6 @@
 /// - justify (bool): Whether to justify text in paragraphs.
 /// - leading (length): The leading (line height) for paragraphs.
 /// - spacing (length): The spacing (line spacing) between paragraphs.
-/// - reset-footnote (bool): Whether to reset the footnote counter by page.
 /// - code-block-leading (length): The leading for code blocks.
 /// - code-block-spacing (length): The spacing for code blocks.
 /// - heading-font (array): The font for headings.
@@ -67,6 +66,7 @@
 /// - footnote-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for footnotes.
 /// - footnote-size (length | str): The size of footnotes, can be length value or str.
 /// - footnote-style ("normal" | "super"): The style of footnotes, can be "normal" or "super".
+/// - footnote-reset ("by-page", "by-chapter", "off"): Whether to reset the footnote counter by page or chapter.
 /// - footnote-numbering (str): The numbering style for footnotes.
 /// - math-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for math equations.
 /// - math-size (length | str): The size of math equations, can be length value or str.
@@ -93,7 +93,6 @@
   justify: true,
   leading: 0.98em,
   spacing: 0.98em,
-  reset-footnote: true,
   code-block-leading: 1em,
   code-block-spacing: 1em,
   heading-font: ("HeiTi",),
@@ -110,6 +109,7 @@
   footnote-font: "SongTi",
   footnote-size: "小五",
   footnote-style: "normal",
+  footnote-reset: "by-page",
   footnote-numbering: "①",
   math-font: "Math",
   math-size: "小四",
@@ -136,9 +136,6 @@
   let use-fonts = name => _use-fonts(fonts, name)
 
   /// Render the document with the specified fonts and styles.
-  /// Page
-  set page(header: { if reset-footnote { counter(footnote).update(0) } })
-
   /// Paragraph
   set par(justify: justify, leading: leading, spacing: spacing, first-line-indent: (amount: indent, all: true))
 
@@ -193,6 +190,15 @@
       #it.note.body
     ]
   }
+
+  if footnote-reset == "by-page" {
+    set page(header: { counter(footnote).update(0) })
+  } else if footnote-reset == "by-chapter" {
+    // reset footnote by heading level 1
+    show heading.where(level: 1): set page(header: { counter(footnote).update(0) })
+  } else if footnote-reset == "off" {
+    // do nothing
+  } else { panic("Unknown reset-footnote option: " + footnote-reset) }
 
   /// Math Equation
   show math.equation: set text(font: use-fonts(math-font), size: use-size(math-size))
