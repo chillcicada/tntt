@@ -19,7 +19,6 @@
   degree: "academic",
   anonymous: false,
   twoside: false,
-  strict: false,
   bibliography: none,
   fonts: (:),
   info: (:),
@@ -78,7 +77,6 @@
 
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
-  if type(strict) == str { strict = str2bool(strict) }
 
   let _support_doctype = ("bachelor", "master", "doctor", "postdoc")
   assert(_support_doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "))
@@ -108,7 +106,7 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: (..args) => meta(strict: strict, ..args, info: extend_info(args)),
+    meta: (..args) => meta(..args, info: extend_info(args)),
     // 文稿设置 | Document Layout Configuration
     doc: (..args) => doc(..args, fonts: extend_fonts(args)),
     // 前辅文设置 | Front Matter Layout Configuration

@@ -1,7 +1,6 @@
 /// Meta Information for the Document / PDF
 ///
 /// - info (dictionary): The metadata for the document, including title and author.
-/// - strict (bool): Whether to enable strict check mode for text rendering.
 /// - lang (text.lang): The language of the document, default is "zh" (Chinese).
 /// - region (text.region): The region for the document, default is "cn" (China Mainland).
 /// - margin (margin): The margin settings for the document.
@@ -13,7 +12,6 @@
 #let meta(
   // from entry
   info: (:),
-  strict: false,
   // options
   lang: "zh",
   region: "cn",
@@ -41,10 +39,6 @@
   set heading(bookmarked: true)
 
   set document(title: info.title.sum(), author: info.author)
-
-  if strict {
-    assert(info.title.sum().clusters().len() <= 25, message: "文档标题过长，请确保标题长度不超过 25 个字符")
-  }
 
   it
 }
