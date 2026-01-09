@@ -52,14 +52,16 @@
   import "pages/notation.typ": notation
 
   // main matter
-  import "pages/bilingual-bibliography.typ": bilingual-bibliography
+  // (no specific pages)
 
   // back matter
+  import "pages/bilingual-bibliography.typ": bilingual-bibliography
+  // (appendices pages)
   import "pages/acknowledge.typ": acknowledge
   import "pages/declaration.typ": declaration
   import "pages/achievement.typ": achievement
   import "pages/record-sheet.typ": record-sheet
-  import "pages/advisor-comment.typ": advisor-comment
+  import "pages/comments.typ": comments
   import "pages/resolution.typ": resolution
 
   /// --------- ///
@@ -148,13 +150,13 @@
     acknowledge: (..args) => acknowledge(anonymous: anonymous, twoside: twoside, ..args),
     // 声明页 | Declaration Page
     declaration: (..args) => declaration(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
-    // 成果页 | Achievement Page
+    // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
     achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 论文训练记录表 | Record Sheet Page
     record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend_info(args)),
-    // 指导教师/指导小组评语页 | Advisor Comment Page
-    advisor-comment: (..args) => advisor-comment(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
-    // 答辩委员会决议书页 | Committee Resolution Page
+    // 指导教师/指导小组评语页 | Advisor Comments Page
+    comments: (..args) => comments(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    // 答辩委员会决议书 | Committee Resolution Page
     resolution: (..args) => resolution(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
   )
 }

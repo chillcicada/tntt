@@ -8,13 +8,13 @@
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - it (content): The content of the acknowledgement page.
 /// -> content
-#let advisor-comment(
+#let comments(
   // from entry
   anonymous: false,
   twoside: false,
   doctype: "master",
   // options
-  title: [指导教师评语],
+  title: [指导教师学术评语],
   outlined: true,
   bookmarked: true,
   // self

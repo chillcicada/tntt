@@ -39,7 +39,7 @@
     outlined: false,
   )
 
-  // Only level 1 headings of the appendix are shown in the outline
+  // Only level 1 headings of the appendices are shown in the outline
   show heading.where(level: 1): set heading(outlined: true)
 
   set figure(outlined: figure-outlined)

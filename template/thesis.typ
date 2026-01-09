@@ -65,7 +65,7 @@
   declaration,
   achievement,
   record-sheet,
-  advisor-comment,
+  comments,
   resolution,
 ) = define-config(
   // 论文类型，可选值：bachelor、master、doctor、postdoc
@@ -238,14 +238,14 @@
   - 符号表（notation）
 - 正文（main-matter） ← 正文重新计数
   - 正文内容
-  - 参考文献（bilingual-bibliography） ← 正文内容结束
 - 后辅文（back-matter）：即正文后部分
+  - 参考文献（bilingual-bibliography）
   - 附录内容
   - 致谢页（acknowledge）
   - 声明页（declaration）
   - 简历/个人成果页（achievement）
   - 综合论文训练记录表（record-sheet） ← 仅适用于本科生
-  - 指导教师评语（advisor-comment） ← 仅适用于硕士生及以上
+  - 指导教师学术评语（comments） ← 仅适用于硕士生及以上
   - 答辩委员会决议书（resolution） ← 仅适用于硕士生及以上
 
 一些受论文类型控制的页面将自动根据 doctype 调整内容和样式，如封面页、授权页、声明页等，另一些仅本科生或是仅硕士生及以上使用的页面也会根据论文类型跳过解析而自动忽略，即使在源码中引入了这些页面，这些页面不会出现在最终的文档中。
@@ -537,7 +537,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 对于本科生和硕士生及以上会应用不同的样式，也可以自定义输入内容
 #declaration()
 
-// 成果页
+// 个人简历、在学期间完成的相关学术成果说明页
 #achievement[
   // 为此部分重新设置缩进
   #set par(first-line-indent: 0pt)
@@ -590,7 +590,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 )
 
 // 指导教师评语，仅适用于研究生及以上
-#advisor-comment[
+#comments[
   论文提出了……
 ]
 
