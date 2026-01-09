@@ -1,7 +1,6 @@
 /// Meta Information for the Document / PDF
 ///
 /// - info (dictionary): The metadata for the document, including title and author.
-/// - strict (bool): Whether to enable strict check mode for text rendering.
 /// - lang (text.lang): The language of the document, default is "zh" (Chinese).
 /// - region (text.region): The region for the document, default is "cn" (China Mainland).
 /// - margin (margin): The margin settings for the document.
@@ -13,7 +12,6 @@
 #let meta(
   // from entry
   info: (:),
-  strict: false,
   // options
   lang: "zh",
   region: "cn",
@@ -38,11 +36,9 @@
 
   set page(margin: margin, paper: paper)
 
-  set document(title: info.title.sum(), author: info.author)
+  set heading(bookmarked: true)
 
-  if strict {
-    assert(info.title.sum().clusters().len() <= 25, message: "文档标题过长，请确保标题长度不超过 25 个字符")
-  }
+  set document(title: info.title.sum(), author: info.author)
 
   it
 }
@@ -70,6 +66,7 @@
 /// - footnote-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for footnotes.
 /// - footnote-size (length | str): The size of footnotes, can be length value or str.
 /// - footnote-style ("normal" | "super"): The style of footnotes, can be "normal" or "super".
+/// - footnote-reset ("by-page", "by-chapter", "off"): Whether to reset the footnote counter by page or chapter.
 /// - footnote-numbering (str): The numbering style for footnotes.
 /// - math-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for math equations.
 /// - math-size (length | str): The size of math equations, can be length value or str.
@@ -112,6 +109,7 @@
   footnote-font: "SongTi",
   footnote-size: "小五",
   footnote-style: "normal",
+  footnote-reset: "by-page",
   footnote-numbering: "①",
   math-font: "Math",
   math-size: "小四",
@@ -192,6 +190,15 @@
       #it.note.body
     ]
   }
+
+  if footnote-reset == "by-page" {
+    set page(header: { counter(footnote).update(0) })
+  } else if footnote-reset == "by-chapter" {
+    // reset footnote by heading level 1
+    show heading.where(level: 1): set page(header: { counter(footnote).update(0) })
+  } else if footnote-reset == "off" {
+    // do nothing
+  } else { panic("Unknown reset-footnote option: " + footnote-reset) }
 
   /// Math Equation
   show math.equation: set text(font: use-fonts(math-font), size: use-size(math-size))

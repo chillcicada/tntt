@@ -3,7 +3,6 @@
 /// - twoside (bool): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
 /// - heading-numbering (str): The numbering format for headings.
-/// - reset-footnote (bool): Whether to reset the footnote counter by page.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -13,7 +12,6 @@
   page-numbering: "1",
   heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),
   equation-numbering: "(1-1)",
-  reset-footnote: true,
   // self
   it,
 ) = {
@@ -35,14 +33,13 @@
       depth: heading-numbering.depth,
       heading-numbering.format,
     ),
-    bookmarked: true,
   )
 
   show figure: i-figured.show-figure.with(extra-prefixes: ("algorithm": "alg:"))
 
   show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
 
-  set page(numbering: page-numbering, header: { if reset-footnote { counter(footnote).update(0) } })
+  set page(numbering: page-numbering)
 
   counter(page).update(1)
 
