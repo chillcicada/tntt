@@ -21,15 +21,24 @@
   paper: "a4",
   fallback: false,
   use-fakebold: true,
+  use-latex-ref: false,
   // self
   it,
 ) = {
+  import "../utils/ref.typ": apply-latex-ref-compat
+
   import "../imports.typ": cuti
+  import "../imports.typ": ratchet
   import cuti: show-cn-fakebold
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
   }
+
+  show: ratchet.with(reset-figure-kinds: (table, image, raw, "algorithm"))
+
+  // Apply LaTeX/i-figured reference compatibility if enabled
+  show: it => if use-latex-ref { apply-latex-ref-compat(it) } else { it }
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }

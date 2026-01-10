@@ -1,15 +1,15 @@
-#let _legacy-prefixes = ("fig:", "tbl:", "eqt:", "lst:", "alg:", "img:")
+#let _latex-prefixes = ("fig:", "tbl:", "eq:", "lst:", "alg:", "img:")
 
-// Strip a legacy prefix from a label string if present.
+// Strip a LaTeX/i-figured style prefix from a label string if present.
 #let _strip-legacy-prefix(s) = {
-  for p in _legacy-prefixes {
+  for p in _latex-prefixes {
     if s.starts-with(p) { return s.slice(p.len()) }
   }
   s
 }
 
-// Install compatibility rewrite for refs.
-#let legacy-ref-compat(body) = {
+// Apply compatibility rewrite for refs.
+#let apply-latex-ref-compat(body) = {
   show ref: r => context {
     if r.element != none { return r }
 

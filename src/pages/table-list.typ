@@ -13,7 +13,5 @@
 ) = {
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  // heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
-
   outline(title: title, target: figure.where(kind: table))
 }

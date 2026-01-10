@@ -12,11 +12,6 @@
   // self
   it,
 ) = {
-  import "../imports.typ": ratchet
-  show: ratchet.with(
-    reset-figure-kinds: (table, image, raw, "algorithm"),
-  )
-
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 

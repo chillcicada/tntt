@@ -21,7 +21,11 @@
   it,
 ) = {
   import "../utils/numbering.typ": custom-numbering
+
   import "../imports.typ": ratchet
+
+  // Page break
+  pagebreak(weak: true, to: if twoside { "odd" })
 
   // Reset the counter and numbering
   if reset-counter { counter(heading).update(0) }
@@ -44,9 +48,6 @@
     eq-outline: equation-numbering,
     fig-outline: figure-numbering,
   )
-
-  // Page break
-  pagebreak(weak: true, to: if twoside { "odd" })
 
   it
 }
