@@ -21,7 +21,7 @@
   it,
 ) = {
   import "../utils/numbering.typ": custom-numbering
-  import "../imports.typ": better-numbering
+  import "../imports.typ": ratchet
 
   // Reset the counter and numbering
   if reset-counter { counter(heading).update(0) }
@@ -40,7 +40,7 @@
 
   set figure(outlined: figure-outlined)
 
-  show: better-numbering.with(
+  show: ratchet.with(
     eq-outline: equation-numbering,
     fig-outline: figure-numbering,
   )

@@ -12,8 +12,8 @@
   // self
   it,
 ) = {
-  import "../imports.typ": better-numbering
-  show: better-numbering.with(
+  import "../imports.typ": ratchet
+  show: ratchet.with(
     reset-figure-kinds: (table, image, raw, "algorithm"),
   )
 

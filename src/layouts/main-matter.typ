@@ -20,9 +20,9 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": array-at
   import "../utils/numbering.typ": custom-numbering
-  import "../imports.typ": better-numbering
+  import "../imports.typ": ratchet
 
-  show: better-numbering.with(
+  show: ratchet.with(
     eq-outline: equation-numbering,
     fig-outline: heading-numbering.format,
     reset-figure-kinds: (table, image, raw, "algorithm"),
