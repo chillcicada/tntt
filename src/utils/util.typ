@@ -11,6 +11,6 @@
   }
 }
 
-#let extend-dict(dict, args, index) = { dict + args.named().at(index, default: (:)) }
+#let extend(val, key, kwargs) = { val + kwargs.named().at(key, default: (:)) }
 
 #let is-not-empty(c) = c not in (none, "", [])

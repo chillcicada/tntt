@@ -55,7 +55,7 @@
 
   // back matter
   import "pages/bilingual-bibliography.typ": bilingual-bibliography
-  // (appendices pages)
+  // (appendices, no specific pages)
   import "pages/acknowledge.typ": acknowledge
   import "pages/declaration.typ": declaration
   import "pages/achievement.typ": achievement
@@ -69,7 +69,7 @@
 
   import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check
   import "utils/page.typ": _use-twoside
-  import "utils/util.typ": extend-dict, str2bool
+  import "utils/util.typ": extend, str2bool
 
   /// ------- ///
   /// Process ///
@@ -78,15 +78,15 @@
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
 
-  let _support_doctype = ("bachelor", "master", "doctor", "postdoc")
-  assert(_support_doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support_doctype.join(", "))
+  let _support-doctype = ("bachelor", "master", "doctor", "postdoc")
+  assert(_support-doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support-doctype.join(", "))
 
   // "academic" "professional"
-  let _support_degree = ("academic",)
-  assert(_support_degree.contains(degree), message: "不支持的学位类型, 目前支持的有: " + _support_degree.join(", "))
+  let _support-degree = ("academic",)
+  assert(_support-degree.contains(degree), message: "不支持的学位类型, 目前支持的有: " + _support-degree.join(", "))
 
-  let extend_info(args) = extend-dict(info, args, "info")
-  let extend_fonts(args) = fonts-check(extend-dict(fonts, args, "fonts"))
+  let extend-info(kwargs) = extend(info, "info", kwargs)
+  let extend-fonts(kwargs) = fonts-check(extend(fonts, "fonts", kwargs))
 
   // @typstyle off
   return (
@@ -106,9 +106,9 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: (..args) => meta(..args, info: extend_info(args)),
+    meta: (..args) => meta(..args, info: extend-info(args)),
     // 文稿设置 | Document Layout Configuration
-    doc: (..args) => doc(..args, fonts: extend_fonts(args)),
+    doc: (..args) => doc(..args, fonts: extend-fonts(args)),
     // 前辅文设置 | Front Matter Layout Configuration
     front-matter: (..args) => front-matter(twoside: twoside, ..args),
     // 正文设置 | Main Matter Layout Configuration
@@ -119,21 +119,21 @@
     /// pages ///
     /// ----- ///
     // 字体展示页 | Fonts Display Page
-    fonts-display: (..args) => fonts-display(..args, fonts: extend_fonts(args)),
+    fonts-display: (..args) => fonts-display(..args, fonts: extend-fonts(args)),
     // 中文封面页 | Cover Page
-    cover: (..args) => cover(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend_fonts(args), info: extend_info(args)),
+    cover: (..args) => cover(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 英文封面页 | Cover (English) Page
-    cover-en: (..args) => cover-en(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend_fonts(args), info: extend_info(args)),
+    cover-en: (..args) => cover-en(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
     committee: (..args) => committee(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 授权页 | Copyright Page
     copyright: (..args) => copyright(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 中文摘要页 | Abstract Page
-    abstract: (..args) => abstract(twoside: twoside, ..args, fonts: extend_fonts(args)),
+    abstract: (..args) => abstract(twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 英文摘要页 | Abstract (English) Page
-    abstract-en: (..args) => abstract-en(twoside: twoside, ..args, fonts: extend_fonts(args)),
+    abstract-en: (..args) => abstract-en(twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 目录页 | Outline Page
-    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: extend_fonts(args)),
+    outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 插图目录页 | Figure List Page
     figure-list: (..args) => figure-list(twoside: twoside, ..args),
     // 表格目录页 | Table List Page
@@ -151,7 +151,7 @@
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
     achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 论文训练记录表 | Record Sheet Page
-    record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend_info(args)),
+    record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend-info(args)),
     // 指导教师/指导小组评语页 | Advisor Comments Page
     comments: (..args) => comments(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 答辩委员会决议书 | Committee Resolution Page
