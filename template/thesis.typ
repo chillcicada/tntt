@@ -89,8 +89,9 @@
   fonts: font-family, // 字体配置
 )
 
-// 文稿设置
-#show: meta
+// 文稿设置，应用 LaTex/i-figured 参考文献兼容模式
+#show: meta.with(use-latex-ref: true)
+// #show: meta
 
 // 字体展示测试页，在配置好字体后请注释或删除此项
 #fonts-display()
@@ -195,7 +196,7 @@
 #fonts-display(size: 15pt)
 ```
 
-上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下@tbl:font-size 所示：
+上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下@font-size 所示：
 
 #figure(
   table(
@@ -323,7 +324,9 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 = 图、表及表达式示例
 
-引用图表时，为了支持编号按章计数，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号，引用数学公式需要加上 `eqt:` 前缀。
+引用图表时，可以直接使用 `<lab>` 和 `@ref` 来引用，如 @fig-example、@tbl-example 和 @eq-example。
+
+如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eq:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eq:eq-example，@lst:lst-example，@alg:example-pseudocode。
 
 == 论文中图的示例
 
@@ -332,9 +335,36 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 #figure(
   image("media/图的示例.png", width: 9.74cm),
   caption: [不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱],
-) <example>
+) <fig-example>
 
-@fig:example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
+@fig-example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
+
+你可以轻松地做到子图排列：
+
+#figure(
+  grid(columns: (1fr,) * 2, align: bottom)[
+    #figure(
+      image("media/图的示例.png", width: 80%),
+      numbering: none,
+      outlined: false,
+      caption: [该图不会编入最终的目录],
+    )
+  ][
+    #figure(
+      table(
+        columns: 2,
+        [测试点], [吸光度],
+        [A 点], [0.123],
+        [B 点], [0.456],
+        [C 点], [0.789],
+        [D 点], [0.101],
+        [E 点], [0.112],
+      ),
+      caption: [测试数据表],
+    )
+  ],
+  caption: [子图排列示例],
+) <fig-subexample>
 
 == 论文中表的示例
 
@@ -359,11 +389,11 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
       table.hline(stroke: 1.5pt),
     ),
     caption: [字体、字型、字号及段落格式要求],
-  ) <example>
+  ) <tbl-example>
   // @typstyle on
 ]
 
-@tbl:example 为字体、字型、字号及段落格式要求。
+@tbl-example 为字体、字型、字号及段落格式要求。
 
 除此之外，社区也提供了 #link("https://typst.app/universe/package/tablem", underline[tablem]) 用于创建类似 markdown 写法的表格。
 
@@ -373,9 +403,9 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 $
   "NH"^+_4 + 2"O"_2 -> "NO"^-_3 + "H"_2"O" + 2"H"^+
-$ <example>
+$ <eq-example>
 
-@eqt:example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
+@eq-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
 
 默认情况下，行间公式都会自动编号，可以通过 `<->` 标签来标识该行间公式不需要编号：
 
@@ -389,7 +419,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 论文中代码块和算法的示例
 
-*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮。引用时需要加上 `lst:`，如 @lst:example。
+*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮。如 @lst-example。
 
 #figure(
   ```py
@@ -397,7 +427,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     return x + y
   ```,
   caption: [代码块],
-) <example>
+) <lst-example>
 
 此外，社区也提供了 #link("https://typst.app/universe/package/codly", underline[codly]) 和 #link("https://typst.app/universe/package/zebraw", underline[zebraw]) 包用于创建更美观的代码块。
 
@@ -426,7 +456,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ) <example-pseudocode>
 ]
 
-使用 @alg:example-pseudocode 引用该伪代码示例。
+使用 @example-pseudocode 引用该伪代码示例。
 
 = 结　语
 
@@ -454,6 +484,10 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 默认使用 gb-7714-2015-numeric 样式
 #bilingual-bibliography()
 
+// 中英双语参考文献
+// 默认使用 gb-7714-2015-numeric 样式
+#bilingual-bibliography()
+
 /// ----------- ///
 /// Back Matter ///
 /// ----------- ///
@@ -471,7 +505,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 === #lorem(3)
 
-附录内容，这里也可以加入图片，例如@fig:appendix-img。默认情况下，附录内的图表不会加入到对应的索引中。
+附录内容，这里也可以加入图片，例如@appendix-img。默认情况下，附录内的图表不会加入到对应的索引中。引用前面的图片也可以正常显示@fig-example。
 
 #figure(image("media/图的示例.png", width: 50%), caption: [图片测试]) <appendix-img>
 
