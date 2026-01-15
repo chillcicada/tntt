@@ -2,7 +2,7 @@
 ///
 /// - twoside (bool): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
-/// - heading-numbering (str): The numbering format for headings.
+/// - heading-numbering (array): The numbering format for headings.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -10,15 +10,14 @@
   twoside: false,
   // options
   page-numbering: "1",
-  heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),
-  equation-numbering: "1-1",
-  reset-footnote: true,
+  heading-numbering: (formats: ("第1章", "1.1"), depth: 4),
+  equation-numbering: "(1-1)",
   // self
   it,
 ) = {
   import "../utils/font.typ": use-size
   import "../utils/util.typ": array-at
-  import "../utils/numbering.typ": custom-numbering
+  import "../utils/numbering.typ": multi-numbering
 
   import "../imports.typ": ratchet
 
@@ -31,15 +30,9 @@
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  set heading(
-    numbering: custom-numbering.with(
-      first-level: heading-numbering.first-level,
-      depth: heading-numbering.depth,
-      heading-numbering.format,
-    ),
-  )
+  set heading(numbering: multi-numbering.with(heading-numbering.formats, heading-numbering.depth))
 
-  set page(numbering: page-numbering, header: { if reset-footnote { counter(footnote).update(0) } })
+  set page(numbering: page-numbering)
 
   counter(page).update(1)
 

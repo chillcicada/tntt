@@ -56,6 +56,8 @@
   abstract,
   abstract-en,
   outline-wrapper,
+  master-list,
+  figure-table-list,
   figure-list,
   table-list,
   equation-list,
@@ -140,11 +142,20 @@
 // 目录
 #outline-wrapper()
 
-// 插图目录
+// 总清单
+// #master-list()
+
+// 插图和附表清单
+// #figure-table-list()
+
+// 插图清单
 #figure-list()
 
-// 表格目录
+// 附表清单
 #table-list()
+
+// 公式清单
+// #equation-list()
 
 // 符号表
 // 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。
@@ -484,10 +495,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 默认使用 gb-7714-2015-numeric 样式
 #bilingual-bibliography()
 
-// 中英双语参考文献
-// 默认使用 gb-7714-2015-numeric 样式
-#bilingual-bibliography()
-
 /// ----------- ///
 /// Back Matter ///
 /// ----------- ///
@@ -619,7 +626,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ],
   defense-comment: [
     论文提出了……
-  ]
+  ],
 )
 
 // 指导教师评语，仅适用于研究生及以上

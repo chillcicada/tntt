@@ -1,6 +1,6 @@
 #import "imports.typ": *
 #import "utils/font.typ": use-size
-#import "utils/numbering.typ": custom-numbering
+#import "utils/numbering.typ": multi-numbering
 #import "utils/text.typ": distr-text, mask-text, space-text, v-text
 
 /// Define the configuration for the document.
@@ -45,9 +45,7 @@
   // front matter
   import "pages/abstract.typ": abstract, abstract-en
   import "pages/outline-wrapper.typ": outline-wrapper
-  import "pages/figure-list.typ": figure-list
-  import "pages/table-list.typ": table-list
-  import "pages/equation-list.typ": equation-list
+  import "pages/list-of.typ": equation-list, figure-list, figure-table-list, master-list, table-list
   import "pages/notation.typ": notation
 
   // main matter
@@ -134,11 +132,15 @@
     abstract-en: (..args) => abstract-en(twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 目录页 | Outline Page
     outline-wrapper: (..args) => outline-wrapper(twoside: twoside, ..args, fonts: extend-fonts(args)),
-    // 插图目录页 | Figure List Page
+    // 总清单页 | Master List Page
+    master-list: (..args) => master-list(twoside: twoside, ..args),
+    // 插图和附表清单页 | Figure and Table Index Page
+    figure-table-list: (..args) => figure-table-list(twoside: twoside, ..args),
+    // 插图清单页 | Figure List Page
     figure-list: (..args) => figure-list(twoside: twoside, ..args),
-    // 表格目录页 | Table List Page
+    // 附表清单页 | Table List Page
     table-list: (..args) => table-list(twoside: twoside, ..args),
-    // 公式目录页 | Equation List Page
+    // 公式清单页 | Equation List Page
     equation-list: (..args) => equation-list(twoside: twoside, ..args),
     // 符号表页 | Notation Page
     notation: (..args) => notation(twoside: twoside, ..args),
