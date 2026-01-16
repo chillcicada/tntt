@@ -121,7 +121,7 @@
     // 英文封面页 | Cover (English) Page
     cover-en: (..args) => cover-en(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
-    committee: (..args) => committee(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    committee: (..args) => committee(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 授权页 | Copyright Page
     copyright: (..args) => copyright(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 中文摘要页 | Abstract Page

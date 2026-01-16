@@ -69,7 +69,6 @@
 
   /// Render cover page
   set page(margin: margin)
-
   set align(center)
 
   v(1.8em)

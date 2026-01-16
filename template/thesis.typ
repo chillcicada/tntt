@@ -363,7 +363,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 引用图表时，可以直接使用 `<lab>` 和 `@ref` 来引用，如 @fig-example、@tbl-example 和 @eq-example。
 
-如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eq:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eq:eq-example，@lst:lst-example，@alg:example-pseudocode。
+// 如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eq:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eq:eq-example，@lst:lst-example，@alg:example-pseudocode。
 
 == 论文中图的示例
 

@@ -23,20 +23,17 @@
   // self
   it,
 ) = {
-  import "../utils/ref.typ": apply-latex-ref-compat
+  import "../utils/ref.typ": apply-latex-ref-to-figure
 
   import "../imports.typ": cuti
-  import "../imports.typ": ratchet
   import cuti: show-cn-fakebold
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
   }
 
-  show: ratchet.with(reset-figure-kinds: (table, image, raw, "algorithm"))
-
   // Apply LaTeX/i-figured reference compatibility if enabled
-  show: it => if use-latex-ref { apply-latex-ref-compat(it) } else { it }
+  // show: it => if use-latex-ref { apply-latex-ref-to-figure(it) } else { it }
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
@@ -161,17 +158,18 @@
   show heading: it => {
     if array-at(heading-pagebreak, it.level) { pagebreak(weak: true) }
 
-    set text(
-      size: use-size(array-at(heading-size, it.level)),
-      font: use-fonts(array-at(heading-font, it.level)),
-      weight: array-at(heading-weight, it.level),
-    )
-
-    set block(above: array-at(heading-above, it.level), below: array-at(heading-below, it.level))
-
     v(array-at(heading-front-vspace, it.level))
 
-    align(array-at(heading-align, it.level), it)
+    align(array-at(heading-align, it.level), block(
+      above: array-at(heading-above, it.level),
+      below: array-at(heading-below, it.level),
+      text(
+        size: use-size(array-at(heading-size, it.level)),
+        font: use-fonts(array-at(heading-font, it.level)),
+        weight: array-at(heading-weight, it.level),
+        it,
+      ),
+    ))
 
     v(array-at(heading-back-vspace, it.level))
   }
