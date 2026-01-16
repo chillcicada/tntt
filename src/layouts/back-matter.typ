@@ -3,7 +3,8 @@
 /// - twoside (bool): Whether to use two-sided layout.
 /// - heading-numbering (dictorary): The numbering format for headings.
 /// - figure-outlined (bool): Whether to outline figure numbers in figures index page.
-/// - equation-numbering (str): The numbering format for equations.
+/// - figure-numbering (str | auto): The numbering format for figures.
+/// - equation-numbering (str | auto): The numbering format for equations.
 /// - reset-counter (bool): Whether to reset the pages counter.
 /// - it (content): The content of the back matter.
 /// -> content
@@ -13,7 +14,8 @@
   // options
   heading-numbering: (formats: ("附录A", "A.1"), depth: 4, supplyment: " "),
   figure-outlined: false,
-  equation-numbering: "(A.1)",
+  figure-numbering: auto,
+  equation-numbering: auto,
   reset-counter: false,
   // self
   it,
@@ -22,6 +24,11 @@
 
   import "../imports.typ": ratchet
 
+  if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
+  if equation-numbering == auto { equation-numbering = "(" + heading-numbering.formats.last() + ")" }
+
+  let __back-matter-has-page-counter-reset = state("__back-matter-has-page-counter-reset", false)
+
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 
@@ -29,15 +36,13 @@
 
   show: ratchet.with(
     eq-outline: equation-numbering,
-    fig-outline: heading-numbering.formats.last(),
+    fig-outline: figure-numbering,
   )
 
   // Reset the counter and numbering of headings
   counter(heading).update(0)
 
   set heading(numbering: multi-numbering.with(..heading-numbering), outlined: false)
-
-  let __back-matter-has-page-counter-reset = state("__back-matter-has-page-counter-reset", false)
 
   show heading.where(level: 1): it => {
     // Only level 1 headings of the appendices are shown in the outline
