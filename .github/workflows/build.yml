@@ -1,4 +1,4 @@
-name: Render nightly thesis.pdf
+name: Render nightly thesis
 
 on:
   push:
