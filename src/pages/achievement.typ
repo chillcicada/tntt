@@ -1,7 +1,7 @@
 /// Achievement Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - doctype (string): The document type.
 /// - title (content): The title of the achievement page.
 /// - outlined (bool): Whether to outline the page.
@@ -22,7 +22,9 @@
 ) = {
   if anonymous { return }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
 
   // TODO: the default title is affected by doctype
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)

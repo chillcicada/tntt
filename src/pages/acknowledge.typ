@@ -1,7 +1,7 @@
 /// Acknowledgement Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - title (content): The title of the acknowledgement page.
 /// - title-vspace (length): The vertical space after the title.
 /// - outlined (bool): Whether to outline the page.
@@ -22,7 +22,9 @@
 ) = {
   if anonymous { return }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

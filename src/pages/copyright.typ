@@ -1,7 +1,7 @@
 /// Copyright Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - doctype ("bachelor"): The document type.
 /// - title (content): The title of the copyright page.
 /// - title-size (length | str): The size of the title font.
@@ -29,6 +29,9 @@
 
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
 
   // TODO: we need a less invasive method
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, {

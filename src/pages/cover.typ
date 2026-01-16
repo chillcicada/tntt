@@ -100,8 +100,12 @@
   place(bottom + center, dy: -5.4em, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date))
 }
 
-#let cover-en(doctype: "master", ..args) = {
+#let cover-en(doctype: "master", twoside: false, ..args) = {
   if doctype not in ("master", "doctor", "postdoc") { return }
+
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
 
   cover(..args)
 }

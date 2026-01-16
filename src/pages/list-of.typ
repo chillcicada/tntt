@@ -1,6 +1,6 @@
 /// Master List Page
 ///
-/// - twoside (bool): Whether to use two-sided printing.
+/// - twoside (bool | str): Whether to use two-sided printing.
 /// - title (content): The title of the master list page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -15,7 +15,9 @@
   bookmarked: true,
   target: figure,
 ) = {
-  pagebreak(weak: true, to: if twoside { "odd" })
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
@@ -29,7 +31,9 @@
   outlined: false,
   bookmarked: true,
 ) = {
-  pagebreak(weak: true, to: if twoside { "odd" })
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

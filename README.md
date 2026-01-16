@@ -12,7 +12,7 @@ TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归
 
 > [!IMPORTANT]
 >
-> **目前仅支持本科生的综合论文训练。由于 Typst 尚未稳定，本模板会持续追踪最新发布版本。因此，请使用 Typst 的最新版进行编辑，以确保能使用上新的特性并避免兼容性问题。**
+> **目前已基本支持所有学位的论文。由于 Typst 尚未稳定，本模板会持续追踪最新发布版本。因此，推荐使用 Typst 的最新版进行编辑，以确保能使用上新的特性并避免兼容性问题。**
 
 ## 使用
 
@@ -32,6 +32,10 @@ typst init @preview/tntt
 ```
 
 此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本：
+
+> [!WARNING]
+>
+> 夜间版本并不稳定，建议仅在想要添加功能或修复问题的情况下使用。
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -135,7 +139,7 @@ TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua 
 
 > [!IMPORTANT]
 >
-> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, please use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
+> **Currently, it basically supports theses for all degrees. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, it is recommended to use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
 
 ## Usage
 
@@ -155,6 +159,10 @@ Of course, you can also import the template in any Typst file by adding:
 ```
 
 In addition, due to frequency updates, you may clone the source repository to use the latest nightly version:
+
+> [!WARNING]
+>
+> The nightly version is unstable and is recommended if you want to add a feature or solve an issue.
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1

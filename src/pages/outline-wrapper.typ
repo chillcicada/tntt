@@ -1,6 +1,6 @@
 /// Outline Wrapper Page
 ///
-/// - twoside (bool): Whether to use two-sided printing
+/// - twoside (bool | str): Whether to use two-sided printing
 /// - fonts (dictionary): The font family to use.
 /// - depth (int): The maximum depth of the outline.
 /// - font (array): The font family for each heading level.
@@ -32,7 +32,8 @@
   fill: (repeat([.], gap: .1pt),),
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
-  import "../utils/util.typ": array-at
+  import "../utils/util.typ": array-at, is-not-empty
+  import "../utils/page.typ": use-twoside
 
   /// Parse the outline configuration
   font = font.map(name => _use-fonts(fonts, name))
@@ -40,7 +41,7 @@
   size = size.map(use-size)
 
   /// Render the outline
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 
@@ -53,13 +54,13 @@
       none,
       {
         text(font: array-at(font, entry.level), size: array-at(size, entry.level), {
-          if entry.prefix() not in (none, []) {
+          if is-not-empty(entry.prefix()) {
             entry.prefix()
             h(gap)
           }
           entry.body()
         })
-        box(width: 1fr, inset: (x: .25em), fill.at(entry.level - 1, default: fill.last()))
+        box(width: 1fr, inset: (x: .25em), array-at(fill, entry.level))
         entry.page()
       },
       gap: 0pt,

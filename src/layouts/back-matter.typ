@@ -1,6 +1,6 @@
 /// Back Matter Layout
 ///
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - heading-numbering (dictorary): The numbering format for headings.
 /// - figure-outlined (bool): Whether to outline figure numbers in figures index page.
 /// - figure-numbering (str | auto): The numbering format for figures.
@@ -21,6 +21,7 @@
   it,
 ) = {
   import "../utils/numbering.typ": multi-numbering
+  import "../utils/page.typ": use-twoside
 
   import "../imports.typ": ratchet
 
@@ -30,7 +31,7 @@
   let __back-matter-has-page-counter-reset = state("__back-matter-has-page-counter-reset", false)
 
   // Page break
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
   set figure(outlined: figure-outlined)
 

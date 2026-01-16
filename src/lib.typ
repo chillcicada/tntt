@@ -8,7 +8,7 @@
 /// - doctype ("bachelor"): The document type.
 /// - degree ("academic"): The degree type.
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided printing.
+/// - twoside (bool | str): Whether to use two-sided printing.
 /// - strict (bool): Whether to enable strict check mode for text rendering.
 /// - bibliography (): The bibliography entry.
 /// - fonts (dictionary): The font family to use.
@@ -57,16 +57,14 @@
   import "pages/acknowledge.typ": acknowledge
   import "pages/declaration.typ": declaration
   import "pages/achievement.typ": achievement
-  import "pages/record-sheet.typ": record-sheet
-  import "pages/comments.typ": comments
-  import "pages/resolution.typ": resolution
+  import "pages/review-material.typ": comments, record-sheet, resolution
 
   /// --------- ///
   /// Auxiliary ///
   /// --------- ///
 
   import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check
-  import "utils/page.typ": _use-twoside
+  import "utils/page.typ": use-twoside
   import "utils/util.typ": extend, str2bool
 
   /// ------- ///
@@ -97,7 +95,7 @@
     doctype: doctype,
     twoside: twoside,
     anonymous: anonymous,
-    use-twoside: _use-twoside(twoside),
+    use-twoside: use-twoside(twoside),
     use-fonts: name => _use-fonts(fonts, name),
     use-cjk-fonts: name => _use-cjk-fonts(fonts, name),
     /// ------- ///
@@ -108,7 +106,7 @@
     // 文稿设置 | Document Layout Configuration
     doc: (..args) => doc(..args, fonts: extend-fonts(args)),
     // 前辅文设置 | Front Matter Layout Configuration
-    front-matter: (..args) => front-matter(twoside: twoside, ..args),
+    front-matter: (..args) => front-matter(doctype: doctype, ..args),
     // 正文设置 | Main Matter Layout Configuration
     main-matter: (..args) => main-matter(twoside: twoside, ..args),
     // 后辅文设置 | Back Matter Layout Configuration

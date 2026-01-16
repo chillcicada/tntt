@@ -53,7 +53,7 @@ jobs:
           sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/thesis.typ
 
           # README adjustments
-          sed -i '/> \[!IMPORTANT\]/{N;d;}' README.md
+          sed -i -r '/> \[!(IMPORTANT|WARNING)\]/{N;d;}' README.md
 
       - name: Checkout package registry
         uses: actions/checkout@v6

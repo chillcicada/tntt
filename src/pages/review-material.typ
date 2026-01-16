@@ -1,7 +1,7 @@
 /// Record Sheet Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
 /// - doctype ("bachelor"): The document type, this page is only for bachelor's thesis.
 /// - title (content): The title of the record sheet page.
@@ -44,12 +44,11 @@
   defense-comment: [],
 ) = {
   /// Precheck
-  if anonymous { return }
-
-  if doctype not in ("bachelor",) { return }
+  if anonymous or doctype != "bachelor" { return }
 
   import "../utils/font.typ": use-size
   import "../utils/text.typ": v-text
+  import "../utils/page.typ": use-twoside
 
   if prefill {
     author = info.author
@@ -58,7 +57,7 @@
     thesis-title = info.title
   }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
   set page(numbering: none)
 
@@ -159,3 +158,39 @@
     年#h(1em)月#h(1em)日#h(3em)
   ])
 }
+
+/// Advisor Comment Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool | str): Whether to use two-sided layout.
+/// - doctype ("master" | "doctor" | "postdoc"): The document type.
+/// - title (content): The title of the acknowledgement page.
+/// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
+/// - it (content): The content of the acknowledgement page.
+/// -> content
+#let comments(
+  // from entry
+  anonymous: false,
+  twoside: false,
+  doctype: "master",
+  // options
+  title: [指导教师学术评语],
+  outlined: true,
+  bookmarked: true,
+  // self
+  it,
+) = {
+  if anonymous or doctype not in ("master", "doctor", "postdoc") { return }
+
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
+
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+
+  it
+}
+
+/// Committee Resolution Page
+#let resolution(..args) = comments(title: [答辩委员会决议书], ..args)

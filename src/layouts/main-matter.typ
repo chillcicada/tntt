@@ -1,6 +1,6 @@
 /// Main Matter Layout
 ///
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
 /// - heading-numbering (dictorary): The numbering format for headings.
 /// - figure-numbering (str | auto): The numbering format for figures.
@@ -19,6 +19,7 @@
   it,
 ) = {
   import "../utils/font.typ": use-size
+  import "../utils/page.typ": use-twoside
   import "../utils/util.typ": array-at
   import "../utils/numbering.typ": multi-numbering
 
@@ -28,7 +29,7 @@
   if equation-numbering == auto { equation-numbering = "(" + heading-numbering.formats.last() + ")" }
 
   // Page break
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
   show: ratchet.with(
     eq-outline: equation-numbering,

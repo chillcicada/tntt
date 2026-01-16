@@ -1,7 +1,7 @@
 /// Abstract Page (Simplified Chinese version)
 ///
 /// - fonts (dictionary): the font family to use, should be a dictionary.
-/// - twoside (bool): two-sided printing.
+/// - twoside (bool | str): two-sided printing.
 /// - title (content): the title of the abstract page.
 /// - outlined (bool): whether to outline the page.
 /// - bookmarked (bool): whether to add a bookmark for the page.
@@ -33,10 +33,11 @@
   it,
 ) = {
   import "../utils/font.typ": _use-fonts
+  import "../utils/page.typ": use-twoside
 
   let use-fonts = name => _use-fonts(fonts, name)
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 

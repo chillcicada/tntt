@@ -3,7 +3,7 @@
 /// - formats (array): An array of format strings for different levels, the last one will be reused for deeper levels
 /// - depth (int): Maximum depth to apply numbering formats, <= 0 means no limit
 /// - supplyment (str): A supplyment string to append after each format
-/// - ..numbers: the capturing numbers passed to the numbering function
+/// - numbers: the capturing numbers passed to the numbering function
 /// -> numbering
 #let multi-numbering(formats: (), depth: 0, supplyment: "", ..numbers) = {
   let f-len = formats.len()
