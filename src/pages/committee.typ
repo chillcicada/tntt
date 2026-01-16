@@ -11,7 +11,6 @@
   supervisors: (),
   reviewers: (),
   defenders: (:),
-  defenders-items: (chairman: "主席", member: "委员", secretary: "秘书"),
 ) = {
   if anonymous or doctype not in ("master", "doctor", "postdoc") { return }
 
@@ -42,8 +41,8 @@
   grid(columns: (3cm, 3cm, 9cm), ..reviewers.flatten())
 
   format-text("答辩委员会名单")
-  grid(columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm), ..defenders-items
+  grid(columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm), ..defenders
       .keys()
-      .map(k => (defenders-items.at(k), defenders.at(k).intersperse("")))
+      .map(k => (k, defenders.at(k).intersperse("")))
       .flatten())
 }
