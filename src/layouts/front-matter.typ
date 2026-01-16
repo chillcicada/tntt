@@ -15,7 +15,7 @@
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  // Reset the counter
+  // Reset the counter of pages
   counter(page).update(1)
   set page(numbering: page-numbering)
 

@@ -32,9 +32,9 @@
 
   set heading(numbering: multi-numbering.with(..heading-numbering))
 
-  set page(numbering: page-numbering)
-
+  // Reset the counter of pages
   counter(page).update(1)
+  set page(numbering: page-numbering)
 
   it
 }
