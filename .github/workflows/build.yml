@@ -1,4 +1,4 @@
-name: Render nightly thesis.pdf
+name: Render nightly thesis
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
     paths:
       - "src/**"
       - "template/**"
+  pull_request:
+    types: [opened, edited, synchronize]
   workflow_dispatch:
 
 jobs:
@@ -42,6 +44,7 @@ jobs:
           ./template/thesis.typ --font-path fonts bachelor-academic-anonymous-twoside.pdf --input anonymous=true --input twoside=true
 
       - name: Upload Artifacts
+        if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v5
         with:
           name: thesis
