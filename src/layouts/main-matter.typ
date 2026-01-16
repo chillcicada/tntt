@@ -2,7 +2,7 @@
 ///
 /// - twoside (bool): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
-/// - heading-numbering (array): The numbering format for headings.
+/// - heading-numbering (dictorary): The numbering format for headings.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -10,7 +10,7 @@
   twoside: false,
   // options
   page-numbering: "1",
-  heading-numbering: (formats: ("第1章", "1.1"), depth: 4),
+  heading-numbering: (formats: ("第1章", "1.1"), depth: 4, supplyment: " "),
   equation-numbering: "(1-1)",
   // self
   it,
@@ -23,14 +23,14 @@
 
   show: ratchet.with(
     eq-outline: equation-numbering,
-    fig-outline: heading-numbering.format,
+    fig-outline: heading-numbering.formats.last(),
     reset-figure-kinds: (table, image, raw, "algorithm"),
   )
 
   // Page break
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  set heading(numbering: multi-numbering.with(heading-numbering.formats, heading-numbering.depth))
+  set heading(numbering: multi-numbering.with(..heading-numbering))
 
   set page(numbering: page-numbering)
 

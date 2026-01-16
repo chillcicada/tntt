@@ -1,15 +1,15 @@
-/// Adjustable depth multi-format numbering, the last format will be reused for deeper levels
+/// Simple adjustable depth multi-format numbering, the last format will be reused for deeper levels
 ///
-/// - formats (array): An array of format strings for different levels
-/// - depth (int): Maximum depth to apply numbering formats
-/// - ..args: Additional arguments passed from the capturing numbering
+/// - formats (array): An array of format strings for different levels, the last one will be reused for deeper levels
+/// - depth (int): Maximum depth to apply numbering formats, <= 0 means no limit
+/// - supplyment (str): A supplyment string to append after each format
+/// - ..numbers: the capturing numbers passed to the numbering function
 /// -> numbering
-#let multi-numbering(formats, depth, ..args) = {
-  let len = formats.len()
-  let pos = args.pos().len()
+#let multi-numbering(formats: (), depth: 0, supplyment: "", ..numbers) = {
+  let f-len = formats.len()
+  let n-len = numbers.pos().len()
 
-  if len == 0 or (pos > depth and depth > 0) { return }
+  if f-len == 0 or (n-len > depth and depth > 0) { return }
 
-  // (pos - 1).saturating_sub(len - 1)
-  numbering(formats.at(calc.min(pos, len) - 1), ..(args.pos().slice(if pos < len { pos - 1 } else { pos - len })))
+  numbering(formats.at(calc.min(f-len, n-len) - 1) + supplyment, ..numbers)
 }
