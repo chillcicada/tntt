@@ -19,7 +19,7 @@
   paper: "a4",
   fallback: false,
   use-fakebold: true,
-  use-latex-ref: false,
+  use-latex-ref: true,
   // self
   it,
 ) = {
@@ -44,7 +44,7 @@
 
   set heading(bookmarked: true)
 
-  set document(title: info.title.sum(), author: info.author)
+  set document(title: info.title.sum(), author: info.author, date: info.submit-date)
 
   it
 }

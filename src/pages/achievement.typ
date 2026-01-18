@@ -32,10 +32,7 @@
   import "../utils/util.typ": is-not-empty
 
   let use-fonts = name => _use-fonts(fonts, name)
-  let preset-title = (
-    "bachelor": [在学期间参加课题的研究成果],
-    "graduate": [个人简历、在学期间完成的相关学术成果],
-  )
+  let preset-title = (bachelor: [在学期间参加课题的研究成果], graduate: [个人简历、在学期间完成的相关学术成果])
 
   title = if is-not-empty(title) { title } else {
     if degree == "bachelor" { preset-title.bachelor } else { preset-title.graduate }

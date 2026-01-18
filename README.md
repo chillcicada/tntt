@@ -110,7 +110,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 在移植过程中，主要参考了[清华大学学位论文 Word 模板][THU Word Thesis]、[清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]以及教务下发的 Word 和 PDF 模板，在此表达感谢。
 
-感谢[纸夜][Myriad-Dreamin]开发 [Tinymist][Tinymist] 工具。
+感谢[纸夜][Myriad-Dreamin]开发的 [Tinymist][Tinymist] 工具。
 
 ## 相关资源
 

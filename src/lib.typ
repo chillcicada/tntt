@@ -105,7 +105,7 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: (..args) => meta(..args, info: extend-info(args)),
+    meta: (..args) => meta(info: info, ..args), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
     doc: (..args) => doc(..args, fonts: extend-fonts(args)),
     // 前辅文设置 | Front Matter Layout Configuration
@@ -120,9 +120,9 @@
     // 字体展示页 | Fonts Display Page
     fonts-display: (..args) => fonts-display(..args, fonts: extend-fonts(args)),
     // 中文封面页 | Cover Page
-    cover: (..args) => cover(degree: degree, degree-type: degree-type, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
+    cover: (..args) => cover(degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 英文封面页 | Cover (English) Page
-    cover-en: (..args) => cover-en(degree: degree, degree-type: degree-type, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
+    cover-en: (..args) => cover-en(degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
     committee: (..args) => committee(degree: degree, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 授权页 | Copyright Page

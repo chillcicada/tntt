@@ -33,10 +33,6 @@
   prefill: true,
   rows: (1cm, 1cm, 12cm, 6.5cm),
   columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr),
-  author: [],
-  student-id: [],
-  class: [],
-  thesis-title: [],
   content: [],
   mid-term-comment: [],
   instructor-comment: [],
@@ -49,13 +45,6 @@
   import "../utils/font.typ": use-size
   import "../utils/text.typ": v-text
   import "../utils/page.typ": use-twoside
-
-  if prefill {
-    author = info.author
-    student-id = info.student-id
-    class = info.class
-    thesis-title = info.title
-  }
 
   use-twoside(twoside)
 
@@ -82,8 +71,8 @@
       rows: rows,
       columns: columns,
       align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
-      [学生姓名], author, [学号], student-id, [班级], class,
-      [论文题目], table.cell(colspan: 5, thesis-title),
+      [学生姓名], info.author, [学号], info.student-id, [班级], info.class,
+      [论文题目], table.cell(colspan: 5, info.title),
       v-text[主要内容以及进度安排],
       cell-with-back(
         content,

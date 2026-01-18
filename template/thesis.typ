@@ -72,37 +72,53 @@
 ) = define-config(
   // 学位类型，可选值：bachelor、master、doctor、postdoc
   // 模板内容会根据学位类型自动调整，对于不需要的内容会自动跳过
-  degree: "master",
+  degree: "bachelor",
   degree-type: "academic",
   anonymous: false, // 盲审模式
   twoside: false, // 双面模式，会加入空白页，便于打印
+  // 如下的信息会写入到 PDF 元数据中
   info: (
+    // 按个性化方式断行
+    // title: ("本科生综合论文训练标", "题"),
     title: "本科生综合论文训练标题",
     author: "某某某",
-    department: "××××",
-    major: "××××××××",
-    supervisor: ("某某某", "教授"),
-    // supervisor: ("某某某", "教授", "某某", "副教授"),
-    submit-date: "二○二四年十一月",
-    student-id: "2022000000",
-    class: "××××××",
+    // 指定论文提交日期
+    // submit-date: datetime(year: 2026, month: 5, day: 30),
+    submit-date: datetime.today(),
   ),
   bibliography: bibliography.with("ref.bib"), // 参考文献源
   fonts: font-family, // 字体配置
 )
 
 // 文稿设置，应用 LaTex/i-figured 参考文献兼容模式
-#show: meta.with(use-latex-ref: true)
-// #show: meta
+#show: meta
 
 // 字体展示测试页，在配置好字体后请注释或删除此项
-#fonts-display()
+// #fonts-display()
 
 // 中文封面页
-#cover()
+#cover(
+  // 用于 cover 的额外信息
+  info: (
+    department: "××××",
+    major: "××××××××",
+    supervisor: ("某某某", "教授"),
+    // supervisor: ("某某某", "教授", "某某", "副教授"),
+  ),
+)
 
 // 英文封面页，仅适用于研究生及以上
-#cover-en()
+#cover-en(
+  // 用于 cover-en 的额外信息
+  info: (
+    title: "An Introduction to Typst Thesis Template of Tsinghua University",
+    author: "Xue Ruini",
+    department: "××××",
+    major: "××××××××",
+    supervisor: ("某某某", "教授"),
+    // supervisor: ("某某某", "教授", "某某", "副教授"),
+  ),
+)
 
 /// ----------- ///
 /// Doc Layouts ///
@@ -599,12 +615,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 #{
   set text(size: use-size("五号"))
-
-  set enum(
-    body-indent: 20pt,
-    numbering: "[1]",
-    indent: 0pt,
-  )
+  set enum(body-indent: 20pt, numbering: "[1]", indent: 0pt)
 
   [
     + 某某某. 信息技术与信息服务国际研讨会论文集: A 集［C］北京：中国社会科学出版社，1994.
@@ -613,7 +624,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 致谢
 #acknowledge[
-  // 强制让 × 使用中文字体显示
+  // 强制让 × 使用中文字体显示，此处仅为美观，可删除
   #show "×": set text(font: use-cjk-fonts("SongTi"))
 
   致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
@@ -655,6 +666,9 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #achievement(
   // 个人简历仅适用于研究生及以上，本科生不会显示此部分
   resume: [
+    // 强制让 × 使用中文字体显示，此处仅为美观，可删除
+    #show "×": set text(font: use-cjk-fonts("SongTi"))
+
     197×年××月××日出生于四川××县。
 
     1992年9月考入××大学化学系××化学专业，1996年7月本科毕业并获得理学学士学位。
@@ -662,10 +676,10 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     1996年9月免试进入清华大学化学系攻读××化学博士至今。
   ],
   paper: [
-    1. Yang Y, Ren T L, Zhang L T, et al. Miniature microphone with silicon- based ferroelectric thin films[J]. Integrated Ferroelectrics, 2003, 52:229-235.
-    2. 杨轶, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究[J]. 中国机械工程, 2005, 16(14):1289-1291.
-    3. 杨轶, 张宁欣, 任天令, 等. 集成铁电器件中的关键工艺研究[J]. 仪器仪表学报, 2003, 24(S4):192-193.
-    4. Yang Y, Ren T L, Zhu Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
+    1. *Yang Y*, Ren T L, Zhang L T, et al. Miniature microphone with silicon- based ferroelectric thin films[J]. Integrated Ferroelectrics, 2003, 52:229-235.
+    2. *杨轶*, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究[J]. 中国机械工程, 2005, 16(14):1289-1291.
+    3. *杨轶*, 张宁欣, 任天令, 等. 集成铁电器件中的关键工艺研究[J]. 仪器仪表学报, 2003, 24(S4):192-193.
+    4. *Yang Y*, Ren T L, Zhu Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
   ],
   patent: [
     4. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
@@ -676,6 +690,11 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 论文训练记录表，仅适用于本科生的综合论文训练
 // 此部分内容没有固定格式要求，以下内容仅供参考
 #record-sheet(
+  // 补充学生基本信息
+  info: (
+    student-id: "2022000000",
+    class: "××××××",
+  ),
   // 主要内容以及进度安排
   content: [
     #v(2em)
@@ -686,15 +705,19 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
     *进度安排*：2024年11月～12月，完成文献调研与开题报告撰写；2025年1月～3月，完成实验设计与数据收集；2025年4月～5月，完成数据分析与论文撰写；2025年6月，完成论文修改与答辩准备。
   ],
+  // 中期检查评语
   mid-term-comment: [
     论文提出了……
   ],
+  // 指导教师评语
   instructor-comment: [
     论文提出了……
   ],
+  // 评阅人评语
   reviewer-comment: [
     论文提出了……
   ],
+  // 答辩委员会评语
   defense-comment: [
     论文提出了……
   ],

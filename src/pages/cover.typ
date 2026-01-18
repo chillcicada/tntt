@@ -24,35 +24,33 @@
   anonymous: false,
   fonts: (:),
   info: (:),
-  doctype: "bachelor",
-  degree: "academic",
+  degree: "bachelor",
+  degree-type: "academic",
   // options
-  title: [综合论文训练],
-  margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm),
-  grid-columns: (3.00cm, 0.82cm, 5.62cm),
+  content: [],
   grid-align: (center, left, left),
   column-gutter: -3pt,
   row-gutter: 20.2pt,
-  info-keys: ("department", "major", "author", "supervisor"), // The order of listed keys
-  info-items: (department: "系别", major: "专业", author: "姓名", supervisor: "指导教师"),
-  info-sperator: "：",
-  supervisor-sperator: " ",
-  title-font: "HeiTi",
-  body-font: "FangSong",
-  back-font: "SongTi",
+  info-items: auto,
   author-width: 4em,
   supervisor-width: 8em,
 ) = {
-  /// Precheck
-  assert(calc.even(info.supervisor.len()), message: "Supervisor info must be in pairs of name and position.")
-
   /// Import utilities
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
   import "../utils/text.typ": distr-text, space-text
+  import "../utils/util.typ": display-zh, is-not-empty
 
   /// Prepare info
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
+
+  if info-items == auto {
+    info-items = if degree == "bachelor" {
+      (department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
+    } else if degree == "master" {
+      (department: "培养单位", major: "学科", author: "研究生", supervisor: "指导教师")
+    }
+  }
 
   // Calculate suitable width of info items
   let info-item-width = calc.max(..info-items.values().map(v => v.clusters().len())) * 1em
@@ -65,46 +63,80 @@
   info.author = use-anonymous(info.author, author-width)
   // @typstyle off
   info.supervisor = info.supervisor.chunks(2).intersperse("")
-    .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(supervisor-sperator), supervisor-width) })
+    .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(" "), supervisor-width) })
 
-  /// Render cover page
-  set page(margin: margin)
-  set align(center)
-
-  v(1.8em)
-
-  image("../assets/logo.png", width: 7.81cm)
-
-  v(-1.35em)
-
-  text(size: use-size("小初"), font: use-fonts(title-font), weight: "bold", space-text(title))
-
-  v(1.22em)
-
-  text(size: use-size("一号"), font: use-fonts(title-font), info.title)
-
-  place(center, dy: 11.5em, text(size: use-size("三号"), font: use-cjk-fonts(body-font), block(
-    width: grid-columns.sum(),
+  let format-info(items) = place(bottom + center, dy: -17em, text(
+    size: use-size("三号"),
+    font: use-cjk-fonts("FangSong"),
     grid(
-      align: grid-align,
-      columns: grid-columns,
-      column-gutter: column-gutter,
-      row-gutter: row-gutter,
-      ..info-keys
-        .map(k => (distr-text(info-items.at(k), width: info-item-width), info-sperator, info.at(k, default: "")))
+      align: (center, left, left),
+      columns: (2.80cm, 0.84cm, 5.62cm),
+      rows: 1.09cm,
+      ..(department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
+        .keys()
+        .map(k => (distr-text(info-items.at(k), width: info-item-width), "：", info.at(k, default: "")))
         .flatten()
     ),
-  )))
+  ))
 
-  place(bottom + center, dy: -5.4em, text(size: use-size("三号"), font: use-cjk-fonts(back-font), info.submit-date))
+  /// Render cover page
+  set align(center)
+
+  let preset-content = (
+    bachelor: {
+      set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
+
+      v(2em)
+
+      image("../assets/logo.png", width: 7.81cm)
+
+      v(-1em)
+
+      text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
+
+      par[]
+
+      text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title)
+
+      place(bottom + center, dy: -17em, text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), grid(
+        align: (center, left, left),
+        columns: (2.80cm, 0.84cm, 5.62cm),
+        rows: 1.09cm,
+        ..(department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
+          .keys()
+          .map(k => (distr-text(info-items.at(k), width: info-item-width), "：", info.at(k, default: "")))
+          .flatten()
+      )))
+
+      place(bottom + center, dy: -5em, text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(
+        info.submit-date,
+      )))
+    },
+    master: {
+      set page(margin: (x: 4cm, y: 6cm))
+      set par(leading: 1.15em, spacing: 1.3em)
+      v(7em)
+      text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title)
+      parbreak()
+      text(size: use-size("小二"), font: use-fonts("SongTi"), [（申请清华大学工学硕士学位论文）])
+    },
+  )
+
+  if is-not-empty(content) { content } else { preset-content.at(degree, default: content) }
 }
 
-#let cover-en(doctype: "master", twoside: false, ..args) = {
-  if doctype not in ("master", "doctor", "postdoc") { return }
+#let cover-en(
+  anonymous: false,
+  fonts: (:),
+  info: (:),
+  degree: "master",
+  twoside: false,
+) = {
+  if degree not in ("master", "doctor", "postdoc") { return }
 
   import "../utils/page.typ": use-twoside
 
   use-twoside(twoside)
 
-  cover(..args)
+  info.submit-date.display("[month repr:long], [year]")
 }

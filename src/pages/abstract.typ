@@ -22,6 +22,7 @@
   title: [摘　要],
   outlined: false,
   bookmarked: true,
+  embeded: true,
   back: [*关键词：*],
   back-font: "HeiTi",
   back-indent: 0em,
@@ -49,11 +50,14 @@
     first-line-indent: back-indent,
     text(font: use-fonts(back-font), back) + text(font: use-fonts(keyword-font), keywords.join(keyword-sperator)),
   )
+
+  if embeded { set document(keywords: keywords, description: it) }
 }
 
 /// Abstract Page (English version), Inherited from the Chinese version
 #let abstract-en(..args) = abstract(
   title: [Abstract],
+  embeded: false,
   back: [*Keywords: *],
   back-font: "SongTi",
   keyword-sperator: "; ",
