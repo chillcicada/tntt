@@ -35,10 +35,7 @@
 
   set figure(outlined: figure-outlined)
 
-  show: ratchet.with(
-    eq-outline: equation-numbering,
-    fig-outline: figure-numbering,
-  )
+  show: ratchet.with(eq-outline: equation-numbering, fig-outline: figure-numbering)
 
   // Reset the counter and numbering of headings
   counter(heading).update(0)

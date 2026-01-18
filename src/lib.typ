@@ -5,8 +5,8 @@
 
 /// Define the configuration for the document.
 ///
-/// - doctype ("bachelor"): The document type.
-/// - degree ("academic"): The degree type.
+/// - degree ("bachelor"): The degree.
+/// - degree-type ("academic"): The degree-type type.
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided printing.
 /// - strict (bool): Whether to enable strict check mode for text rendering.
@@ -15,8 +15,8 @@
 /// - info (dictionary): The information to be displayed in the document.
 /// -> dictionary
 #let define-config(
-  doctype: "bachelor",
-  degree: "academic",
+  degree: "bachelor",
+  degree-type: "academic",
   anonymous: false,
   twoside: false,
   bibliography: none,
@@ -74,12 +74,15 @@
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
 
-  let _support-doctype = ("bachelor", "master", "doctor", "postdoc")
-  assert(_support-doctype.contains(doctype), message: "不支持的文档类型, 目前支持的有: " + _support-doctype.join(", "))
+  let _support-degree = ("bachelor", "master", "doctor", "postdoc")
+  assert(_support-degree.contains(degree), message: "不支持的文档类型, 目前支持的有: " + _support-degree.join(", "))
 
   // "academic" "professional"
-  let _support-degree = ("academic",)
-  assert(_support-degree.contains(degree), message: "不支持的学位类型, 目前支持的有: " + _support-degree.join(", "))
+  let _support-degree-type = ("academic",)
+  assert(
+    _support-degree-type.contains(degree-type),
+    message: "不支持的学位类型, 目前支持的有: " + _support-degree-type.join(", "),
+  )
 
   let extend-info(kwargs) = extend(info, "info", kwargs)
   let extend-fonts(kwargs) = fonts-check(extend(fonts, "fonts", kwargs))
@@ -91,8 +94,8 @@
     /// ------- ///
     info: info,
     fonts: fonts,
+    degree-type: degree-type,
     degree: degree,
-    doctype: doctype,
     twoside: twoside,
     anonymous: anonymous,
     use-twoside: use-twoside(twoside),
@@ -106,7 +109,7 @@
     // 文稿设置 | Document Layout Configuration
     doc: (..args) => doc(..args, fonts: extend-fonts(args)),
     // 前辅文设置 | Front Matter Layout Configuration
-    front-matter: (..args) => front-matter(doctype: doctype, ..args),
+    front-matter: (..args) => front-matter(degree: degree, ..args),
     // 正文设置 | Main Matter Layout Configuration
     main-matter: (..args) => main-matter(twoside: twoside, ..args),
     // 后辅文设置 | Back Matter Layout Configuration
@@ -117,13 +120,13 @@
     // 字体展示页 | Fonts Display Page
     fonts-display: (..args) => fonts-display(..args, fonts: extend-fonts(args)),
     // 中文封面页 | Cover Page
-    cover: (..args) => cover(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
+    cover: (..args) => cover(degree: degree, degree-type: degree-type, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 英文封面页 | Cover (English) Page
-    cover-en: (..args) => cover-en(doctype: doctype, degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
+    cover-en: (..args) => cover-en(degree: degree, degree-type: degree-type, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
-    committee: (..args) => committee(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
+    committee: (..args) => committee(degree: degree, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 授权页 | Copyright Page
-    copyright: (..args) => copyright(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    copyright: (..args) => copyright(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 中文摘要页 | Abstract Page
     abstract: (..args) => abstract(twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 英文摘要页 | Abstract (English) Page
@@ -147,14 +150,14 @@
     // 致谢页 | Acknowledge Page
     acknowledge: (..args) => acknowledge(anonymous: anonymous, twoside: twoside, ..args),
     // 声明页 | Declaration Page
-    declaration: (..args) => declaration(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    declaration: (..args) => declaration(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
-    achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
+    achievement: (..args) => achievement(degree: degree, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 论文训练记录表 | Record Sheet Page
-    record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend-info(args)),
+    record-sheet: (..args) => record-sheet(degree: degree, anonymous: anonymous, twoside: twoside, ..args, info: extend-info(args)),
     // 指导教师/指导小组评语页 | Advisor Comments Page
-    comments: (..args) => comments(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    comments: (..args) => comments(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 答辩委员会决议书 | Committee Resolution Page
-    resolution: (..args) => resolution(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    resolution: (..args) => resolution(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
   )
 }

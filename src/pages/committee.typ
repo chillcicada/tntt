@@ -2,7 +2,7 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
-/// - doctype ("master" | "doctor" | "postdoc"): The document type.
+/// - degree (str): The degree.
 /// - fonts (dictionary): The dictionary of fonts to use.
 /// - title (content | str): The title of the committee page.
 /// - outlined (bool): Whether to outline the page.
@@ -21,7 +21,7 @@
   // from entry
   anonymous: false,
   twoside: false,
-  doctype: "master",
+  degree: "master",
   fonts: (:),
   // options
   title: [学位论文指导小组、公开评阅人和答辩委员会名单],
@@ -37,7 +37,7 @@
   defenders-title: [答辩委员会名单],
   defenders-columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm),
 ) = {
-  if anonymous or doctype not in ("master", "doctor", "postdoc") { return }
+  if anonymous or degree not in ("master", "doctor", "postdoc") { return }
 
   import "../utils/page.typ": use-twoside
   import "../utils/font.typ": _use-fonts, use-size

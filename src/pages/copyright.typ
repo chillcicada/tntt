@@ -2,7 +2,7 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
-/// - doctype ("bachelor"): The document type.
+/// - degree (str): The degree.
 /// - title (content): The title of the copyright page.
 /// - title-size (length | str): The size of the title font.
 /// - outlined (bool): Whether to outline the page.
@@ -15,7 +15,7 @@
   // from entry
   anonymous: false,
   twoside: false,
-  doctype: "bachelor",
+  degree: "bachelor",
   // options
   title: [关于论文使用授权的说明],
   title-size: "二号",
@@ -61,7 +61,7 @@
   })
 
   set par(leading: 16.4pt, spacing: 16.4pt)
-  text(size: use-size("四号"), _preset_body.at(doctype, default: body))
+  text(size: use-size("四号"), _preset_body.at(degree, default: body))
   par[]
 
   align(center, block(

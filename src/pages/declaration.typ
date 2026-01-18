@@ -2,7 +2,7 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool): Whether to use two-sided layout.
-/// - doctype (str): The document type.
+/// - degree (str): The degree.
 /// - title (content): The title of the declaration page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -15,7 +15,7 @@
   // from entry
   anonymous: false,
   twoside: false,
-  doctype: "bachelor",
+  degree: "bachelor",
   // options
   title: [声　明],
   outlined: true,
@@ -48,7 +48,7 @@
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   if is-not-empty(body) { body } else {
-    preset-body.at(if doctype == "bachelor" { doctype } else { if confidential { "confidential" } else { "open" } })
+    preset-body.at(if degree == "bachelor" { degree } else { if confidential { "confidential" } else { "open" } })
   }
 
   v(back-vspace)

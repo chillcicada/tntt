@@ -2,7 +2,7 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
-/// - doctype (str): The document type.
+/// - degree (str): The degree.
 /// - fonts (dictionary): The font family to use.
 /// - title (content): The title of the achievement page.
 /// - outlined (bool): Whether to outline the page.
@@ -15,7 +15,7 @@
   // from entry
   anonymous: false,
   twoside: false,
-  doctype: "bachelor",
+  degree: "bachelor",
   fonts: (:),
   // options
   title: [],
@@ -38,7 +38,7 @@
   )
 
   title = if is-not-empty(title) { title } else {
-    if doctype == "bachelor" { preset-title.bachelor } else { preset-title.graduate }
+    if degree == "bachelor" { preset-title.bachelor } else { preset-title.graduate }
   }
 
   /// Render Page
@@ -46,7 +46,7 @@
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
-  if doctype != "bachelor" {
+  if degree != "bachelor" {
     align(center, text(font: use-fonts("HeiTi"), size: use-size("四号"))[个人简历])
 
     v(8pt)

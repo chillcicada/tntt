@@ -3,7 +3,7 @@
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
-/// - doctype ("bachelor"): The document type, this page is only for bachelor's thesis.
+/// - degree (str): The degree, this page is only for bachelor's thesis.
 /// - title (content): The title of the record sheet page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -25,7 +25,7 @@
   anonymous: false,
   twoside: false,
   info: (:),
-  doctype: "bachelor",
+  degree: "bachelor",
   // options
   title: [综合论文训练记录表],
   outlined: false,
@@ -44,7 +44,7 @@
   defense-comment: [],
 ) = {
   /// Precheck
-  if anonymous or doctype != "bachelor" { return }
+  if anonymous or degree != "bachelor" { return }
 
   import "../utils/font.typ": use-size
   import "../utils/text.typ": v-text
@@ -163,7 +163,7 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
-/// - doctype ("master" | "doctor" | "postdoc"): The document type.
+/// - degree (str): The degree.
 /// - title (content): The title of the acknowledgement page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -173,7 +173,7 @@
   // from entry
   anonymous: false,
   twoside: false,
-  doctype: "master",
+  degree: "master",
   // options
   title: [指导教师学术评语],
   outlined: true,
@@ -181,7 +181,7 @@
   // self
   it,
 ) = {
-  if anonymous or doctype not in ("master", "doctor", "postdoc") { return }
+  if anonymous or degree not in ("master", "doctor", "postdoc") { return }
 
   import "../utils/page.typ": use-twoside
 

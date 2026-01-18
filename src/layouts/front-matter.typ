@@ -1,6 +1,6 @@
 /// Front Matter Layout
 ///
-/// - doctype ("bachelor" | "master" | "doctor" | "postdoc"): The document type.
+/// - degree (str): The degree.
 /// - page-numbering (str): The numbering format for the page.
 /// - header-display (bool | auto): Whether to display the header.
 /// - header-stroke (stroke): The stroke style for the header line.
@@ -9,7 +9,7 @@
 /// -> content
 #let front-matter(
   // from entry
-  doctype: "bachelor",
+  degree: "bachelor",
   // options
   page-numbering: "I",
   header-display: auto,
@@ -21,7 +21,7 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty
 
-  if header-display == auto { header-display = doctype != "bachelor" }
+  if header-display == auto { header-display = degree != "bachelor" }
 
   // Reset the counter of pages
   counter(page).update(1)

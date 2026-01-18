@@ -31,22 +31,24 @@ jobs:
       - name: Make Configurable Inputs
         run: |
           sed -i template/thesis.typ \
-            -e 's/doctype: "bachelor"/doctype: sys.inputs.at("doctype", default: "bachelor")/g' \
-            -e 's/degree: "academic"/degree: sys.inputs.at("degree", default: "academic")/g' \
+            -e 's/degree: "bachelor"/degree: sys.inputs.at("degree", default: "bachelor")/g' \
+            -e 's/degree-type: "academic"/degree-type: sys.inputs.at("degree-type", default: "academic")/g' \
             -e 's/anonymous: false/anonymous: sys.inputs.at("anonymous", default: false)/g' \
             -e 's/twoside: false/twoside: sys.inputs.at("twoside", default: false)/g'
 
-      - name: Render Thesis
+      - name: Render Bachelor Thesis
         run: |
           ./template/thesis.typ --font-path fonts bachelor-academic.pdf
           ./template/thesis.typ --font-path fonts bachelor-academic-anonymous.pdf --input anonymous=true
           ./template/thesis.typ --font-path fonts bachelor-academic-twoside.pdf --input twoside=true
           ./template/thesis.typ --font-path fonts bachelor-academic-anonymous-twoside.pdf --input anonymous=true --input twoside=true
 
-          ./template/thesis.typ --font-path fonts master-academic.pdf --input doctype=master
-          ./template/thesis.typ --font-path fonts master-academic-anonymous.pdf --input doctype=master --input anonymous=true
-          ./template/thesis.typ --font-path fonts master-academic-twoside.pdf --input doctype=master --input twoside=true
-          ./template/thesis.typ --font-path fonts master-academic-anonymous-twoside.pdf --input doctype=master --input anonymous=true --input twoside=true
+      - name: Render Master Thesis
+        run: |
+          ./template/thesis.typ --font-path fonts master-academic.pdf --input degree=master
+          ./template/thesis.typ --font-path fonts master-academic-anonymous.pdf --input degree=master --input anonymous=true
+          ./template/thesis.typ --font-path fonts master-academic-twoside.pdf --input degree=master --input twoside=true
+          ./template/thesis.typ --font-path fonts master-academic-anonymous-twoside.pdf --input degree=master --input anonymous=true --input twoside=true
 
       - name: Upload Artifacts
         if: github.event_name != 'pull_request'
