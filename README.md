@@ -12,7 +12,7 @@ TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归
 
 > [!IMPORTANT]
 >
-> **目前仅支持本科生的综合论文训练。由于 Typst 尚未稳定，本模板会持续追踪最新发布版本。因此，请使用 Typst 的最新版进行编辑，以确保能使用上新的特性并避免兼容性问题。**
+> **目前已基本支持所有学位的论文。由于 Typst 尚未稳定，本模板会持续追踪最新发布版本。因此，推荐使用 Typst 的最新版进行编辑，以确保能使用上新的特性并避免兼容性问题。**
 
 ## 使用
 
@@ -32,6 +32,10 @@ typst init @preview/tntt
 ```
 
 此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本：
+
+> [!WARNING]
+>
+> 夜间版本并不稳定，建议仅在想要添加功能或修复问题的情况下使用。
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -59,10 +63,10 @@ git clone https://github.com/chillcicada/tntt.git --depth 1
 - HeiTi: 黑体，标题字体，通常对应西文中的无衬线字体
 - KaiTi: 楷体，适用于说明性文本和主观性表述
 - FangSong: 仿宋，通常用于注释、引文及权威性阐述
-- Mono: 等宽字体，适用于代码。暂不清楚相关规范，默认西文字体为 Typst 内置的 `DejaVu Sans Mono`，建议中文字体选用黑体或楷体，或使用常见的中文等宽字体，默认为 `HeiTi`
-- Math: 数学字体。暂不清楚相关规范，默认西文字体为 Typst 内置的 `New Computer Modern Math`，中文字体为 `HeiTi`
+- Mono: 等宽字体，适用于代码。暂不清楚相关规范，默认西文字体为 Typst 内置的 `DejaVu Sans Mono`，建议中文字体选用黑体或楷体，或使用常见的中文等宽字体，默认为 `SimHei`
+- Math: 数学字体。暂不清楚相关规范，默认西文字体为 Typst 内置的 `New Computer Modern Math`，中文字体为 `KaiTi`
 
-对于 Windows 10/11 用户或安装了相应字体的 Linux 用户，可使用字体配置 `NSimSun`、`SimHei`、`KaiTi`、`FangSong`，这与 Word 论文模板中的字体配置完全相同，也是本模板默认的字体配置；对于 MacOS 用户，除了安装上述字体外，建议配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`。您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体。**请注意，由于 Typst 目前对可变字体支持有限，请勿使用 Noto 系列（如 `Noto Sans CJK SC`）等可变字体**。
+其中 Songti、KaiTi 和 FangSong 三个字族的默认西文字体为 `Times New Roman`，HeiTi 字族的默认西文字体为 `Arial`。对于 Windows 10/11 用户或安装了相应字体的 Linux 用户，中文字体配置可使用 `NSimSun`、`SimHei`、`KaiTi`、`FangSong`，这与 Word 论文模板中的字体配置完全相同，也是本模板默认的字体配置；对于 MacOS 用户，除了安装上述字体外，建议配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`。您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体。**请注意，由于 Typst 目前对可变字体支持有限，请勿使用 Noto 系列（如 `Noto Sans CJK SC`）等可变字体**。
 
 本模板已内置适用于 Windows 10/11 系统的字体配置，中文版 Windows 系统通常已预装这些字体。Linux 和 MacOS 用户如需严格使用论文要求的字体，可将本地 Windows 对应字体提取、下载并安装到系统中，或在下载后通过指定字体路径来使用，如：
 
@@ -106,7 +110,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 在移植过程中，主要参考了[清华大学学位论文 Word 模板][THU Word Thesis]、[清华大学学位论文 LaTeX 模板][THU LaTeX Thesis]以及教务下发的 Word 和 PDF 模板，在此表达感谢。
 
-感谢[纸夜][Myriad-Dreamin]开发 [Tinymist][Tinymist] 工具。
+感谢[纸夜][Myriad-Dreamin]开发的 [Tinymist][Tinymist] 工具。
 
 ## 相关资源
 
@@ -135,7 +139,7 @@ TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua 
 
 > [!IMPORTANT]
 >
-> **Currently, it only supports the Comprehensive Thesis Training for undergraduates. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, please use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
+> **Currently, it basically supports theses for all degrees. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, it is recommended to use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
 
 ## Usage
 
@@ -155,6 +159,10 @@ Of course, you can also import the template in any Typst file by adding:
 ```
 
 In addition, due to frequency updates, you may clone the source repository to use the latest nightly version:
+
+> [!WARNING]
+>
+> The nightly version is unstable and is recommended if you want to add a feature or solve an issue.
 
 ```bash
 git clone https://github.com/chillcicada/tntt.git --depth 1
@@ -182,10 +190,10 @@ This template is designed primarily for Chinese typesetting and includes corresp
 - **HeiTi**: Sans-serif typeface, used for headings.
 - **KaiTi**: Standard Chinese typeface, suitable for explanatory text and subjective expressions.
 - **FangSong**: Standard Chinese typeface, typically used for annotations, citations, and authoritative explanations.
-- **Mono**: Monospace typeface, used for code. The relevant specifications are not yet clear. The default Western font is Typst's built-in `DejaVu Sans Mono`. For Chinese typeface, Heiti or KaiTi is recommended, or commonly used Chinese monospace font, default to `HeiTi`.
+- **Mono**: Monospace typeface, used for code. The relevant specifications are not yet clear. The default Western font is Typst's built-in `DejaVu Sans Mono`. For Chinese typeface, Heiti or KaiTi is recommended, or commonly used Chinese monospace font, default to `SimHei`.
 - **Math**: Math typeface. The relevant specifications are not yet clear. The default Western font is Typst's built-in `New Computer Modern Math`, with Chinese typeface default to `KaiTi`.
 
-For Windows 10/11 users or Linux users with corresponding fonts installed, you can use the font configuration `NSimSun`, `SimHei`, `KaiTi`, and `FangSong`, which matched the Word thesis template exactly. For MacOS users, besides installing the above fonts, the recommended configuration is `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. You may also replace `SongTi` and `HeiTi` with fonts such as `Source Han Serif` or `Source Han Sans`. **Please note that currently Typst has limited support variable fonts, do not use variable fonts like the Noto series (e.g. `Noto Sans CJK SC`)**).
+The default Western font for the Songti, KaiTi, and FangSong is `Times New Roman`, and the default Western font for the HeiTi is `Arial`. For Windows 10/11 users or Linux users with corresponding fonts installed, you can use the Chinese font configuration `NSimSun`, `SimHei`, `KaiTi`, and `FangSong`, which matched the Word thesis template exactly. For MacOS users, besides installing the above fonts, the recommended configuration is `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. You may also replace `SongTi` and `HeiTi` with fonts such as `Source Han Serif` or `Source Han Sans`. **Please note that currently Typst has limited support variable fonts, do not use variable fonts like the Noto series (e.g. `Noto Sans CJK SC`)**.
 
 This template includes built-in font configuration for Windows 10/11 systems, Chinese‑language Windows systems usually come with these fonts preinstalled. Linux and MacOS users who need to strictly adhere the required thesis fonts canYou can extract, download, and install the corresponding local Windows font to the system, or use it after downloading by specifying the font path, for example:
 
