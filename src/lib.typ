@@ -149,7 +149,7 @@
     // 声明页 | Declaration Page
     declaration: (..args) => declaration(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
-    achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args),
+    achievement: (..args) => achievement(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
     // 论文训练记录表 | Record Sheet Page
     record-sheet: (..args) => record-sheet(doctype: doctype, anonymous: anonymous, twoside: twoside, ..args, info: extend-info(args)),
     // 指导教师/指导小组评语页 | Advisor Comments Page

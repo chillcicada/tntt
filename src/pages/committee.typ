@@ -2,8 +2,8 @@
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
-/// - doctype ("master" | "doctor" | "postdoc" | str): The document type.
-/// - fonts (dictorary): The dictionary of fonts to use.
+/// - doctype ("master" | "doctor" | "postdoc"): The document type.
+/// - fonts (dictionary): The dictionary of fonts to use.
 /// - title (content | str): The title of the committee page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -41,6 +41,7 @@
 
   import "../utils/page.typ": use-twoside
   import "../utils/font.typ": _use-fonts, use-size
+  import "../utils/util.typ": is-not-empty
 
   let use-fonts = name => _use-fonts(fonts, name)
   let format-text = str => {
@@ -57,15 +58,33 @@
   set grid(row-gutter: 1em, align: horizon)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
-
   v(2pt)
 
-  format-text(supervisors-title)
-  grid(columns: supervisors-columns, ..supervisors.flatten())
+  if is-not-empty(supervisors) and supervisors != () {
+    format-text(supervisors-title)
+    if type(supervisors) == array {
+      grid(columns: supervisors-columns, ..supervisors.filter(it => it.len() == 3).flatten())
+    } else { supervisors }
+  }
 
-  format-text(reviewers-title)
-  grid(columns: reviewers-columns, ..reviewers.flatten())
+  if is-not-empty(reviewers) {
+    format-text(reviewers-title)
+    if type(reviewers) == array {
+      if reviewers != () {
+        grid(columns: reviewers-columns, ..reviewers.filter(it => it.len() == 3).flatten())
+      } else { [无（全隐名评阅）] }
+    } else { reviewers }
+  }
 
-  format-text(defenders-title)
-  grid(columns: defenders-columns, ..defenders.keys().map(k => (k, defenders.at(k).intersperse(""))).flatten())
+
+  if is-not-empty(defenders) and defenders != (:) {
+    format-text(defenders-title)
+    if type(defenders) == dictionary {
+      grid(columns: defenders-columns, ..defenders
+          .keys()
+          .filter(k => type(defenders.at(k)) == array and defenders.at(k) != ())
+          .map(k => (k, defenders.at(k).filter(it => it.len() == 3).intersperse("")))
+          .flatten())
+    } else { defenders }
+  }
 }

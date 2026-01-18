@@ -111,18 +111,26 @@
 
 // 学位论文指导小组、公开评阅人和答辩委员会名单，仅适用于研究生及以上
 // committee 的信息不会从 info 中继承，需要单独提供，如下内容仅供参考
+// 定义的 supervisors, reviewers 和 defenders 键值名称请勿修改
 // 请确保每个成员的信息完整，每个条目均为 (姓名, 职称, 工作单位)
 #committee(
+  // 设置为 () 将隐藏指导小组名单
+  // supervisors: (),
   supervisors: (
     ("李XX", "教授", "清华大学"),
     ("王XX", "副教授", "清华大学"),
     ("张XX", "助理教授", "清华大学"),
   ),
-  reviewers: (
-    ("刘XX", "教授", "清华大学"),
-    ("陈XX", "副教授", "XXXX大学"),
-    ("杨XX", "研究员", "中国XXXX科学院XXXXXXX研究所"),
-  ),
+  // 设置 reviewers 为 () 表示无公开评阅人，等价于 `reviewers: [无（全隐名评阅）]`
+  // 如需彻底隐藏公开评阅人名单，可将 reviewers 设置为 none
+  reviewers: (),
+  // reviewers: (
+  //   ("刘XX", "教授", "清华大学"),
+  //   ("陈XX", "副教授", "XXXX大学"),
+  //   ("杨XX", "研究员", "中国XXXX科学院XXXXXXX研究所"),
+  // ),
+  // 设置为 (:) 将隐藏答辩委员会名单
+  // defenders: (:),
   defenders: (
     // 如下定义的键值会在生成表格时直接使用，可根据需要进行增删
     主席: (
@@ -638,31 +646,32 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 声明页
 // 对于本科生和硕士生及以上会应用不同的样式，也可以自定义输入内容
 #declaration()
+// 涉密论文请启用 confidential 选项，适用于硕士生及以上
+// #declaration(confidential: true)
+// 使用自定义正文内容
+// #declaration(body: [这是一段声明内容。])
 
-// 个人简历、在学期间完成的相关学术成果说明页
-#achievement[
-  // 为此部分重新设置缩进
-  #set par(first-line-indent: 0pt)
-  #set list(indent: 0pt, body-indent: 1.2em)
-  #set enum(indent: 0pt, numbering: "[1]", body-indent: 1.2em)
+// 个人简历、在学期间完成的相关学术成果说明页，没有相关内容请删除本章节。
+#achievement(
+  // 个人简历仅适用于研究生及以上，本科生不会显示此部分
+  resume: [
+    197×年××月××日出生于四川××县。
 
-  #text(font: use-fonts("HeiTi"), size: use-size("四号"))[学术论文：]
+    1992年9月考入××大学化学系××化学专业，1996年7月本科毕业并获得理学学士学位。
 
-  1. ZHOU R, HU C, OU T, et al. Intelligent GRU-RIC Position-Loop Feedforward Compensation Control Method with Application to an Ultraprecision Motion Stage[J], IEEE Transactions on Industrial Informatics, 2024, 20(4): 5609-5621.
-  2. 杨轶, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究[J]. 中国机械工程, 2005, 16(14):1289-1291.
-  3. YANG Y, REN T L, ZHU Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
-
-  #v(2em)
-
-  #text(font: use-fonts("HeiTi"), size: use-size("四号"))[专利：]
-
-  4. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
-  5. REN T L, YANG Y, ZHU Y P, et al. Piezoelectric micro acoustic sensor based on ferroelectric materials: No.11/215, 102[P]. (美国发明专利申请号.)
-
-  #line(length: 100%)
-
-  在课题研究中获得的成果，如申请的专利或已正式发表和已有正式录用函的论文等。没有相关内容请删除本章节。
-]
+    1996年9月免试进入清华大学化学系攻读××化学博士至今。
+  ],
+  paper: [
+    1. Yang Y, Ren T L, Zhang L T, et al. Miniature microphone with silicon- based ferroelectric thin films[J]. Integrated Ferroelectrics, 2003, 52:229-235.
+    2. 杨轶, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究[J]. 中国机械工程, 2005, 16(14):1289-1291.
+    3. 杨轶, 张宁欣, 任天令, 等. 集成铁电器件中的关键工艺研究[J]. 仪器仪表学报, 2003, 24(S4):192-193.
+    4. Yang Y, Ren T L, Zhu Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
+  ],
+  patent: [
+    4. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
+    5. REN T L, YANG Y, ZHU Y P, et al. Piezoelectric micro acoustic sensor based on ferroelectric materials: No.11/215, 102[P]. (美国发明专利申请号.)
+  ],
+)
 
 // 论文训练记录表，仅适用于本科生的综合论文训练
 // 此部分内容没有固定格式要求，以下内容仅供参考
