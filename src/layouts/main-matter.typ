@@ -14,7 +14,7 @@
   page-numbering: "1",
   heading-numbering: (formats: ("第1章", "1.1"), depth: 4, supplyment: " "),
   figure-numbering: auto,
-  equation-numbering: "(1-1)",
+  equation-numbering: auto,
   // self
   it,
 ) = {

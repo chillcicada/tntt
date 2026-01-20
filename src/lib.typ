@@ -111,7 +111,7 @@
     // 前辅文设置 | Front Matter Layout Configuration
     front-matter: (..args) => front-matter(degree: degree, ..args),
     // 正文设置 | Main Matter Layout Configuration
-    main-matter: (..args) => main-matter(twoside: twoside, ..args),
+    main-matter: (..args) => main-matter(twoside: twoside, equation-numbering: "(1-1)", ..args),
     // 后辅文设置 | Back Matter Layout Configuration
     back-matter: (..args) => back-matter(twoside: twoside, ..args),
     /// ----- ///

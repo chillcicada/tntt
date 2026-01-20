@@ -4,18 +4,8 @@
 /// - fonts (dictionary): The font family to use.
 /// - info (dictionary): The information to be displayed on the cover page.
 /// - title (str): The title of the cover page
-/// - margin (margin): The margin settings for the cover page
-/// - grid-columns (array): The widths of the grid columns
-/// - grid-align (array): The alignment of each column in the grid
-/// - column-gutter (length): The gutter between columns in the grid
-/// - row-gutter (length): The gutter between rows in the grid
 /// - info-keys (array): The keys to be displayed in the info section, in the order they should appear
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names
-/// - info-sperator (str): The separator between the info keys and items
-/// - supervisor-sperator (str): The separator between the supervisor name and position
-/// - title-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for the title
-/// - body-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for the body text
-/// - back-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for the back text
 /// - author-width (length): The distribution width of the author name
 /// - supervisor-width (length): The distribution width of the supervisor name and position
 /// -> content
@@ -28,9 +18,6 @@
   degree-type: "academic",
   // options
   content: [],
-  grid-align: (center, left, left),
-  column-gutter: -3pt,
-  row-gutter: 20.2pt,
   info-items: auto,
   author-width: 4em,
   supervisor-width: 8em,
@@ -48,7 +35,7 @@
     info-items = if degree == "bachelor" {
       (department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
     } else if degree == "master" {
-      (department: "培养单位", major: "学科", author: "研究生", supervisor: "指导教师")
+      (department: "培养单位", major: "学科", author: "研究生", supervisor: "指导教师", co-supervisor: "联合指导教师")
     }
   }
 
@@ -65,19 +52,16 @@
   info.supervisor = info.supervisor.chunks(2).intersperse("")
     .map(p => if p == "" { ("", "") } else { use-anonymous(p.join(" "), supervisor-width) })
 
-  let format-info(items) = place(bottom + center, dy: -17em, text(
-    size: use-size("三号"),
-    font: use-cjk-fonts("FangSong"),
-    grid(
-      align: (center, left, left),
-      columns: (2.80cm, 0.84cm, 5.62cm),
-      rows: 1.09cm,
-      ..(department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
-        .keys()
-        .map(k => (distr-text(info-items.at(k), width: info-item-width), "：", info.at(k, default: "")))
-        .flatten()
-    ),
-  ))
+  let placed-content(cnt, dy) = place(
+    bottom + center,
+    text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), cnt),
+    dy: dy,
+  )
+
+  let format-info(items) = grid(
+    align: (center, left, left), rows: 1.09cm, columns: (2.80cm, 0.82cm, 5.62cm),
+    ..items.keys().map(k => (distr-text(items.at(k), width: info-item-width), "：", info.at(k))).flatten()
+  )
 
   /// Render cover page
   set align(center)
@@ -85,40 +69,22 @@
   let preset-content = (
     bachelor: {
       set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
-
+      set par() // TODO
       v(2em)
-
       image("../assets/logo.png", width: 7.81cm)
-
       v(-1em)
-
       text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
-
       par[]
-
       text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title)
-
-      place(bottom + center, dy: -17em, text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), grid(
-        align: (center, left, left),
-        columns: (2.80cm, 0.84cm, 5.62cm),
-        rows: 1.09cm,
-        ..(department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
-          .keys()
-          .map(k => (distr-text(info-items.at(k), width: info-item-width), "：", info.at(k, default: "")))
-          .flatten()
-      )))
-
-      place(bottom + center, dy: -5em, text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(
-        info.submit-date,
-      )))
+      placed-content(format-info(info-items), -17em)
+      placed-content(display-zh(info.submit-date), -5em)
     },
-    master: {
+    master: supplyment => {
       set page(margin: (x: 4cm, y: 6cm))
       set par(leading: 1.15em, spacing: 1.3em)
-      v(7em)
       text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title)
       parbreak()
-      text(size: use-size("小二"), font: use-fonts("SongTi"), [（申请清华大学工学硕士学位论文）])
+      text(size: use-size("小二"), font: use-fonts("SongTi"), supplyment)
     },
   )
 
@@ -138,5 +104,6 @@
 
   use-twoside(twoside)
 
+  text()
   info.submit-date.display("[month repr:long], [year]")
 }
