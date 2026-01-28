@@ -46,7 +46,7 @@
     ..args,
     // @typstyle off
     ..it.children.filter(it => it.func() == parbreak or it.func() == terms.item)
-      .map(it => if (it.func() == parbreak) {grid.cell(none, colspan: 2, inset: (y: blank-row-inset)) } else { (it.term, it.description) })
+      .map(it => if (it.func() == parbreak) { grid.cell(none, colspan: 2, inset: (y: blank-row-inset)) } else { (it.term, it.description) })
       .flatten()
   ))))
 }

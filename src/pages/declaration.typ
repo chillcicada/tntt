@@ -43,6 +43,7 @@
     ],
   )
 
+  /// Render the page
   use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)

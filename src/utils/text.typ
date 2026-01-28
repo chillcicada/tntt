@@ -4,12 +4,11 @@
 /// - body (content | str): the text content to process
 /// - args (any): additional arguments to pass to the function
 /// -> any
-#let _use-content(fn, body, ..args) = {
-  if type(body) == content { fn(body.text, ..args) } else {
-    assert(type(body) == str, message: "Expected content or string, got " + str(type(body)))
-    fn(body, ..args)
-  }
+#let _use-content(fn, body, ..args) = if type(body) == content { fn(body.text, ..args) } else {
+  assert(type(body) == str, message: "Expected content or string, got " + str(type(body)))
+  fn(body, ..args)
 }
+
 
 /// Replace all characters in a string with a mask character.
 ///
@@ -67,3 +66,11 @@
 /// -> content
 #let v-text(body, ..args) = _use-content(_v-text, body, ..args)
 
+/// Create a text block with fixed-width text by adjusting tracking,
+/// only supports single-line text and width relative to font size.
+/// - text (str): the text to adjust
+/// - width (length): the target width
+/// -> content
+#let _fixed-text(str, width) = text(tracking: (width - str.clusters().len() * 1em) / (str.clusters().len() - 1), str)
+
+#let fixed-text(body, ..args) = _use-content(_fixed-text, body, ..args)

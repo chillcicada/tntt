@@ -70,31 +70,34 @@
   comments,
   resolution,
 ) = define-config(
-  // 学位类型，可选值：bachelor、master、doctor、postdoc
-  // 模板内容会根据学位类型自动调整，对于不需要的内容会自动跳过
-  degree: "bachelor",
+  // 学位层级，可选值：bachelor、master、doctor、postdoc
+  // 模板内容会根据学位自动调整，对于不需要的内容会自动跳过
+  degree: "master",
   degree-type: "academic",
   anonymous: false, // 盲审模式
   twoside: false, // 双面模式，会加入空白页，便于打印
-  // 如下的信息会写入到 PDF 元数据中
   info: (
-    // 按个性化方式断行
-    // title: ("本科生综合论文训练标", "题"),
+    // 如下的信息会写入到生成的 PDF 元数据中
     title: "本科生综合论文训练标题",
+    // 按个性化方式对标题进行断行
+    // title: ("本科生综合论文训练标", "题"),
     author: "某某某",
-    // 指定论文提交日期
-    // submit-date: datetime(year: 2026, month: 5, day: 30),
     submit-date: datetime.today(),
+    // 指定论文提交日期，具体日期不会在封面中显示，但会写入到 PDF 元数据中
+    // submit-date: datetime(year: 2026, month: 5, day: 30),
+    // （并不建议）将日期具体到时分秒（UTC 时间），同时会应用系统时区，因而需要根据实际情况自行换算
+    // 如下 2026 年 5 月 30 日 10:30 AM 北京时间对应 UTC 时间的 2:30 AM：
+    // submit-date: datetime(year: 2026, month: 5, day: 30, hour: 2, minute: 30, second: 0),
   ),
   bibliography: bibliography.with("ref.bib"), // 参考文献源
-  fonts: font-family, // 字体配置
+  fonts: font-family, // 应用字体配置
 )
 
-// 文稿设置，应用 LaTex/i-figured 参考文献兼容模式
+// 文稿设置，默认应用 LaTeX/i-figured 引用兼容模式（为 label 添加 `fig:` 等前缀）
 #show: meta
 
 // 字体展示测试页，在配置好字体后请注释或删除此项
-// #fonts-display()
+#fonts-display()
 
 // 中文封面页
 #cover(
@@ -103,8 +106,9 @@
     department: "××××",
     major: "××××××××",
     supervisor: ("某某某", "教授"),
+    // 多指导老师示例
     // supervisor: ("某某某", "教授", "某某", "副教授"),
-    // 副指导教师，对本科生无效，如多指导老师请参照上面的注释
+    // 联合指导教师/副指导教师，对本科生无效
     co-supervisor: ("某某某", "教授"),
   ),
 )
@@ -115,12 +119,9 @@
   info: (
     title: "An Introduction to Typst Thesis Template of Tsinghua University",
     author: "Xue Ruini",
-    department: "××××",
-    major: "××××××××",
-    supervisor: ("某某某", "教授"),
-    // supervisor: ("某某某", "教授", "某某", "副教授"),
-    // 副指导教师，对本科生无效，如多指导老师请参照上面的注释
-    co-supervisor: ("某某某", "教授"),
+    major: "Computer Science and Technology",
+    supervisor: ("Professor Zheng Weimin",),
+    co-supervisor: ("Professor Chen Wenguang",),
   ),
 )
 
@@ -129,41 +130,45 @@
 /// ----------- ///
 #show: doc
 
+// 强制让 × 使用中文字体显示，此处仅为美观，可删除
+#show "×": set text(font: use-cjk-fonts("SongTi"))
+
 // 学位论文指导小组、公开评阅人和答辩委员会名单，仅适用于研究生及以上
 // committee 的信息不会从 info 中继承，需要单独提供，如下内容仅供参考
 // 定义的 supervisors, reviewers 和 defenders 键值名称请勿修改
-// 请确保每个成员的信息完整，每个条目均为 (姓名, 职称, 工作单位)
+// 请确保每个成员的信息完整，每个条目均为 (姓名, 职称, 工作单位)，不完整的条目将被忽略
 #committee(
-  // 设置为 () 将隐藏指导小组名单
+  // 设置 supervisors 为 () 将隐藏指导小组名单
   // supervisors: (),
   supervisors: (
-    ("李XX", "教授", "清华大学"),
-    ("王XX", "副教授", "清华大学"),
-    ("张XX", "助理教授", "清华大学"),
+    ("李××", "教授", "清华大学"),
+    ("王××", "副教授", "清华大学"),
+    ("张××", "助理教授", "清华大学"),
   ),
   // 设置 reviewers 为 () 表示无公开评阅人，等价于 `reviewers: [无（全隐名评阅）]`
   // 如需彻底隐藏公开评阅人名单，可将 reviewers 设置为 none
   reviewers: (),
   // reviewers: (
-  //   ("刘XX", "教授", "清华大学"),
-  //   ("陈XX", "副教授", "XXXX大学"),
-  //   ("杨XX", "研究员", "中国XXXX科学院XXXXXXX研究所"),
+  //   ("刘××", "教授", "清华大学"),
+  //   ("陈××", "副教授", "××××大学"),
+  //   ("杨××", "研究员", "中国××××科学院×××××××研究所"),
   // ),
-  // 设置为 (:) 将隐藏答辩委员会名单
+  // 设置 defenders 为 (:) 将隐藏答辩委员会名单
   // defenders: (:),
   defenders: (
     // 如下定义的键值会在生成表格时直接使用，可根据需要进行增删
+    // 如果某一项为空值将会被自动忽略
     主席: (
-      ("赵XX", "教授", "清华大学"),
+      ("赵××", "教授", "清华大学"),
     ),
     委员: (
-      ("刘XX", "教授", "清华大学"),
-      ("杨XX", "研究员", "中国XXXX科学院XXXXXXX研究所"),
-      ("黄XX", "教授", "XXXX大学"),
-      ("周XX", "副教授", "XXXX大学"),
+      ("刘××", "教授", "清华大学"),
+      ("杨××", "研究员", "中国××××科学院×××××××研究所"),
+      ("黄××", "教授", "××××大学"),
+      ("周××", "副教授", "××××大学"),
     ),
     秘书: (
-      ("吴XX", "助理研究员", "清华大学"),
+      ("吴××", "助理研究员", "清华大学"),
     ),
   ),
 )
@@ -216,9 +221,9 @@
 // 符号表
 // 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。
 #notation[
-  / $"a", "c"_1, "c"_2$: 临时替换变量
+  / $upright(a), upright(c_1), upright(c_2)$: 临时替换变量
 
-  / $"D"_"m"$: 预混通道外径 (mm)
+  / $upright(D_m)$: 预混通道外径 (mm)
   / Ga: 空气质量流量 (kg/s)
   / Ma: 进口空气马赫数，$"Ma" = v_2 slash gamma R T_2$
 
@@ -238,7 +243,7 @@
   / TST: 过渡态理论 (Transition State Theory)
   / ZPE: 零点振动能 (Zero Vibration Energy)
 
-  / TnTT: 清华大学综合论文训练 Typst 模板 (Typst & Tsinghua University Thesis Template)
+  / TnTT: 非官方清华大学 Typst 论文模板
 ]
 
 /// ----------- ///
@@ -335,11 +340,14 @@
 
 ```typ
 #fonts-display(fonts: (
-  SongTi: ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei"))
+  SongTi: (
+    (name: "Times New Roman", covers: "latin-in-cjk"),
+    "SimHei",
+  ),
 )
 ```
 
-其可设置*在字体展示页中*使宋体（SongTi）字族使用 Times New Roman 和 SimHei 字族。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过默认字体的页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
+其可设置*在字体展示页中*使宋体（SongTi）字族使用 Times New Roman 和 SimHei 字体。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过默认字体的页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
 
 ```typ
 #abstract(back-font: "KaiTi")[
@@ -628,9 +636,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 致谢
 #acknowledge[
-  // 强制让 × 使用中文字体显示，此处仅为美观，可删除
-  #show "×": set text(font: use-cjk-fonts("SongTi"))
-
   致谢对象，原则上仅限于在学术方面对学位论文的完成有较重要帮助的团体和人士（不超过半页纸）。
 
   #line(length: 100%)
@@ -670,9 +675,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #achievement(
   // 个人简历仅适用于研究生及以上，本科生不会显示此部分
   resume: [
-    // 强制让 × 使用中文字体显示，此处仅为美观，可删除
-    #show "×": set text(font: use-cjk-fonts("SongTi"))
-
     197×年××月××日出生于四川××县。
 
     1992年9月考入××大学化学系××化学专业，1996年7月本科毕业并获得理学学士学位。
@@ -686,8 +688,8 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     4. *Yang Y*, Ren T L, Zhu Y P, et al. PMUTs for handwriting recognition. In press[J]. (已被Integrated Ferroelectrics录用)
   ],
   patent: [
-    4. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
-    5. REN T L, YANG Y, ZHU Y P, et al. Piezoelectric micro acoustic sensor based on ferroelectric materials: No.11/215, 102[P]. (美国发明专利申请号.)
+    5. 胡楚雄, 付宏, 朱煜, 等. 一种磁悬浮平面电机: ZL202011322520.6[P]. 2022-04-01.
+    6. REN T L, YANG Y, ZHU Y P, et al. Piezoelectric micro acoustic sensor based on ferroelectric materials: No.11/215, 102[P]. (美国发明专利申请号.)
   ],
 )
 

@@ -3,7 +3,6 @@
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
 /// - degree (str): The degree.
-/// - fonts (dictionary): The dictionary of fonts to use.
 /// - title (content | str): The title of the committee page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -22,7 +21,6 @@
   anonymous: false,
   twoside: false,
   degree: "master",
-  fonts: (:),
   // options
   title: [学位论文指导小组、公开评阅人和答辩委员会名单],
   outlined: false,
@@ -40,19 +38,22 @@
   if anonymous or degree not in ("master", "doctor", "postdoc") { return }
 
   import "../utils/page.typ": use-twoside
-  import "../utils/font.typ": _use-fonts, use-size
+  import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty
 
   let use-fonts = name => _use-fonts(fonts, name)
   let format-text = str => {
+    show heading.where(level: 2): it => { align(center, text(size: use-size("小三"), it.body)) }
     v(20pt)
-    text(size: use-size("小三"), font: use-fonts("HeiTi"), str)
+    heading(level: 2, numbering: none, outlined: false, bookmarked: false, str)
     v(2pt)
   }
+  let length-checker = it => it.len() == 3 // (name, title, affiliation)
 
-  /// Rendering
+  /// Render
   use-twoside(twoside)
 
+  set page(header: none)
   set align(center)
   set par(justify: false) // disable full justify
   set grid(row-gutter: 1em, align: horizon)
@@ -63,7 +64,7 @@
   if is-not-empty(supervisors) and supervisors != () {
     format-text(supervisors-title)
     if type(supervisors) == array {
-      grid(columns: supervisors-columns, ..supervisors.filter(it => it.len() == 3).flatten())
+      grid(columns: supervisors-columns, ..supervisors.filter(length-checker).flatten())
     } else { supervisors }
   }
 
@@ -71,7 +72,7 @@
     format-text(reviewers-title)
     if type(reviewers) == array {
       if reviewers != () {
-        grid(columns: reviewers-columns, ..reviewers.filter(it => it.len() == 3).flatten())
+        grid(columns: reviewers-columns, ..reviewers.filter(length-checker).flatten())
       } else { [无（全隐名评阅）] }
     } else { reviewers }
   }
@@ -83,7 +84,7 @@
       grid(columns: defenders-columns, ..defenders
           .keys()
           .filter(k => type(defenders.at(k)) == array and defenders.at(k) != ())
-          .map(k => (k, defenders.at(k).filter(it => it.len() == 3).intersperse("")))
+          .map(k => (k, defenders.at(k).filter(length-checker).intersperse("")))
           .flatten())
     } else { defenders }
   }

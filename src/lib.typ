@@ -107,9 +107,9 @@
     // 文档元配置 | Document Meta Configuration
     meta: (..args) => meta(info: info, ..args), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
-    doc: (..args) => doc(..args, fonts: extend-fonts(args)),
+    doc: (..args) => doc(..args, header-display: degree != "bachelor", fonts: extend-fonts(args)),
     // 前辅文设置 | Front Matter Layout Configuration
-    front-matter: (..args) => front-matter(degree: degree, ..args),
+    front-matter: (..args) => front-matter(..args),
     // 正文设置 | Main Matter Layout Configuration
     main-matter: (..args) => main-matter(twoside: twoside, equation-numbering: "(1-1)", ..args),
     // 后辅文设置 | Back Matter Layout Configuration
@@ -124,7 +124,7 @@
     // 英文封面页 | Cover (English) Page
     cover-en: (..args) => cover-en(degree: degree, anonymous: anonymous, ..args, fonts: extend-fonts(args), info: extend-info(args)),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
-    committee: (..args) => committee(degree: degree, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
+    committee: (..args) => committee(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 授权页 | Copyright Page
     copyright: (..args) => copyright(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 中文摘要页 | Abstract Page
@@ -152,7 +152,7 @@
     // 声明页 | Declaration Page
     declaration: (..args) => declaration(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
-    achievement: (..args) => achievement(degree: degree, anonymous: anonymous, twoside: twoside, ..args, fonts: extend-fonts(args)),
+    achievement: (..args) => achievement(degree: degree, anonymous: anonymous, twoside: twoside, ..args),
     // 论文训练记录表 | Record Sheet Page
     record-sheet: (..args) => record-sheet(degree: degree, anonymous: anonymous, twoside: twoside, ..args, info: extend-info(args)),
     // 指导教师/指导小组评语页 | Advisor Comments Page

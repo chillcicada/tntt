@@ -28,6 +28,9 @@
   if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
   if equation-numbering == auto { equation-numbering = "(" + heading-numbering.formats.last() + ")" }
 
+  let __main-matter-has-page-counter-reset = state("__main-matter-has-page-counter-reset", false)
+
+
   // Page break
   use-twoside(twoside)
 
@@ -39,8 +42,16 @@
 
   set heading(numbering: multi-numbering.with(..heading-numbering))
 
-  // Reset the counter of pages
-  counter(page).update(1)
+  // Reset the counter of pages at the first level 1 heading,
+  // to avoid resetting on blank pages without headings when twoside is enabled.
+  show heading.where(level: 1): it => {
+    it
+    if not __main-matter-has-page-counter-reset.get() {
+      counter(page).update(1)
+      __main-matter-has-page-counter-reset.update(true)
+    }
+  }
+
   set page(numbering: page-numbering)
 
   it

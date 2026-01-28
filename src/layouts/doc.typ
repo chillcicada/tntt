@@ -112,11 +112,17 @@
   heading-pagebreak: (true, false),
   body-font: "SongTi",
   body-size: "小四",
+  header-display: false,
+  header-stroke: 1pt + black,
+  header-ascent: 10% + 0pt,
+  header-font: "SongTi",
+  header-size: "五号",
   footnote-font: "SongTi",
   footnote-size: "小五",
   footnote-style: "normal",
   footnote-reset: "by-page",
   footnote-numbering: "①",
+  footnote-hanging-indent: 1.5em,
   math-font: "Math",
   math-size: "小四",
   raw-font: "Mono",
@@ -155,6 +161,8 @@
   show terms: set par(first-line-indent: 0em)
 
   /// Heading
+  // TODO: use `show-set` instead of `show-closure` for better override ability
+  show heading: set text(font: use-fonts(heading-font.last()), weight: heading-weight.last())
   show heading: it => {
     if array-at(heading-pagebreak, it.level) { pagebreak(weak: true) }
 
@@ -180,7 +188,30 @@
   /// Smartquote
   show smartquote: set text(font: _use-en-font(fonts, body-font))
 
-  /// Fontnote
+  /// Header & Footer
+  set page(header-ascent: header-ascent, header: context {
+    if footnote-reset == "by-page" { counter(footnote).update(0) }
+
+    let head = query(selector(heading.where(level: 1)).after(here()))
+      .filter(it => it.location().page() == here().page())
+      .first(default: none)
+
+    if head != none { if footnote-reset == "by-chapter" { counter(footnote).update(0) } } else {
+      head = query(selector(heading.where(level: 1)).before(here())).last(default: none)
+    }
+
+    if head == none or not header-display { return }
+
+    align(center, text(size: use-size(header-size), font: use-fonts(header-font), {
+      if head.numbering != none { numbering(head.numbering, ..counter(heading).at(head.location())) }
+      head.body
+    }))
+
+    v(-0.6em)
+
+    line(length: 100%, stroke: header-stroke)
+  })
+
   set footnote(numbering: footnote-numbering)
 
   show footnote: it => if footnote-style == "normal" {
@@ -189,42 +220,22 @@
     it
   } else if footnote-style == "super" { it } else { panic("Unknown footnote-style: " + footnote-style) }
 
-  show footnote.entry: it => {
-    set text(font: use-fonts(footnote-font), size: use-size(footnote-size))
+  show footnote.entry: set text(font: use-fonts(footnote-font), size: use-size(footnote-size))
 
-    par(hanging-indent: 1.5em, first-line-indent: 0em)[
-      #numbering(it.note.numbering, ..counter(footnote).at(it.note.location()))
-      #it.note.body
-    ]
-  }
-
-  if footnote-reset == "by-page" {
-    set page(header: { counter(footnote).update(0) })
-  } else if footnote-reset == "by-chapter" {
-    // reset footnote by heading level 1
-    show heading.where(level: 1): set page(header: { counter(footnote).update(0) })
-  } else if footnote-reset == "off" {
-    // do nothing
-  } else { panic("Unknown reset-footnote option: " + footnote-reset) }
+  show footnote.entry: it => par(hanging-indent: footnote-hanging-indent, first-line-indent: 0em)[
+    #numbering(it.note.numbering, ..counter(footnote).at(it.note.location())) #it.note.body
+  ]
 
   /// Math Equation
   show math.equation: set text(font: use-fonts(math-font), size: use-size(math-size))
 
   /// Raw
   show raw: set text(font: use-fonts(raw-font), size: use-size(raw-size))
-
   // unset paragraph for raw block
-  show raw.where(block: true): set par(
-    leading: code-block-leading,
-    spacing: code-block-spacing,
-  )
+  show raw.where(block: true): set par(leading: code-block-leading, spacing: code-block-spacing)
 
   /// Underline
-  set underline(
-    offset: underline-offset,
-    stroke: underline-stroke,
-    evade: underline-evade,
-  )
+  set underline(offset: underline-offset, stroke: underline-stroke, evade: underline-evade)
 
   /// Figure
   show figure.where(kind: table): set figure.caption(position: top)

@@ -4,7 +4,6 @@
 /// - twoside (bool | str): Whether to use two-sided layout.
 /// - degree (str): The degree.
 /// - title (content): The title of the copyright page.
-/// - title-size (length | str): The size of the title font.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - body (content): The body content of the copyright page.
@@ -18,7 +17,6 @@
   degree: "bachelor",
   // options
   title: [关于论文使用授权的说明],
-  title-size: "二号",
   outlined: false,
   bookmarked: false,
   body: [],
@@ -49,16 +47,16 @@
 
       本人保证遵守上述规定。
     ],
+    postdoc: [TODO],
   )
 
+  /// Render
   use-twoside(twoside)
 
-  // TODO: we need a less invasive method
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, {
-    v(0.91em)
-    text(size: use-size(title-size), title)
-    v(1.42em)
-  })
+  set page(header: none)
+
+  show heading.where(level: 1): it => { align(center, block(text(size: use-size("二号"), it.body))) }
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   set par(leading: 16.4pt, spacing: 16.4pt)
   text(size: use-size("四号"), _preset_body.at(degree, default: body))

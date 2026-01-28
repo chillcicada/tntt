@@ -6,10 +6,10 @@
 /// - numbers: the capturing numbers passed to the numbering function
 /// -> numbering
 #let multi-numbering(formats: (), depth: 0, supplyment: "", ..numbers) = {
-  let f-len = formats.len()
-  let n-len = numbers.pos().len()
+  let fmt-len = formats.len()
+  let num-len = numbers.pos().len()
 
-  if f-len == 0 or (n-len > depth and depth > 0) { return }
+  if fmt-len == 0 or (num-len > depth and depth > 0) { return }
 
-  numbering(formats.at(calc.min(f-len, n-len) - 1) + supplyment, ..numbers)
+  numbering(formats.at(calc.min(fmt-len, num-len) - 1) + supplyment, ..numbers)
 }

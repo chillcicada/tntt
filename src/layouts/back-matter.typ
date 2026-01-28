@@ -41,13 +41,13 @@
   counter(heading).update(0)
 
   set heading(numbering: multi-numbering.with(..heading-numbering), outlined: false)
+  // Only level 1 headings of the appendices are shown in the outline
+  show heading.where(level: 1): set heading(outlined: true)
 
+  // Reset the counter of pages at the first level 1 heading,
+  // to avoid resetting on blank pages without headings when twoside is enabled.
   show heading.where(level: 1): it => {
-    // Only level 1 headings of the appendices are shown in the outline
-    set heading(outlined: true)
-
     it
-
     if reset-counter and not __back-matter-has-page-counter-reset.get() {
       counter(page).update(1)
       __back-matter-has-page-counter-reset.update(true)
