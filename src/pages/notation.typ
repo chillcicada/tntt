@@ -1,7 +1,8 @@
 /// Notation Page
 ///
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - title (content): The title of the notation page.
 /// - width (length | relative): The width of the notation grid.
 /// - columns (array): The widths of the grid columns for terms and descriptions.
@@ -15,8 +16,9 @@
   // from entry
   twoside: false,
   // options
-  outlined: false,
   title: [符号和缩略语说明],
+  outlined: false,
+  bookmarked: true,
   width: 100%,
   columns: (96pt, 1fr),
   row-gutter: 12pt,
@@ -28,24 +30,23 @@
 ) = {
   assert(type(row-gutter) == length, message: "row-gutter must be a length value here.")
 
+  import "../utils/page.typ": use-twoside
+
   let blank-row-gutter = if blank-row-gutter == none { 1.5 * row-gutter }
 
   let blank-row-inset = if chunked { (blank-row-gutter - 2 * row-gutter) / 2 } else { -row-gutter / 2 }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: true, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   align(center, block(width: width, align(start, grid(
     columns: columns,
     row-gutter: row-gutter,
     ..args,
-    ..it
-      .children
-      .filter(it => it.func() == parbreak or it.func() == terms.item)
-      .map(it => if (it.func() == parbreak) {
-        grid.cell(none, colspan: 2, inset: (y: blank-row-inset))
-      } else { (it.term, it.description) }) // terms.item
+    // @typstyle off
+    ..it.children.filter(it => it.func() == parbreak or it.func() == terms.item)
+      .map(it => if (it.func() == parbreak) { grid.cell(none, colspan: 2, inset: (y: blank-row-inset)) } else { (it.term, it.description) })
       .flatten()
   ))))
 }

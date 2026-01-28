@@ -1,9 +1,12 @@
 /// Record Sheet Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
+/// - degree (str): The degree, this page is only for bachelor's thesis.
 /// - title (content): The title of the record sheet page.
+/// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - prefill (bool): Whether to prefill the student information.
 /// - rows (list(length)): The heights of the table rows.
 /// - columns (list(length)): The widths of the table columns.
@@ -22,43 +25,39 @@
   anonymous: false,
   twoside: false,
   info: (:),
+  degree: "bachelor",
   // options
   title: [综合论文训练记录表],
+  outlined: false,
+  bookmarked: false,
   prefill: true,
   rows: (1cm, 1cm, 12cm, 6.5cm),
   columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr),
-  author: [],
-  student-id: [],
-  class: [],
-  thesis-title: [],
   content: [],
   mid-term-comment: [],
   instructor-comment: [],
   reviewer-comment: [],
   defense-comment: [],
 ) = {
-  if anonymous { return }
+  /// Precheck
+  if anonymous or degree != "bachelor" { return }
 
   import "../utils/font.typ": use-size
-  import "../utils/text.typ": use-stack
+  import "../utils/text.typ": v-text
+  import "../utils/page.typ": use-twoside
 
-  if prefill {
-    author = info.author
-    student-id = info.student-id
-    class = info.class
-    thesis-title = info.title
-  }
-
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
   set page(numbering: none)
 
   set text(size: use-size("五号"))
 
-  heading(level: 1, numbering: none, outlined: false, bookmarked: false, title)
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
   {
     show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) { strong(it) } else { it }
+
+    set par(first-line-indent: 0em)
 
     let cell-with-back(body, back) = table.cell(colspan: 5, grid(
       columns: 1fr,
@@ -72,9 +71,9 @@
       rows: rows,
       columns: columns,
       align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
-      [学生姓名], author, [学号], student-id, [班级], class,
-      [论文题目], table.cell(colspan: 5, thesis-title),
-      use-stack[主要内容以及进度安排],
+      [学生姓名], info.author, [学号], info.student-id, [班级], info.class,
+      [论文题目], table.cell(colspan: 5, info.title),
+      v-text[主要内容以及进度安排],
       cell-with-back(
         content,
         [
@@ -87,7 +86,7 @@
           年#h(1em)月#h(1em)日
         ],
       ),
-      use-stack[中期考核意见],
+      v-text[中期考核意见],
       cell-with-back(
         mid-term-comment,
         [
@@ -98,7 +97,7 @@
           年#h(1em)月#h(1em)日
         ],
       ),
-      use-stack[指导教师评语],
+      v-text[指导教师评语],
       cell-with-back(
         instructor-comment,
         [
@@ -109,7 +108,7 @@
           年#h(1em)月#h(1em)日
         ],
       ),
-      use-stack[评阅教师评语],
+      v-text[评阅教师评语],
       cell-with-back(
         reviewer-comment,
         [
@@ -120,7 +119,7 @@
           年#h(1em)月#h(1em)日
         ],
       ),
-      use-stack[答辩小组评语],
+      v-text[答辩小组评语],
       cell-with-back(
         defense-comment,
         [
@@ -148,3 +147,39 @@
     年#h(1em)月#h(1em)日#h(3em)
   ])
 }
+
+/// Advisor Comment Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - twoside (bool | str): Whether to use two-sided layout.
+/// - degree (str): The degree.
+/// - title (content): The title of the acknowledgement page.
+/// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
+/// - it (content): The content of the acknowledgement page.
+/// -> content
+#let comments(
+  // from entry
+  anonymous: false,
+  twoside: false,
+  degree: "master",
+  // options
+  title: [指导教师学术评语],
+  outlined: true,
+  bookmarked: true,
+  // self
+  it,
+) = {
+  if anonymous or degree not in ("master", "doctor", "postdoc") { return }
+
+  import "../utils/page.typ": use-twoside
+
+  use-twoside(twoside)
+
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+
+  it
+}
+
+/// Committee Resolution Page
+#let resolution(..args) = comments(title: [答辩委员会决议书], ..args)
