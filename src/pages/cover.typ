@@ -40,7 +40,11 @@
 
   // Calculate suitable width of info items
   let info-item-width = if degree == "bachelor" { 4em } else { 5em }
-  let format-info-item(it) = block(width: info-item-width, fixed-text(it, info-item-width))
+  let format-info-item(it) = block(
+    width: info-item-width + if degree == "bachelor" { 0em } else { 0.5em },
+    fixed-text(it, info-item-width) + if degree == "bachelor" { "" } else { " " },
+  )
+
 
   info.supervisor = info.supervisor.chunks(2)
   if degree != "bachelor" { info.co-supervisor = info.co-supervisor.chunks(2) }
@@ -86,19 +90,21 @@
   let placed-content(content, dy) = place(bottom + center, content, dy: dy)
   let format-info(items) = grid(
     align: (center, left, left), rows: 1.09cm, columns: (2.80cm, 0.82cm, 5.62cm),
-    ..items.keys().map(k => (format-info-item(items.at(k)), ": ", info.at(k))).flatten()
+    ..items.keys().map(k => (format-info-item(items.at(k)), "：", info.at(k))).flatten()
   )
 
   let preset-content = (
     bachelor: {
       set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
-      set par(leading: 1.15em, spacing: 1.3em)
       v(2em)
       image("../assets/logo.png", width: 7.81cm)
       v(-1em)
       text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
-      par[]
-      text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
+      v(1em)
+      {
+        set par(leading: 0.95em)
+        text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
+      }
       placed-content(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), -17em)
       placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -5em)
     },
