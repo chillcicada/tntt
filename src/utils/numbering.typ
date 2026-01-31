@@ -1,30 +1,15 @@
-// 一个简单的自定义 Numbering
-// 用法也简单，可以特殊设置一级等标题的样式，以及一个缺省值
-#let custom-numbering(base: 1, depth: 5, first-level: auto, second-level: auto, third-level: auto, format, ..args) = {
-  if args.pos().len() > depth {
-    return
-  }
-  if first-level != auto and args.pos().len() == 1 {
-    if first-level != "" {
-      numbering(first-level, ..args)
-    }
-    return
-  }
-  if second-level != auto and args.pos().len() == 2 {
-    if second-level != "" {
-      numbering(second-level, ..args)
-    }
-    return
-  }
-  if third-level != auto and args.pos().len() == 3 {
-    if third-level != "" {
-      numbering(third-level, ..args)
-    }
-    return
-  }
-  // default
-  if args.pos().len() >= base {
-    numbering(format, ..(args.pos().slice(base - 1)))
-    return
-  }
+/// Simple adjustable depth multi-format numbering, the last format will be reused for deeper levels
+///
+/// - formats (array): An array of format strings for different levels, the last one will be reused for deeper levels
+/// - depth (int): Maximum depth to apply numbering formats, <= 0 means no limit
+/// - supplyment (str): A supplyment string to append after each format
+/// - numbers: the capturing numbers passed to the numbering function
+/// -> numbering
+#let multi-numbering(formats: (), depth: 0, supplyment: "", ..numbers) = {
+  let fmt-len = formats.len()
+  let num-len = numbers.pos().len()
+
+  if fmt-len == 0 or (num-len > depth and depth > 0) { return }
+
+  numbering(formats.at(calc.min(fmt-len, num-len) - 1) + supplyment, ..numbers)
 }
