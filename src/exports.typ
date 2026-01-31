@@ -1,3 +1,7 @@
+/*
+ This module exports all layouts and pages.
+*/
+
 /// ------ ///
 /// Layout ///
 /// ------ ///
@@ -13,7 +17,7 @@
 
 // before content
 #import "pages/fonts-display.typ": fonts-display
-#import "pages/cover.typ": cover, cover-en
+// #import "pages/cover.typ": cover, cover-en // Not for distribution due to copyright issues
 #import "pages/committee.typ": committee
 #import "pages/copyright.typ": copyright
 
@@ -33,15 +37,3 @@
 #import "pages/declaration.typ": declaration
 #import "pages/achievement.typ": achievement
 #import "pages/review-material.typ": comments, record-sheet, resolution
-
-/// --------- ///
-/// Auxiliary ///
-/// --------- ///
-
-#import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check
-#import "utils/page.typ": use-twoside
-#import "utils/util.typ": extend, str2bool
-
-/// ------- ///
-/// Process ///
-/// ------- ///
