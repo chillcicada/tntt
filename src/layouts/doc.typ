@@ -23,17 +23,20 @@
   // self
   it,
 ) = {
-  import "../utils/ref.typ": apply-latex-ref-to-figure
+  import "../utils/ref.typ": apply-latex-ref-compat
 
   import "../imports.typ": cuti
+  import "../imports.typ": ratchet
   import cuti: show-cn-fakebold
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
   }
 
+  show: ratchet.with(reset-figure-kinds: (table, image, raw, "algorithm"))
+
   // Apply LaTeX/i-figured reference compatibility if enabled
-  // show: it => if use-latex-ref { apply-latex-ref-to-figure(it) } else { it }
+  show: it => if use-latex-ref { apply-latex-ref-compat(it) } else { it }
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
@@ -69,6 +72,11 @@
 /// - heading-pagebreak (array): Whether to insert a page break before the headings.
 /// - body-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"):
 /// - body-size (length | str): The size of body text, can be length value or str.
+/// - header-display (bool): Whether to display headers.
+/// - header-stroke (stroke): The stroke for the header line.
+/// - header-ascent (length): The ascent for the header.
+/// - header-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for headers.
+/// - header-size (length | str): The size of headers, can be length value or str.
 /// - footnote-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for footnotes.
 /// - footnote-size (length | str): The size of footnotes, can be length value or str.
 /// - footnote-style ("normal" | "super"): The style of footnotes, can be "normal" or "super".
