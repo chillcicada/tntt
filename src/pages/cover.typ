@@ -98,7 +98,7 @@
       set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
       v(2em)
       image("../assets/logo.png", width: 7.81cm)
-      v(-1.5em)
+      v(-1em)
       text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
       v(1em)
       {
