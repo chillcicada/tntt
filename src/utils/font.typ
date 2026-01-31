@@ -8,7 +8,7 @@
   "Math",
 )
 
-#let _fonts-check(fonts) = {
+#let fonts-check(fonts) = {
   if type(fonts) == dictionary {
     for key in fonts.keys() {
       assert(
@@ -35,15 +35,15 @@
   fonts
 }
 
-#let _builtin-fonts-get-en(fonts) = fonts.at(0)
+#let _builtin-fonts-get1st(fonts) = fonts.at(0)
 
-#let _builtin-fonts-trim-en(fonts) = fonts.slice(1)
+#let _builtin-fonts-trim1st(fonts) = fonts.slice(1)
 
-#let _use-fonts(fonts, name) = _fonts-check(fonts).at(name)
+#let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
 
-#let _use-en-font(fonts, name) = _builtin-fonts-get-en(_use-fonts(fonts, name)).name
+#let _use-en-font(fonts, name) = _builtin-fonts-get1st(_use-fonts(fonts, name)).name
 
-#let _use-cjk-fonts(fonts, name) = _builtin-fonts-trim-en(_use-fonts(fonts, name))
+#let _use-cjk-fonts(fonts, name) = _builtin-fonts-trim1st(_use-fonts(fonts, name))
 
 /// Word compatible font size for CJK
 #let _builtin-font-size = (
