@@ -44,7 +44,7 @@
 
   set heading(bookmarked: true)
 
-  set document(title: info.title.sum(), author: info.author, date: info.submit-date)
+  set document(title: info.title.sum(), author: info.author, date: info.date)
 
   it
 }

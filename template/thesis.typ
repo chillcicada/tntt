@@ -70,24 +70,25 @@
   comments,
   resolution,
 ) = define-config(
-  // 学位层级，可选值：bachelor、master、doctor、postdoc
-  // 模板内容会根据学位自动调整，对于不需要的内容会自动跳过
-  degree: "master",
+  // 学位层级，可选值: bachelor, master, doctor, postdoc
+  // 模板内容会根据学位自动调整，对于不需要的内容会自动忽略
+  degree: "bachelor",
   degree-type: "academic",
   anonymous: false, // 盲审模式
   twoside: false, // 双面模式，会加入空白页，便于打印
+  // 如下的信息会写入到生成的 PDF 元数据中
   info: (
-    // 如下的信息会写入到生成的 PDF 元数据中
-    title: "本科生综合论文训练标题",
-    // 按个性化方式对标题进行断行
-    // title: ("本科生综合论文训练标", "题"),
+    title: "清华大学学位论文 Typst 模板\n使用示例文档",
+    // 等价于
+    // title: ("清华大学学位论文 Typst 模板", "使用示例文档"),
     author: "某某某",
-    submit-date: datetime.today(),
-    // 指定论文提交日期，具体日期不会在封面中显示，但会写入到 PDF 元数据中
-    // submit-date: datetime(year: 2026, month: 5, day: 30),
+    // 论文提交日期，具体日期不会在封面中显示，但会写入到 PDF 元数据中
+    date: datetime.today(),
+    // 指定论文提交日期，可填写任意时间
+    // date: datetime(year: 2026, month: 5, day: 30),
     // （并不建议）将日期具体到时分秒（UTC 时间），同时会应用系统时区，因而需要根据实际情况自行换算
-    // 如下 2026 年 5 月 30 日 10:30 AM 北京时间对应 UTC 时间的 2:30 AM：
-    // submit-date: datetime(year: 2026, month: 5, day: 30, hour: 2, minute: 30, second: 0),
+    // 如下设置北京时间 2026 年 5 月 30 日 10:30 AM，对应 UTC 时间的 2:30 AM：
+    // date: datetime(year: 2026, month: 5, day: 30, hour: 2, minute: 30, second: 0),
   ),
   bibliography: bibliography.with("ref.bib"), // 参考文献源
   fonts: font-family, // 应用字体配置
@@ -105,6 +106,8 @@
   info: (
     department: "××××",
     major: "××××××××",
+    // 学位名称，可按学术类型或是工程类型编写，对本科生无效
+    degree-name: "工学硕士",
     supervisor: ("某某某", "教授"),
     // 多指导老师示例
     // supervisor: ("某某某", "教授", "某某", "副教授"),
@@ -120,6 +123,7 @@
     title: "An Introduction to Typst Thesis Template of Tsinghua University",
     author: "Xue Ruini",
     major: "Computer Science and Technology",
+    degree-name: "Master of Science",
     supervisor: ("Professor Zheng Weimin",),
     co-supervisor: ("Professor Chen Wenguang",),
   ),
@@ -130,7 +134,7 @@
 /// ----------- ///
 #show: doc
 
-// 强制让 × 使用中文字体显示，此处仅为美观，可删除
+// 强制让 × 使用中文字体显示，此处仅为显示美观，可删除
 #show "×": set text(font: use-cjk-fonts("SongTi"))
 
 // 学位论文指导小组、公开评阅人和答辩委员会名单，仅适用于研究生及以上
@@ -156,8 +160,7 @@
   // 设置 defenders 为 (:) 将隐藏答辩委员会名单
   // defenders: (:),
   defenders: (
-    // 如下定义的键值会在生成表格时直接使用，可根据需要进行增删
-    // 如果某一项为空值将会被自动忽略
+    // 如下定义的键值会在生成表格时直接使用，可根据需要进行增删，如果为空值将会被自动忽略
     主席: (
       ("赵××", "教授", "清华大学"),
     ),
@@ -174,7 +177,6 @@
 )
 
 // 授权页
-// 对于本科生和硕士生及以上会应用不同的样式，也可以自定义输入内容
 #copyright()
 
 /// ------------ ///
@@ -183,6 +185,7 @@
 #show: front-matter
 
 // 中文摘要
+// 默认情况下会将中文关键词和摘要内容嵌入到 PDF 中，设置 embeded 为 false 可禁用该行为
 #abstract(keywords: ("关键词 1", "关键词 2", "关键词 3", "关键词 4", "关键词 5"))[
   论文的摘要是对论文研究内容和成果的高度概括。摘要应对论文所研究的问题及其研究目的进行描述，对研究方法和过程进行简单介绍，对研究成果和所得结论进行概括。摘要应具有独立性和自明性，其内容应包含与论文全文同等量的主要信息。使读者即使不阅读全文，通过摘要就能了解论文的总体内容和主要成果。
 
@@ -537,19 +540,17 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 目前存在的问题
 
-- 部分字体在不同平台上的显示效果可能存在差异，此问题在 Word 和 LaTeX 中同样存在；
-- 文档的排版和样式可能需要根据个人需求进行调整，当前模板提供了最大限度的自由化选项，但目前尚未补全文档，可能需要一定的 Typst 使用经验才能上手，不过，并不鼓励修改内置的选项。
+尽管 Typst 的语法和表达能力较为强大，同时生态也初具雏形，但由于 Typst 仍处于快速发展阶段，而模板本身也没有经过充分的验证和迭代，因而目前仍存在一些问题和限制，包括但不限于如下内容：
 
-目前 Typst 仍然存在一些功能限制，包括但不限于如下的问题：
+- 部分字体在不同平台上的显示效果可能存在差异。此问题在 Word 和 LaTeX 中同样存在，Typst 对 OpenType 的支持也在完善，强烈建议按照学校官方模板的字体进行配置和渲染；
+- 文档的排版和样式需要一定的个性化配置。模板的代码设计一定程度参考了 LaTeX 模板 thuthesis，但目前还未补全使用文档，按需更改需要一些 Typst 使用经验。此外，受限于使用基数，很多设计尚在摸索中，欢迎提供改进建议；
+- #strike[公式索引无法忽略附录公式。]由于学校不要求公式索引，此问题暂时搁置；
+- 某些细节处可能与 Word / LaTeX 模板存在差异。本模板在排版设计上以官方 Word 模板和过往论文等为主，但由于 Word 模板自身问题不少，同时不同引擎间存在差异，无法做到完全一致；
+- 不支持多参考文献实例。理论上可以通过 #link("https://typst.app/universe/package/alexandria", underline[alexandria]) 包解决，但由于 Typst 相关开发正在推进，因而并未采用。考虑单参考文献源对论文编辑影响并不严重，目前在对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现双向链接的参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
 
-- #text(gray)[导出的 PDF 中*编号信息*缺失，但相较于不提供导出书签的官方 Word 版本，]#strike[此问题可以忽略]，*此问题已被解决*；
-- #text(gray)[目前公式索引无法忽略附录中的公式，但由于学校对公式索引并无要求，]因而此问题也可以忽略；
-- 某些细节处可能与 Word 模板存在差异，必须强调的一点时，当前模板已经最大限度参考了 Word 模板的设计，调整了很多细节上的差异，但由于官方的 Word 模板自身问题不少，同时因 Word 排版引擎本身的限制（浮动行距受字体影响等），无法做到完全一致；
-- 当前 Typst 不支持多参考文献实例，因而对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现链接的 Word 参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
+此外，由于官方提供的 Word 模板中也存在诸多问题，很多事项并未在规范中完全注明或比较随意，因而一些排版出入是合理的。
 
-此外，由于官方提供的 Word 模板中也存在诸多问题，很多事项并未在规范中完全注明，因而一些出入是合理的。
-
-更多对 Typst 引擎的讨论参见社区提供的 #link("https://typst-doc-cn.github.io/clreq/", underline[clreq 文档])。
+更多对 Typst 中文排版细节的讨论参见社区提供的 #link("https://gap.zhtyp.art/", underline[clreq 文档])。
 
 == 许可证
 
@@ -650,7 +651,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
   #line(length: 100%)
 
-  #par(first-line-indent: 0em)[*关于 TnTT 模板的致谢如下：*]
+  #par(first-line-indent: 0em)[*关于本模板的致谢如下：*]
 
   非常感谢 #link("https://github.com/OrangeX4", underline[OrangeX4]) 为南京大学学位论文 Typst 模板 #link("https://typst.app/universe/package/modern-nju-thesis", underline[modern-nju-thesis]) 所做的贡献，本项目移植于由 OrangeX4 及 nju-lug 维护的 modern-nju-thesis 模板，感谢他们所作工作。
 
@@ -706,8 +707,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     #v(2em)
 
     *主要内容*：针对……问题，通过……方法/实验，提出了……，实现了……，验证了……；
-
-    #v(1em)
 
     *进度安排*：2024年11月～12月，完成文献调研与开题报告撰写；2025年1月～3月，完成实验设计与数据收集；2025年4月～5月，完成数据分析与论文撰写；2025年6月，完成论文修改与答辩准备。
   ],

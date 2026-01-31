@@ -7,8 +7,7 @@
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - body (content): The body content of the copyright page.
-/// - grid-columns (array): The widths of the grid columns for signatures.
-/// - back (array): The back text for signatures, should be an array of strings.
+/// - back (content): The back content of the copyright page.
 /// -> content
 #let copyright(
   // from entry
@@ -16,12 +15,11 @@
   twoside: false,
   degree: "bachelor",
   // options
-  title: [关于论文使用授权的说明],
+  title: [],
   outlined: false,
   bookmarked: false,
   body: [],
-  grid-columns: (2.99cm, 3.29cm, 2.96cm, 3.66cm),
-  back: ("作者签名： ", "导师签名：", "日　　期： ", "日　　期："),
+  back: [],
 ) = {
   if anonymous { return }
 
@@ -29,7 +27,11 @@
   import "../utils/util.typ": is-not-empty
   import "../utils/page.typ": use-twoside
 
-  let _preset_body = (
+  title = if is-not-empty(title) { title } else {
+    if degree == "bachelor" [关于论文使用授权的说明] else [关于学位论文使用授权的说明]
+  }
+
+  let preset-body = (
     bachelor: [
       本人完全了解清华大学有关保留、使用综合论文训练论文的规定，即：学校有权保留论文的复印件，允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影印、缩印或其他复制手段保存论文。
     ],
@@ -50,26 +52,37 @@
     postdoc: [TODO],
   )
 
-  /// Render
+  let back-items = ("作者签名： ", "导师签名： ", "日　　期： ", "日　　期： ")
+
+  let preset-back = (
+    bachelor: {
+      v(5.4em)
+      align(center, grid(
+        rows: 1.03cm, columns: (2.99cm, 3.29cm, 2.96cm, 3.66cm),
+        ..back-items.intersperse("")
+      ))
+    },
+    graduate: {
+      v(2.7em)
+      align(right, grid(
+        rows: 1.04cm, columns: (2.54cm, 4.55cm, 2.43cm, 4.00cm), align: left,
+        ..back-items.map(it => (it, "_" * 13)).flatten()
+      ))
+    },
+  )
+
+  /// Render the page
   use-twoside(twoside)
 
   set page(header: none)
-
-  show heading.where(level: 1): it => { align(center, block(text(size: use-size("二号"), it.body))) }
+  v(3.6em)
+  show heading.where(level: 1): it => align(center, block(text(size: use-size("二号"), it.body)))
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+  v(3.7em)
+  set par(leading: 1.17em, spacing: 1.17em)
+  text(size: use-size("四号"), preset-body.at(degree, default: body))
 
-  set par(leading: 16.4pt, spacing: 16.4pt)
-  text(size: use-size("四号"), _preset_body.at(degree, default: body))
-  par[]
-
-  align(center, block(
-    width: grid-columns.sum(),
-    grid(
-      columns: grid-columns,
-      column-gutter: (-3pt, -2pt, 2pt),
-      row-gutter: 21.2pt,
-      align: center,
-      ..back.intersperse("")
-    ),
-  ))
+  if is-not-empty(back) { back } else {
+    if degree == "bachelor" { preset-back.bachelor } else { preset-back.graduate }
+  }
 }

@@ -43,7 +43,7 @@
 /// - text (str): the text to distribute
 /// - width (length): the width of the block, defaults to auto
 /// -> content
-#let _distr-text(text, width: auto) = block(width: width, stack(dir: ltr, ..text.clusters().intersperse(1fr)))
+#let _distr-text(text, width) = block(width: width, stack(dir: ltr, ..text.clusters().intersperse(1fr)))
 
 /// Create a text block with distributed text.
 ///

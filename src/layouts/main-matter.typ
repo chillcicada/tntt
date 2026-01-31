@@ -42,15 +42,7 @@
 
   set heading(numbering: multi-numbering.with(..heading-numbering))
 
-  // Reset the counter of pages at the first level 1 heading,
-  // to avoid resetting on blank pages without headings when twoside is enabled.
-  show heading.where(level: 1): it => {
-    it
-    if not __main-matter-has-page-counter-reset.get() {
-      counter(page).update(1)
-      __main-matter-has-page-counter-reset.update(true)
-    }
-  }
+  counter(page).update(1)
 
   set page(numbering: page-numbering)
 

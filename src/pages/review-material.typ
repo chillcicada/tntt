@@ -46,98 +46,69 @@
   import "../utils/text.typ": v-text
   import "../utils/page.typ": use-twoside
 
+  if type(info.title) == str { info.title = info.title.split("\n") }
+
   use-twoside(twoside)
 
   set page(numbering: none)
-
+  set par(first-line-indent: 0em, spacing: 1.75em)
   set text(size: use-size("五号"))
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
-  {
-    show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) { strong(it) } else { it }
+  show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) { strong(it) } else { it }
 
-    set par(first-line-indent: 0em)
+  let cell-with-back(body, back) = table.cell(colspan: 5, grid(
+    columns: 1fr,
+    rows: (1fr, auto),
+    body,
+    align(right, strong(back))
+  ))
 
-    let cell-with-back(body, back) = table.cell(colspan: 5, grid(
-      columns: 1fr,
-      rows: (1fr, auto),
-      body,
-      align(right, strong(back))
-    ))
+  table(
+    stroke: .5pt,
+    rows: rows,
+    columns: columns,
+    align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
+    [学生姓名], info.author, [学号], info.student-id, [班级], info.class,
+    [论文题目], table.cell(colspan: 5, info.title.join("")),
+    v-text[主要内容以及进度安排],
+    cell-with-back(content, [
+      指导教师签字：#h(4em)
 
-    table(
-      stroke: .5pt,
-      rows: rows,
-      columns: columns,
-      align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
-      [学生姓名], info.author, [学号], info.student-id, [班级], info.class,
-      [论文题目], table.cell(colspan: 5, info.title),
-      v-text[主要内容以及进度安排],
-      cell-with-back(
-        content,
-        [
-          #set par(spacing: 1.75em)
+      考核组组长签字：#h(4em)
 
-          指导教师签字：#h(4em)
+      年#h(1em)月#h(1em)日
+    ]),
+    v-text[中期考核意见],
+    cell-with-back(mid-term-comment, [
+      考核组组长签字：#h(4em)
 
-          考核组组长签字：#h(4em)
+      年#h(1em)月#h(1em)日
+    ]),
+    v-text[指导教师评语],
+    cell-with-back(instructor-comment, [
+      指导教师签字：#h(4em)
 
-          年#h(1em)月#h(1em)日
-        ],
-      ),
-      v-text[中期考核意见],
-      cell-with-back(
-        mid-term-comment,
-        [
-          #set par(spacing: 1.75em)
+      年#h(1em)月#h(1em)日
+    ]),
+    v-text[评阅教师评语],
+    cell-with-back(reviewer-comment, [
+      评阅教师签字：#h(4em)
 
-          考核组组长签字：#h(4em)
+      年#h(1em)月#h(1em)日
+    ]),
+    v-text[答辩小组评语],
+    cell-with-back(defense-comment, [
+      答辩小组组长签字：#h(4em)
 
-          年#h(1em)月#h(1em)日
-        ],
-      ),
-      v-text[指导教师评语],
-      cell-with-back(
-        instructor-comment,
-        [
-          #set par(spacing: 1.75em)
-
-          指导教师签字：#h(4em)
-
-          年#h(1em)月#h(1em)日
-        ],
-      ),
-      v-text[评阅教师评语],
-      cell-with-back(
-        reviewer-comment,
-        [
-          #set par(spacing: 1.75em)
-
-          评阅教师签字：#h(4em)
-
-          年#h(1em)月#h(1em)日
-        ],
-      ),
-      v-text[答辩小组评语],
-      cell-with-back(
-        defense-comment,
-        [
-          #set par(spacing: 1.75em)
-
-          答辩小组组长签字：#h(4em)
-
-          年#h(1em)月#h(1em)日
-        ],
-      ),
-    )
-  }
+      年#h(1em)月#h(1em)日
+    ]),
+  )
 
   v(1em)
 
   align(right, strong[
-    #set par(spacing: 1.75em)
-
     总成绩：#underline(" " * 12) // 3em
 
     教学负责人签字：#underline(" " * 12)
@@ -174,6 +145,7 @@
 
   import "../utils/page.typ": use-twoside
 
+  /// Render the page
   use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)

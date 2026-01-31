@@ -29,10 +29,8 @@
   import "../utils/page.typ": use-twoside
   import "../utils/util.typ": is-not-empty
 
-  let preset-title = (bachelor: [在学期间参加课题的研究成果], graduate: [个人简历、在学期间完成的相关学术成果])
-
   title = if is-not-empty(title) { title } else {
-    if degree == "bachelor" { preset-title.bachelor } else { preset-title.graduate }
+    if degree == "bachelor" [在学期间参加课题的研究成果] else [个人简历、在学期间完成的相关学术成果]
   }
 
   use-twoside(twoside)
@@ -41,20 +39,14 @@
 
   if degree != "bachelor" {
     show heading.where(level: 2): it => { align(center, text(size: use-size("四号"), it.body)) }
-
     heading(level: 2, numbering: none, outlined: false, bookmarked: false, [个人简历])
-
     v(8pt)
-
     resume
 
     if is-not-empty(paper) or is-not-empty(patent) {
       v(8pt)
-
       par[]
-
       heading(level: 2, numbering: none, outlined: false, bookmarked: false, [在学期间完成的相关学术成果])
-
       v(1.7em)
     }
   }
