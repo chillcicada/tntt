@@ -1,9 +1,10 @@
 /// Main Matter Layout
 ///
-/// - twoside (bool): Whether to use two-sided layout.
+/// - twoside (bool | str): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
-/// - heading-numbering (str): The numbering format for headings.
-/// - reset-footnote (bool): Whether to reset the footnote counter by page.
+/// - heading-numbering (dictorary): The numbering format for headings.
+/// - figure-numbering (str | auto): The numbering format for figures.
+/// - equation-numbering (str | auto): The numbering format for equations.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -11,40 +12,39 @@
   twoside: false,
   // options
   page-numbering: "1",
-  heading-numbering: (first-level: "第1章", depth: 4, format: "1.1"),
-  equation-numbering: "(1-1)",
-  reset-footnote: true,
+  heading-numbering: (formats: ("第1章", "1.1"), depth: 4, supplyment: " "),
+  figure-numbering: auto,
+  equation-numbering: auto,
   // self
   it,
 ) = {
   import "../utils/font.typ": use-size
+  import "../utils/page.typ": use-twoside
   import "../utils/util.typ": array-at
-  import "../utils/numbering.typ": custom-numbering
+  import "../utils/numbering.typ": multi-numbering
 
-  import "../imports.typ": i-figured
+  import "../imports.typ": ratchet
+
+  if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
+  if equation-numbering == auto { equation-numbering = "(" + heading-numbering.formats.last() + ")" }
+
+  let __main-matter-has-page-counter-reset = state("__main-matter-has-page-counter-reset", false)
+
 
   // Page break
-  pagebreak(weak: true, to: if twoside { "odd" })
+  use-twoside(twoside)
 
-  // Reset the counter and numbering
-  show heading: i-figured.reset-counters
-
-  set heading(
-    numbering: custom-numbering.with(
-      first-level: heading-numbering.first-level,
-      depth: heading-numbering.depth,
-      heading-numbering.format,
-    ),
-    bookmarked: true,
+  show: ratchet.with(
+    eq-outline: equation-numbering,
+    fig-outline: figure-numbering,
+    reset-figure-kinds: (table, image, raw, "algorithm"),
   )
 
-  show figure: i-figured.show-figure.with(extra-prefixes: ("algorithm": "alg:"))
-
-  show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
-
-  set page(numbering: page-numbering, header: { if reset-footnote { counter(footnote).update(0) } })
+  set heading(numbering: multi-numbering.with(..heading-numbering))
 
   counter(page).update(1)
+
+  set page(numbering: page-numbering)
 
   it
 }

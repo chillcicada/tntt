@@ -1,4 +1,6 @@
 /// This file stores all the needed imports for the project.
 
 #import "@preview/cuti:0.4.0"
-#import "@preview/i-figured:0.2.4"
+#import "@preview/subpar:0.2.2"
+
+#import "@preview/ratchet:0.0.1": *

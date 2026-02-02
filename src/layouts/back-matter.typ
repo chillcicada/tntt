@@ -1,52 +1,58 @@
 /// Back Matter Layout
 ///
-/// - twoside (bool): Whether to use two-sided layout.
-/// - heading-numbering (str): The numbering format for headings.
-/// - figure-numbering (str): The numbering format for figures.
+/// - twoside (bool | str): Whether to use two-sided layout.
+/// - heading-numbering (dictorary): The numbering format for headings.
 /// - figure-outlined (bool): Whether to outline figure numbers in figures index page.
-/// - equation-numbering (str): The numbering format for equations.
-/// - reset-counter (bool): Whether to reset the heading counter.
-/// - it (content): The content to be displayed in the back matter.
+/// - figure-numbering (str | auto): The numbering format for figures.
+/// - equation-numbering (str | auto): The numbering format for equations.
+/// - reset-counter (bool): Whether to reset the pages counter.
+/// - it (content): The content of the back matter.
 /// -> content
 #let back-matter(
   // from entry
   twoside: false,
   // options
-  heading-numbering: (first-level: "附录A", depth: 4, format: "A.1 "),
-  figure-numbering: "A.1",
+  heading-numbering: (formats: ("附录A", "A.1"), depth: 4, supplyment: " "),
   figure-outlined: false,
-  equation-numbering: "(A.1)",
-  reset-counter: true,
+  figure-numbering: auto,
+  equation-numbering: auto,
+  reset-counter: false,
   // self
   it,
 ) = {
-  import "../utils/numbering.typ": custom-numbering
+  import "../utils/numbering.typ": multi-numbering
+  import "../utils/page.typ": use-twoside
 
-  import "../imports.typ": i-figured
+  import "../imports.typ": ratchet
+
+  if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
+  if equation-numbering == auto { equation-numbering = "(" + heading-numbering.formats.last() + ")" }
+
+  let __back-matter-has-page-counter-reset = state("__back-matter-has-page-counter-reset", false)
 
   // Page break
-  pagebreak(weak: true, to: if twoside { "odd" })
-
-  // Reset the counter and numbering
-  if reset-counter { counter(heading).update(0) }
-
-  set heading(
-    numbering: custom-numbering.with(
-      first-level: heading-numbering.first-level,
-      depth: heading-numbering.depth,
-      heading-numbering.format,
-    ),
-    bookmarked: true,
-    outlined: false,
-  )
-
-  show heading.where(level: 1): set heading(outlined: true)
+  use-twoside(twoside)
 
   set figure(outlined: figure-outlined)
 
-  show figure: i-figured.show-figure.with(numbering: figure-numbering)
+  show: ratchet.with(eq-outline: equation-numbering, fig-outline: figure-numbering)
 
-  show math.equation.where(block: true): i-figured.show-equation.with(numbering: equation-numbering)
+  // Reset the counter and numbering of headings
+  counter(heading).update(0)
+
+  set heading(numbering: multi-numbering.with(..heading-numbering), outlined: false)
+  // Only level 1 headings of the appendices are shown in the outline
+  show heading.where(level: 1): set heading(outlined: true)
+
+  // Reset the counter of pages at the first level 1 heading,
+  // to avoid resetting on blank pages without headings when twoside is enabled.
+  show heading.where(level: 1): it => {
+    it
+    if reset-counter and not __back-matter-has-page-counter-reset.get() {
+      counter(page).update(1)
+      __back-matter-has-page-counter-reset.update(true)
+    }
+  }
 
   it
 }
