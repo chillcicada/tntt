@@ -89,8 +89,6 @@
 
   if degree != "bachelor" { info.co-supervisor = format-supervisor(info.co-supervisor) }
 
-  if type(info.title) == str { info.title = info.title.split("\n") }
-
   let placed-content(content, dy) = place(bottom + center, content, dy: dy)
   let format-info(items) = grid(
     align: (center, left, left), rows: 1.09cm, columns: (2.80cm, 0.82cm, 5.62cm),
