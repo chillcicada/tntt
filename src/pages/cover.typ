@@ -5,7 +5,9 @@
 /// - info (dictionary): The information to be displayed on the cover page.
 /// - degree (str): The degree.
 /// - degree-type (str): The type of degree.
+/// - content (list): Custom content to be used instead of the preset content.
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.
+/// - info-item-width (length | auto | none): The width of the info item labels. If `auto`, a default width is used based on the degree type.
 /// -> content
 #let cover(
   // from entry
@@ -17,6 +19,7 @@
   // options
   content: [],
   info-items: (:),
+  info-item-width: none,
 ) = {
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
   import "../utils/text.typ": distr-text, fixed-text, space-text
@@ -39,12 +42,13 @@
   assert(info-items.keys().all(k => info.keys().contains(k)), message: "Some info-items keys are missing in info.")
 
   // Calculate suitable width of info items
-  let info-item-width = if degree == "bachelor" { 4em } else { 5em }
+  info-item-width = if info-item-width == none { if degree == "bachelor" { 4em } else { 5em } } else if (
+    info-item-width == auto
+  ) { calc.max(info-items.values().map(v => v.clusters().len())) * 1em } else { info-item-width }
   let format-info-item(it) = block(
     width: info-item-width + if degree == "bachelor" { 0em } else { 0.5em },
     fixed-text(it, info-item-width) + if degree == "bachelor" { "" } else { " " },
   )
-
 
   info.supervisor = info.supervisor.chunks(2)
   if degree != "bachelor" { info.co-supervisor = info.co-supervisor.chunks(2) }
@@ -84,8 +88,6 @@
   info.supervisor = format-supervisor(info.supervisor)
 
   if degree != "bachelor" { info.co-supervisor = format-supervisor(info.co-supervisor) }
-
-  if type(info.title) == str { info.title = info.title.split("\n") }
 
   let placed-content(content, dy) = place(bottom + center, content, dy: dy)
   let format-info(items) = grid(

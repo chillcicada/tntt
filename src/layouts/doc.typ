@@ -29,10 +29,6 @@
   import "../imports.typ": ratchet
   import cuti: show-cn-fakebold
 
-  if type(info.title) == str { info.title = info.title.split("\n") } else {
-    assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
-  }
-
   show: ratchet.with(reset-figure-kinds: (table, image, raw, "algorithm"))
 
   // Apply LaTeX/i-figured reference compatibility if enabled

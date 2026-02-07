@@ -45,6 +45,10 @@
     message: "不支持的学位类型, 目前支持的有: " + _support-degree-type.join(", "),
   )
 
+  if type(info.title) == str { info.title = info.title.split("\n") } else {
+    assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
+  }
+
   let extend-info(kwargs) = extend(info, "info", kwargs)
   let extend-fonts(kwargs) = fonts-check(extend(fonts, "fonts", kwargs))
 

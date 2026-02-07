@@ -46,8 +46,6 @@
   import "../utils/text.typ": v-text
   import "../utils/page.typ": use-twoside
 
-  if type(info.title) == str { info.title = info.title.split("\n") }
-
   use-twoside(twoside)
 
   set page(numbering: none)
@@ -71,7 +69,7 @@
     columns: columns,
     align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
     [学生姓名], info.author, [学号], info.student-id, [班级], info.class,
-    [论文题目], table.cell(colspan: 5, info.title.join("")),
+    [论文题目], table.cell(colspan: 5, info.title.sum()),
     v-text[主要内容以及进度安排],
     cell-with-back(content, [
       指导教师签字：#h(4em)
