@@ -90,7 +90,7 @@
     // 如下设置北京时间 2026 年 5 月 30 日 10:30 AM，对应 UTC 时间的 2:30 AM：
     // date: datetime(year: 2026, month: 5, day: 30, hour: 2, minute: 30, second: 0),
   ),
-  bibliography: bibliography.with("ref.bib"), // 参考文献源
+  bibliography: read("ref.bib"), // 参考文献源
   fonts: font-family, // 应用字体配置
 )
 

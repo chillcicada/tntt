@@ -111,7 +111,7 @@
     // 符号表页 | Notation Page
     notation: (..args) => notation(twoside: twoside, ..args),
     // 参考文献页 | Bibliography Page
-    bilingual-bibliography: (..args) => bilingual-bibliography(bibliography: bibliography, ..args),
+    bilingual-bibliography: (..args) => bilingual-bibliography(bibliography, ..args),
     // 致谢页 | Acknowledge Page
     acknowledge: (..args) => acknowledge(anonymous: anonymous, twoside: twoside, ..args),
     // 声明页 | Declaration Page
