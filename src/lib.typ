@@ -36,17 +36,13 @@
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
 
   let _support-degree = ("bachelor", "master", "doctor", "postdoc")
-  assert(_support-degree.contains(degree), message: "不支持的文档类型, 目前支持的有: " + _support-degree.join(", "))
+  assert(_support-degree.contains(degree), message: "目前支持的学位: " + _support-degree.join(", "))
 
-  // "academic" "professional"
   let _support-degree-type = ("academic",)
-  assert(
-    _support-degree-type.contains(degree-type),
-    message: "不支持的学位类型, 目前支持的有: " + _support-degree-type.join(", "),
-  )
+  assert(_support-degree-type.contains(degree-type), message: "目前支持的学位类型: " + _support-degree-type.join(", "))
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
-    assert(type(info.title) == array, message: "info.title must be a string or an array of strings")
+    assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")
   }
 
   let extend-info(kwargs) = extend(info, "info", kwargs)
