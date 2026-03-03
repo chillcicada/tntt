@@ -34,11 +34,11 @@
   it,
 ) = {
   import "../utils/font.typ": _use-fonts
-  import "../utils/page.typ": _use-twoside
+  import "../utils/util.typ": use-twoside
 
   let use-fonts = name => _use-fonts(fonts, name)
 
-  _use-twoside(twoside)
+  use-twoside(twoside)
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 

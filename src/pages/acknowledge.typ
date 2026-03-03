@@ -22,9 +22,9 @@
 ) = {
   if anonymous { return }
 
-  import "../utils/page.typ": _use-twoside
+  import "../utils/util.typ": use-twoside
 
-  _use-twoside(twoside)
+  use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

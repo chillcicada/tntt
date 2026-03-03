@@ -28,8 +28,7 @@
   if anonymous { return }
 
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": is-not-empty
-  import "../utils/page.typ": _use-twoside
+  import "../utils/util.typ": is-not-empty, use-twoside
 
   let preset-body = (
     bachelor: [
@@ -44,7 +43,7 @@
   )
 
   /// Render the page
-  _use-twoside(twoside)
+  use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

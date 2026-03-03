@@ -44,9 +44,9 @@
 
   import "../utils/font.typ": use-size
   import "../utils/text.typ": v-text
-  import "../utils/page.typ": _use-twoside
+  import "../utils/util.typ": use-twoside
 
-  _use-twoside(twoside)
+  use-twoside(twoside)
 
   set page(numbering: none)
   set par(first-line-indent: 0em, spacing: 1.75em)
@@ -141,10 +141,10 @@
 ) = {
   if anonymous or degree not in ("master", "doctor", "postdoc") { return }
 
-  import "../utils/page.typ": _use-twoside
+  import "../utils/util.typ": use-twoside
 
   /// Render the page
-  _use-twoside(twoside)
+  use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

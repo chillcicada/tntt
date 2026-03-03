@@ -20,8 +20,7 @@
   // self
   it,
 ) = {
-  import "../utils/util.typ": multi-numbering
-  import "../utils/page.typ": _use-twoside
+  import "../utils/util.typ": multi-numbering, use-twoside
 
   import "../imports.typ": ratchet
 
@@ -31,7 +30,7 @@
   let __back-matter-has-page-counter-reset = state("__back-matter-has-page-counter-reset", false)
 
   // Page break
-  _use-twoside(twoside)
+  use-twoside(twoside)
 
   set figure(outlined: figure-outlined)
 

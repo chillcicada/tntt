@@ -29,7 +29,6 @@
   import "pages/cover.typ": cover, cover-en
 
   import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
-  import "utils/page.typ": _use-twoside
 
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
@@ -58,7 +57,7 @@
     degree: degree,
     twoside: twoside,
     anonymous: anonymous,
-    use-twoside: (_twoside: twoside) => _use-twoside(_twoside),
+    use-twoside: (_twoside: twoside) => use-twoside(_twoside), // override `use-twoside`
     use-fonts: name => _use-fonts(fonts, name),
     use-cjk-fonts: name => _use-cjk-fonts(fonts, name),
     /// ------- ///
