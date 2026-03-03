@@ -19,7 +19,7 @@
   it,
 ) = {
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": array-at, multi-numbering, use-twoside
+  import "../utils/util.typ": array-at, multi-numbering, twoside-pagebreak
 
   import "../imports.typ": ratchet
 
@@ -30,7 +30,7 @@
 
 
   // Page break
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   show: ratchet.with(
     eq-outline: equation-numbering,

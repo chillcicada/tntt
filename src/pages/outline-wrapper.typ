@@ -32,7 +32,7 @@
   fill: (repeat([.], gap: .1pt),),
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
-  import "../utils/util.typ": array-at, is-not-empty, use-twoside
+  import "../utils/util.typ": array-at, is-not-empty, twoside-pagebreak
 
   /// Parse the outline configuration
   font = font.map(name => _use-fonts(fonts, name))
@@ -40,7 +40,7 @@
   size = size.map(use-size)
 
   /// Render the outline
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 

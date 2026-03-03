@@ -34,11 +34,11 @@
   it,
 ) = {
   import "../utils/font.typ": _use-fonts
-  import "../utils/util.typ": use-twoside
+  import "../utils/util.typ": twoside-pagebreak
 
   let use-fonts = name => _use-fonts(fonts, name)
 
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 

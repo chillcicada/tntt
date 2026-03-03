@@ -57,7 +57,7 @@
     degree: degree,
     twoside: twoside,
     anonymous: anonymous,
-    use-twoside: (_twoside: twoside) => use-twoside(_twoside), // override `use-twoside`
+    use-twoside: (_twoside: twoside) => twoside-pagebreak(_twoside),
     use-fonts: name => _use-fonts(fonts, name),
     use-cjk-fonts: name => _use-cjk-fonts(fonts, name),
     /// ------- ///

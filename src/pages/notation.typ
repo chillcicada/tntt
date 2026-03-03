@@ -30,13 +30,13 @@
 ) = {
   assert(type(row-gutter) == length, message: "row-gutter must be a length value here.")
 
-  import "../utils/util.typ": use-twoside
+  import "../utils/util.typ": twoside-pagebreak
 
   let blank-row-gutter = if blank-row-gutter == none { 1.5 * row-gutter }
 
   let blank-row-inset = if chunked { (blank-row-gutter - 2 * row-gutter) / 2 } else { -row-gutter / 2 }
 
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

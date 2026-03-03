@@ -53,15 +53,27 @@
 /// Make page layout functions available for content and options
 ///
 /// - twoside (bool | str): Whether to use two-sided layout
-#let use-twoside(twoside) = {
-  if twoside {
+#let twoside-pagebreak(twoside) = {
+  if type(twoside) == bool {
+    if not twoside {
+      // fallback to default pagebreak for single-sided layout
+      pagebreak(weak: true)
+      return
+    }
+
+    twoside = "no-header" // the most common behavior for two-sided layout
+  }
+
+  if twoside == "no-header" {
     set page(header: none)
     pagebreak(weak: true, to: { "odd" })
   } else if twoside == "no-numbering" {
+    set page(numbering: none)
+    pagebreak(weak: true, to: { "odd" })
+  } else if twoside == "no-content" {
     set page(header: none, numbering: none)
     pagebreak(weak: true, to: { "odd" })
   } else {
-    pagebreak(weak: true)
+    panic("Unsupported twoside option: " + twoside)
   }
 }
-

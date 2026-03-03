@@ -169,7 +169,7 @@
 ) = {
   if degree not in ("master", "doctor", "postdoc") { return }
 
-  import "../utils/util.typ": use-twoside
+  import "../utils/util.typ": twoside-pagebreak
   import "../utils/font.typ": _use-fonts, use-size
 
   let use-fonts = name => _use-fonts(fonts, name)
@@ -189,7 +189,7 @@
   if type(info.title) == str { info.title = info.title.split("\n") }
 
   /// Render cover page
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   set align(center)
   set page(margin: (x: 4cm, y: 5.8cm))
