@@ -28,7 +28,7 @@
   import exports: *
   import "pages/cover.typ": cover, cover-en
 
-  import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
+  import "utils/font.typ": _use-cjk-fonts, _use-fonts
 
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
@@ -44,7 +44,7 @@
   }
 
   let extend-info(kwargs) = extend-dict(info, "info", kwargs)
-  let extend-fonts(kwargs) = _fonts-check(extend-dict(fonts, "fonts", kwargs))
+  let extend-fonts(kwargs) = extend-dict(fonts, "fonts", kwargs)
 
   // @typstyle off
   return (
