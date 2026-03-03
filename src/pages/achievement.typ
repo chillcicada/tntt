@@ -26,14 +26,14 @@
   if anonymous { return }
 
   import "../utils/font.typ": use-size
-  import "../utils/page.typ": use-twoside
+  import "../utils/page.typ": _use-twoside
   import "../utils/util.typ": is-not-empty
 
   title = if is-not-empty(title) { title } else {
     if degree == "bachelor" [在学期间参加课题的研究成果] else [个人简历、在学期间完成的相关学术成果]
   }
 
-  use-twoside(twoside)
+  _use-twoside(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

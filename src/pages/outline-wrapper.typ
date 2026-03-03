@@ -33,7 +33,7 @@
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
   import "../utils/util.typ": array-at, is-not-empty
-  import "../utils/page.typ": use-twoside
+  import "../utils/page.typ": _use-twoside
 
   /// Parse the outline configuration
   font = font.map(name => _use-fonts(fonts, name))
@@ -41,7 +41,7 @@
   size = size.map(use-size)
 
   /// Render the outline
-  use-twoside(twoside)
+  _use-twoside(twoside)
 
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 

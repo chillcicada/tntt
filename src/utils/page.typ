@@ -1,4 +1,9 @@
-#let use-twoside(twoside) = {
+//! Page layout utilities
+
+/// Make page layout functions available for content and options
+///
+/// - twoside (bool | str): Whether to use two-sided layout
+#let _use-twoside(twoside) = {
   if twoside {
     set page(header: none)
     pagebreak(weak: true, to: { "odd" })

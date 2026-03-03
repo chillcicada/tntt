@@ -3,7 +3,6 @@
 #import "imports.typ": *
 #import "utils/util.typ": *
 #import "utils/font.typ": use-size
-#import "utils/numbering.typ": multi-numbering
 #import "utils/text.typ": distr-text, fixed-text, mask-text, space-text, v-text
 
 /// Define the configuration for the document.
@@ -29,8 +28,8 @@
   import exports: *
   import "pages/cover.typ": cover, cover-en
 
-  import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check
-  import "utils/page.typ": use-twoside
+  import "utils/font.typ": _fonts-check, _use-cjk-fonts, _use-fonts
+  import "utils/page.typ": _use-twoside
 
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
@@ -45,8 +44,8 @@
     assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")
   }
 
-  let extend-info(kwargs) = extend(info, "info", kwargs)
-  let extend-fonts(kwargs) = fonts-check(extend(fonts, "fonts", kwargs))
+  let extend-info(kwargs) = extend-dict(info, "info", kwargs)
+  let extend-fonts(kwargs) = _fonts-check(extend-dict(fonts, "fonts", kwargs))
 
   // @typstyle off
   return (
@@ -59,7 +58,7 @@
     degree: degree,
     twoside: twoside,
     anonymous: anonymous,
-    use-twoside: use-twoside(twoside),
+    use-twoside: (_twoside: twoside) => _use-twoside(_twoside),
     use-fonts: name => _use-fonts(fonts, name),
     use-cjk-fonts: name => _use-cjk-fonts(fonts, name),
     /// ------- ///

@@ -1,4 +1,9 @@
-/// Built-in font family for CJK
+//! Built-in font family for CJK
+//!
+//! Currently, there are already many related packages available to implement similar functions.
+//! So you should explore and use them instead of relying on this built-in implementation
+//! since the current implementation is not perfect. All except `use-size` is not exported.
+
 #let _support-font-family = (
   "SongTi",
   "HeiTi",
@@ -8,7 +13,7 @@
   "Math",
 )
 
-#let fonts-check(fonts) = {
+#let _fonts-check(fonts) = {
   if type(fonts) == dictionary {
     for key in fonts.keys() {
       assert(
@@ -39,7 +44,7 @@
 
 #let _builtin-fonts-trim1st(fonts) = fonts.slice(1)
 
-#let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
+#let _use-fonts(fonts, name) = _fonts-check(fonts).at(name)
 
 #let _use-en-font(fonts, name) = _builtin-fonts-get1st(_use-fonts(fonts, name)).name
 
@@ -68,10 +73,6 @@
 
 #let _support-font-size = _builtin-font-size.keys()
 
-/// Size type check with CJK font sizes.
-///
-/// - size (str | length): the font size to check, available cjk font sizes
-/// -> str | length
 #let _size-check(size) = {
   if type(size) == str {
     assert(_support-font-size.contains(size), message: "Unsupported font size: " + size)

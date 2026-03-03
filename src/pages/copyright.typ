@@ -25,7 +25,7 @@
 
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty
-  import "../utils/page.typ": use-twoside
+  import "../utils/page.typ": _use-twoside
 
   title = if is-not-empty(title) { title } else {
     if degree == "bachelor" [关于论文使用授权的说明] else [关于学位论文使用授权的说明]
@@ -72,7 +72,7 @@
   )
 
   /// Render the page
-  use-twoside(twoside)
+  _use-twoside(twoside)
 
   set page(header: none)
   v(3.6em)
