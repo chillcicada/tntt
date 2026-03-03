@@ -50,7 +50,7 @@
   numbering(formats.at(calc.min(fmt-len, num-len) - 1) + supplyment, ..numbers)
 }
 
-/// Make page layout functions available for content and options
+/// Page break for two-sided layout
 ///
 /// - twoside (bool | str): Whether to use two-sided layout
 #let twoside-pagebreak(twoside) = {
