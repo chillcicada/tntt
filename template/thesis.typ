@@ -605,7 +605,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 手动应用双面打印布局，仅在双面打印模式生效
 // 此处仅供示意，如果不需要的话，可自行删除
-#use-twoside()
+#use-twoside
 
 = 其他内容
 
