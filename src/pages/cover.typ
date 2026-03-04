@@ -65,7 +65,10 @@
     info-items = if degree == "bachelor" { preset-info-items.bachelor } else { preset-info-items.graduate }
   }
 
-  assert(info-items.keys().all(k => info.keys().contains(k)), message: "Some info-items keys are missing in info.")
+  assert(
+    info-items.keys().all(k => k in info),
+    message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
+  )
 
   // Calculate suitable width of info items
   info-item-width = if info-item-width == none { if degree == "bachelor" { 4em } else { 5em } } else if (
@@ -175,7 +178,10 @@
   let use-fonts = name => _use-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))
 
-  assert(info-items.keys().all(k => info.keys().contains(k)), message: "Some info-items keys are missing in info.")
+  assert(
+    info-items.keys().all(k => k in info),
+    message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
+  )
 
   let placed-content(content, dy) = place(bottom + center, content, dy: dy)
   let format-supervisor(items) = grid(

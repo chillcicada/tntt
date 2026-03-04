@@ -34,10 +34,10 @@
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
 
   let _support-degree = ("bachelor", "master", "doctor", "postdoc")
-  assert(_support-degree.contains(degree), message: "目前支持的学位: " + _support-degree.join(", "))
+  assert(degree in _support-degree, message: "目前支持的学位有: " + _support-degree.join(", "))
 
   let _support-degree-type = ("academic",)
-  assert(_support-degree-type.contains(degree-type), message: "目前支持的学位类型: " + _support-degree-type.join(", "))
+  assert(degree-type in _support-degree-type, message: "目前支持的学位类型有: " + _support-degree-type.join(", "))
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")
