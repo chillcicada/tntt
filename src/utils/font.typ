@@ -12,7 +12,7 @@
 #let _unwrap-font(font) = type(font) == if type(font) == str { font } else { font.name }
 #let _use-fonts(fonts, name) = {
   for key in fonts.keys() {
-    assert(key in _support-font-family, message: "Supported font family: " + _support-font-family.join(", "))
+    assert(key in _support-font-family, message: "Supported font family: " + _builtin-font-family.join(", "))
   }
   assert(_builtin-font-family.contains(name), message: "Unsupported font family " + name)
   fonts.at(name)
