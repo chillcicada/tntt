@@ -1,3 +1,29 @@
+/// Convert a date to a Chinese date string, using Chinese numerals for the year and month
+///
+/// This is not designed to be a general date formatting function
+///
+/// - date: The date to convert
+/// -> str
+#let _display-zh(date) = {
+  let date-map = (
+    "0": "○",
+    "1": "一",
+    "2": "二",
+    "3": "三",
+    "4": "四",
+    "5": "五",
+    "6": "六",
+    "7": "七",
+    "8": "八",
+    "9": "九",
+    "10": "十",
+    "11": "十一",
+    "12": "十二",
+  )
+
+  str(date.year()).clusters().map(c => date-map.at(c)).sum() + "年" + date-map.at(str(date.month())) + "月"
+}
+
 /// Cover Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
@@ -23,7 +49,7 @@
 ) = {
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
   import "../utils/text.typ": distr-text, fixed-text, space-text
-  import "../utils/util.typ": display-zh, is-not-empty
+  import "../utils/util.typ": is-not-empty
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
@@ -39,7 +65,10 @@
     info-items = if degree == "bachelor" { preset-info-items.bachelor } else { preset-info-items.graduate }
   }
 
-  assert(info-items.keys().all(k => info.keys().contains(k)), message: "Some info-items keys are missing in info.")
+  assert(
+    info-items.keys().all(k => k in info),
+    message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
+  )
 
   // Calculate suitable width of info items
   info-item-width = if info-item-width == none { if degree == "bachelor" { 4em } else { 5em } } else if (
@@ -108,7 +137,7 @@
         text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
       }
       placed-content(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), -17em)
-      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -5em)
+      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -5em)
     },
     graduate: {
       set page(margin: (x: 4cm, y: 6cm))
@@ -118,7 +147,7 @@
       parbreak()
       text(size: use-size("小二"), font: use-fonts("SongTi"), [（申请清华大学#info.degree-name;学位论文）])
       placed-content(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), -7.5em)
-      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -0.9em)
+      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -0.9em)
     },
   )
 
@@ -143,13 +172,16 @@
 ) = {
   if degree not in ("master", "doctor", "postdoc") { return }
 
-  import "../utils/page.typ": use-twoside
+  import "../utils/util.typ": twoside-pagebreak
   import "../utils/font.typ": _use-fonts, use-size
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))
 
-  assert(info-items.keys().all(k => info.keys().contains(k)), message: "Some info-items keys are missing in info.")
+  assert(
+    info-items.keys().all(k => k in info),
+    message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
+  )
 
   let placed-content(content, dy) = place(bottom + center, content, dy: dy)
   let format-supervisor(items) = grid(
@@ -163,7 +195,7 @@
   if type(info.title) == str { info.title = info.title.split("\n") }
 
   /// Render cover page
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   set align(center)
   set page(margin: (x: 4cm, y: 5.8cm))

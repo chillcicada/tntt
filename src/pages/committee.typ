@@ -37,9 +37,8 @@
 ) = {
   if anonymous or degree not in ("master", "doctor", "postdoc") { return }
 
-  import "../utils/page.typ": use-twoside
+  import "../utils/util.typ": is-not-empty, twoside-pagebreak
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": is-not-empty
 
   let use-fonts = name => _use-fonts(fonts, name)
   let format-text = str => {
@@ -51,7 +50,7 @@
   let length-checker = it => it.len() == 3 // (name, title, affiliation)
 
   /// Render
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   set page(header: none)
   set align(center)

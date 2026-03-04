@@ -3,7 +3,6 @@
 #import "imports.typ": *
 #import "utils/util.typ": *
 #import "utils/font.typ": use-size
-#import "utils/numbering.typ": multi-numbering
 #import "utils/text.typ": distr-text, fixed-text, mask-text, space-text, v-text
 
 /// Define the configuration for the document.
@@ -29,24 +28,23 @@
   import exports: *
   import "pages/cover.typ": cover, cover-en
 
-  import "utils/font.typ": _use-cjk-fonts, _use-fonts, fonts-check
-  import "utils/page.typ": use-twoside
+  import "utils/font.typ": _use-cjk-fonts, _use-fonts
 
   if type(twoside) == str { twoside = str2bool(twoside) }
   if type(anonymous) == str { anonymous = str2bool(anonymous) }
 
   let _support-degree = ("bachelor", "master", "doctor", "postdoc")
-  assert(_support-degree.contains(degree), message: "目前支持的学位: " + _support-degree.join(", "))
+  assert(degree in _support-degree, message: "目前支持的学位有: " + _support-degree.join(", "))
 
   let _support-degree-type = ("academic",)
-  assert(_support-degree-type.contains(degree-type), message: "目前支持的学位类型: " + _support-degree-type.join(", "))
+  assert(degree-type in _support-degree-type, message: "目前支持的学位类型有: " + _support-degree-type.join(", "))
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")
   }
 
-  let extend-info(kwargs) = extend(info, "info", kwargs)
-  let extend-fonts(kwargs) = fonts-check(extend(fonts, "fonts", kwargs))
+  let extend-info(kwargs) = extend-dict(info, "info", kwargs)
+  let extend-fonts(kwargs) = extend-dict(fonts, "fonts", kwargs)
 
   // @typstyle off
   return (
@@ -59,7 +57,7 @@
     degree: degree,
     twoside: twoside,
     anonymous: anonymous,
-    use-twoside: use-twoside(twoside),
+    use-twoside: twoside-pagebreak(twoside),
     use-fonts: name => _use-fonts(fonts, name),
     use-cjk-fonts: name => _use-cjk-fonts(fonts, name),
     /// ------- ///

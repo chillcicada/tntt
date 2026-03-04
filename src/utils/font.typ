@@ -1,49 +1,24 @@
-/// Built-in font family for CJK
-#let _support-font-family = (
-  "SongTi",
-  "HeiTi",
-  "KaiTi",
-  "FangSong",
-  "Mono",
-  "Math",
-)
+//! Built-in font utilities for CJK
+//!
+//! Currently, there are already many related packages available to implement similar functions.
+//! So you should explore and use them instead of relying on this built-in implementation
+//! since the current implementation is not perfect. All except `use-size` is not exported.
 
-#let fonts-check(fonts) = {
-  if type(fonts) == dictionary {
-    for key in fonts.keys() {
-      assert(
-        key in _support-font-family,
-        message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
-      )
-    }
-  } else if type(fonts) == array {
-    for font in fonts {
-      assert(
-        _support-font-family.contains(font),
-        message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
-      )
-    }
-  } else if type(fonts) == str {
-    assert(
-      _support-font-family.contains(fonts),
-      message: "Font family not supported, ensure the font family keys contain " + _support-font-family.join(", "),
-    )
-  } else {
-    assert(false, message: "Invalid font type, expected dictionary, array or string.")
-  }
+#let _builtin-font-family = ("SongTi", "HeiTi", "KaiTi", "FangSong", "Mono", "Math")
 
-  fonts
+#let _builtin-get-en-font(fonts) = fonts.at(0)
+#let _builtin-get-cjk-fonts(fonts) = fonts.slice(1)
+
+#let _unwrap-font(font) = if type(font) == str { font } else { font.name }
+#let _use-fonts(fonts, name) = {
+  assert(
+    _builtin-font-family.all(k => k in fonts),
+    message: "Required font families: " + _builtin-font-family.filter(k => k not in fonts).join(", "),
+  )
+  fonts.at(name, default: assert(name in fonts, message: "Unsupported font family: " + name))
 }
-
-#let _builtin-fonts-get1st(fonts) = fonts.at(0)
-
-#let _builtin-fonts-trim1st(fonts) = fonts.slice(1)
-
-#let _use-fonts(fonts, name) = fonts-check(fonts).at(name)
-
-#let _use-en-font(fonts, name) = _builtin-fonts-get1st(_use-fonts(fonts, name)).name
-
-#let _use-cjk-fonts(fonts, name) = _builtin-fonts-trim1st(_use-fonts(fonts, name))
+#let _use-en-font(fonts, name) = _unwrap-font(_builtin-get-en-font(_use-fonts(fonts, name)))
+#let _use-cjk-fonts(fonts, name) = _builtin-get-cjk-fonts(_use-fonts(fonts, name)).map(_unwrap-font)
 
 /// Word compatible font size for CJK
 #let _builtin-font-size = (
@@ -66,27 +41,15 @@
   小七: 5pt,
 )
 
-#let _support-font-size = _builtin-font-size.keys()
-
-/// Size type check with CJK font sizes.
-///
-/// - size (str | length): the font size to check, available cjk font sizes
-/// -> str | length
-#let _size-check(size) = {
-  if type(size) == str {
-    assert(_support-font-size.contains(size), message: "Unsupported font size: " + size)
-  } else {
-    assert(type(size) == length, message: "Invalid font size type.")
-  }
-
-  size
-}
-
 /// Make cjk font size compatible with normal size
 ///
 /// - size (str | length): the font size to use, available cjk font sizes
 /// -> length
 #let use-size(size) = {
-  size = _size-check(size)
-  if type(size) == str { _builtin-font-size.at(size) } else { size }
+  if type(size) == str {
+    _builtin-font-size.at(size, default: assert(size in _builtin-font-size, message: "Unsupported font size: " + size))
+  } else {
+    assert(type(size) == length, message: "Invalid font size type.")
+    size
+  }
 }

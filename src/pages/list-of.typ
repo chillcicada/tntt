@@ -19,9 +19,9 @@
     outline(target: figure.where(kind: table), title: none)
   },
 ) = {
-  import "../utils/page.typ": use-twoside
+  import "../utils/util.typ": twoside-pagebreak
 
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 

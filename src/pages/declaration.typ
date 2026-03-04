@@ -28,8 +28,7 @@
   if anonymous { return }
 
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": is-not-empty
-  import "../utils/page.typ": use-twoside
+  import "../utils/util.typ": is-not-empty, twoside-pagebreak
 
   let preset-body = (
     bachelor: [
@@ -44,7 +43,7 @@
   )
 
   /// Render the page
-  use-twoside(twoside)
+  twoside-pagebreak(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
