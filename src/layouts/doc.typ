@@ -51,6 +51,7 @@
 /// Document Configuration
 ///
 /// - fonts (dictionary): A dictionary of font names and their corresponding styles.
+/// - default-fonts (dictionary): A dictionary of default font styles to use if not specified in fonts.
 /// - indent (length): Paragraph indentation.
 /// - justify (bool): Whether to justify text in paragraphs.
 /// - leading (length): The leading (line height) for paragraphs.
@@ -99,6 +100,7 @@
   // from entry
   fonts: (:),
   // options
+  default-fonts: (:),
   indent: 2em,
   justify: true,
   leading: 0.98em,
@@ -148,8 +150,10 @@
   import "../utils/font.typ": _use-en-font, _use-fonts, use-size
   import "../utils/util.typ": array-at
 
+  fonts = fonts + default-fonts
+
   /// Auxiliary functions
-  let use-fonts = name => _use-fonts(fonts, name)
+  let use-fonts = _use-fonts.with(fonts)
 
   /// Render the document with the specified fonts and styles.
   /// Paragraph

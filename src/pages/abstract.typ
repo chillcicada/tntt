@@ -2,6 +2,7 @@
 ///
 /// - fonts (dictionary): The font family to use, should be a dictionary.
 /// - twoside (bool | str): Whether to use two-sided printing.
+/// - default-fonts (dictionary): The default font family to use if not specified in fonts.
 /// - title (content): The title of the abstract page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -19,6 +20,7 @@
   fonts: (:),
   twoside: false,
   // options
+  default-fonts: (:),
   title: [摘　要],
   outlined: false,
   bookmarked: true,
@@ -35,6 +37,8 @@
 ) = {
   import "../utils/font.typ": _use-fonts
   import "../utils/util.typ": twoside-pagebreak
+
+  fonts = fonts + default-fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
 
@@ -55,11 +59,10 @@
 }
 
 /// Abstract Page (English version), Inherited from the Chinese version
-#let abstract-en(..args) = abstract(
+#let abstract-en = abstract.with(
   title: [Abstract],
   embeded: false,
   back: [*Keywords: *],
   back-font: "SongTi",
   keyword-sperator: "; ",
-  ..args,
 )

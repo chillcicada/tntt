@@ -4,6 +4,7 @@
 /// - twoside (bool | str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
 /// - degree (str): The degree, this page is only for bachelor's thesis.
+/// - base-info (dictionary): The base information to be used in the page, will be overridden by info.
 /// - title (content): The title of the record sheet page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -27,6 +28,7 @@
   info: (:),
   degree: "bachelor",
   // options
+  base-info: (:),
   title: [综合论文训练记录表],
   outlined: false,
   bookmarked: false,
@@ -45,6 +47,8 @@
   import "../utils/font.typ": use-size
   import "../utils/text.typ": v-text
   import "../utils/util.typ": twoside-pagebreak
+
+  info = info + base-info
 
   twoside-pagebreak(twoside)
 
@@ -117,7 +121,7 @@
   ])
 }
 
-/// Advisor Comment Page
+/// Common review page for anything
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool | str): Whether to use two-sided layout.
@@ -127,23 +131,22 @@
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - it (content): The content of the acknowledgement page.
 /// -> content
-#let comments(
+#let _review-of(
   // from entry
   anonymous: false,
   twoside: false,
   degree: "master",
   // options
-  title: [指导教师学术评语],
+  title: [评审材料],
   outlined: true,
   bookmarked: true,
   // self
   it,
 ) = {
-  if anonymous or degree not in ("master", "doctor", "postdoc") { return }
+  if anonymous or degree == "bachelor" { return }
 
   import "../utils/util.typ": twoside-pagebreak
 
-  /// Render the page
   twoside-pagebreak(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
@@ -151,5 +154,8 @@
   it
 }
 
+/// Advisor Comment Page
+#let comments = _review-of.with(title: [指导教师学术评语])
+
 /// Committee Resolution Page
-#let resolution(..args) = comments(title: [答辩委员会决议书], ..args)
+#let resolution = _review-of.with(title: [答辩委员会决议书])

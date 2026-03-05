@@ -36,6 +36,10 @@
 
   let blank-row-inset = if chunked { (blank-row-gutter - 2 * row-gutter) / 2 } else { -row-gutter / 2 }
 
+  let select-term = it => if (it.func() == parbreak) { grid.cell(none, colspan: 2, inset: (y: blank-row-inset)) } else {
+    (it.term, it.description) // it.func() == terms.item
+  }
+
   twoside-pagebreak(twoside)
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
@@ -44,9 +48,6 @@
     columns: columns,
     row-gutter: row-gutter,
     ..args,
-    // @typstyle off
-    ..it.children.filter(it => it.func() == parbreak or it.func() == terms.item)
-      .map(it => if (it.func() == parbreak) { grid.cell(none, colspan: 2, inset: (y: blank-row-inset)) } else { (it.term, it.description) })
-      .flatten()
+    ..it.children.filter(it => it.func() == parbreak or it.func() == terms.item).map(select-term).flatten()
   ))))
 }

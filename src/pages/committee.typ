@@ -35,7 +35,7 @@
   defenders-title: [答辩委员会名单],
   defenders-columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm),
 ) = {
-  if anonymous or degree not in ("master", "doctor", "postdoc") { return }
+  if anonymous or degree == "bachelor" { return }
 
   import "../utils/util.typ": is-not-empty, twoside-pagebreak
   import "../utils/font.typ": use-size

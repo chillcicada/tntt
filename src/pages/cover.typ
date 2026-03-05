@@ -31,6 +31,8 @@
 /// - info (dictionary): The information to be displayed on the cover page.
 /// - degree (str): The degree.
 /// - degree-type (str): The type of degree.
+/// - default-fonts (dictionary): The default font family to use if not specified in fonts.
+/// - base-info (dictionary): The base information to extend the info with.
 /// - content (list): Custom content to be used instead of the preset content.
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.
 /// - info-item-width (length | auto | none): The width of the info item labels. If `auto`, a default width is used based on the degree type.
@@ -43,6 +45,8 @@
   degree: "bachelor",
   degree-type: "academic",
   // options
+  default-fonts: (:),
+  base-info: (:),
   content: [],
   info-items: (:),
   info-item-width: none,
@@ -50,6 +54,9 @@
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
   import "../utils/text.typ": distr-text, fixed-text, space-text
   import "../utils/util.typ": is-not-empty
+
+  info = info + base-info
+  fonts = fonts + default-fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
@@ -160,20 +167,37 @@
 }
 
 /// English Cover Page
+///
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - fonts (dictionary): The font family to use.
+/// - info (dictionary): The information to be displayed on the cover page.
+/// - degree (str): The degree.
+/// - degree-type (str): The type of degree.
+/// - twoside (bool | str): Whether to use two-sided printing.
+/// - default-fonts (dictionary): The default font family to use if not specified in fonts
+/// - base-info (dictionary): The base information to extend the info with.
+/// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.
+/// -> content
 #let cover-en(
   // from entry
   anonymous: false,
   fonts: (:),
   info: (:),
   degree: "master",
+  degree-type: "academic",
   twoside: false,
   // options
+  default-fonts: (:),
+  base-info: (:),
   info-items: (supervisor: "Thesis Supervisor", co-supervisor: "Associate Supervisor"),
 ) = {
-  if degree not in ("master", "doctor", "postdoc") { return }
+  if degree == "bachelor" { return }
 
   import "../utils/util.typ": twoside-pagebreak
   import "../utils/font.typ": _use-fonts, use-size
+
+  info = info + base-info
+  fonts = fonts + default-fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))

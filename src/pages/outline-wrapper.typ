@@ -2,6 +2,7 @@
 ///
 /// - twoside (bool | str): Whether to use two-sided printing
 /// - fonts (dictionary): The font family to use.
+/// - default-fonts (dictionary): The default font family to use if not specified in fonts.
 /// - depth (int): The maximum depth of the outline.
 /// - font (array): The font family for each heading level.
 /// - size (array): The font size for each heading level.
@@ -19,6 +20,7 @@
   twoside: false,
   fonts: (:),
   // options
+  default-fonts: (:),
   depth: 3,
   font: ("HeiTi", "SongTi"),
   size: ("小四",),
@@ -33,6 +35,8 @@
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
   import "../utils/util.typ": array-at, is-not-empty, twoside-pagebreak
+
+  fonts = fonts + default-fonts
 
   /// Parse the outline configuration
   font = font.map(name => _use-fonts(fonts, name))

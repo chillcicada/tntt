@@ -37,8 +37,10 @@
 )
 
 #let (
+  ..config,
   /// global utilities
   use-fonts,
+  use-en-font,
   use-cjk-fonts,
   use-twoside,
   /// layouts
@@ -102,7 +104,7 @@
 
 // 中文封面页
 #cover(
-  // 用于 cover 的额外信息
+  // 用于中文封面的额外信息
   info: (
     department: "××××",
     major: "××××××××",
@@ -118,7 +120,7 @@
 
 // 英文封面页，仅适用于研究生及以上
 #cover-en(
-  // 用于 cover-en 的额外信息
+  // 用于英文封面的额外信息
   info: (
     title: "An Introduction to Typst Thesis Template of Tsinghua University",
     author: "Xue Ruini",

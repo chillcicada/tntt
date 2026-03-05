@@ -1,6 +1,6 @@
 //! Text processing utilities
 
-/// Extract text from content or return string as is
+/// Extract text from content or return string as is.
 ///
 /// - body (content | str): the text content to extract
 /// -> str
