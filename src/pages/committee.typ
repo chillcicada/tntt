@@ -1,19 +1,19 @@
 /// Committee Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - degree (str): The degree.
-/// - title (content | str): The title of the committee page.
+/// - title (content, str): The title of the committee page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - supervisors (array): The list of supervisors.
-/// - supervisors-title (content | str): The title for the supervisors section.
+/// - supervisors-title (content, str): The title for the supervisors section.
 /// - supervisors-columns (array): The widths of the grid columns for supervisors.
 /// - reviewers (array): The list of reviewers.
-/// - reviewers-title (content | str): The title for the reviewers section.
+/// - reviewers-title (content, str): The title for the reviewers section.
 /// - reviewers-columns (array): The widths of the grid columns for reviewers.
 /// - defenders (dictionary): The dictionary of defenders, where keys are roles and values are lists of names.
-/// - defenders-title (content | str): The title for the defenders section.
+/// - defenders-title (content, str): The title for the defenders section.
 /// - defenders-columns (array): The widths of the grid columns for defenders.
 /// -> content
 #let committee(
@@ -35,7 +35,7 @@
   defenders-title: [答辩委员会名单],
   defenders-columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm),
 ) = {
-  if anonymous or degree not in ("master", "doctor", "postdoc") { return }
+  if anonymous or degree == "bachelor" { return }
 
   import "../utils/util.typ": is-not-empty, twoside-pagebreak
   import "../utils/font.typ": use-size

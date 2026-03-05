@@ -1,40 +1,23 @@
-/// Get the element at the given position in the array, return the last element if the position is out of bounds
+/// Get the element at the given position in the array.
 ///
 /// - arr (array): The array to get the element from
 /// - pos (int): The position of the element to get, starting from 1
 /// -> any
 #let array-at(arr, pos) = { arr.at(calc.min(pos, arr.len()) - 1) }
 
-/// Convert a string to a boolean value, recognizing common true/false representations (case-insensitive)
+/// Check if a string value represents a true boolean value.
 ///
-/// - s (str | content): the string to convert to bool
+/// - s (bool, str, content): The string to check
 /// -> bool
-#let str2bool(s) = {
-  s = lower(s)
-  if (s == "true" or s == "1" or s == "yes" or s == "on") {
-    true
-  } else if (s == "false" or s == "0" or s == "no" or s == "off") {
-    false
-  } else {
-    panic("Cannot convert string to bool: " + s)
-  }
-}
+#let is-true(s) = if s in (true, false) { s } else { lower(s) in ("true", "yes", "on", "1") }
 
-/// Extend a dictionary with additional key-value pairs from kwargs
-///
-/// - val (dict): The original dictionary to extend
-/// - key (str): The key to look for in kwargs
-/// - kwargs: The keyword arguments containing the additional key-value pairs
-/// -> dict
-#let extend-dict(val, key, kwargs) = { val + kwargs.named().at(key, default: (:)) }
-
-/// Check if a value is not empty (not none, not an empty string, and not an empty array)
+/// Check if a value is not empty (not none, not an empty string, and not an empty array).
 ///
 /// - c (any): The value to check
 /// -> bool
 #let is-not-empty(c) = c not in (none, "", [])
 
-/// Simple adjustable depth multi-format numbering, the last format will be reused for deeper levels
+/// Simple adjustable depth multi-format numbering, the last format will be reused for deeper levels.
 ///
 /// - formats (array): An array of format strings for different levels, the last one will be reused for deeper levels
 /// - depth (int): Maximum depth to apply numbering formats, <= 0 means no limit
@@ -52,28 +35,17 @@
 
 /// Page break for two-sided layout
 ///
-/// - twoside (bool | str): Whether to use two-sided layout
-#let twoside-pagebreak(twoside) = {
-  if type(twoside) == bool {
-    if not twoside {
-      // fallback to default pagebreak for single-sided layout
-      pagebreak(weak: true)
-      return
-    }
+/// - twoside (bool, str): Whether to use two-sided layout
+/// - page-opts (dict): Additional options for the page layout when twoside is enabled
+/// - pagebreak-opts (dict): Additional options for the page break
+/// -> none
+#let twoside-pagebreak(twoside, page-opts: (:), pagebreak-opts: (weak: true)) = {
+  if twoside in (false, "false", "no", "off") { pagebreak(..pagebreak-opts) } else {
+    page-opts += if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on") { (header: none) }
+    page-opts += if twoside in ("no-numbering", "no-content") { (numbering: none) }
+    pagebreak-opts += (to: { "odd" })
 
-    twoside = "no-header" // the most common behavior for two-sided layout
-  }
-
-  if twoside == "no-header" {
-    set page(header: none)
-    pagebreak(weak: true, to: { "odd" })
-  } else if twoside == "no-numbering" {
-    set page(numbering: none)
-    pagebreak(weak: true, to: { "odd" })
-  } else if twoside == "no-content" {
-    set page(header: none, numbering: none)
-    pagebreak(weak: true, to: { "odd" })
-  } else {
-    panic("Unsupported twoside option: " + twoside)
+    set page(..page-opts)
+    pagebreak(..pagebreak-opts)
   }
 }

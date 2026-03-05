@@ -1,10 +1,10 @@
 /// Back Matter Layout
 ///
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - heading-numbering (dictorary): The numbering format for headings.
 /// - figure-outlined (bool): Whether to outline figure numbers in figures index page.
-/// - figure-numbering (str | auto): The numbering format for figures.
-/// - equation-numbering (str | auto): The numbering format for equations.
+/// - figure-numbering (str, auto): The numbering format for figures.
+/// - equation-numbering (str, auto): The numbering format for equations.
 /// - reset-counter (bool): Whether to reset the pages counter.
 /// - it (content): The content of the back matter.
 /// -> content

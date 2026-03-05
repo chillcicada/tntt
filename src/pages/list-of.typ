@@ -1,6 +1,6 @@
 /// Figure and Table Index Page
 ///
-/// - twoside (bool | str): Whether to use two-sided printing.
+/// - twoside (bool, str): Whether to use two-sided printing.
 /// - title (content): The title of the master list page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -13,11 +13,6 @@
   title: [插图和附表清单],
   outlined: false,
   bookmarked: true,
-  body: {
-    outline(target: figure.where(kind: image), title: none)
-    par[] // add a blank line
-    outline(target: figure.where(kind: table), title: none)
-  },
 ) = {
   import "../utils/util.typ": twoside-pagebreak
 
@@ -25,21 +20,47 @@
 
   heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
 
-  body
+  outline(target: figure.where(kind: image), title: none)
+
+  par[] // add a blank line
+
+  outline(target: figure.where(kind: table), title: none)
+}
+
+/// Common list page of single target
+///
+/// - twoside (bool, str): Whether to use two-sided printing.
+/// - title (content): The title of the master list page.
+/// - outlined (bool): Whether to outline the page.
+/// - bookmarked (bool): Whether to add a bookmark for the page.
+/// - target (selector): The target selector for the outline.
+/// -> content
+#let _list-of(
+  // from entry
+  twoside: false,
+  // options
+  title: [清单],
+  outlined: false,
+  bookmarked: true,
+  target: figure,
+) = {
+  import "../utils/util.typ": twoside-pagebreak
+
+  twoside-pagebreak(twoside)
+
+  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+
+  outline(target: target, title: none)
 }
 
 /// Master List Page
-#let master-list(target: figure, ..args) = figure-table-list(
-  title: [总清单],
-  body: outline(target: target, title: none),
-  ..args,
-)
+#let master-list = _list-of.with(title: [插图和附表清单], target: figure)
 
 /// Figure Index Page
-#let figure-list(..args) = master-list(title: [插图清单], target: figure.where(kind: image), ..args)
+#let figure-list = _list-of.with(title: [插图清单], target: figure.where(kind: image))
 
 /// Table Index Page
-#let table-list(..args) = master-list(title: [附表清单], target: figure.where(kind: table), ..args)
+#let table-list = _list-of.with(title: [附表清单], target: figure.where(kind: table))
 
 /// Equation Index Page
-#let equation-list(..args) = master-list(title: [公式清单], target: math.equation.where(block: true), ..args)
+#let equation-list = _list-of.with(title: [公式清单], target: math.equation.where(block: true))

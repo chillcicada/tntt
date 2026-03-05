@@ -1,7 +1,7 @@
 /// Fonts Display Page
 ///
 /// - fonts (dictionary): The dictionary of fonts to be displayed.
-/// - size (length | str): The size of the font to be used for display.
+/// - size (length, str): The size of the font to be used for display.
 /// - cjk-text (text): The CJK text to be displayed.
 /// - latin-text (text): The Latin text to be displayed.
 /// -> content

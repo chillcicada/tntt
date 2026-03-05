@@ -1,9 +1,9 @@
 /// Bilingual bibliography
 ///
-/// - sources (str | bytes): The bibliography sources, in BibTeX format or bytes
+/// - sources (str, bytes): The bibliography sources, in BibTeX format or bytes
 /// - title (content): The title of the bibliography page
 /// - full (bool): Whether to show the unquoted bibliography entry
-/// - full-control (none | func): The control function for the gb-7714 bibliography
+/// - full-control (none, function): The control function for the gb-7714 bibliography
 /// - args (dictionary): Other options for gb-7714 bibliography
 /// -> content
 #let bilingual-bibliography(

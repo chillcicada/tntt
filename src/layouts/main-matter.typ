@@ -1,10 +1,10 @@
 /// Main Matter Layout
 ///
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - page-numbering (str): The numbering format for the page.
 /// - heading-numbering (dictorary): The numbering format for headings.
-/// - figure-numbering (str | auto): The numbering format for figures.
-/// - equation-numbering (str | auto): The numbering format for equations.
+/// - figure-numbering (str, auto): The numbering format for figures.
+/// - equation-numbering (str, auto): The numbering format for equations.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(

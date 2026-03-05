@@ -1,7 +1,7 @@
 /// Acknowledgement Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - title (content): The title of the acknowledgement page.
 /// - title-vspace (length): The vertical space after the title.
 /// - outlined (bool): Whether to outline the page.
