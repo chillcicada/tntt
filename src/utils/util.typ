@@ -7,7 +7,7 @@
 
 /// Check if a string value represents a true boolean value.
 ///
-/// - s (bool | str | content): The string to check
+/// - s (bool, str, content): The string to check
 /// -> bool
 #let is-true(s) = if s in (true, false) { s } else { lower(s) in ("true", "yes", "on", "1") }
 
@@ -35,7 +35,7 @@
 
 /// Page break for two-sided layout
 ///
-/// - twoside (bool | str): Whether to use two-sided layout
+/// - twoside (bool, str): Whether to use two-sided layout
 /// - page-opts (dict): Additional options for the page layout when twoside is enabled
 /// - pagebreak-opts (dict): Additional options for the page break
 /// -> none

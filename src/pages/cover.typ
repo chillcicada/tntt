@@ -35,7 +35,7 @@
 /// - base-info (dictionary): The base information to extend the info with.
 /// - content (list): Custom content to be used instead of the preset content.
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.
-/// - info-item-width (length | auto | none): The width of the info item labels. If `auto`, a default width is used based on the degree type.
+/// - info-item-width (length, auto, none): The width of the info item labels. If `auto`, a default width is used based on the degree type.
 /// -> content
 #let cover(
   // from entry
@@ -173,7 +173,7 @@
 /// - info (dictionary): The information to be displayed on the cover page.
 /// - degree (str): The degree.
 /// - degree-type (str): The type of degree.
-/// - twoside (bool | str): Whether to use two-sided printing.
+/// - twoside (bool, str): Whether to use two-sided printing.
 /// - default-fonts (dictionary): The default font family to use if not specified in fonts
 /// - base-info (dictionary): The base information to extend the info with.
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.

@@ -61,9 +61,7 @@
 
 /// Make cjk font size compatible with normal size.
 ///
-/// - size (str | length): the font size to use, available cjk font sizes.
+/// - size (str, length): the font size to use, available cjk font sizes.
 /// -> length
-#let use-size(size) = if size in _builtin-font-size.keys() { _builtin-font-size.at(size) } else {
-  assert(type(size) == length, message: "Unsupported font size or invalid type")
-  size
-}
+#let use-size(size) = if type(size) == length { size } else { _builtin-font-size.at(size) }
+

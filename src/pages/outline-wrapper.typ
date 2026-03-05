@@ -1,6 +1,6 @@
 /// Outline Wrapper Page
 ///
-/// - twoside (bool | str): Whether to use two-sided printing
+/// - twoside (bool, str): Whether to use two-sided printing
 /// - fonts (dictionary): The font family to use.
 /// - default-fonts (dictionary): The default font family to use if not specified in fonts.
 /// - depth (int): The maximum depth of the outline.

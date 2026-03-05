@@ -1,14 +1,14 @@
 /// Notation Page
 ///
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - title (content): The title of the notation page.
-/// - width (length | relative): The width of the notation grid.
+/// - width (length, relative): The width of the notation grid.
 /// - columns (array): The widths of the grid columns for terms and descriptions.
 /// - row-gutter (length): The vertical space between rows.
 /// - chunked (bool): Whether to chunk the content by parbreaks.
-/// - blank-row-gutter (length | none): The vertical space for blank rows, defaults to `row-gutter * 2` if not specified.
+/// - blank-row-gutter (length, none): The vertical space for blank rows, defaults to `row-gutter * 2` if not specified.
 /// - args (dictionary): Additional arguments for the grid layout.
 /// - it (content): The content of the notation page.
 /// -> content

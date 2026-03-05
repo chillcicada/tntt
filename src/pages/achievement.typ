@@ -1,7 +1,7 @@
 /// Achievement Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - degree (str): The degree.
 /// - title (content): The title of the achievement page.
 /// - outlined (bool): Whether to outline the page.

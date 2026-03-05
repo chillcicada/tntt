@@ -1,6 +1,6 @@
 /// Figure and Table Index Page
 ///
-/// - twoside (bool | str): Whether to use two-sided printing.
+/// - twoside (bool, str): Whether to use two-sided printing.
 /// - title (content): The title of the master list page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -29,7 +29,7 @@
 
 /// Common list page of single target
 ///
-/// - twoside (bool | str): Whether to use two-sided printing.
+/// - twoside (bool, str): Whether to use two-sided printing.
 /// - title (content): The title of the master list page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.

@@ -1,18 +1,18 @@
 /// Abstract Page (Simplified Chinese version)
 ///
 /// - fonts (dictionary): The font family to use, should be a dictionary.
-/// - twoside (bool | str): Whether to use two-sided printing.
+/// - twoside (bool, str): Whether to use two-sided printing.
 /// - default-fonts (dictionary): The default font family to use if not specified in fonts.
 /// - title (content): The title of the abstract page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
 /// - back (content): The back text.
-/// - back-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for the back text.
+/// - back-font (str): The font for the back text.
 /// - back-indent (length): The first line indent for the back text.
 /// - back-vspace (length): The vertical space after the abstract content.
 /// - keywords (array): Keywords to be included in the abstract.
 /// - keyword-sperator (str): The separator for keywords, default is "；".
-/// - keyword-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for the keywords.
+/// - keyword-font (str): The font for the keywords.
 /// - it (content): The main content of the abstract page.
 /// -> content
 #let abstract(

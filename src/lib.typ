@@ -10,7 +10,7 @@
 /// - degree ("bachelor"): The degree.
 /// - degree-type ("academic"): The degree-type type.
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool | str): Whether to use two-sided printing.
+/// - twoside (bool, str): Whether to use two-sided printing.
 /// - bibliography (): The bibliography entry.
 /// - fonts (dictionary): The font family to use.
 /// - info (dictionary): The information to be displayed in the document.

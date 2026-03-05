@@ -1,7 +1,7 @@
 /// Record Sheet Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
 /// - degree (str): The degree, this page is only for bachelor's thesis.
 /// - base-info (dictionary): The base information to be used in the page, will be overridden by info.
@@ -124,7 +124,7 @@
 /// Common review page for anything
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool | str): Whether to use two-sided layout.
+/// - twoside (bool, str): Whether to use two-sided layout.
 /// - degree (str): The degree.
 /// - title (content): The title of the acknowledgement page.
 /// - outlined (bool): Whether to outline the page.

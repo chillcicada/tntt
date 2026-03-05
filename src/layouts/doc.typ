@@ -67,32 +67,32 @@
 /// - heading-align (array): The alignment of headings.
 /// - heading-weight (array): The font weight for headings.
 /// - heading-pagebreak (array): Whether to insert a page break before the headings.
-/// - body-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"):
-/// - body-size (length | str): The size of body text, can be length value or str.
+/// - body-font (str): The font for body text.
+/// - body-size (length, str): The size of body text, can be length value or str.
 /// - header-display (bool): Whether to display headers.
 /// - header-stroke (stroke): The stroke for the header line.
 /// - header-ascent (length): The ascent for the header.
-/// - header-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for headers.
-/// - header-size (length | str): The size of headers, can be length value or str.
-/// - footnote-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for footnotes.
-/// - footnote-size (length | str): The size of footnotes, can be length value or str.
-/// - footnote-style ("normal" | "super"): The style of footnotes, can be "normal" or "super".
+/// - header-font (str): The font for headers.
+/// - header-size (length, str): The size of headers, can be length value or str.
+/// - footnote-font (str): The font for footnotes.
+/// - footnote-size (length, str): The size of footnotes, can be length value or str.
+/// - footnote-style ("normal", "super"): The style of footnotes, can be "normal" or "super".
 /// - footnote-reset ("by-page", "by-chapter", "off"): Whether to reset the footnote counter by page or chapter.
 /// - footnote-numbering (str): The numbering style for footnotes.
-/// - math-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for math equations.
-/// - math-size (length | str): The size of math equations, can be length value or str.
-/// - raw-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for raw text.
-/// - raw-size (length | str): The size of raw text, can be length value or str.
-/// - caption-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"):
-/// - caption-size (length | str): The size of captions, can be length value or str.
+/// - math-font (str): The font for math equations.
+/// - math-size (length, str): The size of math equations, can be length value or str.
+/// - raw-font (str): The font for raw text.
+/// - raw-size (length, str): The size of raw text, can be length value or str.
+/// - caption-font (str): The font for captions.
+/// - caption-size (length, str): The size of captions, can be length value or str.
 /// - caption-style (function): The style of captions.
 /// - caption-separator (str): The separator for captions.
 /// - underline-offset (length): The offset for underlines.
 /// - underline-stroke (stroke): The stroke for underlines.
 /// - underline-evade (bool): Whether to evade underlines for certain elements.
-/// - cite-style ("normal" | "super"): The style of citations, can be "normal" or "super".
-/// - bibliography-font ("SongTi" | "HeiTi" | "KaiTi" | "FangSong" | "Mono" | "Math"): The font for bibliography entries.
-/// - bibliography-size (length | str): The size of bibliography entries, can be length value or str.
+/// - cite-style ("normal", "super"): The style of citations, can be "normal" or "super".
+/// - bibliography-font (str): The font for bibliography entries.
+/// - bibliography-size (length, str): The size of bibliography entries, can be length value or str.
 /// - bibliography-spacing (length): The spacing for bibliography entries.
 /// - it (content): The content of the document.
 /// -> content
