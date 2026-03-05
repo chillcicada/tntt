@@ -9,6 +9,9 @@ on:
       - "template/**"
   pull_request:
     types: [opened, edited, synchronize]
+    paths:
+      - "src/**"
+      - "template/**"
   workflow_dispatch:
 
 jobs:
