@@ -236,7 +236,7 @@
 /// ----------- ///
 /// Main Matter ///
 /// ----------- ///
-#show: it => main-matter(it)
+#show: it => main-matter(it, subfig-numbering-extended: true)
 
 = 导　引
 
@@ -314,7 +314,7 @@
 `doc` 中定义了所有影响全局的样式，如段落设置、字体配置、引用样式等，可以通过 `with(...)` 来传入额外的选项对默认值进行覆盖，如：
 
 ```typ
-#show: it => doc.with(cite-style: "normal")(it)
+#show: it => doc(it, cite-style: "normal")
 ```
 
 上述代码可将所有引用样式设置为正常的直立格式而非上标（super）格式，对于 `meta`、`front-matter`、`main-matter` 和 `back-matter`，也可以通过类似的方式传入额外的选项来覆盖默认值，默认值可参考相应文件的注释信息。
@@ -609,6 +609,17 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 ——正文中未被引用但被阅读或具有补充信息的文献。
 
 ——某些重要的原始数据、数学推导、结构图、统计表、计算机打印输出件等。
+
+#figure(
+  kind: grid,
+  supplement: [图],
+  caption: [附录中组图示例，附录中的图默认不会排入目录中],
+  grid(
+    columns: (1fr,) * 2,
+    figure(block("这是附录中的子图示例1", stroke: red + 1pt, inset: 1em), caption: [这是附录中的子图示例1]),
+    figure(block("这是附录中的子图示例2", stroke: red + 1pt, inset: 1em), caption: [这是附录中的子图示例2]),
+  ),
+)
 
 #v(2em)
 
