@@ -6,6 +6,7 @@
 
 #let _builtin-font-family = ("SongTi", "HeiTi", "KaiTi", "FangSong", "Mono", "Math")
 
+// TODO: enhance the handling of en/cjk fonts
 #let _builtin-get-en-font(fonts) = fonts.at(0)
 #let _builtin-get-cjk-fonts(fonts) = fonts.slice(1)
 
@@ -21,7 +22,8 @@
     _builtin-font-family.all(k => k in fonts),
     message: "Required font families: " + _builtin-font-family.filter(k => k not in fonts).join(", "),
   )
-  fonts.at(name, default: assert(name in fonts, message: "Unsupported font family: " + name))
+  assert(name in fonts, message: "Unsupported font family: " + name)
+  fonts.at(name)
 }
 
 /// Get the en font configuration from the fonts dictionary.
@@ -63,5 +65,8 @@
 ///
 /// - size (str, length): the font size to use, available cjk font sizes.
 /// -> length
-#let use-size(size) = if type(size) == length { size } else { _builtin-font-size.at(size) }
+#let use-size(size) = if type(size) == length { size } else {
+  assert(size in _builtin-font-size, message: "Unsupported font size: " + size)
+  _builtin-font-size.at(size)
+}
 
