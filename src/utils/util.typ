@@ -64,7 +64,8 @@
     counter(figure.where(kind: image)).update(0)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
-    it
+    // @typstyle off
+    figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", alt: it.alt, gap: it.gap, outlined: it.outlined, supplement: it.supplement, placement: it.placement, scope: it.scope)
     it.counter.update(grid-counter)
     counter(figure.where(kind: image)).update(grid-counter)
   }
