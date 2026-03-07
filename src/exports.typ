@@ -36,4 +36,4 @@
 #import "pages/acknowledge.typ": acknowledge
 #import "pages/declaration.typ": declaration
 #import "pages/achievement.typ": achievement
-#import "pages/review-material.typ": comments, record-sheet, resolution
+#import "pages/review-of.typ": comments, record-sheet, resolution

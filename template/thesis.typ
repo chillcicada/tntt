@@ -10,30 +10,12 @@
 ///
 /// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等进行配置
 #let font-family = (
-  SongTi: (
-    (name: "Times New Roman", covers: "latin-in-cjk"),
-    "NSimSun",
-  ),
-  HeiTi: (
-    (name: "Arial", covers: "latin-in-cjk"),
-    "SimHei",
-  ),
-  KaiTi: (
-    (name: "Times New Roman", covers: "latin-in-cjk"),
-    "KaiTi",
-  ),
-  FangSong: (
-    (name: "Times New Roman", covers: "latin-in-cjk"),
-    "FangSong",
-  ),
-  Mono: (
-    (name: "DejaVu Sans Mono", covers: "latin-in-cjk"),
-    "SimHei",
-  ),
-  Math: (
-    "New Computer Modern Math",
-    "KaiTi",
-  ),
+  SongTi: ((name: "Times New Roman", covers: "latin-in-cjk"), "NSimSun"),
+  HeiTi: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
+  KaiTi: ((name: "Times New Roman", covers: "latin-in-cjk"), "KaiTi"),
+  FangSong: ((name: "Times New Roman", covers: "latin-in-cjk"), "FangSong"),
+  Mono: ((name: "DejaVu Sans Mono", covers: "latin-in-cjk"), "SimHei"),
+  Math: ("New Computer Modern Math", "KaiTi"),
 )
 
 #let (
@@ -78,18 +60,18 @@
   degree-type: "academic",
   anonymous: false, // 盲审模式
   twoside: false, // 双面模式，会加入空白页，便于打印
-  // 如下的信息会写入到生成的 PDF 元数据中
+  // 如下的信息会写入到 PDF 元数据中
   info: (
     title: "清华大学学位论文 Typst 模板\n使用示例文档",
     // 等价于
     // title: ("清华大学学位论文 Typst 模板", "使用示例文档"),
     author: "某某某",
-    // 论文提交日期，具体日期不会在封面中显示，但会写入到 PDF 元数据中
+    // 论文提交日期，封面仅显示年月，但具体日期会写入到 PDF 元数据中
     date: datetime.today(),
     // 指定论文提交日期，可填写任意时间
     // date: datetime(year: 2026, month: 5, day: 30),
-    // （并不建议）将日期具体到时分秒（UTC 时间），同时会应用系统时区，因而需要根据实际情况自行换算
-    // 如下设置北京时间 2026 年 5 月 30 日 10:30 AM，对应 UTC 时间的 2:30 AM：
+    // （并不建议）将日期具体到时分秒，需要自行换算到 UTC 时间
+    // 如下设置日期为北京时间 2026 年 5 月 30 日 10:30 AM，对应 UTC 时间的 2:30 AM
     // date: datetime(year: 2026, month: 5, day: 30, hour: 2, minute: 30, second: 0),
   ),
   bibliography: read("ref.bib"), // 参考文献源
@@ -97,7 +79,7 @@
 )
 
 // 文稿设置，默认应用 LaTeX/i-figured 引用兼容模式（为 label 添加 `fig:` 等前缀）
-#show: meta
+#show: it => meta(it)
 
 // 字体展示测试页，在配置好字体后请注释或删除此项
 #fonts-display()
@@ -134,7 +116,7 @@
 /// ----------- ///
 /// Doc Layouts ///
 /// ----------- ///
-#show: doc
+#show: it => doc(it)
 
 // 强制让 × 使用中文字体显示，此处仅为显示美观，可删除
 #show "×": set text(font: use-cjk-fonts("SongTi"))
@@ -184,7 +166,7 @@
 /// ------------ ///
 /// Front Matter ///
 /// ------------ ///
-#show: front-matter
+#show: it => front-matter(it)
 
 // 中文摘要
 // 默认情况下会将中文关键词和摘要内容嵌入到 PDF 中，设置 embeded 为 false 可禁用该行为
@@ -248,13 +230,13 @@
   / TST: 过渡态理论 (Transition State Theory)
   / ZPE: 零点振动能 (Zero Vibration Energy)
 
-  / TnTT: 非官方清华大学 Typst 论文模板
+  / TnTT: *非官方*清华大学 Typst 论文模板
 ]
 
 /// ----------- ///
 /// Main Matter ///
 /// ----------- ///
-#show: main-matter
+#show: it => main-matter(it)
 
 = 导　引
 
@@ -332,7 +314,7 @@
 `doc` 中定义了所有影响全局的样式，如段落设置、字体配置、引用样式等，可以通过 `with(...)` 来传入额外的选项对默认值进行覆盖，如：
 
 ```typ
-#show: doc.with(cite-style: "normal")
+#show: it => doc.with(cite-style: "normal")(it)
 ```
 
 上述代码可将所有引用样式设置为正常的直立格式而非上标（super）格式，对于 `meta`、`front-matter`、`main-matter` 和 `back-matter`，也可以通过类似的方式传入额外的选项来覆盖默认值，默认值可参考相应文件的注释信息。
@@ -422,28 +404,29 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 你可以轻松地做到子图排列：
 
 #figure(
-  grid(columns: (1fr,) * 2, align: bottom)[
+  grid(columns: (1fr,) * 3, align: horizon)[
     #figure(
       image("media/图的示例.png", width: 80%),
+      // 仅设置 outlined 为 false 会导致子图编号更新但不再大纲中显示，
+      // 设置 numbering 为 none 则进一步不更新图编号
       numbering: none,
       outlined: false,
-      caption: [该图不会编入最终的目录],
+      caption: [该图不会编入图表目录],
     )
   ][
     #figure(
-      table(
-        columns: 2,
-        [测试点], [吸光度],
-        [A 点], [0.123],
-        [B 点], [0.456],
-        [C 点], [0.789],
-        [D 点], [0.101],
-        [E 点], [0.112],
-      ),
-      caption: [测试数据表],
+      block("这是子图示例1", stroke: red + 1pt, inset: 1em),
+      caption: [这是子图示例1],
+    )
+  ][
+    #figure(
+      block("这是子图示例2", stroke: red + 1pt, inset: 1em),
+      caption: [这是子图示例2],
     )
   ],
   caption: [子图排列示例],
+  kind: grid, // 将 kind 设置为 grid 以将其标记为组图
+  supplement: [图],
 ) <fig-subexample>
 
 == 论文中表的示例
@@ -453,7 +436,6 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 #[
   #set text(size: use-size("五号"))
 
-  // @typstyle off
   #figure(
     table(
       align: (x, y) => { if x == 4 and y >= 1 { left + horizon } else { center + horizon } },
@@ -462,15 +444,14 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
       table.hline(stroke: 1.5pt),
       [], [文字举例], [中文字体、字号要求], [英文及数字字体、字号要求], [其他格式要求],
       table.hline(stroke: .75pt),
-      [章标题], [第1章 引言], [黑体三号字], [Arial三号], [居中书写，单倍行距，段前空24磅，段后空18磅],
-      [一级节标题], [4.1 标题示例], [黑体四号字], [Arial 14pt], [居左书写，行距为固定值20磅，段前空24磅，段后空6磅],
-      [二级节标题], [3.2.2 标题示例], [黑体13pt字], [Arial 13pt], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅],
-      [三级节标题], [5.3.3.2 标题示例], [黑体小四号字], [Arial 12pt], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅。],
+      [章标题], [第1章 引言], [黑体三号], [Arial三号], [居中书写，单倍行距，段前空24磅，段后空18磅],
+      [一级节标题], [4.1 标题示例], [黑体四号], [Arial四号], [居左书写，行距为固定值20磅，段前空24磅，段后空6磅],
+      [二级节标题], [3.2.2 标题示例], [黑体中四], [Arial中四], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅],
+      [三级节标题], [5.3.3.2 标题示例], [黑体小四], [Arial小四], [居左书写，行距为固定值20磅，段前空12磅，段后空6磅],
       table.hline(stroke: 1.5pt),
     ),
     caption: [字体、字型、字号及段落格式要求],
   ) <tbl-example>
-  // @typstyle on
 ]
 
 @tbl-example 为字体、字型、字号及段落格式要求。
@@ -542,13 +523,13 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 目前存在的问题
 
-尽管 Typst 的语法和表达能力较为强大，同时其生态也初具雏形，但由于整体仍处于快速发展阶段，而模板本身也没有经过充分的验证和迭代，因而目前仍存在一些问题和限制，包括但不限于如下内容：
+尽管 Typst 的语法和表达能力较为强大，其生态也初具雏形，但由于整体仍处于快速发展阶段，而模板本身也没有经过充分的验证和迭代，因而目前仍存在一些问题和限制，包括但不限于如下内容：
 
 - 部分字体在不同平台上的显示效果可能存在差异。此问题在 Word 和 LaTeX 中同样存在，Typst 对 OpenType 的支持也在完善，强烈建议按照学校官方模板的字体进行配置和渲染；
-- 文档的排版和样式需要一定的个性化配置。模板的代码设计一定程度参考了 LaTeX 模板 thuthesis，但目前还未补全使用文档，按需更改需要一些 Typst 使用经验。此外，受限于使用基数，很多设计尚在摸索中，欢迎提供改进建议；
+- 文档的排版和样式需要一定的个性化配置。模板的结构和接口设计一定程度参考了 LaTeX 模板 #link("https://github.com/tuna/thuthesis", underline[thuthesis])，目前仅提供了英文的注释文档。此外，受限于使用基数，很多设计尚在摸索中，欢迎提供改进建议；
 - #strike[公式索引无法忽略附录公式。]由于学校不要求公式索引，此问题暂时搁置；
 - 某些细节处可能与 Word / LaTeX 模板存在差异。本模板在排版设计上以官方 Word 模板和过往论文等为主，但由于 Word 模板自身问题不少，同时不同引擎间存在差异，无法做到完全一致；
-- 不支持多参考文献实例。理论上可以通过 #link("https://typst.app/universe/package/alexandria", underline[alexandria]) 包解决，但由于 Typst 相关开发正在推进，因而并未采用。考虑单参考文献源对论文编辑影响并不严重，目前在对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现双向链接的参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
+- #strike[不支持多参考文献源，]不支持多参考文献实例。目前通过将参考文献源转化为字节以支持多参考文献源，GB/T 7714 参考文献样式使用 #link("https://typst.app/universe/package/gb7714-bilingual", underline[alexandria]) 包处理，但其对多参考文献实例的支持有限，当前仍使用单参考文献实例。理论上可以通过 #link("https://typst.app/universe/package/alexandria", underline[alexandria]) 包解决，由于 Typst 相关开发正在推进，因而并未采用。考虑单参考文献实例对论文编辑影响并不严重，目前在对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现双向链接的参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
 
 此外，由于官方提供的 Word 模板中也存在诸多问题，很多事项并未在规范中完全注明或比较随意，因而一些排版出入是合理的。
 
@@ -556,12 +537,12 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 许可证
 
-*本模板基于 MIT 协议开源，您可以自由使用、修改和分发。*开源仓库地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自 #link("清华大学视觉形象系统", underline[https://vi.tsinghua.edu.cn/])，仅用于制作本科生综合论文训练封面，项目维护者未进行任何修改；此外，在编写模板时参考了 2024 本科生综合论文训练规范，使用了其中的部分内容和图片作为实例，其版权归属 2024 本科生综合论文训练规范作者。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #underline(link("mailto:2210227279@qq.com")) 发送邮件。
+*本模板基于 MIT 协议开源，您可以自由使用、修改和分发，但必须包含原始的版权声明，同时作者不对任何使用本模板的行为承担责任。*当前开源仓库仅托管于 GitHub，地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自#link("https://vi.tsinghua.edu.cn/", underline[清华大学视觉形象系统])，仅用于制作论文封面，项目维护者未进行任何修改，除模板本身使用外，未对封面进行二次分发；在编写模板示例文档时参考了近年的诸多论文规范规范，使用了其中的部分内容和图片作为实例，其版权归属于相应作者，仅在本示例文档中使用。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #underline(link("mailto:2210227279@qq.com")) 发送邮件。
 
 /// ----------- ///
 /// Back Matter ///
 /// ----------- ///
-#show: back-matter
+#show: it => back-matter(it)
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
@@ -607,7 +588,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 手动应用双面打印布局，仅在双面打印模式生效
 // 此处仅供示意，如果不需要的话，可自行删除
-#use-twoside
+#use-twoside()
 
 = 其他内容
 

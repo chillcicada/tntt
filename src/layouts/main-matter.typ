@@ -4,7 +4,9 @@
 /// - page-numbering (str): The numbering format for the page.
 /// - heading-numbering (dictorary): The numbering format for headings.
 /// - figure-numbering (str, auto): The numbering format for figures.
+/// - subfig-numbering (str, auto): The numbering format for subfigures.
 /// - equation-numbering (str, auto): The numbering format for equations.
+/// - subfig-numbering-extended (bool): Whether to extend the subfigure numbering with the figure numbering.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -14,35 +16,39 @@
   page-numbering: "1",
   heading-numbering: (formats: ("第1章", "1.1"), depth: 4, supplyment: " "),
   figure-numbering: auto,
+  subfig-numbering: auto,
   equation-numbering: auto,
+  subfig-numbering-extended: false,
   // self
   it,
 ) = {
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": array-at, multi-numbering, twoside-pagebreak
-
-  import "../imports.typ": ratchet
+  import "../utils/util.typ": array-at, multi-numbering, show-grid-figs, twoside-pagebreak
 
   if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
+  if subfig-numbering == auto { subfig-numbering = "(a)" }
   if equation-numbering == auto { equation-numbering = "(" + heading-numbering.formats.last() + ")" }
 
-  let __main-matter-has-page-counter-reset = state("__main-matter-has-page-counter-reset", false)
+  let fold-numbering = (format, ..nums) => numbering(format, counter(heading).get().first(), ..nums)
 
+  if type(figure-numbering) == str {
+    if type(subfig-numbering) == str and subfig-numbering-extended {
+      subfig-numbering = (..p, n) => fold-numbering(figure-numbering + subfig-numbering, ..p, n)
+    }
+    figure-numbering = n => fold-numbering(figure-numbering, n)
+  }
+  if type(equation-numbering) == str { equation-numbering = n => fold-numbering(equation-numbering, n) }
 
   // Page break
   twoside-pagebreak(twoside)
 
-  show: ratchet.with(
-    eq-outline: equation-numbering,
-    fig-outline: figure-numbering,
-    reset-figure-kinds: (table, image, raw, "algorithm"),
-  )
-
   set heading(numbering: multi-numbering.with(..heading-numbering))
+
+  show math.equation.where(block: true): set math.equation(numbering: equation-numbering)
 
   counter(page).update(1)
 
   set page(numbering: page-numbering)
 
-  it
+  show-grid-figs(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
 }

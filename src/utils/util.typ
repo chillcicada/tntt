@@ -36,16 +36,37 @@
 /// Page break for two-sided layout
 ///
 /// - twoside (bool, str): Whether to use two-sided layout
-/// - page-opts (dict): Additional options for the page layout when twoside is enabled
-/// - pagebreak-opts (dict): Additional options for the page break
+/// - args (arguments): The arguments to pass to the pagebreak function
 /// -> none
-#let twoside-pagebreak(twoside, page-opts: (:), pagebreak-opts: (weak: true)) = {
-  if twoside in (false, "false", "no", "off") { pagebreak(..pagebreak-opts) } else {
-    page-opts += if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on") { (header: none) }
-    page-opts += if twoside in ("no-numbering", "no-content") { (numbering: none) }
-    pagebreak-opts += (to: { "odd" })
-
-    set page(..page-opts)
-    pagebreak(..pagebreak-opts)
+#let twoside-pagebreak(twoside, ..args) = {
+  if twoside in (false, "false", "no", "off") { pagebreak(weak: true, ..args) } else {
+    set page(header: none) if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on")
+    set page(numbering: none) if twoside in ("no-numbering", "no-content")
+    pagebreak(weak: true, to: { "odd" }, ..args)
   }
+}
+
+/// Show figures with grid kind as subfigures of the figures with image kind, with optional numbering formats.
+///
+/// - figure-numbering (str, none): The numbering format for figures.
+/// - subfig-numbering (str, none): The numbering format for subfigures.
+/// - extended (bool): Whether to extend the subfigure numbering with the figure numbering.
+/// - body (content): The content to be displayed with the grid figures.
+/// -> content
+#let show-grid-figs(figure-numbering, subfig-numbering, extended, body) = {
+  show figure: set figure(numbering: figure-numbering)
+  show figure.where(kind: image): it => {
+    counter(figure.where(kind: grid)).update(it.counter.get())
+    it
+  }
+  show figure.where(kind: grid): it => {
+    let grid-counter = it.counter.get()
+    counter(figure.where(kind: image)).update(0)
+    show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
+    show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
+    it
+    it.counter.update(grid-counter)
+    counter(figure.where(kind: image)).update(grid-counter)
+  }
+  body
 }

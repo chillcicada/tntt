@@ -7,14 +7,14 @@
 
 /// Define the configuration for the document.
 ///
-/// - degree ("bachelor"): The degree.
-/// - degree-type ("academic"): The degree-type type.
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool, str): Whether to use two-sided printing.
-/// - bibliography (): The bibliography entry.
+/// - degree (str): The degree.
+/// - degree-type (str): The degree-type type.
+/// - anonymous (str, bool): Whether to use anonymous mode.
+/// - twoside (str, bool): Whether to use two-sided printing.
+/// - bibliography (array, bytes, none, str): The bibliography entry.
 /// - fonts (dictionary): The font family to use.
 /// - info (dictionary): The information to be displayed in the document.
-/// -> array
+/// -> dictionary
 #let define-config(
   degree: "bachelor",
   degree-type: "academic",
@@ -29,17 +29,17 @@
 
   import "utils/font.typ": _use-cjk-fonts, _use-en-font, _use-fonts
 
-  anonymous = is-true(anonymous)
-
   assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: "不支持的学位")
   assert(degree-type in ("academic",), message: "不支持的学位类型")
+
+  anonymous = is-true(anonymous)
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")
   }
 
   // @typstyle off
-  return (
+  (
     /// ------- ///
     /// options ///
     /// ------- ///
@@ -52,16 +52,16 @@
     use-fonts: _use-fonts.with(fonts),
     use-en-font: _use-en-font.with(fonts),
     use-cjk-fonts: _use-cjk-fonts.with(fonts),
-    use-twoside: twoside-pagebreak(twoside),
+    use-twoside: twoside-pagebreak.with(twoside),
     /// ------- ///
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
     meta: meta.with(info: info), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
-    doc: doc.with(header-display: degree != "bachelor", default-fonts: fonts),
+    doc: doc.with(header-display: degree != "bachelor", default-fonts: fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
-    front-matter: front-matter.with(),
+    front-matter: front-matter,
     // 正文设置 | Main Matter Layout Configuration
     main-matter: main-matter.with(twoside: twoside, equation-numbering: "(1-1)"),
     // 后辅文设置 | Back Matter Layout Configuration
@@ -72,9 +72,9 @@
     // 字体展示页 | Fonts Display Page
     fonts-display: fonts-display.with(fonts: fonts),
     // 中文封面页 | Cover Page
-    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, default-fonts: fonts, base-info: info),
+    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
-    cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, base-info: info),
+    cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
     committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 授权页 | Copyright Page
@@ -106,7 +106,7 @@
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
     achievement: achievement.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 论文训练记录表 | Record Sheet Page
-    record-sheet: record-sheet.with(degree: degree, anonymous: anonymous, twoside: twoside, base-info: info),
+    record-sheet: record-sheet.with(degree: degree, anonymous: anonymous, twoside: twoside, doc-info: info),
     // 指导教师/指导小组评语页 | Advisor Comments Page
     comments: comments.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 答辩委员会决议书 | Committee Resolution Page

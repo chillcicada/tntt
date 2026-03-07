@@ -4,7 +4,7 @@
 /// - twoside (bool, str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
 /// - degree (str): The degree, this page is only for bachelor's thesis.
-/// - base-info (dictionary): The base information to be used in the page, will be overridden by info.
+/// - doc-info (dictionary): The document information to extend the info with.
 /// - title (content): The title of the record sheet page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -28,7 +28,7 @@
   info: (:),
   degree: "bachelor",
   // options
-  base-info: (:),
+  doc-info: (:),
   title: [综合论文训练记录表],
   outlined: false,
   bookmarked: false,
@@ -48,7 +48,7 @@
   import "../utils/text.typ": v-text
   import "../utils/util.typ": twoside-pagebreak
 
-  info = info + base-info
+  info = info + doc-info
 
   twoside-pagebreak(twoside)
 
