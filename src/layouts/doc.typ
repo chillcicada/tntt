@@ -19,20 +19,17 @@
   paper: "a4",
   fallback: false,
   use-fakebold: true,
-  use-latex-ref: true,
+  use-latexref: true,
   // self
   it,
 ) = {
   import "../utils/ref.typ": apply-latex-ref-compat
 
   import "../imports.typ": cuti
-  import "../imports.typ": ratchet
   import cuti: show-cn-fakebold
 
-  show: ratchet.with(reset-figure-kinds: (table, image, raw, "algorithm"))
-
   // Apply LaTeX/i-figured reference compatibility if enabled
-  show: it => if use-latex-ref { apply-latex-ref-compat(it) } else { it }
+  show: it => if use-latexref { apply-latex-ref-compat(it) } else { it }
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
@@ -94,6 +91,7 @@
 /// - bibliography-font (str): The font for bibliography entries.
 /// - bibliography-size (length, str): The size of bibliography entries, can be length value or str.
 /// - bibliography-spacing (length): The spacing for bibliography entries.
+/// - extra-fig-kinds (array): Additional figure kinds to reset counter for count reset by chapter.
 /// - it (content): The content of the document.
 /// -> content
 #let doc(
@@ -144,6 +142,7 @@
   bibliography-font: "SongTi",
   bibliography-size: "五号",
   bibliography-spacing: 12pt,
+  extra-fig-kinds: (),
   // self
   it,
 ) = {
@@ -188,6 +187,15 @@
     ))
 
     v(array-at(heading-back-vspace, it.level))
+  }
+
+  // Reset counters by chapter
+  show heading.where(level: 1): it => {
+    it
+    for target in (
+      math.equation.where(block: true),
+      ..(image, table, raw, grid, ..extra-fig-kinds).map(kind => figure.where(kind: kind)),
+    ) { counter(target).update(0) }
   }
 
   /// Body Text

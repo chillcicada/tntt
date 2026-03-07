@@ -57,7 +57,7 @@
 #let master-list = _list-of.with(title: [插图和附表清单], target: figure)
 
 /// Figure Index Page
-#let figure-list = _list-of.with(title: [插图清单], target: figure.where(kind: image))
+#let figure-list = _list-of.with(title: [插图清单], target: figure.where(kind: image).or(figure.where(kind: grid)))
 
 /// Table Index Page
 #let table-list = _list-of.with(title: [附表清单], target: figure.where(kind: table))
