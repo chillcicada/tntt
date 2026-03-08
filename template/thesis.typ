@@ -35,6 +35,7 @@
   fonts-display,
   cover,
   cover-en,
+  spine,
   committee,
   copyright,
   abstract,
@@ -112,6 +113,9 @@
     co-supervisor: ("Professor Chen Wenguang",),
   ),
 )
+
+// 书脊页，仅适用于研究生及以上
+// #spine()
 
 /// ----------- ///
 /// Doc Layouts ///

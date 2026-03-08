@@ -18,6 +18,7 @@
 // before content
 #import "pages/fonts-display.typ": fonts-display
 // #import "pages/cover.typ": cover, cover-en // Not for distribution due to copyright issues
+#import "pages/spine.typ": spine
 #import "pages/committee.typ": committee
 #import "pages/copyright.typ": copyright
 

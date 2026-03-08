@@ -75,6 +75,8 @@
     cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
     cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
+    // 书脊页 | Spine Page
+    spine: spine.with(degree: degree, twoside: twoside, anonymous: anonymous, default-fonts: fonts, info: info),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
     committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 授权页 | Copyright Page
