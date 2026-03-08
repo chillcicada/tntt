@@ -25,7 +25,7 @@
   font: ("HeiTi", "SongTi"),
   size: ("小四",),
   title: [目　录],
-  outlined: false,
+  outlined: true,
   bookmarked: true,
   above: (10.5pt, 11.8pt),
   below: (11.4pt, 11.8pt),
@@ -51,24 +51,28 @@
   // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
 
-  show outline.entry: entry => block(above: array-at(above, entry.level), below: array-at(below, entry.level), link(
+  show outline.entry: entry => link(
     entry.element.location(),
     entry.indented(
       none,
-      {
-        text(font: array-at(font, entry.level), size: array-at(size, entry.level), {
-          if is-not-empty(entry.prefix()) {
-            entry.prefix()
-            h(gap)
-          }
-          entry.body()
-        })
-        box(width: 1fr, inset: (x: .25em), array-at(fill, entry.level))
-        entry.page()
-      },
+      par(
+        {
+          text(font: array-at(font, entry.level), size: array-at(size, entry.level), {
+            if is-not-empty(entry.prefix()) {
+              entry.prefix()
+              h(gap)
+            }
+            entry.body()
+          })
+          box(width: 1fr, inset: (x: .25em), array-at(fill, entry.level))
+          entry.page()
+        },
+        first-line-indent: 0pt,
+        hanging-indent: 1.5em,
+      ),
       gap: 0pt,
     ),
-  ))
+  )
 
   // display the outline
   outline(title: none, depth: depth)

@@ -22,7 +22,7 @@
     _builtin-font-family.all(k => k in fonts),
     message: "Required font families: " + _builtin-font-family.filter(k => k not in fonts).join(", "),
   )
-  assert(name in fonts, message: "Unsupported font family: " + name)
+  assert(name in fonts, message: "Unsupported font family for fonts: " + name)
   fonts.at(name)
 }
 
