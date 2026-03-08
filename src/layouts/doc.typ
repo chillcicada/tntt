@@ -143,6 +143,7 @@
   bibliography-size: "五号",
   bibliography-spacing: 12pt,
   extra-fig-kinds: (),
+  outline-fill: repeat([.], gap: .1pt),
   // self
   it,
 ) = {
@@ -272,6 +273,9 @@
   show bibliography: set text(font: use-fonts(bibliography-font), size: use-size(bibliography-size))
 
   show bibliography: set par(spacing: bibliography-spacing)
+
+  set outline.entry(fill: outline-fill)
+  show outline.entry: set par(justify: true)
 
   /// Content
   it

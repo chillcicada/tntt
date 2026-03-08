@@ -80,23 +80,23 @@
     // 授权页 | Copyright Page
     copyright: copyright.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 中文摘要页 | Abstract Page
-    abstract: abstract.with(twoside: twoside, default-fonts: fonts),
+    abstract: abstract.with(twoside: twoside, outlined: degree != "bachelor", default-fonts: fonts),
     // 英文摘要页 | Abstract (English) Page
-    abstract-en: abstract-en.with(twoside: twoside, default-fonts: fonts),
+    abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", default-fonts: fonts),
     // 目录页 | Outline Page
-    outline-wrapper: outline-wrapper.with(twoside: twoside, default-fonts: fonts),
+    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", default-fonts: fonts),
     // 总清单页 | Master List Page
-    master-list: master-list.with(twoside: twoside),
+    master-list: master-list.with(twoside: twoside, outlined: degree != "bachelor"),
     // 插图和附表清单页 | Figure and Table Index Page
-    figure-table-list: figure-table-list.with(twoside: twoside),
+    figure-table-list: figure-table-list.with(twoside: twoside, outlined: degree != "bachelor"),
     // 插图清单页 | Figure List Page
-    figure-list: figure-list.with(twoside: twoside),
+    figure-list: figure-list.with(twoside: twoside, outlined: degree != "bachelor"),
     // 附表清单页 | Table List Page
-    table-list: table-list.with(twoside: twoside),
+    table-list: table-list.with(twoside: twoside, outlined: degree != "bachelor"),
     // 公式清单页 | Equation List Page
-    equation-list: equation-list.with(twoside: twoside),
+    equation-list: equation-list.with(twoside: twoside, outlined: degree != "bachelor"),
     // 符号表页 | Notation Page
-    notation: notation.with(twoside: twoside),
+    notation: notation.with(twoside: twoside, outlined: degree != "bachelor"),
     // 参考文献页 | Bibliography Page
     bilingual-bibliography: bilingual-bibliography.with(bibliography),
     // 致谢页 | Acknowledge Page

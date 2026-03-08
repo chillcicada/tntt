@@ -11,7 +11,7 @@
   twoside: false,
   // options
   title: [插图和附表清单],
-  outlined: false,
+  outlined: true,
   bookmarked: true,
 ) = {
   import "../utils/util.typ": twoside-pagebreak
@@ -40,7 +40,7 @@
   twoside: false,
   // options
   title: [清单],
-  outlined: false,
+  outlined: true,
   bookmarked: true,
   target: figure,
 ) = {

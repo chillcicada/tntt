@@ -51,14 +51,14 @@
 /// -> content
 #let distr-text(body, width) = _distr-text(_select-text(body), width)
 
-/// Create a vertical stack of text clusters.
+/// Create a vertical stack of text clusters, for CJK characters only.
 ///
 /// - text (str): the text to stack
 /// - spacing (length): the spacing between lines
 /// -> content
 #let _v-text(text, spacing) = stack(dir: ttb, ..text.clusters(), spacing: spacing)
 
-/// Create a vertical stack of text clusters.
+/// Create a vertical stack of text clusters, for CJK characters only.
 ///
 /// - body (content, str): the text to stack
 /// - spacing (length): the spacing between lines

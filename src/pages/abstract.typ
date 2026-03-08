@@ -22,7 +22,7 @@
   // options
   default-fonts: (:),
   title: [摘　要],
-  outlined: false,
+  outlined: true,
   bookmarked: true,
   embeded: true,
   back: [*关键词：*],
