@@ -7,6 +7,8 @@
 /// - paper (str): The paper size for the document, default is "a4".
 /// - fallback (bool): Whether to use fallback fonts.
 /// - use-fakebold (bool): Whether to use fake bold rendering for Chinese text.
+/// - use-latexref (bool): Whether to apply LaTeX/i-figured reference compatibility.
+/// - unnumbered-label (str): The label for unnumbered equations.
 /// - it (content): The content of the document.
 /// -> content
 #let meta(
