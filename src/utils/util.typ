@@ -46,6 +46,13 @@
   }
 }
 
+/// Filter out specified fields from an element's fields and return a new dictionary with the remaining fields.
+///
+/// - el (any): Element to filter fields from
+/// - keys (str, arguments): The keys of the fields to filter out
+/// -> dictionary
+#let filtered-fields(el, ..keys) = el.fields().pairs().filter(p => p.first() not in keys).to-dict()
+
 /// Show figures with grid kind as subfigures of the figures with image kind, with optional numbering formats.
 ///
 /// - figure-numbering (str, none): The numbering format for figures.
@@ -60,12 +67,12 @@
     it
   }
   show figure.where(kind: grid): it => {
+    let rest = filtered-fields(it, "body", "caption", "numbering", "kind", "counter", "label")
     let grid-counter = it.counter.get()
     counter(figure.where(kind: image)).update(0)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
-    // @typstyle off
-    figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", alt: it.alt, gap: it.gap, outlined: it.outlined, supplement: it.supplement, placement: it.placement, scope: it.scope)
+    figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
     it.counter.update(grid-counter)
     counter(figure.where(kind: image)).update(grid-counter)
   }
