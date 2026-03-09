@@ -24,7 +24,7 @@
   // self
   it,
 ) = {
-  import "../utils/util.typ": multi-numbering, show-grid-figure, show-label-equation, twoside-pagebreak
+  import "../utils/util.typ": multi-numbering, show-grid-figure, twoside-pagebreak
 
   let __page-reset = state("__tntt:back-matter-page-reset", false)
 

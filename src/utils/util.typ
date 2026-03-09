@@ -81,7 +81,7 @@
 
 /// Show unnumbered equations with specific labels.
 ///
-/// - unnumbered-label (str):
+/// - unnumbered-label (str): The label for unnumbered equations.
 /// - doc (content): The document content to be displayed with the equations.
 /// -> content
 #let show-label-equation(unnumbered-label, doc) = {
