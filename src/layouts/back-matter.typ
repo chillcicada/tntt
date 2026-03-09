@@ -26,7 +26,7 @@
   // self
   it,
 ) = {
-  import "../utils/util.typ": multi-numbering, show-equation, show-grid-figure, twoside-pagebreak
+  import "../utils/util.typ": multi-numbering, show-grid-figure, show-label-equation, twoside-pagebreak
 
   let __page-reset = state("__tntt:back-matter-page-reset", false)
 
@@ -56,9 +56,7 @@
   // Only level 1 headings of the appendices are shown in the outline
   show heading.where(level: 1): set heading(outlined: true)
 
-  it = show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
-
-  it = show-equation(equation-numbering, unnumbered-label, it)
+  set math.equation(numbering: equation-numbering)
 
   // Reset the counter of pages at the first level 1 heading,
   // to avoid resetting on blank pages without headings when twoside is enabled.
@@ -70,5 +68,5 @@
     }
   }
 
-  it
+  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
 }

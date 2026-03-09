@@ -63,4 +63,4 @@
 #let table-list = _list-of.with(title: [附表清单], target: figure.where(kind: table))
 
 /// Equation Index Page
-#let equation-list = _list-of.with(title: [公式清单], target: math.equation.where(block: true))
+#let equation-list = _list-of.with(title: [公式清单], target: math.equation)

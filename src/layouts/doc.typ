@@ -20,10 +20,12 @@
   fallback: false,
   use-fakebold: true,
   use-latexref: true,
+  unnumbered-label: "-",
   // self
   it,
 ) = {
   import "../utils/ref.typ": apply-latex-ref-compat
+  import "../utils/util.typ": show-label-equation
 
   import "../imports.typ": cuti
   import cuti: show-cn-fakebold
@@ -33,6 +35,8 @@
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
+
+  show: it => show-label-equation(unnumbered-label, it)
 
   set text(fallback: fallback, lang: lang, region: region)
 

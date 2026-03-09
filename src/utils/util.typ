@@ -79,16 +79,14 @@
   doc
 }
 
-/// Show equations with optional numbering formats, and support unnumbered equations with specific labels.
+/// Show unnumbered equations with specific labels.
 ///
-/// - numbering (str, none):
 /// - unnumbered-label (str):
 /// - doc (content): The document content to be displayed with the equations.
 /// -> content
-#let show-equation(numbering, unnumbered-label, doc) = {
-  show math.equation.where(block: true): set math.equation(numbering: numbering)
+#let show-label-equation(unnumbered-label, doc) = {
   show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none)
-  show math.equation.where(block: true): it => {
+  show math.equation: it => {
     if it.has("label") and str(it.label) == unnumbered-label {
       return math.equation(it.body, numbering: none, ..filtered-fields(it, ("body", "label", "numbering")))
     }

@@ -25,7 +25,7 @@
   it,
 ) = {
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": array-at, multi-numbering, show-equation, show-grid-figure, twoside-pagebreak
+  import "../utils/util.typ": array-at, multi-numbering, show-grid-figure, twoside-pagebreak
 
   if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
   if subfig-numbering == auto { subfig-numbering = "(a)" }
@@ -44,9 +44,7 @@
   // Page break
   twoside-pagebreak(twoside)
 
-  it = show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
-
-  it = show-equation(equation-numbering, unnumbered-label, it)
+  set math.equation(numbering: equation-numbering)
 
   set heading(numbering: multi-numbering.with(..heading-numbering))
 
@@ -54,5 +52,5 @@
 
   set page(numbering: page-numbering)
 
-  it
+  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
 }
