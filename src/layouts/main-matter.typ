@@ -6,6 +6,7 @@
 /// - figure-numbering (str, auto): The numbering format for figures.
 /// - subfig-numbering (str, auto): The numbering format for subfigures.
 /// - equation-numbering (str, auto): The numbering format for equations.
+/// - unnumbered-label (str): The label for unnumbered equations.
 /// - subfig-numbering-extended (bool): Whether to extend the subfigure numbering with the figure numbering.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
@@ -18,12 +19,13 @@
   figure-numbering: auto,
   subfig-numbering: auto,
   equation-numbering: auto,
+  unnumbered-label: "-",
   subfig-numbering-extended: false,
   // self
   it,
 ) = {
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": array-at, multi-numbering, show-grid-figs, twoside-pagebreak
+  import "../utils/util.typ": array-at, multi-numbering, show-equation, show-grid-figure, twoside-pagebreak
 
   if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
   if subfig-numbering == auto { subfig-numbering = "(a)" }
@@ -42,13 +44,15 @@
   // Page break
   twoside-pagebreak(twoside)
 
-  set heading(numbering: multi-numbering.with(..heading-numbering))
+  it = show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
 
-  show math.equation.where(block: true): set math.equation(numbering: equation-numbering)
+  it = show-equation(equation-numbering, unnumbered-label, it)
+
+  set heading(numbering: multi-numbering.with(..heading-numbering))
 
   counter(page).update(1)
 
   set page(numbering: page-numbering)
 
-  show-grid-figs(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
+  it
 }

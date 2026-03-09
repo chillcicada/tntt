@@ -194,7 +194,7 @@
   show heading.where(level: 1): it => {
     it
     for target in (
-      math.equation.where(block: true),
+      math.equation,
       ..(image, table, raw, grid, ..extra-fig-kinds).map(kind => figure.where(kind: kind)),
     ) { counter(target).update(0) }
   }

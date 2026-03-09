@@ -6,6 +6,7 @@
 /// - figure-numbering (str, auto): The numbering format for figures.
 /// - subfig-numbering (str, auto): The numbering format for subfigures.
 /// - equation-numbering (str, auto): The numbering format for equations.
+/// - unnumbered-label (str): The label for unnumbered equations.
 /// - subfig-numbering-extended (bool): Whether to extend the subfigure numbering with the figure numbering.
 /// - reset-counter (bool): Whether to reset the pages counter.
 /// - it (content): The content of the back matter.
@@ -19,12 +20,13 @@
   figure-numbering: auto,
   subfig-numbering: auto,
   equation-numbering: auto,
+  unnumbered-label: "-",
   subfig-numbering-extended: false,
   reset-counter: false,
   // self
   it,
 ) = {
-  import "../utils/util.typ": multi-numbering, show-grid-figs, twoside-pagebreak
+  import "../utils/util.typ": multi-numbering, show-equation, show-grid-figure, twoside-pagebreak
 
   let __page-reset = state("__tntt:back-matter-page-reset", false)
 
@@ -54,7 +56,9 @@
   // Only level 1 headings of the appendices are shown in the outline
   show heading.where(level: 1): set heading(outlined: true)
 
-  show math.equation.where(block: true): set math.equation(numbering: equation-numbering)
+  it = show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
+
+  it = show-equation(equation-numbering, unnumbered-label, it)
 
   // Reset the counter of pages at the first level 1 heading,
   // to avoid resetting on blank pages without headings when twoside is enabled.
@@ -66,5 +70,5 @@
     }
   }
 
-  show-grid-figs(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
+  it
 }

@@ -207,7 +207,7 @@
 #table-list()
 
 // 公式清单
-// #equation-list()
+#equation-list()
 
 // 符号表
 // 建议按符号、希腊字母、缩略词等部分编制，每一部分按首字母顺序排序。
@@ -472,9 +472,13 @@ $ <eq-example>
 
 @eq-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
 
-默认情况下，行间公式都会自动编号，可以通过 `<->` 标签来标识该行间公式不需要编号：
+默认情况下，行间公式都会自动编号，可以通过 `-` 标签（`<->`）来标识该行间公式不需要编号：
 
 $ y = integral_1^2 x^2 dif x $ <->
+
+此标签是不可引用的，这等价于：
+
+#math.equation($ y = integral_1^2 x^2 dif x $, numbering: none, block: true)
 
 后续数学公式仍然能正常编号。
 
@@ -624,6 +628,14 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     figure(block("这是附录中的子图示例2", stroke: red + 1pt, inset: 1em), caption: [这是附录中的子图示例2]),
   ),
 )
+
+$
+  1 + 1 = 2
+$ <->
+
+$
+  e^(i pi) + 1 = 0
+$
 
 #v(2em)
 
