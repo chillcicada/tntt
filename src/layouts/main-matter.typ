@@ -23,7 +23,7 @@
   it,
 ) = {
   import "../utils/font.typ": use-size
-  import "../utils/util.typ": array-at, multi-numbering, show-grid-figs, twoside-pagebreak
+  import "../utils/util.typ": array-at, multi-numbering, show-grid-figure, twoside-pagebreak
 
   if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
   if subfig-numbering == auto { subfig-numbering = "(a)" }
@@ -44,11 +44,11 @@
 
   set heading(numbering: multi-numbering.with(..heading-numbering))
 
-  show math.equation.where(block: true): set math.equation(numbering: equation-numbering)
+  set math.equation(numbering: equation-numbering)
 
   counter(page).update(1)
 
   set page(numbering: page-numbering)
 
-  show-grid-figs(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
+  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
 }

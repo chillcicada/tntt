@@ -46,28 +46,51 @@
   }
 }
 
+/// Filter out specified fields from an element's fields and return a new dictionary with the remaining fields.
+///
+/// - el (any): Element to filter fields from
+/// - keys (array): The keys of the fields to filter out
+/// -> dictionary
+#let filtered-fields(el, keys) = el.fields().pairs().filter(p => p.first() not in keys).to-dict()
+
 /// Show figures with grid kind as subfigures of the figures with image kind, with optional numbering formats.
 ///
 /// - figure-numbering (str, none): The numbering format for figures.
 /// - subfig-numbering (str, none): The numbering format for subfigures.
 /// - extended (bool): Whether to extend the subfigure numbering with the figure numbering.
-/// - body (content): The content to be displayed with the grid figures.
+/// - doc (content): The document content to be displayed with the grid figures.
 /// -> content
-#let show-grid-figs(figure-numbering, subfig-numbering, extended, body) = {
-  show figure: set figure(numbering: figure-numbering)
+#let show-grid-figure(figure-numbering, subfig-numbering, extended, doc) = {
+  set figure(numbering: figure-numbering)
   show figure.where(kind: image): it => {
     counter(figure.where(kind: grid)).update(it.counter.get())
     it
   }
   show figure.where(kind: grid): it => {
+    let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
     let grid-counter = it.counter.get()
     counter(figure.where(kind: image)).update(0)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
-    // @typstyle off
-    figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", alt: it.alt, gap: it.gap, outlined: it.outlined, supplement: it.supplement, placement: it.placement, scope: it.scope)
+    figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
     it.counter.update(grid-counter)
     counter(figure.where(kind: image)).update(grid-counter)
   }
-  body
+  doc
+}
+
+/// Show unnumbered equations with specific labels.
+///
+/// - unnumbered-label (str): The label for unnumbered equations.
+/// - doc (content): The document content to be displayed with the equations.
+/// -> content
+#let show-label-equation(unnumbered-label, doc) = {
+  show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none)
+  show math.equation: it => {
+    if it.has("label") and str(it.label) == unnumbered-label {
+      return math.equation(it.body, numbering: none, ..filtered-fields(it, ("body", "label", "numbering")))
+    }
+    it
+  }
+  doc
 }

@@ -7,6 +7,8 @@
 /// - paper (str): The paper size for the document, default is "a4".
 /// - fallback (bool): Whether to use fallback fonts.
 /// - use-fakebold (bool): Whether to use fake bold rendering for Chinese text.
+/// - use-latexref (bool): Whether to apply LaTeX/i-figured reference compatibility.
+/// - unnumbered-label (str): The label for unnumbered equations.
 /// - it (content): The content of the document.
 /// -> content
 #let meta(
@@ -20,10 +22,12 @@
   fallback: false,
   use-fakebold: true,
   use-latexref: true,
+  unnumbered-label: "-",
   // self
   it,
 ) = {
   import "../utils/ref.typ": apply-latex-ref-compat
+  import "../utils/util.typ": show-label-equation
 
   import "../imports.typ": cuti
   import cuti: show-cn-fakebold
@@ -33,6 +37,8 @@
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
+
+  show: it => show-label-equation(unnumbered-label, it)
 
   set text(fallback: fallback, lang: lang, region: region)
 
@@ -194,7 +200,7 @@
   show heading.where(level: 1): it => {
     it
     for target in (
-      math.equation.where(block: true),
+      math.equation,
       ..(image, table, raw, grid, ..extra-fig-kinds).map(kind => figure.where(kind: kind)),
     ) { counter(target).update(0) }
   }
