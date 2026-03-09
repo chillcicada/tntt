@@ -6,7 +6,6 @@
 /// - figure-numbering (str, auto): The numbering format for figures.
 /// - subfig-numbering (str, auto): The numbering format for subfigures.
 /// - equation-numbering (str, auto): The numbering format for equations.
-/// - unnumbered-label (str): The label for unnumbered equations.
 /// - subfig-numbering-extended (bool): Whether to extend the subfigure numbering with the figure numbering.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
@@ -19,7 +18,6 @@
   figure-numbering: auto,
   subfig-numbering: auto,
   equation-numbering: auto,
-  unnumbered-label: "-",
   subfig-numbering-extended: false,
   // self
   it,
@@ -44,9 +42,9 @@
   // Page break
   twoside-pagebreak(twoside)
 
-  set math.equation(numbering: equation-numbering)
-
   set heading(numbering: multi-numbering.with(..heading-numbering))
+
+  set math.equation(numbering: equation-numbering)
 
   counter(page).update(1)
 
