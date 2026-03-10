@@ -51,21 +51,21 @@
   // set outline style
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
 
-  show outline.entry: entry => link(
-    entry.element.location(),
-    entry.indented(
+  show outline.entry: it => link(
+    it.element.location(),
+    it.indented(
       none,
       par(
         {
-          text(font: array-at(font, entry.level), size: array-at(size, entry.level), {
-            if is-not-empty(entry.prefix()) {
-              entry.prefix()
+          text(font: array-at(font, it.level), size: array-at(size, it.level), {
+            if is-not-empty(it.prefix()) {
+              it.prefix()
               h(gap)
             }
-            entry.body()
+            it.body()
           })
-          box(width: 1fr, inset: (x: .25em), array-at(fill, entry.level))
-          entry.page()
+          box(width: 1fr, inset: (x: .25em), array-at(fill, it.level))
+          it.page()
         },
         first-line-indent: 0pt,
         hanging-indent: 1.5em,
