@@ -94,3 +94,25 @@
   }
   doc
 }
+
+/// Apply compatibility rewrite for refs.
+///
+/// - prefixes (array): An array of prefixes to strip from the ref targets, such as "fig:", "tbl:", etc.
+/// - doc (content): The document content to be displayed with the rewritten refs.
+/// -> content
+#let show-latexref(prefixes, doc) = {
+  show ref: it => {
+    if it.element != none { return it }
+    let target = str(it.target)
+    let stripped = for p in prefixes {
+      if target.starts-with(p) {
+        target.slice(p.len())
+        break
+      }
+    }
+    if stripped == none { return it }
+    ref(label(stripped), ..filtered-fields(it, ("target", "element")))
+  }
+  doc
+}
+

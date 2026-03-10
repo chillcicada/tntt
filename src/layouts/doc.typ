@@ -9,6 +9,8 @@
 /// - use-fakebold (bool): Whether to use fake bold rendering for Chinese text.
 /// - use-latexref (bool): Whether to apply LaTeX/i-figured reference compatibility.
 /// - unnumbered-label (str): The label for unnumbered equations.
+/// - extra-prefixes (array): Additional prefixes for LaTeX references.
+/// - default-prefixes (array): Default prefixes for LaTeX references.
 /// - it (content): The content of the document.
 /// -> content
 #let meta(
@@ -23,21 +25,23 @@
   use-fakebold: true,
   use-latexref: true,
   unnumbered-label: "-",
+  extra-prefixes: (),
+  default-prefixes: ("fig:", "tbl:", "eqt:", "lst:", "img:"),
   // self
   it,
 ) = {
-  import "../utils/ref.typ": apply-latex-ref-compat
-  import "../utils/util.typ": show-label-equation
+  import "../utils/util.typ": show-label-equation, show-latexref
 
   import "../imports.typ": cuti
   import cuti: show-cn-fakebold
 
-  // Apply LaTeX/i-figured reference compatibility if enabled
-  show: it => if use-latexref { apply-latex-ref-compat(it) } else { it }
+  // Apply LaTeX/i-figured reference compatibility
+  show: it => if use-latexref { show-latex-ref(default-prefixes + extra-prefixes, it) } else { it }
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
 
+  // Apply unnumbered equation label
   show: it => show-label-equation(unnumbered-label, it)
 
   set text(fallback: fallback, lang: lang, region: region)
