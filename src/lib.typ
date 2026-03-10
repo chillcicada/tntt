@@ -40,15 +40,18 @@
 
   // @typstyle off
   (
-    /// ------- ///
-    /// options ///
-    /// ------- ///
+    /// ------ ///
+    /// config ///
+    /// ------ ///
     info: info,
     fonts: fonts,
     degree-type: degree-type,
     degree: degree,
     twoside: twoside,
     anonymous: anonymous,
+    /// --------- ///
+    /// utilities ///
+    /// --------- ///
     use-fonts: _use-fonts.with(fonts),
     use-en-font: _use-en-font.with(fonts),
     use-cjk-fonts: _use-cjk-fonts.with(fonts),
