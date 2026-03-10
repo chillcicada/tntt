@@ -36,7 +36,7 @@
   import cuti: show-cn-fakebold
 
   // Apply LaTeX/i-figured reference compatibility
-  show: it => if use-latexref { show-latex-ref(default-prefixes + extra-prefixes, it) } else { it }
+  show: it => if use-latexref { show-latexref(default-prefixes + extra-prefixes, it) } else { it }
 
   // Fix for Chinese fake bold rendering
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
