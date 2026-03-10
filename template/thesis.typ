@@ -122,7 +122,7 @@
 /// ----------- ///
 #show: it => doc(it)
 
-// 强制让 × 使用中文字体显示，此处仅为显示美观，可删除
+// 强制让 × 使用中文字体显示，此处仅为让示例文档美观显示，可删除
 #show "×": set text(font: use-cjk-fonts("SongTi"))
 
 // 学位论文指导小组、公开评阅人和答辩委员会名单，仅适用于研究生及以上
@@ -289,6 +289,7 @@
 - 文档前内容：封面、授权页等相对独立的内容
   - 中文封面（cover）
   - 英文封面（cover-en） ← 仅适用于研究生及以上
+  - 书脊页（spine） ← 仅适用于研究生及以上
   - 指导小组与答辩委员会名单（committee） ← 仅适用于研究生及以上
   - 授权页（copyright）
 - 前辅文（front-matter）：即正文前部分
@@ -323,35 +324,6 @@
 
 上述代码可将所有引用样式设置为正常的直立格式而非上标（super）格式，对于 `meta`、`front-matter`、`main-matter` 和 `back-matter`，也可以通过类似的方式传入额外的选项来覆盖默认值，默认值可参考相应文件的注释信息。
 
-== 页面
-
-参考模板的结构设计，除了正文和附录部分由样式控制而不提供页面，其余页面均已经内置，同时还提供了额外的字体展示页面用于调整字体配置。
-
-部分内置页面和布局提供了用于额外配置字体的选项，如：
-
-```typ
-#fonts-display(fonts: (
-  SongTi: (
-    (name: "Times New Roman", covers: "latin-in-cjk"),
-    "SimHei",
-  ),
-)
-```
-
-其可设置*在字体展示页中*使宋体（SongTi）字族使用 Times New Roman 和 SimHei 字体。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过默认字体的页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
-
-```typ
-#abstract(back-font: "KaiTi")[
-  #set text(font: use-cjk-fonts("HeiTi"))
-
-  论文的摘要是对论文研究内容和成果的高度概括……
-]
-```
-
-除了封面页和字体展示页外，大部分内置页面均提供了适配双面打印的 `twoside` 选项，部分页面还提供了适用匿名模式的 `anonymous` 选项，*大部分情况下，您不需要额外配置这些页面*。在匿名模式下，封面页的信息会被隐藏，同时涉及个人信息的页面（如致谢页、成果页等）不会显示。
-
-部分页面还提供了一些额外的个性化选项，但多数情况下您应该也不会使用到这些选项，您可以参考提供的注释信息和源码来进一步了解。
-
 == 参考
 
 *除了项目封面使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
@@ -362,7 +334,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 #line(length: 100%)
 
-#align(center)[*以下部分为完整的示例，参考了 2025 本科生综合论文训练 Word 模板提供的内容，包含了大部分的功能和用法。*]
+#align(center)[*以下部分为完整的示例，参考了本科生综合论文训练模板和 ThuThesis 提供的内容，包含了大部分的功能和用法。*]
 
 = 引　言
 
@@ -390,9 +362,9 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 = 图、表及表达式示例
 
-引用图表时，可以直接使用 `<lab>` 和 `@ref` 来引用，如 @fig-example、@tbl-example 和 @eq-example。
+引用图表时，可以直接使用 `<lab>` 和 `@ref` 来引用，如 @fig-example、@tbl-example 和 @eqt-example。
 
-// 如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eq:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eq:eq-example，@lst:lst-example，@alg:example-pseudocode。
+// 如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eqt:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eqt:eqt-example，@lst:lst-example，@alg:example-pseudocode。
 
 == 论文中图的示例
 
@@ -405,7 +377,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 @fig-example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
 
-你可以轻松地做到子图排列：
+将一个 `figure` 的类型（`kind`）设置为 `grid` 以将其标记为组图，组图仅适用于多图排列（即 `figure` 类型为 `image`）的情况，*如果组图中涉及其他类型时，不会将其标记为子图处理*。
 
 #figure(
   grid(columns: (1fr,) * 3, align: horizon)[
@@ -468,9 +440,9 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 $
   "NH"^+_4 + 2"O"_2 -> "NO"^-_3 + "H"_2"O" + 2"H"^+
-$ <eq-example>
+$ <eqt-example>
 
-@eq-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
+@eqt-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
 
 默认情况下，行间公式都会自动编号，可以通过 `-` 标签（`<->`）来标识该行间公式不需要编号：
 
@@ -552,8 +524,11 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 /// ----------- ///
 #show: it => back-matter(it)
 
-// 中英双语参考文献
-// 默认使用 gb-7714-2015-numeric 样式
+
+// Typst 使用 CSL 样式来处理参考文献，但由于 CSL 样式自身约束性有限
+// 因而模板对 gb-7714-2015-numeric 进行了一定的修改
+// 中英双语参考文献，默认使用 gb-7714-2015-numeric 样式，设置 style 以切换样式
+// #bilingual-bibliography(style: "gb-7714-2015-author-date")
 #bilingual-bibliography()
 
 // 附录
