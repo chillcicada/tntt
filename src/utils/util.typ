@@ -97,6 +97,9 @@
 
 /// Apply compatibility rewrite for refs.
 ///
+/// * Author: An-314
+/// * Modified by: chillcicada
+///
 /// - prefixes (array): An array of prefixes to strip from the ref targets, such as "fig:", "tbl:", etc.
 /// - doc (content): The document content to be displayed with the rewritten refs.
 /// -> content

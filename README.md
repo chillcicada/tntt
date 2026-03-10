@@ -8,11 +8,13 @@
 
 ## 介绍
 
-TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归缩写，一个基于 [Typst][Typst] 的**非官方**清华大学（THU）学位论文模板。
+TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归缩写，一个基于 [Typst][Typst] 的**非官方**清华大学（THU）综合性论文模板。
 
 > [!IMPORTANT]
 >
 > **目前已基本支持所有学位的论文。由于 Typst 尚未稳定，本模板会持续追踪最新发布版本。因此，推荐使用 Typst 的最新版进行编辑，以确保能使用上新的特性并避免兼容性问题。**
+
+**更新说明和迁移指南请参阅[版本发布页][Latest Release]。**
 
 ## 使用
 
@@ -105,14 +107,14 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 衷心感谢 [OrangeX4][OrangeX4] 为南京大学学位论文 Typst 模板 [modern-nju-thesis][NJU Thesis] 所做的贡献。本项目移植自由 OrangeX4 及 [nju-lug][nju-lug] 维护的 modern-nju-thesis 模板，感谢他们的出色工作。
 
-在移植过程中，主要参考了[清华大学学位论文 Word 模板][THU Word Thesis]、[清华大学学位论文 LaTeX 模板][Thuthesis]以及教务下发的 Word 和 PDF 模板，在此表达感谢。
+在移植过程中，主要参考了[清华大学学位论文 Word 模板][THU Word Thesis]、[清华大学学位论文 LaTeX 模板][ThuThesis]以及教务下发的 Word 和 PDF 模板，在此表达感谢。
 
 感谢[纸夜][Myriad-Dreamin]开发的 [Tinymist][Tinymist] 工具。
 
 ## 相关资源
 
 - [清华大学学位论文 Word 模板][THU Word Thesis]（已过时，非常建议使用教务处下发的 Word 模板）
-- [清华大学学位论文 LaTeX 模板（thuthesis）][Thuthesis]
+- [清华大学学位论文 LaTeX 模板（ThuThesis）][ThuThesis]
 
 ## 许可证
 
@@ -130,11 +132,13 @@ English | [简体中文](#介绍)
 
 ## Introduction
 
-TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University", as an **unofficial** Tsinghua University (THU) thesis template based on [Typst][Typst].
+TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University", as an **unofficial** Tsinghua University (THU) comprehensive thesis template based on [Typst][Typst].
 
 > [!IMPORTANT]
 >
 > **Currently, it basically supports theses for all degrees. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, it is recommended to use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
+
+**For update notes and migration guides, please refer to the [version release page][Latest Release].**
 
 ## Usage
 
@@ -227,14 +231,14 @@ Further instructions and examples are included in the [template][Template]. Star
 
 Special thanks to [OrangeX4][OrangeX4] for their contributions to the Nanjing University thesis template [modern-nju-thesis][NJU Thesis]. This project is adapted from the modern-nju-thesis template maintained by OrangeX4 and [nju-lug][nju-lug]. We greatly appreciate their work.
 
-During the adaptation process, we mainly referred the [Tsinghua University Thesis Word Template][THU Word Thesis], [Tsinghua University Thesis LaTeX Template][Thuthesis], and Word & PDF templates issued by the Academic Affairs Office. Our gratitude goes to them and their contributors.
+During the adaptation process, we mainly referred the [Tsinghua University Thesis Word Template][THU Word Thesis], [Tsinghua University Thesis LaTeX Template][ThuThesis], and Word & PDF templates issued by the Academic Affairs Office. Our gratitude goes to them and their contributors.
 
 Thanks to [Myriad-Dreamin][Myriad-Dreamin] for developing the [Tinymist][Tinymist] tool.
 
 ## Relevant Resources
 
 - [Tsinghua University Thesis Word Template][THU Word Thesis] (Marked as Outdated, it is highly recommended to use the Word template issued by the Academic Affairs Office)
-- [Tsinghua University Thesis LaTeX Template (thuthesis)][Thuthesis]
+- [Tsinghua University Thesis LaTeX Template (ThuThesis)][ThuThesis]
 
 ## License
 
@@ -259,9 +263,10 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [NJU Thesis]: https://typst.app/universe/package/modern-nju-thesis
 [nju-lug]: https://github.com/nju-lug
 [THU Word Thesis]: https://github.com/fatalerror-i/ThuWordThesis
-[Thuthesis]: https://github.com/tuna/thuthesis
+[ThuThesis]: https://github.com/tuna/thuthesis
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
+[Latest Release]: https://github.com/chillcicada/tntt/releases/latest
 
 [Template]: template/thesis.typ
 [Preview]: thumbnail.png

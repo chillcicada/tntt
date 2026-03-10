@@ -79,8 +79,11 @@
   fonts: font-family, // 应用字体配置
 )
 
-// 文稿设置，默认应用 LaTeX/i-figured 引用兼容模式（为 label 添加 `fig:` 等前缀）
+// 文稿设置，默认应用 LaTeX/i-figured 引用兼容模式（引用标签时可添加 `fig:` 等前缀）
 #show: it => meta(it)
+// 等价于如下写法
+// #show: meta
+// 但由于技术限制，该写法会导致 meta 的类型提示损坏，因而此处显式使用函数调用
 
 // 字体展示测试页，在配置好字体后请注释或删除此项
 #fonts-display()
@@ -122,7 +125,7 @@
 /// ----------- ///
 #show: it => doc(it)
 
-// 强制让 × 使用中文字体显示，此处仅为显示美观，可删除
+// 强制让 × 使用中文字体显示，此处仅为让示例文档美观显示，可删除
 #show "×": set text(font: use-cjk-fonts("SongTi"))
 
 // 学位论文指导小组、公开评阅人和答辩委员会名单，仅适用于研究生及以上
@@ -244,44 +247,6 @@
 
 = 导　引
 
-== 字体排印
-
-此部分是对字体配置导引的补充。
-
-本模板目前只对中文做了适配，如果您需要用英文或其他语言撰写论文，请在 `meta` 中设置 `language` 和 `region`，同时需要对部分页面的内置内容进行修改，相关选项请参考提供的注释信息的源码。
-
-原则上，如果您使用英文撰写，也无需涉及到深度的字体配置修改，默认提供的字体配置尊重西文字体，即您的字体配置可以无缝切换到西文排版，具体参考上文提供的内置字族与西文的对应关系。
-
-除了预定义的字族外，文档默认提供了与 Word 相容的中文字号习惯，对于内置的字体选项，除了传入 `length` 值外，可以直接传入中文字号，如：
-
-```typ
-#fonts-display(size: "小三")
-#fonts-display(size: 15pt)
-```
-
-上述的代码可分别设置字体展示页的字号为小三和 15pt，字号的对应关系如下@font-size 所示：
-
-#figure(
-  table(
-    columns: 8,
-    [初号], [42pt], [小初], [36pt], [一号], [26pt], [小一], [24pt],
-    [二号], [22pt], [小二], [18pt], [三号], [16pt], [小三], [15pt],
-    [四号], [14pt], [中四], [13pt], [小四], [12pt], [五号], [10.5pt],
-    [小五], [9pt], [六号], [7.5pt], [小六], [6.5pt], [七号], [5.5pt],
-    [小七], [5pt],
-  ),
-  caption: [字号与 pt 对应关系],
-) <font-size>
-
-大部分情况下，您都无需关注内置模板的字体选项，除非您需要使用到一些特殊的字体或字号，或者需要使用到一些特殊的排版效果。如果你想在一些场合使用中文字号，你可以使用模板提供的 `use-size` 函数，如：
-
-```typ
-#import tntt: use-size
-#text(size: use-size("小三"), "这将使这段文字显示为「小三」大小。")
-```
-
-`use-size` 允许传入形如 16pt 的 `length` 类型的参数，因而推荐使用。
-
 == 结构
 
 *本模板提供的文档结构*可分为四个层次，其涵义如下：
@@ -289,6 +254,7 @@
 - 文档前内容：封面、授权页等相对独立的内容
   - 中文封面（cover）
   - 英文封面（cover-en） ← 仅适用于研究生及以上
+  - 书脊页（spine） ← 仅适用于研究生及以上
   - 指导小组与答辩委员会名单（committee） ← 仅适用于研究生及以上
   - 授权页（copyright）
 - 前辅文（front-matter）：即正文前部分
@@ -311,46 +277,17 @@
   - 指导教师学术评语（comments） ← 仅适用于硕士生及以上
   - 答辩委员会决议书（resolution） ← 仅适用于硕士生及以上
 
-一些受论文类型控制的页面将自动根据 degree 调整内容和样式，如封面页、授权页、声明页等，另一些仅本科生或是仅硕士生及以上使用的页面也会根据论文类型跳过解析而自动忽略，即使在源码中引入了这些页面，这些页面不会出现在最终的文档中。
+模板将自动根据 degree 调整内容和样式，如封面页、授权页、声明页等，即使在源码中引入了这些页面，这些页面也不会出现在最终的文档中。
 
 依据上述的结构设计，本模板将文档拆分为了四个布局和多个页面，布局用于控制文档的整体样式和结构，页面用于控制具体页面的内容和样式。在所有配置前，模板会首先应用 `meta` 用于控制文档的元配置，其中包含了*基础的文本设置*（语言、区域和字体回滚开关）和*页面设置*（），同时也包含了 *PDF 的元信息*（标题、作者等）；封面页自身完全独立，模板会在封面页后应用全局样式布局 `doc`，用于控制封面页后所有内容的样式和结构，其中主要为*段落设置*（两端对齐、行距、段距等）和一些默认的*文本设置*等。`front-matter`、`main-matter` 和 `back-matter` 只涉及页面、标题与图表编号和相关的计数器配置。
 
-`doc` 中定义了所有影响全局的样式，如段落设置、字体配置、引用样式等，可以通过 `with(...)` 来传入额外的选项对默认值进行覆盖，如：
+`doc` 中定义了所有影响全局的样式，如段落设置、字体配置、引用样式等，如：
 
 ```typ
 #show: it => doc(it, cite-style: "normal")
 ```
 
-上述代码可将所有引用样式设置为正常的直立格式而非上标（super）格式，对于 `meta`、`front-matter`、`main-matter` 和 `back-matter`，也可以通过类似的方式传入额外的选项来覆盖默认值，默认值可参考相应文件的注释信息。
-
-== 页面
-
-参考模板的结构设计，除了正文和附录部分由样式控制而不提供页面，其余页面均已经内置，同时还提供了额外的字体展示页面用于调整字体配置。
-
-部分内置页面和布局提供了用于额外配置字体的选项，如：
-
-```typ
-#fonts-display(fonts: (
-  SongTi: (
-    (name: "Times New Roman", covers: "latin-in-cjk"),
-    "SimHei",
-  ),
-)
-```
-
-其可设置*在字体展示页中*使宋体（SongTi）字族使用 Times New Roman 和 SimHei 字体。需要注意的时，为了控制不同页面渲染的协调性，该选项只在更换过默认字体的页面中有设置，如果你需要更改无 `fonts` 参数的页面，通常情况下你可以通过传入 `text` 装饰过的 `content` 来实现，如：
-
-```typ
-#abstract(back-font: "KaiTi")[
-  #set text(font: use-cjk-fonts("HeiTi"))
-
-  论文的摘要是对论文研究内容和成果的高度概括……
-]
-```
-
-除了封面页和字体展示页外，大部分内置页面均提供了适配双面打印的 `twoside` 选项，部分页面还提供了适用匿名模式的 `anonymous` 选项，*大部分情况下，您不需要额外配置这些页面*。在匿名模式下，封面页的信息会被隐藏，同时涉及个人信息的页面（如致谢页、成果页等）不会显示。
-
-部分页面还提供了一些额外的个性化选项，但多数情况下您应该也不会使用到这些选项，您可以参考提供的注释信息和源码来进一步了解。
+上述代码可将所有引用样式设置为正常的直立格式而非上标（super）格式。大部分布局和页面均提供了一定的内置选项用于个性化调整，您可以使用 #link("https://typst.app/docs/reference/foundations/function/#definitions-with", underline(`.with(...)`)) 覆盖函数的默认值。建议使用 Tinymist 进行编辑，Tinymist 会为编辑器提供相关的代码注释和类型提示，也可以直接在源码中查看相关的注释文档，以帮助您更好地使用和调整模板。
 
 == 参考
 
@@ -362,7 +299,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 #line(length: 100%)
 
-#align(center)[*以下部分为完整的示例，参考了 2025 本科生综合论文训练 Word 模板提供的内容，包含了大部分的功能和用法。*]
+#align(center)[*以下部分为完整的示例，参考了本科生综合论文训练模板和 ThuThesis 提供的内容，包含了大部分的功能和用法。*]
 
 = 引　言
 
@@ -390,9 +327,9 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 = 图、表及表达式示例
 
-引用图表时，可以直接使用 `<lab>` 和 `@ref` 来引用，如 @fig-example、@tbl-example 和 @eq-example。
+引用图表时，可以直接使用 `<lab>` 和 `@ref` 来引用，如 @fig-example、@tbl-example 和 @eqt-example。
 
-// 如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eq:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eq:eq-example，@lst:lst-example，@alg:example-pseudocode。
+// 如果偏好 LaTeX/i-figured 风格的引用样式，即使用 `@fig:`, `@tbl:`, `@eqt:`, `@lst:`, `@alg:` 等前缀为引用进行分类，在 `meta` 中启用 `use-latex-ref` 后也可以使用如下引用形式：@fig:fig-example，@tbl:tbl-example，@eqt:eqt-example，@lst:lst-example，@alg:example-pseudocode。
 
 == 论文中图的示例
 
@@ -405,7 +342,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 @fig-example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
 
-你可以轻松地做到子图排列：
+将一个 `figure` 的类型（`kind`）设置为 `grid` 以将其标记为组图，组图仅适用于多图排列（即 `figure` 类型为 `image`）的情况，*如果组图中涉及其他类型时，不会将其标记为子图处理*。
 
 #figure(
   grid(columns: (1fr,) * 3, align: horizon)[
@@ -468,9 +405,9 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 $
   "NH"^+_4 + 2"O"_2 -> "NO"^-_3 + "H"_2"O" + 2"H"^+
-$ <eq-example>
+$ <eqt-example>
 
-@eq-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
+@eqt-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
 
 默认情况下，行间公式都会自动编号，可以通过 `-` 标签（`<->`）来标识该行间公式不需要编号：
 
@@ -552,8 +489,11 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 /// ----------- ///
 #show: it => back-matter(it)
 
-// 中英双语参考文献
-// 默认使用 gb-7714-2015-numeric 样式
+// Typst 使用 CSL 样式来处理参考文献，但由于 CSL 样式自身约束性有限
+// 因而模板对 gb-7714-2015-numeric 进行了一定的修改
+// 中英双语参考文献，默认使用 gb-7714-2015-numeric 样式，设置 style 以切换样式
+// #bilingual-bibliography(style: "gb-7714-2015-author-date")
+// 除了内置的样式外，style 也接受 CSL 路径，相关内容请参考 Typst 的官方文档
 #bilingual-bibliography()
 
 // 附录

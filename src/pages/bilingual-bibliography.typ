@@ -20,7 +20,7 @@
   extra-comma-before-et-al-trans: false,
   allow-comma-in-name: false,
 ) = {
-  show heading.where(level: 1): set heading(bookmarked: true)
+  // show heading.where(level: 1): set heading(bookmarked: true)
 
   if style == "gb-7714-2015-numeric" {
     // Please fill in the remaining mapping table here
