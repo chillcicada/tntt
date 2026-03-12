@@ -29,7 +29,7 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加如下内容来导入此模板。
 
 ```typ
-#import "@preview/tntt:0.5.0"
+#import "@preview/tntt:0.5.1"
 #import tntt: define-config
 ```
 
@@ -153,7 +153,7 @@ typst init @preview/tntt
 Of course, you can also import the template in any Typst file by adding:
 
 ```typ
-#import "@preview/tntt:0.5.0"
+#import "@preview/tntt:0.5.1"
 #import tntt: define-config
 ```
 
@@ -253,7 +253,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 <!-- Markdown Links -->
 
 [Typst]: https://typst.app
-[Quick Start]: https://typst.app/app?template=tntt&version=0.5.0
+[Quick Start]: https://typst.app/app?template=tntt&version=0.5.1
 [Typst Docs]: https://typst.app/docs
 [Typst CN]: https://typst.dev
 [simple-handout-template]: https://github.com/chillcicada/simple-handout-template
