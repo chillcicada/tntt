@@ -60,7 +60,7 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: meta.with(info: info, extra-prefixes: ("alg",)), // info of meta cannot be overwritten
+    meta: meta.with(info: info, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
     doc: doc.with(header-display: degree != "bachelor", default-fonts: fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
