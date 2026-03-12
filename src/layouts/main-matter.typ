@@ -7,6 +7,7 @@
 /// - subfig-numbering (str, auto): The numbering format for subfigures.
 /// - equation-numbering (str, auto): The numbering format for equations.
 /// - subfig-numbering-extended (bool): Whether to extend the subfigure numbering with the figure numbering.
+/// - subfig-outlined (bool): Whether to outline the subfigures.
 /// - it (content): The content to be displayed in the main matter.
 /// -> content
 #let main-matter(
@@ -18,6 +19,7 @@
   figure-numbering: auto,
   subfig-numbering: auto,
   equation-numbering: auto,
+  subfig-outlined: true,
   subfig-numbering-extended: false,
   // self
   it,
@@ -50,5 +52,5 @@
 
   set page(numbering: page-numbering)
 
-  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
+  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, subfig-outlined, it)
 }

@@ -58,9 +58,10 @@
 /// - figure-numbering (str, none): The numbering format for figures.
 /// - subfig-numbering (str, none): The numbering format for subfigures.
 /// - extended (bool): Whether to extend the subfigure numbering with the figure numbering.
+/// - subfig-outlined (bool): Whether to outline the subfigures.
 /// - doc (content): The document content to be displayed with the grid figures.
 /// -> content
-#let show-grid-figure(figure-numbering, subfig-numbering, extended, doc) = {
+#let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc) = {
   set figure(numbering: figure-numbering)
   show figure.where(kind: image): it => {
     counter(figure.where(kind: grid)).update(it.counter.get())
@@ -70,6 +71,7 @@
     let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
     let grid-counter = it.counter.get()
     counter(figure.where(kind: image)).update(0)
+    show figure.where(kind: image): set figure(outlined: subfig-outlined)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
     figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)

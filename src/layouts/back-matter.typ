@@ -7,6 +7,7 @@
 /// - subfig-numbering (str, auto): The numbering format for subfigures.
 /// - equation-numbering (str, auto): The numbering format for equations.
 /// - subfig-numbering-extended (bool): Whether to extend the subfigure numbering with the figure numbering.
+/// - subfig-outlined (bool): Whether to outline the subfigures.
 /// - reset-counter (bool): Whether to reset the pages counter.
 /// - it (content): The content of the back matter.
 /// -> content
@@ -19,6 +20,7 @@
   figure-numbering: auto,
   subfig-numbering: auto,
   equation-numbering: auto,
+  subfig-outlined: true,
   subfig-numbering-extended: false,
   reset-counter: false,
   // self
@@ -66,5 +68,5 @@
     }
   }
 
-  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, it)
+  show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, subfig-outlined, it)
 }
