@@ -4,7 +4,7 @@
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
-简体中文 | [English](#Introduction)
+简体中文 | [English](#introduction)
 
 ## 介绍
 
