@@ -114,8 +114,7 @@
       }
     }
     if stripped == none { return it }
-    ref(label(stripped), ..filtered-fields(it, ("target", "element")))
+    ref(label(stripped), ..filtered-fields(it, ("target", "element", "citation")))
   }
   doc
 }
-
