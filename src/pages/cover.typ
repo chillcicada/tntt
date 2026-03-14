@@ -78,9 +78,12 @@
   )
 
   // Calculate suitable width of info items
-  info-item-width = if info-item-width == none { if degree == "bachelor" { 4em } else { 5em } } else if (
-    info-item-width == auto
-  ) { calc.max(info-items.values().map(v => v.clusters().len())) * 1em } else { info-item-width }
+  info-item-width = if info-item-width == none {
+    if degree == "bachelor" { 4em } else { 5em }
+  } else if info-item-width == auto {
+    calc.max(info-items.values().map(v => v.clusters().len())) * 1em
+  } else { info-item-width }
+
   let format-info-item(it) = block(
     width: info-item-width + if degree == "bachelor" { 0em } else { 0.5em },
     fixed-text(it, info-item-width) + if degree == "bachelor" { "" } else { " " },
@@ -125,44 +128,37 @@
 
   if degree != "bachelor" { info.co-supervisor = format-supervisor(info.co-supervisor) }
 
-  let placed-content(content, dy) = place(bottom + center, content, dy: dy)
+  let placed-top(content, dy) = place(center + top, content, dy: dy)
+  let placed-bottom(content, dy) = place(center + bottom, content, dy: dy)
   let format-info(items) = grid(
-    align: (center, left, left), rows: 1.09cm, columns: (2.80cm, 0.82cm, 5.62cm),
+    align: (center + horizon, left + horizon, left), columns: (2.80cm, 0.82cm, 5.62cm), row-gutter: 0.715cm,
     ..items.keys().map(k => (format-info-item(items.at(k)), "：", info.at(k))).flatten()
-  )
-
-  let preset-content = (
-    bachelor: {
-      set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
-      v(2em)
-      image("../assets/logo.png", width: 7.81cm)
-      v(-1em)
-      text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
-      v(1em)
-      {
-        set par(leading: 0.95em)
-        text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
-      }
-      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), -17em)
-      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -5em)
-    },
-    graduate: {
-      set page(margin: (x: 4cm, y: 6cm))
-      set par(leading: 1.15em, spacing: 1.3em)
-      v(1.2em)
-      text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
-      parbreak()
-      text(size: use-size("小二"), font: use-fonts("SongTi"), [（申请清华大学#info.degree-name;学位论文）])
-      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), -7.5em)
-      placed-content(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -0.9em)
-    },
   )
 
   /// Render cover page
   set align(center)
-
-  if is-not-empty(content) { content } else {
-    if degree == "bachelor" { preset-content.bachelor } else { preset-content.graduate }
+  if is-not-empty(content) { content } else if degree == "bachelor" {
+    set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
+    v(2em)
+    image("../assets/logo.png", width: 7.81cm)
+    v(-1em)
+    text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
+    v(1em)
+    set par(leading: 0.95em)
+    text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
+    set par(leading: 0.6em)
+    placed-top(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), 35.88em)
+    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -1.15em)
+  } else {
+    set page(margin: (x: 4cm, y: 6cm))
+    set par(leading: 1.15em, spacing: 1.32em)
+    v(1.2em)
+    text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
+    parbreak()
+    text(size: use-size("小二"), font: use-fonts("SongTi"), [（申请清华大学#info.degree-name;学位论文）])
+    set par(leading: 0.6em)
+    placed-top(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), 25.8em)
+    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -0.9em)
   }
 }
 
