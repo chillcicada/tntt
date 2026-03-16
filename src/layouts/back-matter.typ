@@ -20,8 +20,8 @@
   figure-numbering: auto,
   subfig-numbering: auto,
   equation-numbering: auto,
+  subfig-numbering-extended: true,
   subfig-outlined: true,
-  subfig-numbering-extended: false,
   reset-counter: false,
   // self
   it,
@@ -29,6 +29,8 @@
   import "../utils/util.typ": multi-numbering, show-grid-figure, twoside-pagebreak
 
   let __page-reset = state("__tntt:back-matter-page-reset", false)
+
+  subfig-outlined = figure-outlined and subfig-outlined
 
   if figure-numbering == auto { figure-numbering = heading-numbering.formats.last() }
   if subfig-numbering == auto { subfig-numbering = "(a)" }

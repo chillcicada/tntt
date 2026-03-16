@@ -342,7 +342,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 @fig-example 为不同光源照射30分钟后测定的紫菌样品紫外－可见吸收光谱#footnote[图题文字要求：图题置于图下方，图题前空两格，图题字号为小五号字，汉字用宋体，外文用Times New Roman体。]。
 
-将一个 `figure` 的类型（`kind`）设置为 `grid` 以将其标记为组图，组图仅适用于多图排列（即 `figure` 类型为 `image`）的情况，*如果组图中涉及其他类型时，不会将其标记为子图处理*。
+将一个 `figure` 的类型（`kind`）设置为 `grid` 以将其标记为组图，组图仅适用于多图排列（即 `figure` 类型为 `image`）的情况，*如果组图中涉及其他类型时，不会将其标记为子图处理*。可以正常地引用子图：@subfig-a 和@subfig-b。
 
 #figure(
   grid(columns: (1fr,) * 3, align: horizon)[
@@ -358,12 +358,12 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
     #figure(
       block("这是子图示例1", stroke: red + 1pt, inset: 1em),
       caption: [这是子图示例1],
-    )
+    ) <subfig-a>
   ][
     #figure(
       block("这是子图示例2", stroke: red + 1pt, inset: 1em),
       caption: [这是子图示例2],
-    )
+    ) <subfig-b>
   ],
   caption: [子图排列示例],
   kind: grid, // 将 kind 设置为 grid 以将其标记为组图
@@ -380,10 +380,10 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
   #figure(
     table(
       align: (x, y) => { if x == 4 and y >= 1 { left + horizon } else { center + horizon } },
-      columns: (2.25cm, 2.75cm, 2.25cm, 2.75cm, 5cm),
+      columns: (2.25cm, 3cm, 2.25cm, 2.75cm, 5cm),
       stroke: none,
       table.hline(stroke: 1.5pt),
-      [], [文字举例], [中文字体、字号要求], [英文及数字字体、字号要求], [其他格式要求],
+      [], [*文字举例*], [*中文字体、字号要求*], [*英文及数字字体、字号要求*], [*其他格式要求*],
       table.hline(stroke: .75pt),
       [章标题], [第1章 引言], [黑体三号], [Arial三号], [居中书写，单倍行距，段前空24磅，段后空18磅],
       [一级节标题], [4.1 标题示例], [黑体四号], [Arial四号], [居左书写，行距为固定值20磅，段前空24磅，段后空6磅],
@@ -397,7 +397,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 @tbl-example 为字体、字型、字号及段落格式要求。
 
-除此之外，社区也提供了 #link("https://typst.app/universe/package/tablem", underline[tablem]) 用于创建类似 markdown 写法的表格。
+除此之外，社区也提供了 #link("https://typst.app/universe/package/tablem", underline[tablem]) 用于创建类似 markdown 写法的简化表格。
 
 == 论文中表达式的示例
 
@@ -425,7 +425,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 论文中代码块和算法的示例
 
-*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮。如 @lst-example。
+*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮。如@lst-example。
 
 #figure(
   ```py
@@ -437,7 +437,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 此外，社区也提供了 #link("https://typst.app/universe/package/codly", underline[codly]) 和 #link("https://typst.app/universe/package/zebraw", underline[zebraw]) 包用于创建更美观的代码块。
 
-对于算法和伪代码，社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建，如：
+对于算法和伪代码，社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建，如下示例来自 lovelace：
 
 #[
   #import "@preview/lovelace:0.3.0": pseudocode-list
@@ -462,7 +462,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ) <example-pseudocode>
 ]
 
-使用 @example-pseudocode 引用该伪代码示例。
+使用@example-pseudocode 引用该伪代码示例，模板默认为类型（`kind`）为（`"algorithm"`）的图表（`figure`）注册了计数器，可以在 `meta` 中修改此行为，与子图相同，使用时需要手动将图表（`figure`）的类型（`kind`）标记为`"algorithm"`。
 
 = 结　语
 
@@ -475,6 +475,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 - #strike[公式索引无法忽略附录公式。]由于学校不要求公式索引，此问题暂时搁置；
 - 某些细节处可能与 Word / LaTeX 模板存在差异。本模板在排版设计上以官方 Word 模板和过往论文等为主，但由于 Word 模板自身问题不少，同时不同引擎间存在差异，无法做到完全一致；
 - #strike[不支持多参考文献源，]不支持多参考文献实例。目前通过将参考文献源转化为字节以支持多参考文献源，GB/T 7714 参考文献样式使用 #link("https://typst.app/universe/package/gb7714-bilingual", underline[alexandria]) 包处理，但其对多参考文献实例的支持有限，当前仍使用单参考文献实例。理论上可以通过 #link("https://typst.app/universe/package/alexandria", underline[alexandria]) 包解决，由于 Typst 相关开发正在推进，因而并未采用。考虑单参考文献实例对论文编辑影响并不严重，目前在对附录部分部分的参考文献处理较为粗暴，可以理解为没有实现双向链接的参考文献样式，这样做主要是考虑到成就页部分的参考文献一般不会被正文引用，因而如果在附录中有链接参考的需求，您可能需要手动用 `cite` 函数来引用对应的参考文献或手动管理编号链接。
+- ……
 
 此外，由于官方提供的 Word 模板中也存在诸多问题，很多事项并未在规范中完全注明或比较随意，因而一些排版出入是合理的。
 

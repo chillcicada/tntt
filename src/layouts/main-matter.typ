@@ -20,7 +20,7 @@
   subfig-numbering: auto,
   equation-numbering: auto,
   subfig-outlined: true,
-  subfig-numbering-extended: false,
+  subfig-numbering-extended: true,
   // self
   it,
 ) = {
