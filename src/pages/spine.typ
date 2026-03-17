@@ -15,7 +15,7 @@
 
   if degree == "bachelor" { return }
 
-  fonts = fonts + default-fonts
+  fonts = default-fonts + fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
 

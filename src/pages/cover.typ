@@ -55,8 +55,8 @@
   import "../utils/text.typ": distr-text, fixed-text, space-text
   import "../utils/util.typ": is-not-empty
 
-  info = info + doc-info
-  fonts = fonts + default-fonts
+  info = doc-info + info
+  fonts = default-fonts + fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
@@ -192,8 +192,8 @@
   import "../utils/util.typ": twoside-pagebreak
   import "../utils/font.typ": _use-fonts, use-size
 
-  info = info + doc-info
-  fonts = fonts + default-fonts
+  info = doc-info + info
+  fonts = default-fonts + fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))

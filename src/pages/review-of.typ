@@ -48,7 +48,7 @@
   import "../utils/text.typ": v-text
   import "../utils/util.typ": twoside-pagebreak
 
-  info = info + doc-info
+  info = doc-info + info
 
   twoside-pagebreak(twoside)
 
