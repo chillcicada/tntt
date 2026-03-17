@@ -16,7 +16,7 @@
   twoside: false,
   degree: "bachelor",
   // options
-  title: [],
+  title: auto,
   outlined: true,
   bookmarked: true,
   resume: [],
@@ -28,9 +28,9 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty, twoside-pagebreak
 
-  title = if is-not-empty(title) { title } else {
+  title = if title == auto {
     if degree == "bachelor" [在学期间参加课题的研究成果] else [个人简历、在学期间完成的相关学术成果]
-  }
+  } else { title }
 
   twoside-pagebreak(twoside)
 

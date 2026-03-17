@@ -15,7 +15,7 @@
   twoside: false,
   degree: "bachelor",
   // options
-  title: [],
+  title: auto,
   outlined: false,
   bookmarked: false,
   body: [],
@@ -26,9 +26,9 @@
   import "../utils/font.typ": use-size
   import "../utils/util.typ": is-not-empty, twoside-pagebreak
 
-  title = if is-not-empty(title) { title } else {
+  title = if title == auto {
     if degree == "bachelor" [关于论文使用授权的说明] else [关于学位论文使用授权的说明]
-  }
+  } else { title }
 
   let preset-body = (
     bachelor: [
