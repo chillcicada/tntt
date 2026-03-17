@@ -38,7 +38,7 @@
   import "../utils/font.typ": _use-fonts
   import "../utils/util.typ": twoside-pagebreak
 
-  fonts = fonts + default-fonts
+  fonts = default-fonts + fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
 

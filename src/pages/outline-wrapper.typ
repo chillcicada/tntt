@@ -36,7 +36,7 @@
   import "../utils/font.typ": _use-fonts, use-size
   import "../utils/util.typ": array-at, is-not-empty, twoside-pagebreak
 
-  fonts = fonts + default-fonts
+  fonts = default-fonts + fonts
 
   /// Parse the outline configuration
   font = font.map(name => _use-fonts(fonts, name))

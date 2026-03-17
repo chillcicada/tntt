@@ -160,7 +160,7 @@
   import "../utils/font.typ": _use-en-font, _use-fonts, use-size
   import "../utils/util.typ": array-at
 
-  fonts = fonts + default-fonts
+  fonts = default-fonts + fonts
 
   /// Auxiliary functions
   let use-fonts = _use-fonts.with(fonts)
