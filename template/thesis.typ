@@ -440,7 +440,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 对于算法和伪代码，社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建，如下示例来自 lovelace：
 
 #[
-  #import "@preview/lovelace:0.3.0": pseudocode-list
+  #import "@preview/lovelace:0.3.1": pseudocode-list
 
   #figure(
     kind: "algorithm",
