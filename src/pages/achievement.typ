@@ -41,13 +41,10 @@
     heading(level: 2, numbering: none, outlined: false, bookmarked: false, [个人简历])
     v(8pt)
     resume
-
-    if is-not-empty(paper) or is-not-empty(patent) {
-      v(8pt)
-      par[]
-      heading(level: 2, numbering: none, outlined: false, bookmarked: false, [在学期间完成的相关学术成果])
-      v(1.7em)
-    }
+    v(8pt)
+    par[]
+    heading(level: 2, numbering: none, outlined: false, bookmarked: false, [在学期间完成的相关学术成果])
+    if is-not-empty(paper) or is-not-empty(patent) { v(1.7em) }
   }
 
   set par(first-line-indent: 0pt, leading: 8pt)
@@ -67,4 +64,6 @@
     v(1pt)
     patent
   }
+
+  if not is-not-empty(paper) and not is-not-empty(patent) { [无。] }
 }
