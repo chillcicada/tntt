@@ -259,4 +259,6 @@
   )
 
   placed-content(strong(text(font: use-fonts("HeiTi"), info.date.display("[month repr:long], [year]"))), 3pt)
+
+  twoside-pagebreak(twoside)
 }

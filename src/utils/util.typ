@@ -42,6 +42,7 @@
   if twoside in (false, "false", "no", "off") { pagebreak(weak: true, ..args) } else {
     set page(header: none) if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on")
     set page(numbering: none) if twoside in ("no-numbering", "no-content")
+    if twoside in ("no-numbering", "no-content") { counter(page).update(n => n - 1) }
     pagebreak(weak: true, to: { "odd" }, ..args)
   }
 }

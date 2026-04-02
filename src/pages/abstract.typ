@@ -55,7 +55,7 @@
     text(font: use-fonts(back-font), back) + text(font: use-fonts(keyword-font), keywords.join(keyword-sperator)),
   )
 
-  if embeded { set document(keywords: keywords, description: it) }
+  set document(keywords: keywords, description: it) if embeded
 }
 
 /// Abstract Page (English version), Inherited from the Chinese version
