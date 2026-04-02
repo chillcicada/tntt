@@ -76,7 +76,6 @@
     } else { reviewers }
   }
 
-
   if is-not-empty(defenders) and defenders != (:) {
     format-text(defenders-title)
     if type(defenders) == dictionary {
@@ -88,5 +87,5 @@
     } else { defenders }
   }
 
-  twoside-pagebreak(twoside, to: { "even" })
+  twoside-pagebreak(twoside)
 }
