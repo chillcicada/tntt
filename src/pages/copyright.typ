@@ -84,4 +84,6 @@
   if is-not-empty(back) { back } else {
     if degree == "bachelor" { preset-back.bachelor } else { preset-back.graduate }
   }
+
+  twoside-pagebreak(twoside)
 }

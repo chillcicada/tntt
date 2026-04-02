@@ -19,6 +19,7 @@
 
   let use-fonts = name => _use-fonts(fonts, name)
 
+  /// Render
   twoside-pagebreak(twoside)
 
   set page(margin: (x: 1cm, y: 5.4cm))
@@ -33,13 +34,15 @@
   )
 
   // Note that the specification does not require the anonymous behavior
-  if anonymous { return }
+  if not anonymous {
+    place(
+      right + bottom,
+      {
+        show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg), width: 1cm)
+        rotate(info.author, 90deg, origin: right + top, reflow: true)
+      },
+    )
+  }
 
-  place(
-    right + bottom,
-    {
-      show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg), width: 1cm)
-      rotate(info.author, 90deg, origin: right + top, reflow: true)
-    },
-  )
+  twoside-pagebreak(twoside)
 }
