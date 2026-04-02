@@ -5,23 +5,8 @@
 /// - date: The date to convert
 /// -> str
 #let _display-zh(date) = {
-  let date-map = (
-    "0": "○",
-    "1": "一",
-    "2": "二",
-    "3": "三",
-    "4": "四",
-    "5": "五",
-    "6": "六",
-    "7": "七",
-    "8": "八",
-    "9": "九",
-    "10": "十",
-    "11": "十一",
-    "12": "十二",
-  )
-
-  str(date.year()).clusters().map(c => date-map.at(c)).sum() + "年" + date-map.at(str(date.month())) + "月"
+  let date-list = ("○", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二")
+  str(date.year()).clusters().map(c => date-list.at(int(c))).sum() + "年" + date-list.at(date.month()) + "月"
 }
 
 /// Cover Page
