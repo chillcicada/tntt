@@ -75,7 +75,7 @@
     // 字体展示页 | Fonts Display Page
     fonts-display: fonts-display.with(fonts: fonts),
     // 中文封面页 | Cover Page
-    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, default-fonts: fonts, doc-info: info),
+    cover: cover.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
     cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 书脊页 | Spine Page
