@@ -64,10 +64,7 @@
   // to avoid resetting on blank pages without headings when twoside is enabled.
   show heading.where(level: 1): it => {
     it
-    if reset-counter and not __page-reset.get() {
-      counter(page).update(1)
-      __page-reset.update(true)
-    }
+    if reset-counter and not __page-reset.get() { counter(page).update(1) + __page-reset.update(true) }
   }
 
   show-grid-figure(figure-numbering, subfig-numbering, subfig-numbering-extended, subfig-outlined, it)

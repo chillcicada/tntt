@@ -64,10 +64,7 @@
 /// -> content
 #let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc) = {
   set figure(numbering: figure-numbering)
-  show figure.where(kind: image): it => {
-    counter(figure.where(kind: grid)).update(it.counter.get())
-    it
-  }
+  show figure.where(kind: image): it => counter(figure.where(kind: grid)).update(it.counter.get()) + it
   show figure.where(kind: grid): it => {
     let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
     let grid-counter = it.counter.get()
@@ -78,22 +75,6 @@
     figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
     it.counter.update(grid-counter)
     counter(figure.where(kind: image)).update(grid-counter)
-  }
-  doc
-}
-
-/// Show unnumbered equations with specific labels.
-///
-/// - unnumbered-label (str): The label for unnumbered equations.
-/// - doc (content): The document content to be displayed with the equations.
-/// -> content
-#let show-label-equation(unnumbered-label, doc) = {
-  show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none)
-  show math.equation: it => {
-    if it.has("label") and str(it.label) == unnumbered-label {
-      return math.equation(it.body, numbering: none, ..filtered-fields(it, ("body", "label", "numbering")))
-    }
-    it
   }
   doc
 }
@@ -110,12 +91,7 @@
   show ref: it => {
     if it.element != none { return it }
     let target = str(it.target)
-    let stripped = for p in prefixes {
-      if target.starts-with(p) {
-        target.slice(p.len())
-        break
-      }
-    }
+    let stripped = for p in prefixes { if target.starts-with(p) { target.slice(p.len()) + break } }
     if stripped == none { return it }
     ref(label(stripped), ..filtered-fields(it, ("target", "element", "citation")))
   }
