@@ -60,7 +60,7 @@
   degree: "bachelor",
   degree-type: "academic",
   anonymous: false, // 盲审模式
-  twoside: false, // 双面模式，会加入空白页，便于打印
+  twoside: true, // 双面模式，会加入空白页，便于打印
   // 如下的信息会写入到 PDF 元数据中
   info: (
     title: "清华大学学位论文 Typst 模板\n使用示例文档",

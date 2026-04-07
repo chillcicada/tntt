@@ -16,7 +16,6 @@
 /// - info (dictionary): The information to be displayed on the cover page.
 /// - degree (str): The degree.
 /// - degree-type (str): The type of degree.
-/// - twoside (bool, str): Whether to use two-sided printing.
 /// - default-fonts (dictionary): The default font family to use if not specified in fonts.
 /// - doc-info (dictionary): The document information to extend the info with.
 /// - content (list): Custom content to be used instead of the preset content.
@@ -30,7 +29,6 @@
   info: (:),
   degree: "bachelor",
   degree-type: "academic",
-  twoside: false,
   // options
   default-fonts: (:),
   doc-info: (:),
@@ -40,7 +38,7 @@
 ) = {
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
   import "../utils/text.typ": distr-text, fixed-text, space-text
-  import "../utils/util.typ": is-not-empty, twoside-pagebreak
+  import "../utils/util.typ": is-not-empty
 
   info = doc-info + info
   fonts = default-fonts + fonts
@@ -147,8 +145,6 @@
     placed-top(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), 25.8em)
     placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -0.9em)
   }
-
-  twoside-pagebreak(twoside)
 }
 
 /// English Cover Page
@@ -248,6 +244,4 @@
   )
 
   placed-content(strong(text(font: use-fonts("HeiTi"), info.date.display("[month repr:long], [year]"))), 3pt)
-
-  twoside-pagebreak(twoside)
 }

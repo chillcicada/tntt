@@ -64,7 +64,7 @@
     // 文稿设置 | Document Layout Configuration
     doc: doc.with(header-display: degree != "bachelor", default-fonts: fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
-    front-matter: front-matter,
+    front-matter: front-matter.with(twoside: twoside),
     // 正文设置 | Main Matter Layout Configuration
     main-matter: main-matter.with(twoside: twoside, equation-numbering: "(1-1)"),
     // 后辅文设置 | Back Matter Layout Configuration
@@ -75,7 +75,7 @@
     // 字体展示页 | Fonts Display Page
     fonts-display: fonts-display.with(fonts: fonts),
     // 中文封面页 | Cover Page
-    cover: cover.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
+    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
     cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
     // 书脊页 | Spine Page
