@@ -30,7 +30,7 @@
   // self
   it,
 ) = {
-  import "../utils/util.typ": show-label-equation, show-latexref
+  import "../utils/util.typ": show-latexref
 
   import "../imports.typ": cuti
   import cuti: show-cn-fakebold
@@ -42,7 +42,9 @@
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
 
   // Apply unnumbered equation label
-  show: it => show-label-equation(unnumbered-label, it)
+  if unnumbered-label != "" and unnumbered-label != none {
+    show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none)
+  }
 
   set text(fallback: fallback, lang: lang, region: region)
 
@@ -243,7 +245,7 @@
 
   show footnote: it => if footnote-style == "normal" {
     // unset super style, only for bachelor thesis
-    show super: it => { it.body }
+    show super: it => it.body
     it
   } else if footnote-style == "super" { it } else { panic("Unknown footnote-style: " + footnote-style) }
 
@@ -276,7 +278,7 @@
   /// Bibliography
   show cite: it => if cite-style == "normal" {
     // unset super style, for bachelor thesis
-    show super: it => { it.body }
+    show super: it => it.body
     it
   } else if cite-style == "super" { it } else { panic("Unknown cite-style: " + cite-style) }
 
