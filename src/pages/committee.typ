@@ -86,6 +86,4 @@
           .flatten())
     } else { defenders }
   }
-
-  twoside-pagebreak(twoside)
 }

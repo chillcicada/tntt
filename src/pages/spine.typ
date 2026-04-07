@@ -25,24 +25,16 @@
   set page(margin: (x: 1cm, y: 5.4cm))
   set text(font: use-fonts(text-font), size: use-size(text-size))
 
-  place(
-    right + top,
-    {
-      show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg))
-      rotate(info.title.sum(), 90deg, origin: right + top, reflow: true)
-    },
-  )
+  place(right + top, {
+    show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg))
+    rotate(info.title.sum(), 90deg, origin: right + top, reflow: true)
+  })
 
   // Note that the specification does not require the anonymous behavior
-  if not anonymous {
-    place(
-      right + bottom,
-      {
-        show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg), width: 1cm)
-        rotate(info.author, 90deg, origin: right + top, reflow: true)
-      },
-    )
-  }
+  if anonymous { return }
 
-  twoside-pagebreak(twoside)
+  place(right + bottom, {
+    show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg), width: 1cm)
+    rotate(info.author, 90deg, origin: right + top, reflow: true)
+  })
 }
