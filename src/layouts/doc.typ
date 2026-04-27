@@ -42,9 +42,9 @@
   show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
 
   // Apply unnumbered equation label
-  if unnumbered-label != "" and unnumbered-label != none {
-    show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none)
-  }
+  show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none) if not (
+    unnumbered-label in ("", none)
+  )
 
   set text(fallback: fallback, lang: lang, region: region)
 
