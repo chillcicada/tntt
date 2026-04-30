@@ -61,8 +61,9 @@
 /// - extended (bool): Whether to extend the subfigure numbering with the figure numbering.
 /// - subfig-outlined (bool): Whether to outline the subfigures.
 /// - doc (content): The document content to be displayed with the grid figures.
+/// - enabled (bool): Whether to enable the grid figure display as subfigures of image figures.
 /// -> content
-#let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc) = {
+#let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc, enabled: true) = if enabled {
   set figure(numbering: figure-numbering)
   show figure.where(kind: image): it => counter(figure.where(kind: grid)).update(it.counter.get()) + it
   show figure.where(kind: grid): it => {
@@ -77,7 +78,7 @@
     counter(figure.where(kind: image)).update(grid-counter)
   }
   doc
-}
+} else { doc }
 
 /// Apply compatibility rewrite for refs.
 ///
@@ -86,8 +87,9 @@
 ///
 /// - prefixes (array): An array of prefixes to strip from the ref targets, such as "fig:", "tbl:", etc.
 /// - doc (content): The document content to be displayed with the rewritten refs.
+/// - enabled (bool): Whether to enable the LaTeX/i-figured reference compatibility rewrite.
 /// -> content
-#let show-latexref(prefixes, doc) = {
+#let show-latexref(prefixes, doc, enabled: true) = if enabled {
   show ref: it => {
     if it.element != none { return it }
     let target = str(it.target)
@@ -96,4 +98,4 @@
     ref(label(stripped), ..filtered-fields(it, ("target", "element", "citation")))
   }
   doc
-}
+} else { doc }
