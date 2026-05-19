@@ -101,7 +101,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 ## 预览
 
-![preview][Preview]
+![预览][Preview]
 
 ## 致谢
 
@@ -132,11 +132,11 @@ English | [简体中文](#介绍)
 
 ## Introduction
 
-TnTT is a recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University", as an **unofficial** Tsinghua University (THU) comprehensive thesis template based on [Typst][Typst].
+TnTT is the recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghua University", as an **unofficial** Tsinghua University (THU) comprehensive thesis template based on [Typst][Typst].
 
 > [!IMPORTANT]
 >
-> **Currently, it basically supports theses for all degrees. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, it is recommended to use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
+> **Currently, tntt basically supports theses for all degrees. Since Typst is not yet stable, this template will continuously track its latest release. Therefore, it is recommended to use the latest released version of Typst for editing to ensure access to new features and avoid compatibility issues.**
 
 **For update notes and migration guides, please refer to the [version release page][Latest Release].**
 
