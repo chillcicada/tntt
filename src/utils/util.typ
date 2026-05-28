@@ -1,3 +1,5 @@
+//! Utility functions for TNTT templates.
+
 /// Get the element at the given position in the array.
 ///
 /// - arr (array): The array to get the element from
@@ -39,12 +41,12 @@
 /// - args (arguments): The arguments to pass to the pagebreak function
 /// -> none
 #let twoside-pagebreak(twoside, ..args) = {
-  if twoside in (false, "false", "no", "off") { pagebreak(weak: true, ..args) } else {
-    set page(header: none) if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on")
-    set page(numbering: none) if twoside in ("no-numbering", "no-content")
-    if twoside in ("no-numbering", "no-content") { counter(page).update(n => n - 1) }
-    pagebreak(weak: true, to: { "odd" }, ..args)
-  }
+  if twoside in (false, "false", "no", "off") { pagebreak(weak: true, ..args) + return }
+
+  set page(header: none) if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on")
+  set page(numbering: none) if twoside in ("no-numbering", "no-content")
+  if twoside in ("no-numbering", "no-content") { counter(page).update(n => n - 1) }
+  pagebreak(weak: true, to: { "odd" }, ..args)
 }
 
 /// Filter out specified fields from an element's fields and return a new dictionary with the remaining fields.
@@ -61,9 +63,8 @@
 /// - extended (bool): Whether to extend the subfigure numbering with the figure numbering.
 /// - subfig-outlined (bool): Whether to outline the subfigures.
 /// - doc (content): The document content to be displayed with the grid figures.
-/// - enabled (bool): Whether to enable the grid figure display as subfigures of image figures.
 /// -> content
-#let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc, enabled: true) = if enabled {
+#let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc) = {
   set figure(numbering: figure-numbering)
   show figure.where(kind: image): it => counter(figure.where(kind: grid)).update(it.counter.get()) + it
   show figure.where(kind: grid): it => {
@@ -78,7 +79,7 @@
     counter(figure.where(kind: image)).update(grid-counter)
   }
   doc
-} else { doc }
+}
 
 /// Apply compatibility rewrite for refs.
 ///
@@ -87,9 +88,8 @@
 ///
 /// - prefixes (array): An array of prefixes to strip from the ref targets, such as "fig:", "tbl:", etc.
 /// - doc (content): The document content to be displayed with the rewritten refs.
-/// - enabled (bool): Whether to enable the LaTeX/i-figured reference compatibility rewrite.
 /// -> content
-#let show-latexref(prefixes, doc, enabled: true) = if enabled {
+#let show-latexref(prefixes, doc) = {
   show ref: it => {
     if it.element != none { return it }
     let target = str(it.target)
@@ -98,4 +98,4 @@
     ref(label(stripped), ..filtered-fields(it, ("target", "element", "citation")))
   }
   doc
-} else { doc }
+}

@@ -1,3 +1,4 @@
+//! The main configuration file for the TNTT template.
 #import "exports.typ"
 
 #import "imports.typ": *
