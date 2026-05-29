@@ -36,10 +36,10 @@
   import cuti: show-cn-fakebold
 
   // Apply LaTeX/i-figured reference compatibility
-  show: show-latexref.with(default-prefixes + extra-prefixes, enabled: use-latexref)
+  show: if use-latexref { show-latexref.with(default-prefixes + extra-prefixes) } else { it => it }
 
   // Fix for Chinese fake bold rendering
-  show: it => if use-fakebold { show-cn-fakebold(it) } else { it }
+  show: if use-fakebold { show-cn-fakebold } else { it => it }
 
   // Apply unnumbered equation label
   show math.equation.where(label: label(unnumbered-label)): set math.equation(numbering: none) if not (

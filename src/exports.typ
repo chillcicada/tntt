@@ -1,6 +1,4 @@
-/*
- This module exports all layouts and pages.
-*/
+//! This module exports all layouts and pages.
 
 /// ------ ///
 /// Layout ///
