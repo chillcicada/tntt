@@ -66,15 +66,17 @@
 #let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc, enabled: true) = if enabled {
   set figure(numbering: figure-numbering)
   show figure.where(kind: image): it => counter(figure.where(kind: grid)).update(it.counter.get()) + it
+  counter(figure.where(kind: "__tntt:resolved-grid")).update(1)
   show figure.where(kind: grid): it => {
     let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
-    let grid-counter = it.counter.get()
+    let grid-counter = counter(figure.where(kind: "__tntt:resolved-grid")).get()
     counter(figure.where(kind: image)).update(0)
     show figure.where(kind: image): set figure(outlined: subfig-outlined)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
     figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
     it.counter.update(grid-counter)
+    counter(figure.where(kind: "__tntt:resolved-grid")).step(level: 1)
     counter(figure.where(kind: image)).update(grid-counter)
   }
   doc
