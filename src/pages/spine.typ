@@ -1,8 +1,17 @@
+/// Spine Page
+///
+/// - info (dictionary): The information to be displayed on the spine page.
+/// - fonts (dictionary): The font family to use.
+/// - twoside (bool, str): Whether to use two-sided printing.
+/// - anonymous (bool): Whether to use anonymous mode.
+/// - default-fonts (dictionary): The default font family to use if not specified in fonts
+/// - text-font (str): The font family to use for the text on the spine.
+/// - text-size (str | length): The font size to use for the text on the spine.
+/// -> content
 #let spine(
   // from entry
   info: (:),
   fonts: (:),
-  degree: "master",
   twoside: false,
   anonymous: false,
   // options
@@ -12,8 +21,6 @@
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
   import "../utils/util.typ": twoside-pagebreak
-
-  if degree == "bachelor" { return }
 
   fonts = default-fonts + fonts
 
