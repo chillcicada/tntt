@@ -43,10 +43,6 @@
   set page(numbering: none) if twoside in ("no-numbering", "no-content")
 
   pagebreak(weak: true, to: { "odd" }, ..args)
-
-  if twoside in ("no-numbering",) {
-    counter(page).update(n => calc.max(n - 1, 1))
-  }
 }
 
 /// Filter out specified fields from an element's fields and return a new dictionary with the remaining fields.
