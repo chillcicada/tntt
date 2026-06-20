@@ -100,9 +100,13 @@
     supervisor: ("某某某", "教授"),
     // 多指导老师示例
     // supervisor: ("某某某", "教授", "某某", "副教授"),
-    // 联合指导教师/副指导教师，对本科生无效
-    co-supervisor: ("某某某", "教授"),
+    // 联合指导教师/副指导教师，通常本科生不填写
+    co-supervisor: none,
+    // co-supervisor: ("某某某", "教授"),
   ),
+  // 将 co-supervisor 显示为副指导教师而非联合指导教师
+  // department, major, author, supervisor 也可用类似方式调整
+  // info-items: (co-supervisor: "副指导教师"),
 )
 
 // 英文封面页，仅适用于研究生及以上

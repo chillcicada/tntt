@@ -47,24 +47,23 @@
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))
 
-  // @typstyle off
-  let preset-info-items = (
-    bachelor: (department: "系别", major: "专业", author: "姓名", supervisor: "指导教师"),
-    graduate: (department: "培养单位", major: "学科", author: "研究生", supervisor: "指导教师", co-supervisor: "联合指导教师"),
-  )
+  let has-co-supervisor = info.at("co-supervisor", default: none) not in (none, ())
 
-  if info-items == (:) {
-    info-items = if degree == "bachelor" { preset-info-items.bachelor } else { preset-info-items.graduate }
-  }
+  // @typstyle off
+  info-items = (
+    department: "系别", major: "专业", author: "姓名", supervisor: "指导教师",
+    ..if has-co-supervisor { (co-supervisor: "联合指导教师") },
+    ..info-items,
+  )
 
   assert(
     info-items.keys().all(k => k in info),
-    message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
+    message: "Required info-items for info: " + info-items.keys().filter(k => k not in info).join(", "),
   )
 
   // Calculate suitable width of info items
   info-item-width = if info-item-width == none {
-    if degree == "bachelor" { 4em } else { 5em }
+    if has-co-supervisor { 5em } else { 4em }
   } else if info-item-width == auto {
     calc.max(info-items.values().map(v => v.clusters().len())) * 1em
   } else { info-item-width }
@@ -75,43 +74,42 @@
   )
 
   info.supervisor = info.supervisor.chunks(2)
-  if degree != "bachelor" { info.co-supervisor = info.co-supervisor.chunks(2) }
+  if has-co-supervisor { info.co-supervisor = info.co-supervisor.chunks(2) }
 
   // Calculate suitable width of supervisor
   let supervisor-width = {
     let name-width = calc.max(
       info.author.clusters().len(),
       ..info.supervisor.map(p => p.first().clusters().len()),
-      ..if degree != "bachelor" { info.co-supervisor.map(p => p.first().clusters().len()) },
+      ..if has-co-supervisor { info.co-supervisor.map(p => p.first().clusters().len()) },
     )
     let post-width = calc.max(
       ..info.supervisor.map(p => p.last().clusters().len()),
-      ..if degree != "bachelor" { info.co-supervisor.map(p => p.last().clusters().len()) },
+      ..if has-co-supervisor { info.co-supervisor.map(p => p.last().clusters().len()) },
     )
 
-    if name-width <= 3 and post-width >= 4 { (3em, (post-width + 1) * 1em) } else {
-      (calc.max(4, name-width) * 1em, calc.max(4, post-width + 1) * 1em)
+    if name-width <= 2 and info.supervisor.all(p => p.first().clusters().len() < p.last().clusters().len()) {
+      (3em, calc.max(4, post-width) * 1em)
+    } else {
+      (calc.max(4, name-width) * 1em, calc.max(3, post-width) * 1em)
     }
   }
 
-  // TODO: add pretty formatting
   info.author = if anonymous { use-anonymous(4em) } else {
     block(fixed-text(info.author, supervisor-width.first()), width: supervisor-width.first())
   }
 
   let format-supervisor(arr) = arr
     .intersperse("")
-    .map(p => if p == "" { ("", "") } else {
-      if anonymous { use-anonymous(8em) } else {
-        block(
-          fixed-text(p.first(), supervisor-width.first()) + fixed-text("　" + p.last(), supervisor-width.last()),
-          width: supervisor-width.sum(),
-        )
-      }
+    .map(p => if p == "" { ("", "") } else if anonymous { use-anonymous(8em) } else {
+      block(
+        fixed-text(p.first(), supervisor-width.first()) + "　" + fixed-text(p.last(), supervisor-width.last()),
+        width: supervisor-width.sum() + 1em,
+      )
     })
   info.supervisor = format-supervisor(info.supervisor)
 
-  if degree != "bachelor" { info.co-supervisor = format-supervisor(info.co-supervisor) }
+  if has-co-supervisor { info.co-supervisor = format-supervisor(info.co-supervisor) }
 
   let placed-top(content, dy) = place(center + top, content, dy: dy)
   let placed-bottom(content, dy) = place(center + bottom, content, dy: dy)
