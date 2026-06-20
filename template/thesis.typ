@@ -59,12 +59,20 @@
   // 模板内容会根据学位自动调整，对于不需要的内容会自动忽略
   degree: "bachelor",
   degree-type: "academic",
-  anonymous: false, // 盲审模式
-  twoside: false, // 双面模式，会加入空白页，便于打印
+  // 盲审模式，启用后会隐藏作者信息和部分页面
+  anonymous: false,
+  // 双面模式，会在部分页面后加入空白页，便于打印
+  // 启用双面打印时，可选值: no-header, no-numbering, no-content
+  // - no-header: 不显示页眉
+  // - no-numbering: 不显示页码
+  // - no-content: 不显示页眉和页码（默认为此）
+  // 启用双面打印时，仍然会在空白页上更新页码计数器，如果需要禁用此行为（不建议）
+  // 请在最终文档中的空白页后添加 counter(page).update(n => n - 1)
+  twoside: false,
   // 如下的信息会写入到 PDF 元数据中
   info: (
     title: "清华大学学位论文 Typst 模板\n使用示例文档",
-    // 等价于（如果你需要将标题用 content 表示，请用下面的写法）
+    // 等价于
     // title: ("清华大学学位论文 Typst 模板", "使用示例文档"),
     author: "某某某",
     // 论文提交日期，封面仅显示年月，但具体日期会写入到 PDF 元数据中
