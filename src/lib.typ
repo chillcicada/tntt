@@ -33,7 +33,7 @@
   assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: "不支持的学位")
   assert(degree-type in ("academic",), message: "不支持的学位类型")
 
-  anonymous = is-true(anonymous)
+  anonymous = if anonymous in (true, "true") { true } else { false }
 
   if type(info.title) == str { info.title = info.title.split("\n") } else {
     assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")

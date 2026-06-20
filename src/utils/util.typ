@@ -7,12 +7,6 @@
 /// -> any
 #let array-at(arr, pos) = { arr.at(calc.min(pos, arr.len()) - 1) }
 
-/// Check if a string value represents a true boolean value.
-///
-/// - s (bool, str, content): The string to check
-/// -> bool
-#let is-true(s) = if s in (true, false) { s } else { lower(s) in ("true", "yes", "on", "1") }
-
 /// Check if a value is not empty (not none, not an empty string, and not an empty array).
 ///
 /// - c (any): The value to check
@@ -41,12 +35,18 @@
 /// - args (arguments): The arguments to pass to the pagebreak function
 /// -> none
 #let twoside-pagebreak(twoside, ..args) = {
-  if twoside in (false, "false", "no", "off") { pagebreak(weak: true, ..args) + return }
+  twoside = if twoside in (true, "true") { "no-content" } else { twoside }
 
-  set page(header: none) if twoside in (true, "no-header", "no-content", "default", "true", "yes", "on")
+  if twoside in (false, "false") { return pagebreak(weak: true, ..args) }
+
+  set page(header: none) if twoside in ("no-header", "no-content")
   set page(numbering: none) if twoside in ("no-numbering", "no-content")
-  if twoside in ("no-numbering", "no-content") { counter(page).update(n => n - 1) }
+
   pagebreak(weak: true, to: { "odd" }, ..args)
+
+  if twoside in ("no-numbering",) {
+    counter(page).update(n => calc.max(n - 1, 1))
+  }
 }
 
 /// Filter out specified fields from an element's fields and return a new dictionary with the remaining fields.
