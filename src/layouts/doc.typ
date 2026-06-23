@@ -23,7 +23,7 @@
   paper: "a4",
   fallback: false,
   use-fakebold: true,
-  use-latexref: true,
+  use-latexref: false,
   unnumbered-label: "-",
   extra-prefixes: (),
   default-prefixes: ("fig:", "tbl:", "eqt:", "lst:", "img:"),
