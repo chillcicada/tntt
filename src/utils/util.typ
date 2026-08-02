@@ -39,8 +39,8 @@
 
   if twoside in (false, "false") { return pagebreak(weak: true, ..args) }
 
-  set page(header: none) if twoside in ("no-header", "no-content")
-  set page(numbering: none) if twoside in ("no-numbering", "no-content")
+  set page(header: none) if twoside in ("no-header", "no-content", "blank-only")
+  set page(numbering: none) if twoside in ("no-numbering", "no-content", "blank-only")
 
   if twoside == "blank-only" { [#metadata(none) <__tntt:pagebreak-blank-only>] }
 
