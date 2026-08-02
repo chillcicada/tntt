@@ -67,7 +67,7 @@
   // - no-numbering: 不显示页码
   // - no-content: 不显示页眉和页码（设置为 true 时默认为此）
   // - blank-only: 仅插入空白页，不更新页码计数器
-  twoside: "blank-only",
+  twoside: false,
   // 如下的信息会写入到 PDF 元数据中
   info: (
     title: "清华大学学位论文 Typst 模板\n使用示例文档",
