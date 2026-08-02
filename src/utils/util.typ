@@ -39,8 +39,10 @@
 
   if twoside in (false, "false") { return pagebreak(weak: true, ..args) }
 
-  set page(header: none) if twoside in ("no-header", "no-content")
-  set page(numbering: none) if twoside in ("no-numbering", "no-content")
+  set page(header: none) if twoside in ("no-header", "no-content", "blank-only")
+  set page(numbering: none) if twoside in ("no-numbering", "no-content", "blank-only")
+
+  if twoside == "blank-only" { [#metadata(none) <__tntt:pagebreak-blank-only>] }
 
   pagebreak(weak: true, to: { "odd" }, ..args)
 }
@@ -61,19 +63,19 @@
 /// - doc (content): The document content to be displayed with the grid figures.
 /// -> content
 #let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc) = {
+  assert(figure-numbering != subfig-numbering, message: "figure-numbering and subfig-numbering must be different")
   set figure(numbering: figure-numbering)
-  show figure.where(kind: image): it => counter(figure.where(kind: grid)).update(it.counter.get()) + it
-  counter(figure.where(kind: "__tntt:resolved-grid")).update(1)
+  show figure.where(kind: image): it => (
+    if it.numbering == figure-numbering { counter(figure.where(kind: grid)).step() } + it
+  )
   show figure.where(kind: grid): it => {
-    let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
-    let grid-counter = counter(figure.where(kind: "__tntt:resolved-grid")).get()
+    let grid-counter = it.counter.get()
     counter(figure.where(kind: image)).update(0)
     show figure.where(kind: image): set figure(outlined: subfig-outlined)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
+    let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
     figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
-    it.counter.update(grid-counter)
-    counter(figure.where(kind: "__tntt:resolved-grid")).step(level: 1)
     counter(figure.where(kind: image)).update(grid-counter)
   }
   doc
