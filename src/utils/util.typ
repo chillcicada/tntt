@@ -65,17 +65,17 @@
 #let show-grid-figure(figure-numbering, subfig-numbering, extended, subfig-outlined, doc) = {
   assert(figure-numbering != subfig-numbering, message: "figure-numbering and subfig-numbering must be different")
   set figure(numbering: figure-numbering)
-  show figure.where(kind: image): img => (
-    if img.numbering == figure-numbering { counter(figure.where(kind: grid)).step() } + img
+  show figure.where(kind: image): it => (
+    if it.numbering == figure-numbering { counter(figure.where(kind: grid)).step() } + it
   )
-  show figure.where(kind: grid): grid => {
-    let grid-counter = grid.counter.get()
+  show figure.where(kind: grid): it => {
+    let grid-counter = it.counter.get()
     counter(figure.where(kind: image)).update(0)
     show figure.where(kind: image): set figure(outlined: subfig-outlined)
     show figure.where(kind: image): set figure(numbering: n => subfig-numbering(..grid-counter, n)) if extended
     show figure.where(kind: image): set figure(numbering: subfig-numbering) if not extended
-    let rest = filtered-fields(grid, ("body", "caption", "numbering", "kind", "counter", "label"))
-    figure(grid.body, caption: figure.caption(grid.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
+    let rest = filtered-fields(it, ("body", "caption", "numbering", "kind", "counter", "label"))
+    figure(it.body, caption: figure.caption(it.caption), numbering: none, kind: "__tntt:resolved-grid", ..rest)
     counter(figure.where(kind: image)).update(grid-counter)
   }
   doc
