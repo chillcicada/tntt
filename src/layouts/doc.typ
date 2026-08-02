@@ -46,6 +46,8 @@
     unnumbered-label in ("", none)
   )
 
+  show <__tntt:pagebreak-blank-only>: it => if calc.even(here().page()) { counter(page).update(p => p - 1) } + it
+
   set text(fallback: fallback, lang: lang, region: region)
 
   set page(margin: margin, paper: paper)
