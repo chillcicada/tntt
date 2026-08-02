@@ -35,10 +35,12 @@
 /// - args (arguments): The arguments to pass to the pagebreak function
 /// -> none
 #let twoside-pagebreak(twoside, ..args) = {
+  twoside = if twoside in (true, "true") { "no-content" } else { twoside }
+
   if twoside in (false, "false") { return pagebreak(weak: true, ..args) }
 
-  set page(header: none) if twoside in (true, "true", "no-header", "no-content", "blank-only")
-  set page(numbering: none) if twoside in (true, "true", "no-numbering", "no-content", "blank-only")
+  set page(header: none) if twoside in ("no-header", "no-content")
+  set page(numbering: none) if twoside in ("no-numbering", "no-content")
 
   if twoside == "blank-only" { [#metadata(none) <__tntt:pagebreak-blank-only>] }
 
