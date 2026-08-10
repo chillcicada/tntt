@@ -47,7 +47,7 @@
     heading(level: 2, numbering: none, outlined: false, bookmarked: false, str)
     v(2pt)
   }
-  let length-checker = it => it.len() == 3 // (name, title, affiliation)
+  let length-checker = it => it.len() == 3 // expect (name, title, affiliation)
 
   /// Render
   twoside-pagebreak(twoside)
@@ -80,9 +80,9 @@
     format-text(defenders-title)
     if type(defenders) == dictionary {
       grid(columns: defenders-columns, ..defenders
-          .keys()
-          .filter(k => type(defenders.at(k)) == array and defenders.at(k) != ())
-          .map(k => (k, defenders.at(k).filter(length-checker).intersperse("")))
+          .filter(v => type(v) == array and v != ())
+          .map(v => v.filter(length-checker).intersperse(""))
+          .pairs()
           .flatten())
     } else { defenders }
   }

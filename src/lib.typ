@@ -27,17 +27,18 @@
 ) = {
   import exports: *
   import "pages/cover.typ": cover, cover-en
-
   import "utils/font.typ": _use-cjk-fonts, _use-en-font, _use-fonts
+
+  degree = sys.inputs.at("degree", default: degree)
+  degree-type = sys.inputs.at("degree-type", default: degree-type)
+  anonymous = if sys.inputs.at("anonymous", default: anonymous) in (true, "true") { true } else { false }
+  twoside = sys.inputs.at("twoside", default: twoside)
 
   assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: "不支持的学位")
   assert(degree-type in ("academic",), message: "不支持的学位类型")
 
-  anonymous = if anonymous in (true, "true") { true } else { false }
-
-  if type(info.title) == str { info.title = info.title.split("\n") } else {
-    assert(type(info.title) == array, message: "论文标题（info.title）必须是字符串或字符串数组")
-  }
+  info.title = parsed-title(info.title)
+  info.author = if anonymous { "" } else { info.author }
 
   // @typstyle off
   (
@@ -63,7 +64,7 @@
     // 文档元配置 | Document Meta Configuration
     meta: meta.with(info: info, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
-    doc: doc.with(header-display: degree != "bachelor", default-fonts: fonts, extra-fig-kinds: ("algorithm",)),
+    doc: doc.with(header-display: degree != "bachelor", fonts: fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
     front-matter: front-matter.with(twoside: twoside),
     // 正文设置 | Main Matter Layout Configuration
@@ -76,21 +77,21 @@
     // 字体展示页 | Fonts Display Page
     fonts-display: fonts-display.with(fonts: fonts),
     // 中文封面页 | Cover Page
-    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, default-fonts: fonts, doc-info: info),
+    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, fonts: fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
-    cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, default-fonts: fonts, doc-info: info),
+    cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, fonts: fonts),
     // 书脊页 | Spine Page
-    spine: spine.with(twoside: twoside, anonymous: anonymous, default-fonts: fonts, info: info),
+    spine: spine.with(twoside: twoside, anonymous: anonymous, fonts: fonts),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
     committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 授权页 | Copyright Page
     copyright: copyright.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 中文摘要页 | Abstract Page
-    abstract: abstract.with(twoside: twoside, outlined: degree != "bachelor", default-fonts: fonts),
+    abstract: abstract.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
     // 英文摘要页 | Abstract (English) Page
-    abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", default-fonts: fonts),
+    abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
     // 目录页 | Outline Page
-    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", default-fonts: fonts),
+    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
     // 总清单页 | Master List Page
     master-list: master-list.with(twoside: twoside, outlined: degree != "bachelor"),
     // 插图和附表清单页 | Figure and Table Index Page
@@ -112,7 +113,7 @@
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
     achievement: achievement.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 论文训练记录表 | Record Sheet Page
-    record-sheet: record-sheet.with(degree: degree, anonymous: anonymous, twoside: twoside, doc-info: info),
+    record-sheet: record-sheet.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 指导教师/指导小组评语页 | Advisor Comments Page
     comments: comments.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 答辩委员会决议书 | Committee Resolution Page

@@ -1,14 +1,3 @@
-/// Convert a date to a Chinese date string, using Chinese numerals for the year and month
-///
-/// This is not designed to be a general date formatting function
-///
-/// - date: The date to convert
-/// -> str
-#let _display-zh(date) = {
-  let date-list = ("○", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二")
-  str(date.year()).clusters().map(c => date-list.at(int(c))).sum() + "年" + date-list.at(date.month()) + "月"
-}
-
 /// Cover Page
 ///
 /// - anonymous (bool): Whether to use anonymous mode.
@@ -16,7 +5,6 @@
 /// - info (dictionary): The information to be displayed on the cover page.
 /// - degree (str): The degree.
 /// - degree-type (str): The type of degree.
-/// - default-fonts (dictionary): The default font family to use if not specified in fonts.
 /// - doc-info (dictionary): The document information to extend the info with.
 /// - content (list): Custom content to be used instead of the preset content.
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.
@@ -30,7 +18,6 @@
   degree: "bachelor",
   degree-type: "academic",
   // options
-  default-fonts: (:),
   doc-info: (:),
   content: [],
   info-items: (:),
@@ -41,7 +28,6 @@
   import "../utils/util.typ": is-not-empty
 
   info = doc-info + info
-  fonts = default-fonts + fonts
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-cjk-fonts = name => _use-cjk-fonts(fonts, name)
@@ -49,11 +35,10 @@
 
   let has-co-supervisor = info.at("co-supervisor", default: none) not in (none, ())
 
-  // @typstyle off
   info-items = (
-    department: "系别", major: "专业", author: "姓名", supervisor: "指导教师",
-    ..if has-co-supervisor { (co-supervisor: "联合指导教师") },
-    ..info-items,
+    (department: "系别", major: "专业", author: "姓名", supervisor: "指导教师")
+      + if has-co-supervisor { (co-supervisor: "联合指导教师") }
+      + info-items
   )
 
   assert(
@@ -111,12 +96,18 @@
 
   if has-co-supervisor { info.co-supervisor = format-supervisor(info.co-supervisor) }
 
-  let placed-top(content, dy) = place(center + top, content, dy: dy)
-  let placed-bottom(content, dy) = place(center + bottom, content, dy: dy)
   let format-info(items) = grid(
     align: (center + horizon, left + horizon, left), columns: (2.80cm, 0.82cm, 5.62cm), row-gutter: 0.715cm,
     ..items.keys().map(k => (format-info-item(items.at(k)), "：", info.at(k))).flatten()
   )
+
+  let display-zh(date) = {
+    let date-list = ("○", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二")
+    str(date.year()).clusters().map(c => date-list.at(int(c))).sum() + "年" + date-list.at(date.month()) + "月"
+  }
+
+  let placed-top(content, dy) = place(center + top, content, dy: dy)
+  let placed-bottom(content, dy) = place(center + bottom, content, dy: dy)
 
   /// Render cover page
   set align(center)
@@ -131,7 +122,7 @@
     text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
     set par(leading: 0.6em)
     placed-top(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), 35.88em)
-    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -1.15em)
+    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -1.15em)
   } else {
     set page(margin: (x: 4cm, y: 6cm))
     set par(leading: 1.15em, spacing: 1.32em)
@@ -141,7 +132,7 @@
     text(size: use-size("小二"), font: use-fonts("SongTi"), [（申请清华大学#info.degree-name;学位论文）])
     set par(leading: 0.6em)
     placed-top(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), 25.8em)
-    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), _display-zh(info.date)), -0.9em)
+    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -0.9em)
   }
 }
 
@@ -153,8 +144,6 @@
 /// - degree (str): The degree.
 /// - degree-type (str): The type of degree.
 /// - twoside (bool, str): Whether to use two-sided printing.
-/// - default-fonts (dictionary): The default font family to use if not specified in fonts
-/// - doc-info (dictionary): The document information to extend the info with.
 /// - info-items (dictionary): The items to be displayed in the info section, mapping keys to their display names.
 /// -> content
 #let cover-en(
@@ -166,8 +155,6 @@
   degree-type: "academic",
   twoside: false,
   // options
-  default-fonts: (:),
-  doc-info: (:),
   info-items: (supervisor: "Thesis Supervisor", co-supervisor: "Associate Supervisor"),
 ) = {
   if degree == "bachelor" { return }
@@ -175,8 +162,7 @@
   import "../utils/util.typ": twoside-pagebreak
   import "../utils/font.typ": _use-fonts, use-size
 
-  info = doc-info + info
-  fonts = default-fonts + fonts
+  info.date = context info.at("date", default: document.date).display("[month repr:long], [year]")
 
   let use-fonts = name => _use-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))
@@ -186,7 +172,7 @@
     message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
   )
 
-  let placed-content(content, dy) = place(bottom + center, content, dy: dy)
+  let placed-content(dy, content) = place(bottom + center, content, dy: dy)
   let format-supervisor(items) = grid(
     align: (right, left), columns: (5.95cm, 1fr), rows: 1.1cm, column-gutter: 9.5pt,
     ..items
@@ -206,40 +192,34 @@
 
   text(size: use-size("二号"), font: use-fonts("HeiTi"), strong(info.title.join("\n")))
 
-  placed-content(
-    {
-      set par(leading: 1em, spacing: 1.05em)
-      set text(font: use-fonts("SongTi"))
-      [
-        Thesis submitted to
+  placed-content(-11.64em, {
+    set par(leading: 1em, spacing: 1.05em)
+    set text(font: use-fonts("SongTi"))
+    [
+      Thesis submitted to
 
-        *Tsinghua University*
+      *Tsinghua University*
 
-        in partial fulfillment of the requirement
+      in partial fulfillment of the requirement
 
-        for the degree of
-      ]
-      v(-0.4pt)
-      strong(text(font: use-fonts("HeiTi"), info.degree-name))
-      v(3pt)
-      [in]
-      v(3pt)
-      strong(text(font: use-fonts("HeiTi"), info.major))
-    },
-    -11.64em,
-  )
+      for the degree of
+    ]
+    v(-0.4pt)
+    strong(text(font: use-fonts("HeiTi"), info.degree-name))
+    v(3pt)
+    [in]
+    v(3pt)
+    strong(text(font: use-fonts("HeiTi"), info.major))
+  })
 
-  placed-content(
-    {
-      set text(font: use-fonts("HeiTi"))
-      [by]
-      v(3pt)
-      strong(if anonymous { use-anonymous(5em) } else { info.author })
-      v(-21pt)
-      text(font: use-fonts("SongTi"), tracking: -0.45pt, format-supervisor(info-items))
-    },
-    -2.56em,
-  )
+  placed-content(-2.56em, {
+    set text(font: use-fonts("HeiTi"))
+    [by]
+    v(3pt)
+    strong(if anonymous { use-anonymous(5em) } else { info.author })
+    v(-21pt)
+    text(font: use-fonts("SongTi"), tracking: -0.45pt, format-supervisor(info-items))
+  })
 
-  placed-content(strong(text(font: use-fonts("HeiTi"), info.date.display("[month repr:long], [year]"))), 3pt)
+  placed-content(3pt, strong(text(font: use-fonts("HeiTi"), info.date)))
 }

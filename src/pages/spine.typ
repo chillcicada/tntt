@@ -4,7 +4,6 @@
 /// - fonts (dictionary): The font family to use.
 /// - twoside (bool, str): Whether to use two-sided printing.
 /// - anonymous (bool): Whether to use anonymous mode.
-/// - default-fonts (dictionary): The default font family to use if not specified in fonts
 /// - text-font (str): The font family to use for the text on the spine.
 /// - text-size (str | length): The font size to use for the text on the spine.
 /// -> content
@@ -15,14 +14,14 @@
   twoside: false,
   anonymous: false,
   // options
-  default-fonts: (:),
   text-font: "FangSong",
   text-size: "三号",
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
-  import "../utils/util.typ": twoside-pagebreak
+  import "../utils/util.typ": parsed-title, twoside-pagebreak
 
-  fonts = default-fonts + fonts
+  info.title = context if "title" in info { parsed-title(info.title).sum() } else { document.title }
+  info.author = context info.at("author", default: document.author.first())
 
   let use-fonts = name => _use-fonts(fonts, name)
 
@@ -34,7 +33,7 @@
 
   place(right + top, {
     show regex("[\p{script=Han}]"): it => box(rotate(it, -90deg))
-    rotate(info.title.sum(), 90deg, origin: right + top, reflow: true)
+    rotate(info.title, 90deg, origin: right + top, reflow: true)
   })
 
   // Note that the specification does not require the anonymous behavior

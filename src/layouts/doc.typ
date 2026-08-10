@@ -5,7 +5,7 @@
 /// - region (text.region): The region for the document, default is "cn" (China Mainland).
 /// - margin (margin): The margin settings for the document.
 /// - paper (str): The paper size for the document, default is "a4".
-/// - fallback (bool): Whether to use fallback fonts.
+/// - fallback (bool): Whether to use fallback fonts, disabled it may cause missing glyphs for some characters.
 /// - use-fakebold (bool): Whether to use fake bold rendering for Chinese text.
 /// - use-latexref (bool): Whether to apply LaTeX/i-figured reference compatibility.
 /// - unnumbered-label (str): The label for unnumbered equations.
@@ -21,7 +21,7 @@
   region: "cn",
   margin: 3cm,
   paper: "a4",
-  fallback: false,
+  fallback: true,
   use-fakebold: true,
   use-latexref: false,
   unnumbered-label: "-",
@@ -62,7 +62,6 @@
 /// Document Configuration
 ///
 /// - fonts (dictionary): A dictionary of font names and their corresponding styles.
-/// - default-fonts (dictionary): A dictionary of default font styles to use if not specified in fonts.
 /// - indent (length): Paragraph indentation.
 /// - justify (bool): Whether to justify text in paragraphs.
 /// - leading (length): The leading (line height) for paragraphs.
@@ -112,7 +111,6 @@
   // from entry
   fonts: (:),
   // options
-  default-fonts: (:),
   indent: 2em,
   justify: true,
   leading: 0.98em,
@@ -163,8 +161,6 @@
 ) = {
   import "../utils/font.typ": _use-en-font, _use-fonts, use-size
   import "../utils/util.typ": array-at
-
-  fonts = default-fonts + fonts
 
   /// Auxiliary functions
   let use-fonts = _use-fonts.with(fonts)

@@ -52,7 +52,7 @@
 /// - el (any): Element to filter fields from
 /// - keys (array): The keys of the fields to filter out
 /// -> dictionary
-#let filtered-fields(el, keys) = el.fields().pairs().filter(p => p.first() not in keys).to-dict()
+#let filtered-fields(el, keys) = el.fields().pairs().filter(((k, _)) => k not in keys).to-dict()
 
 /// Show figures with grid kind as subfigures of the figures with image kind, with optional numbering formats.
 ///
@@ -99,3 +99,13 @@
   }
   doc
 }
+
+/// Parse the title, which can be a string or an array of strings, into an array of strings.
+///
+/// - title (str, array): The title to parse.
+/// -> array
+#let parsed-title(title) = if type(title) == str { title.split("\n") } else {
+  assert(type(title) == array, message: "Title must be a string or an array of strings")
+  title
+}
+
