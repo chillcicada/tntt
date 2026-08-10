@@ -31,14 +31,6 @@ jobs:
           curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
           unzip -q fonts.zip && rm fonts.zip
 
-      - name: Make Configurable Inputs
-        run: |
-          sed -i template/thesis.typ \
-            -e 's/degree: "bachelor"/degree: sys.inputs.at("degree", default: "bachelor")/g' \
-            -e 's/degree-type: "academic"/degree-type: sys.inputs.at("degree-type", default: "academic")/g' \
-            -e 's/anonymous: false/anonymous: sys.inputs.at("anonymous", default: false)/g' \
-            -e 's/twoside: false/twoside: sys.inputs.at("twoside", default: false)/g'
-
       - name: Render Bachelor Thesis
         run: |
           ./template/thesis.typ --root .. --font-path fonts bachelor-academic.pdf

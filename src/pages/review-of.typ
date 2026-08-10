@@ -4,7 +4,6 @@
 /// - twoside (bool, str): Whether to use two-sided layout.
 /// - info (dictonary): Information about the student and thesis.
 /// - degree (str): The degree, this page is only for bachelor's thesis.
-/// - doc-info (dictionary): The document information to extend the info with.
 /// - title (content): The title of the record sheet page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -28,7 +27,6 @@
   info: (:),
   degree: "bachelor",
   // options
-  doc-info: (:),
   title: [综合论文训练记录表],
   outlined: false,
   bookmarked: false,
@@ -46,9 +44,7 @@
 
   import "../utils/font.typ": use-size
   import "../utils/text.typ": v-text
-  import "../utils/util.typ": twoside-pagebreak
-
-  info = doc-info + info
+  import "../utils/util.typ": parsed-title, twoside-pagebreak
 
   twoside-pagebreak(twoside)
 
@@ -67,13 +63,16 @@
     align(right, strong(back))
   ))
 
+  info.title = context if "title" in info { parsed-title(info.title).sum() } else { document.title }
+  info.author = context info.at("author", default: document.author.first())
+
   table(
     stroke: .5pt,
     rows: rows,
     columns: columns,
     align: (x, y) => if x == 0 or y <= 1 { center + horizon } else { auto },
     [学生姓名], info.author, [学号], info.student-id, [班级], info.class,
-    [论文题目], table.cell(colspan: 5, info.title.sum()),
+    [论文题目], table.cell(colspan: 5, info.title),
     v-text[主要内容以及进度安排],
     cell-with-back(content, [
       指导教师签字：#h(4em)

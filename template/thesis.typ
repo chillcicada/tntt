@@ -408,7 +408,7 @@ typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方
 
 @tbl-example 为字体、字型、字号及段落格式要求。
 
-除此之外，社区也提供了 #link("https://typst.app/universe/package/tablem", underline[tablem]) 用于创建类似 markdown 写法的简化表格。
+除此之外，#link("https://typst.app/universe", underline[typst 社区])也提供了 #link("https://typst.app/universe/package/tablem", underline[tablem]) 包和 #link("https://typst.app/universe/package/tblr", underline[tblr]) 包等资源，前者用于创建类似 markdown 写法的简化表格，后者实现了类似 LaTeX 的 #link("https://ctan.org/pkg/tabularray", underline[Tabularray]) 包的表生成及对齐辅助功能。
 
 == 论文中表达式的示例
 
@@ -418,37 +418,97 @@ $
   "NH"^+_4 + 2"O"_2 -> "NO"^-_3 + "H"_2"O" + 2"H"^+
 $ <eqt-example>
 
-@eqt-example 为铵与氧气的反应。社区提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 用于简化化学符号和反应方程式的书写。
+@eqt-example 为铵与氧气的反应，除手动编写外，社区还提供了 #link("https://typst.app/universe/package/typsium", underline[typsium]) 包和 #link("https://typst.app/universe/package/alchemist", underline[alchemist]) 包用于简化化学符号和方程式的书写。
 
-默认情况下，行间公式都会自动编号，可以通过 `-` 标签（`<->`）来标识该行间公式不需要编号：
+对于化学结构式，社区提供了 #link("https://typst.app/universe/package/typed-smiles", underline[typed-smiles]) 包将 SMILES 字符串绘制为化学结构式，如下示例@typed-smiles-example 来自 typed-smiles：
+
+#[
+  #import "@preview/typed-smiles:0.10.0": smiles
+
+  #figure(
+    table(
+      columns: (1fr, 1fr, 1fr, 1fr),
+      align: center + horizon,
+      stroke: 0.4pt + rgb("#d8d8d8"),
+
+      [*Ethanol*], [*Alanine*], [*Chlorobenzene*], [*Furan*],
+      [#smiles("CCO")], [#smiles("CC(N)C(=O)O")], [#smiles("ClC1=CC=CC=C1")], [#smiles("C1=CC=CO1")],
+      [CCO], [CC(N)C(=O)O], [ClC1=CC=CC=C1], [C1=CC=CO1],
+    ),
+    caption: [化学结构式示例],
+  ) <typed-smiles-example>
+]
+
+默认情况下，图表和行间公式都会自动编号，前者可通过设置 `numbering` 为 `none` 来避免编号，后者可通过添加单横杠（`-`）标签（`<->`）来标识该行间公式不需要编号：
 
 $ y = integral_1^2 x^2 dif x $ <->
 
-此标签是不可引用的，这等价于：
+#align(center)[
+  ```typ
+  $ y = integral_1^2 x^2 dif x $ <->
+  ```
+]
 
-#math.equation($ y = integral_1^2 x^2 dif x $, numbering: none, block: true)
+此标签是不可引用的，如上等价于：
 
-后续数学公式仍然能正常编号。
+#align(center)[
+  ```typ
+  #math.equation(
+    $ y = integral_1^2 x^2 dif x $,
+    numbering: none,
+    block: true
+  )
+  ```
+]
+
+后续数学公式仍然将正常编号。
 
 $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
-此外，也可以像 Markdown 一样写行内公式 $x + y$。对于一些常用的写法，社区提供了 #link("https://typst.app/universe/package/physica", underline[physica]) 包来简化物理公式的书写和 #link("https://typst.app/universe/package/unify", underline[unify]) 包来便于创建单位。
+此外，也可以像 Markdown 一样编写行内公式：$x + y$。对于一些常用的写法，社区提供了 #link("https://typst.app/universe/package/quick-maths", underline[quick-maths])包和 #link("https://typst.app/universe/package/physica", underline[physica]) 包等资源来简化数学公式和物理公式的书写，还可以使用 #link("https://typst.app/universe/package/unify", underline[unify]) 包来简化单位的编写，如下示例来自 physica：
+
+#[
+  #import "@preview/physica:0.9.8": *
+
+  $ curl(grad f), dd(x, y), pdv(, x, y, z, [2,k]) $
+
+  #align(center)[
+    ```typ
+    $ curl(grad f), dd(x, y), pdv(, x, y, z, [2,k]) $
+    ```
+  ]
+]
 
 == 论文中代码块和算法的示例
 
-*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮。如@lst-example。
+*此部分在规范中未做要求。*Typst 中代码块默认支持语法高亮，如下@lst-example。
 
 #figure(
   ```py
   def add(x, y):
     return x + y
   ```,
-  caption: [代码块],
+  caption: [Typst 原生代码块示例],
 ) <lst-example>
 
-此外，社区也提供了 #link("https://typst.app/universe/package/codly", underline[codly]) 和 #link("https://typst.app/universe/package/zebraw", underline[zebraw]) 包用于创建更美观的代码块。
+此外，社区也提供了 #link("https://typst.app/universe/package/codly", underline[codly]) 包和 #link("https://typst.app/universe/package/zebraw", underline[zebraw]) 包用于创建更美观易读的代码块，如下示例@zebraw-example 来自 zebraw：
 
-对于算法和伪代码，社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包用于创建，如下示例来自 lovelace：
+#[
+  #import "@preview/zebraw:0.6.3": *
+  #show: zebraw
+
+  #figure(
+    ```typ
+    #grid(
+      columns: (1fr, 1fr),
+      [Hello], [world!],
+    )
+    ```,
+    caption: [zebraw 代码块示例],
+  ) <zebraw-example>
+]
+
+对于算法和伪代码，社区提供了 #link("https://typst.app/universe/package/lovelace", underline[lovelace]) 包和 #link("https://typst.app/universe/package/algorithmic", underline[algorithmic]) 包等资源，如下示例@lovelace-example 和@algorithmic-example 分别来自 lovelace 和 algorithmic：
 
 #[
   #import "@preview/lovelace:0.3.1": pseudocode-list
@@ -469,11 +529,47 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
         + *end*
       + *end*
     ],
-    caption: [伪代码示例],
-  ) <example-pseudocode>
+    caption: [lovelace 伪代码示例],
+  ) <lovelace-example>
 ]
 
-使用@example-pseudocode 引用该伪代码示例，模板默认为类型（`kind`）为（`"algorithm"`）的图表（`figure`）注册了计数器，可以在 `meta` 中修改此行为，与子图相同，使用时需要手动将图表（`figure`）的类型（`kind`）标记为`"algorithm"`。
+#[
+  #import "@preview/algorithmic:1.0.7"
+  #import algorithmic: algorithm, style-algorithm
+  #show: style-algorithm
+
+  #figure(
+    kind: "algorithm",
+    supplement: [算法],
+    algorithm(vstroke: .5pt + luma(200), {
+      import algorithmic: *
+      Procedure("Binary-Search", ("A", "n", "v"), {
+        Comment[Initialize the search range]
+        Assign[$l$][$1$]
+        Assign[$r$][$n$]
+        LineBreak
+        While($l <= r$, {
+          Assign([mid], FnInline[floor][$(l + r) slash 2$])
+          IfElseChain(
+            $A ["mid"] < v$,
+            { Assign[$l$][$"mid" + 1$] },
+            [$A ["mid"] > v$],
+            { Assign[$r$][$"mid" - 1$] },
+            Return[mid],
+          )
+        })
+        Return[*null*]
+      })
+    }),
+    caption: [algorithmic 算法示例],
+  ) <algorithmic-example>
+]
+
+模板默认为类型（`kind`）为（`"algorithm"`）的图表（`figure`）注册了计数器，可以在 `meta` 中修改此行为。与子图相同，使用时需要手动将图表（`figure`）的类型（`kind`）标记为`"algorithm"`。
+
+== 其他
+
+除上述列举的情形外，社区也提供了丰富的包资源用于简化或创建一些常见内容的编写，如几何图形、乐谱等等，详情请参考 #link("https://typst.app/universe/", underline[universe]) 自行探索。
 
 = 结　语
 
