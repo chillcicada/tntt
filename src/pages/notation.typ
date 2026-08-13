@@ -30,7 +30,7 @@
 
   import "../utils/util.typ": twoside-pagebreak
 
-  let blank-row-gutter = if blank-row-gutter == none { 1.5 * row-gutter }
+  let blank-row-gutter = if blank-row-gutter == none { 1.5 * row-gutter } else { blank-row-gutter }
 
   let blank-row-inset = if chunked { (blank-row-gutter - 2 * row-gutter) / 2 } else { -row-gutter / 2 }
 
