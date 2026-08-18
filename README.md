@@ -1,3 +1,5 @@
+
+
 # TnTT: Typst & Tsinghua University Template
 
 <p align="center"><a href="https://nightly.link/chillcicada/tntt/workflows/build/main/thesis.zip"><img alt="Nightly Built PDF" src="https://custom-icon-badges.demolab.com/badge/Preview-Nightly_Built_PDF-C9CBFF?style=for-the-badge&logo=view&logoColor=D9E0EE&labelColor=302D41" /></a></p>
@@ -191,7 +193,7 @@ This template is designed primarily for Chinese typesetting and includes corresp
 
 The default Western font for the Songti, KaiTi, and FangSong is `Times New Roman`, and the default Western font for the HeiTi is `Arial`. For Windows 10/11 users or Linux users with corresponding fonts installed, you can use the Chinese font configuration `NSimSun`, `SimHei`, `KaiTi`, and `FangSong`, which matched the Word thesis template exactly. For MacOS users, besides installing the above fonts, the recommended configuration is `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. You may also replace `SongTi` and `HeiTi` with fonts such as `Source Han Serif` or `Source Han Sans`. **Please note that currently Typst has limited support variable fonts, it's recommended not to use variable fonts (Some platforms may distribute the Noto font series in variable font format, please pay attention to this yourself)**.
 
-This template includes built-in font configuration for Windows 10/11 systems, Chinese‑language Windows systems usually come with these fonts preinstalled. Linux and MacOS users who need to strictly adhere the required thesis fonts canYou can extract, download, and install the corresponding local Windows font to the system, or use it after downloading by specifying the font path, for example:
+This template includes built-in font configuration for Windows 10/11 systems, Chinese‑language Windows systems usually come with these fonts preinstalled. Linux and MacOS users who need to strictly adhere the required thesis fonts can extract, download, and install the corresponding local Windows font to the system, or use it after downloading by specifying the font path, for example:
 
 ```sh
 # Download the fonts zip to the current directory and extract it to the fonts folder, for reference only
