@@ -302,7 +302,7 @@
 
 == 参考
 
-*除了项目封面使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/chillcicada/tntt/")，欢迎提供反馈和建议。
+*除了项目封面使用到的清华大学图形素材外，本模板基于 MIT 协议开源*，您可以在 GitHub 上找到本模板的源代码和使用说明，项目地址为 #link("https://github.com/tuna/thuthesis-typst/")，欢迎提供反馈和建议。
 
 typst 语法可以参考 #link("https://typst.app/docs/", underline[Typst 官方文档]) 和 #link("https://typst-doc-cn.github.io/docs/", underline[Typst 中国社区的翻译])，常见问题可以参考 #link("https://typst.dev/guide/", underline[Typst 中文社区导航])，进阶学习可以参考 #link("https://typst.dev/tutorial/", underline[小蓝书])。
 
@@ -590,7 +590,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 许可证
 
-*本模板基于 MIT 协议开源，您可以自由使用、修改和分发，但必须包含原始的版权声明，同时作者不对任何使用本模板的行为承担责任。*当前开源仓库仅托管于 GitHub，地址为 #underline(link("https://github.com/chillcicada/tntt"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自#link("https://vi.tsinghua.edu.cn/", underline[清华大学视觉形象系统])，仅用于制作论文封面，项目维护者未进行任何修改，除模板本身使用外，未对封面进行二次分发；在编写模板示例文档时参考了近年的诸多论文规范规范，使用了其中的部分内容和图片作为实例，其版权归属于相应作者，仅在本示例文档中使用。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #underline(link("mailto:2210227279@qq.com")) 发送邮件。
+*本模板基于 MIT 协议开源，您可以自由使用、修改和分发，但必须包含原始的版权声明，同时作者不对任何使用本模板的行为承担责任。*当前开源仓库仅托管于 GitHub，地址为 #underline(link("https://github.com/tuna/thuthesis-typst"))；对于模板封面中使用到的清华大学校徽与校名的图形文件，皆取自#link("https://vi.tsinghua.edu.cn/", underline[清华大学视觉形象系统])，仅用于制作论文封面，项目维护者未进行任何修改，除模板本身使用外，未对封面进行二次分发；在编写模板示例文档时参考了近年的诸多论文规范规范，使用了其中的部分内容和图片作为实例，其版权归属于相应作者，仅在本示例文档中使用。最后，如果您有问题，建议您到 GitHub 仓库讨论或向 #underline(link("mailto:2210227279@qq.com")) 发送邮件。
 
 /// ----------- ///
 /// Back Matter ///

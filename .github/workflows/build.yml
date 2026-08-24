@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Fonts
         run: |
-          curl --proto '=https' --tlsv1.2 -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
+          curl --proto '=https' --tlsv1.2 -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
           unzip -q fonts.zip && rm fonts.zip
 
       - name: Render Bachelor Thesis
