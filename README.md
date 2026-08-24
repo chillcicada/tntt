@@ -1,8 +1,6 @@
-
-
 # TnTT: Typst & Tsinghua University Template
 
-<p align="center"><a href="https://nightly.link/chillcicada/tntt/workflows/build/main/thesis.zip"><img alt="Nightly Built PDF" src="https://custom-icon-badges.demolab.com/badge/Preview-Nightly_Built_PDF-C9CBFF?style=for-the-badge&logo=view&logoColor=D9E0EE&labelColor=302D41" /></a></p>
+<p align="center"><a href="https://nightly.link/tuna/thuthesis-typst/workflows/build/main/thesis.zip"><img alt="Nightly Built PDF" src="https://custom-icon-badges.demolab.com/badge/Preview-Nightly_Built_PDF-C9CBFF?style=for-the-badge&logo=view&logoColor=D9E0EE&labelColor=302D41" /></a></p>
 
 > **TnTT** is **N**ot a **T**ex **T**hesis **T**emplate for **T**singhua university...
 
@@ -73,7 +71,7 @@ typst init @preview/tntt
 
 ```sh
 # 将字体压缩包下载至当前目录，并解压到 fonts 文件夹，仅供参考
-curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
+curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
 # 在 typst 编译时指定字体路径，假设 thesis.typ 为入口文件
@@ -197,7 +195,7 @@ This template includes built-in font configuration for Windows 10/11 systems, Ch
 
 ```sh
 # Download the fonts zip to the current directory and extract it to the fonts folder, for reference only
-curl -sSLf https://github.com/chillcicada/tntt/releases/latest/download/fonts.zip -o fonts.zip
+curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
 # Specify the font path when compiling, assuming thesis.typ is the entry file
@@ -268,7 +266,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [ThuThesis]: https://github.com/tuna/thuthesis
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
-[Latest Release]: https://github.com/chillcicada/tntt/releases/latest
+[Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
 
 [Template]: template/thesis.typ
 [Preview]: thumbnail.png
