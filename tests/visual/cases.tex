@@ -1,0 +1,75 @@
+% !TEX encoding = UTF-8
+% !TEX program = xelatex
+
+\documentclass{thuthesis}
+
+\thusetup{
+  output = \CompareOutput,
+  title = {论文模板视觉对比},
+  title* = {Visual Comparison of Thesis Templates},
+  degree-category = {工学学位},
+  degree-category* = {Degree of Engineering},
+  department = {计算机科学与技术系},
+  discipline = {计算机科学与技术},
+  discipline* = {Computer Science and Technology},
+  professional-field = {计算机技术},
+  professional-field* = {Computer Technology},
+  author = {测试作者},
+  author* = {Test Author},
+  student-id = {2026000000},
+  supervisor = {测试导师, 教授},
+  supervisor* = {Professor Test Supervisor},
+  date = {2026-08-08},
+  clc = {TP3},
+  udc = {004},
+  id = {2026-01},
+  discipline-level-1 = {计算机科学与技术},
+  discipline-level-2 = {计算机系统结构},
+  start-date = {2024-08-01},
+  end-date = {2026-07-31},
+}
+
+\begin{document}
+
+\maketitle
+
+\frontmatter
+
+\begin{abstract}
+  本文用于比较 LaTeX 与 Typst 模板在不同论文配置下的版式。
+  \thusetup{keywords = {模板, 对比}}
+\end{abstract}
+
+\begin{abstract*}
+  This document compares the LaTeX and Typst layouts under different
+  thesis configurations.
+  \thusetup{keywords* = {template, comparison}}
+\end{abstract*}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{比较章节}
+
+这是用于检查正文、页眉、页码和章节编号的示例文字。
+
+\section{图表与公式}
+
+\begin{figure}[htb]
+  \centering
+  \rule{3cm}{1cm}
+  \caption{示例图}
+\end{figure}
+
+\begin{equation}
+  E = mc^2
+\end{equation}
+
+\appendix
+
+\chapter{附录测试}
+
+这是用于检查附录编号和页眉的示例文字。
+
+\end{document}

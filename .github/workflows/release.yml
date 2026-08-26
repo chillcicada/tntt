@@ -1,5 +1,4 @@
 name: Release package
-
 on:
   push:
     branches:
@@ -7,11 +6,9 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
-
 env:
   REGISTRY_REPO: chillcicada/typst-packages
   PATH_PREFIX: packages/preview
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -19,17 +16,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-
       - name: Setup typst
         uses: typst-community/setup-typst@v5
         with:
           typst-version: latest
-
-      - name: Install Fonts
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
-          unzip -q fonts.zip && rm fonts.zip
-
+      - name: Prepare open fonts
+        run: make -C template FONT_DIR=../fonts fonts
       - name: Determine and check package metadata
         run: |
           PKG_PREFIX=$(grep -oP 'name\s*=\s*"\K[^"]*' typst.toml)
@@ -42,26 +34,23 @@ jobs:
             echo "package v${VERSION} does not match release tag ${GITHUB_REF_NAME}" >&2
             exit 1
           fi
-
       - name: Prepare package files
         run: |
           # Update thumbnail
-          typst c -f png --pages 3 --font-path fonts --root . template/thesis.typ thumbnail.png
+          typst c -f png --pages 3 --font-path fonts --root . template/main.typ thumbnail.png
 
           # Template adjustments
-          sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/thesis.typ
-          sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/thesis.typ
+          sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/main.typ
+          sed -i '/#import "..\/src\/lib.typ" as tntt/d' template/main.typ
 
           # README adjustments
           sed -i -r '/> \[!(IMPORTANT|WARNING)\]/{N;d;}' README.md
-
       - name: Checkout package registry
         uses: actions/checkout@v7
         with:
           repository: ${{ env.REGISTRY_REPO }}
           token: ${{ secrets.REGISTRY_TOKEN }}
           path: typst-packages
-
       - name: Release package
         run: |
           mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME/$PKG_VERSION"

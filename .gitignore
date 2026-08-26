@@ -4,3 +4,5 @@
 .zed/
 *.pdf
 record*.json
+build/
+__pycache__/

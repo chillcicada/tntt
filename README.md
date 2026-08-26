@@ -87,9 +87,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 ```jsonc
 // .vscode/settings.json
 {
-  "tinymist.fontPaths": [
-    "${workspaceFolder}/fonts"
-  ]
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"],
 }
 ```
 
@@ -211,9 +209,7 @@ For users of VSCode with Tinymist (other editors and more options are documented
 ```jsonc
 // .vscode/settings.json
 {
-  "tinymist.fontPaths": [
-    "${workspaceFolder}/fonts"
-  ]
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"],
 }
 ```
 
@@ -267,7 +263,6 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
-
 [Template]: template/thesis.typ
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE
