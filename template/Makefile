@@ -1,6 +1,8 @@
 MAKEFLAGS           += --no-builtin-rules
 SHELL               := /bin/bash
 TYPST               ?= typst
+CURL                ?= curl
+CURL_FLAGS          ?= --proto '=https' --tlsv1.2 -sSLf --retry 3 --retry-all-errors
 FONT_DIR            := fonts
 FANDOL_ARCHIVE      := .fandol.zip
 XITS_ARCHIVE        := .xits.zip
@@ -54,9 +56,9 @@ fonts: $(FONT_TARGETS)
 
 $(FANDOL_XITS_STAMP):
 	mkdir -p $(FONT_DIR)
-	curl --proto '=https' --tlsv1.2 -sSLf https://mirrors.ctan.org/fonts/fandol.zip -o $(FANDOL_ARCHIVE)
+	$(CURL) $(CURL_FLAGS) https://mirrors.ctan.org/fonts/fandol.zip -o $(FANDOL_ARCHIVE)
 	unzip -q $(FANDOL_ARCHIVE) -d $(FONT_DIR)
-	curl --proto '=https' --tlsv1.2 -sSLf https://mirrors.ctan.org/fonts/xits.zip -o $(XITS_ARCHIVE)
+	$(CURL) $(CURL_FLAGS) https://mirrors.ctan.org/fonts/xits.zip -o $(XITS_ARCHIVE)
 	unzip -q $(XITS_ARCHIVE) -d $(FONT_DIR)
 	touch $@
 	rm -f $(FANDOL_ARCHIVE) $(XITS_ARCHIVE)

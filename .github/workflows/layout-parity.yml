@@ -4,8 +4,23 @@ on:
     paths: [".github/workflows/layout-parity.yml", "src/**", "tests/visual/**", "template/**"]
   workflow_dispatch:
 jobs:
+  prepare-fonts:
+    name: Prepare Typst fonts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download open fonts
+        run: make -C template fonts
+      - uses: actions/upload-artifact@v7
+        with:
+          name: typst-fonts
+          path: template/fonts
+          if-no-files-found: error
+          retention-days: 1
   layout-parity:
     name: ${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
+    needs: prepare-fonts
     runs-on: ubuntu-latest
     container:
       image: texlive/texlive:latest
@@ -30,8 +45,10 @@ jobs:
       - uses: typst-community/setup-typst@v5
         with:
           typst-version: 0.15.1
-      - name: Prepare Typst fonts
-        run: make -C template fonts
+      - uses: actions/download-artifact@v8
+        with:
+          name: typst-fonts
+          path: template/fonts
       - name: Build LaTeX reference in TeX Live
         run: |
           mkdir -p build/latex
@@ -60,7 +77,7 @@ jobs:
               -jobname="$case" \
               "$input"
           done
-      - name: Compile Typst and compare
+      - name: Compile Typst and generate diff
         run: |
           case="${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}"
           if [ "${{ matrix.language }}" = chinese ]; then
@@ -79,14 +96,40 @@ jobs:
             --input degree-type=academic \
             --input twoside="$twoside" \
             "template/$source" "build/typst/$case.pdf"
-          python3 tests/visual/check.py "$case" \
+          python3 tests/visual/check.py \
             "build/latex/$case.pdf" \
             "build/typst/$case.pdf" \
-            --report-only
+            "build/diff/$case.pdf"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: layout-parity-${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
-          path: build
+          name: layout-parity-diff-${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
+          path: build/diff/*.pdf
           if-no-files-found: warn
+          retention-days: 1
+  merge-diffs:
+    name: Merge layout diffs
+    needs: layout-parity
+    if: ${{ !cancelled() && needs.layout-parity.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge diff artifacts
+        id: merge
+        uses: actions/upload-artifact/merge@v7
+        with:
+          name: layout-parity-diffs
+          pattern: layout-parity-diff-*
+          delete-merged: true
           retention-days: 7
+          compression-level: 0
+      - name: Add artifact links to summary
+        env:
+          GITHUB_ARTIFACT_URL: ${{ steps.merge.outputs.artifact-url }}
+        run: |
+          {
+            echo '## Layout parity diffs'
+            echo
+            echo 'LaTeX-only content is green, Typst-only content is red, and matching content is black.'
+            echo
+            echo "[Download artifact]($GITHUB_ARTIFACT_URL)"
+          } >> "$GITHUB_STEP_SUMMARY"
