@@ -25,6 +25,7 @@ help:
 		'' \
 		'Targets:' \
 		'  main.pdf         Compile the example thesis.' \
+		'  main-en.pdf      Compile the English example thesis.' \
 		'  watch            Recompile the example thesis when files change.' \
 		'  fonts            Download the open Fandol and XITS fonts.' \
 		'  clean            Remove the compiled example PDF.' \
@@ -65,7 +66,7 @@ $(WINDOWS_FONTS_STAMP): $(WINDOWS_FONT_SCRIPT)
 	touch $@
 
 clean:
-	rm -f main.pdf
+	rm -f main.pdf main-en.pdf
 
 .DELETE_ON_ERROR:
 .DEFAULT_GOAL := main.pdf

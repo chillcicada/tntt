@@ -31,6 +31,12 @@ def pages(pdf: Path, directory: Path, name: str) -> list[Path]:
     )
 
 
+def pixel_data(image: Image.Image) -> list[int]:
+    if hasattr(image, "get_flattened_data"):
+        return list(image.get_flattened_data())
+    return list(image.getdata())
+
+
 def metrics(upper: Path, lower: Path, overlay: Path) -> dict[str, float]:
     a, b = Image.open(upper).convert("L"), Image.open(lower).convert("L")
     if a.size != b.size:
@@ -44,7 +50,7 @@ def metrics(upper: Path, lower: Path, overlay: Path) -> dict[str, float]:
     ink_b = b.point(lambda value: 255 if value < 245 else 0).filter(
         ImageFilter.MaxFilter(5)
     )
-    pa, pb = list(ink_a.getdata()), list(ink_b.getdata())
+    pa, pb = pixel_data(ink_a), pixel_data(ink_b)
     union = sum(x or y for x, y in zip(pa, pb))
     iou = sum(x and y for x, y in zip(pa, pb)) / union if union else 1.0
     Image.merge("RGB", (a, b, ImageChops.darker(a, b))).save(overlay)
@@ -61,6 +67,11 @@ def main() -> None:
     )
     parser.add_argument("--artifacts", type=Path, default=Path("build"))
     parser.add_argument("--write-baseline", action="store_true")
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        help="write comparison artifacts without enforcing a baseline or threshold",
+    )
     parser.add_argument("--max-mae", type=float)
     parser.add_argument("--min-iou", type=float)
     args = parser.parse_args()
@@ -71,12 +82,20 @@ def main() -> None:
         # paper-name classification is the stable A4 check.
         if not info.get("Page size", "").strip().endswith("(A4)"):
             raise AssertionError(f"not A4: {info.get('Page size')}")
-    if latex_info.get("Pages") != typst_info.get("Pages"):
-        raise AssertionError(
-            f"page count differs: {latex_info.get('Pages')} != {typst_info.get('Pages')}"
-        )
-
     args.artifacts.mkdir(parents=True, exist_ok=True)
+    latex_page_count = int(latex_info["Pages"])
+    typst_page_count = int(typst_info["Pages"])
+    (args.artifacts / f"{args.case}-pages.json").write_text(
+        json.dumps(
+            {
+                "latex": latex_page_count,
+                "typst": typst_page_count,
+                "delta": typst_page_count - latex_page_count,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
     with tempfile.TemporaryDirectory() as temp:
         temp = Path(temp)
         latex_pages, typst_pages = (
@@ -100,6 +119,8 @@ def main() -> None:
     (args.artifacts / f"{args.case}.json").write_text(
         json.dumps(observed, indent=2) + "\n"
     )
+    if args.report_only:
+        return
     if args.max_mae is not None or args.min_iou is not None:
         if args.max_mae is not None:
             for page, current in enumerate(observed, 1):

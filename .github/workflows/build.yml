@@ -24,11 +24,15 @@ jobs:
           typst-version: 0.15.1
       - name: Prepare open fonts
         run: make -C template FONT_DIR=../fonts fonts
-      - name: Render template
-        run: typst compile --root . --font-path fonts template/main.typ main.pdf
+      - name: Render templates
+        run: |
+          typst compile --root . --font-path fonts template/main.typ main.pdf
+          typst compile --root . --font-path fonts template/main-en.typ main-en.pdf
       - name: Upload Artifacts
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v7
         with:
           name: thesis
-          path: main.pdf
+          path: |
+            main.pdf
+            main-en.pdf

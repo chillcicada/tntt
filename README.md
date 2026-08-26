@@ -33,7 +33,7 @@ typst init @preview/tntt
 #import tntt: define-config
 ```
 
-此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 `template/thesis.typ` 开始编辑您的论文。
+此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 `template/thesis.typ` 开始编辑您的论文。英文论文可以从 [`template/main-en.typ`][English Template] 开始。
 
 > [!WARNING]
 >
@@ -155,7 +155,7 @@ Of course, you can also import the template in any Typst file by adding:
 #import tntt: define-config
 ```
 
-In addition, due to frequency updates, you can clone the source repository to use the latest nightly version, and then modify `template/thesis.typ` to edit your thesis.
+In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify `template/thesis.typ`. For a thesis written in English, start from [`template/main-en.typ`][English Template].
 
 > [!WARNING]
 >
@@ -264,5 +264,6 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
 [Template]: template/thesis.typ
+[English Template]: template/main-en.typ
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE

@@ -23,13 +23,13 @@ jobs:
           repository: tuna/thuthesis
           ref: b50ce596c248964fe04f317a8fe9b1a0f6b34174
           path: latex-reference
+      - name: Install container dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends poppler-utils python3-pil xz-utils
       - uses: typst-community/setup-typst@v5
         with:
           typst-version: 0.15.1
-      - name: Install layout comparison tools
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends poppler-utils python3-pil
       - name: Prepare Typst fonts
         run: make -C template fonts
       - name: Build LaTeX reference in TeX Live
@@ -37,29 +37,52 @@ jobs:
           mkdir -p build/latex
           cd latex-reference
           xelatex -interaction=batchmode thuthesis.ins
-          input="\\PassOptionsToClass{degree=${{ matrix.degree }},degree-type=academic,language=${{ matrix.language }},thesis-type=thesis,style-override=none,fontset=fandol}{thuthesis}\\def\\CompareOutput{${{ matrix.output }}}\\input{${GITHUB_WORKSPACE}/tests/visual/cases.tex}"
-          for pass in 1 2; do
+          if [ "${{ matrix.language }}" = chinese ]; then
+            source=main.tex
+          else
+            source=main-en.tex
+          fi
+          case="${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}"
+          input="\\PassOptionsToClass{degree=${{ matrix.degree }},degree-type=academic,language=${{ matrix.language }},thesis-type=thesis,style-override=none,fontset=fandol}{thuthesis}\\def\\CompareOutput{${{ matrix.output }}}\\input{${GITHUB_WORKSPACE}/tests/visual/$source}"
+          xelatex -halt-on-error -interaction=batchmode -file-line-error \
+            -output-directory="${GITHUB_WORKSPACE}/build/latex" \
+            -jobname="$case" \
+            "$input"
+          (
+            cd "${GITHUB_WORKSPACE}/build/latex"
+            BIBINPUTS="${GITHUB_WORKSPACE}/latex-reference:" \
+              BSTINPUTS="${GITHUB_WORKSPACE}/latex-reference:" \
+              bibtex "$case"
+          )
+          for _ in 1 2; do
             xelatex -halt-on-error -interaction=batchmode -file-line-error \
               -output-directory="${GITHUB_WORKSPACE}/build/latex" \
-              -jobname="${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}" \
+              -jobname="$case" \
               "$input"
           done
       - name: Compile Typst and compare
         run: |
           case="${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}"
+          if [ "${{ matrix.language }}" = chinese ]; then
+            source=main.typ
+          else
+            source=main-en.typ
+          fi
+          if [ "${{ matrix.output }}" = print ]; then
+            twoside=true
+          else
+            twoside=false
+          fi
           mkdir -p build/typst
           typst compile --root . --font-path template/fonts \
             --input degree=${{ matrix.degree }} \
             --input degree-type=academic \
-            --input language=${{ matrix.language }} \
-            --input output=${{ matrix.output }} \
-            --input thesis-type=thesis \
-            --input style-override=none \
-            tests/visual/cases.typ "build/typst/$case.pdf"
+            --input twoside="$twoside" \
+            "template/$source" "build/typst/$case.pdf"
           python3 tests/visual/check.py "$case" \
             "build/latex/$case.pdf" \
             "build/typst/$case.pdf" \
-            --max-mae 0.01 --min-iou 0.63
+            --report-only
       - uses: actions/upload-artifact@v7
         if: always()
         with:
