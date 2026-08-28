@@ -2,7 +2,7 @@
 ///
 /// - info (dictionary): The metadata for the document, including title and author.
 /// - lang (text.lang): The language of the document, default is "zh" (Chinese).
-/// - region (text.region): The region for the document, default is "cn" (China Mainland).
+/// - region (text.region): The region for the document, default is auto.
 /// - margin (margin): The margin settings for the document.
 /// - paper (str): The paper size for the document, default is "a4".
 /// - fallback (bool): Whether to use fallback fonts, disabled it may cause missing glyphs for some characters.
@@ -16,9 +16,9 @@
 #let meta(
   // from entry
   info: (:),
-  // options
   lang: "zh",
-  region: "cn",
+  // options
+  region: auto,
   margin: 3cm,
   paper: "a4",
   fallback: true,
@@ -34,6 +34,8 @@
 
   import "../imports.typ": cuti
   import cuti: show-cn-fakebold
+
+  region = if region == auto { if lang == "zh" { "cn" } else { "us" } } else { region }
 
   // Apply LaTeX/i-figured reference compatibility
   show: if use-latexref { show-latexref.with(default-prefixes + extra-prefixes) } else { it => it }

@@ -17,6 +17,7 @@
 /// - info (dictionary): The information to be displayed in the document.
 /// -> dictionary
 #let define-config(
+  lang: "zh",
   degree: "bachelor",
   degree-type: "academic",
   anonymous: false,
@@ -29,6 +30,7 @@
   import "pages/cover.typ": cover, cover-en
   import "utils/font.typ": _use-cjk-fonts, _use-en-font, _use-fonts
 
+  lang = sys.inputs.at("lang", default: lang)
   degree = sys.inputs.at("degree", default: degree)
   degree-type = sys.inputs.at("degree-type", default: degree-type)
   anonymous = if sys.inputs.at("anonymous", default: anonymous) in (true, "true") { true } else { false }
@@ -45,6 +47,7 @@
     /// ------ ///
     /// config ///
     /// ------ ///
+    lang: lang,
     info: info,
     fonts: fonts,
     degree-type: degree-type,
@@ -62,7 +65,7 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: meta.with(info: info, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
+    meta: meta.with(info: info, lang: lang, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
     doc: doc.with(header-display: degree != "bachelor", fonts: fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
@@ -83,7 +86,7 @@
     // 书脊页 | Spine Page
     spine: spine.with(twoside: twoside, anonymous: anonymous, fonts: fonts),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
-    committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside),
+    committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside, lang: lang),
     // 授权页 | Copyright Page
     copyright: copyright.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 中文摘要页 | Abstract Page

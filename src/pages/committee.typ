@@ -3,6 +3,7 @@
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool, str): Whether to use two-sided layout.
 /// - degree (str): The degree.
+/// - lang (str): The language of the document.
 /// - title (content, str): The title of the committee page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -21,6 +22,7 @@
   anonymous: false,
   twoside: false,
   degree: "master",
+  lang: "zh",
   // options
   title: [学位论文指导小组、公开评阅人和答辩委员会名单],
   outlined: false,
@@ -49,6 +51,8 @@
   }
   let length-checker = it => it.len() == 3 // expect (name, title, affiliation)
 
+  let preset-anonymous-review = (zh: [无（全隐名评阅）], en: [None (Double-anonymous review)])
+
   /// Render
   twoside-pagebreak(twoside)
 
@@ -72,7 +76,7 @@
     if type(reviewers) == array {
       if reviewers != () {
         grid(columns: reviewers-columns, ..reviewers.filter(length-checker).flatten())
-      } else { [无（全隐名评阅）] }
+      } else { preset-anonymous-review.at(lang, default: reviewers) }
     } else { reviewers }
   }
 
