@@ -14,7 +14,7 @@ A.2.
 == Figures
 
 #figure(
-  align(center, image("fig/example-image-a.pdf", width: 60%)),
+  align(center, image("../fig/example-image-a.pdf", width: 60%)),
   kind: image,
   caption: [Example figure in an appendix],
 ) <fig:appendix-figure>

@@ -30,14 +30,17 @@
   import "pages/cover.typ": cover, cover-en
   import "utils/font.typ": _use-cjk-fonts, _use-en-font, _use-fonts
 
+  let t = k => toml("lang.toml").at(lang).at(k)
+
   lang = sys.inputs.at("lang", default: lang)
   degree = sys.inputs.at("degree", default: degree)
   degree-type = sys.inputs.at("degree-type", default: degree-type)
   anonymous = if sys.inputs.at("anonymous", default: anonymous) in (true, "true") { true } else { false }
   twoside = sys.inputs.at("twoside", default: twoside)
 
-  assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: "不支持的学位")
-  assert(degree-type in ("academic",), message: "不支持的学位类型")
+  assert(lang in ("zh", "en"), message: t("error-lang") + lang)
+  assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: t("error-degree") + degree)
+  assert(degree-type in ("academic",), message: t("error-degree-type") + degree-type)
 
   info.title = parsed-title(info.title)
   info.author = if anonymous { "" } else { info.author }
@@ -71,9 +74,13 @@
     // 前辅文设置 | Front Matter Layout Configuration
     front-matter: front-matter.with(twoside: twoside),
     // 正文设置 | Main Matter Layout Configuration
-    main-matter: main-matter.with(twoside: twoside, equation-numbering: "(1-1)"),
+    main-matter: main-matter.with(twoside: twoside, equation-numbering: "(1-1)", heading-numbering: (
+      formats: ((zh: "第1章", en: "1").at(lang), "1.1"), depth: 4,  supplyment: " ",
+    )),
     // 后辅文设置 | Back Matter Layout Configuration
-    back-matter: back-matter.with(twoside: twoside),
+    back-matter: back-matter.with(twoside: twoside, heading-numbering: (
+      formats: ((zh: "附录A", en: ((..n) => "Appendix " + numbering("A", ..n))).at(lang), "A.1"), depth: 4, supplyment: " ",
+    )),
     /// ----- ///
     /// pages ///
     /// ----- ///
@@ -86,7 +93,7 @@
     // 书脊页 | Spine Page
     spine: spine.with(twoside: twoside, anonymous: anonymous, fonts: fonts),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
-    committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside, lang: lang),
+    committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside, anonymous-review: t("anonymous-review")),
     // 授权页 | Copyright Page
     copyright: copyright.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 中文摘要页 | Abstract Page
@@ -94,31 +101,31 @@
     // 英文摘要页 | Abstract (English) Page
     abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
     // 目录页 | Outline Page
-    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
+    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts, title: t("outline")),
     // 总清单页 | Master List Page
-    master-list: master-list.with(twoside: twoside, outlined: degree != "bachelor"),
+    master-list: master-list.with(twoside: twoside, outlined: degree != "bachelor", title: t("master-list")),
     // 插图和附表清单页 | Figure and Table Index Page
-    figure-table-list: figure-table-list.with(twoside: twoside, outlined: degree != "bachelor"),
+    figure-table-list: figure-table-list.with(twoside: twoside, outlined: degree != "bachelor", title: t("figure-table-list")),
     // 插图清单页 | Figure List Page
-    figure-list: figure-list.with(twoside: twoside, outlined: degree != "bachelor"),
+    figure-list: figure-list.with(twoside: twoside, outlined: degree != "bachelor", title: t("figure-list")),
     // 附表清单页 | Table List Page
-    table-list: table-list.with(twoside: twoside, outlined: degree != "bachelor"),
+    table-list: table-list.with(twoside: twoside, outlined: degree != "bachelor", title: t("table-list")),
     // 公式清单页 | Equation List Page
-    equation-list: equation-list.with(twoside: twoside, outlined: degree != "bachelor"),
+    equation-list: equation-list.with(twoside: twoside, outlined: degree != "bachelor", title: t("equation-list")),
     // 符号表页 | Notation Page
-    notation: notation.with(twoside: twoside, outlined: degree != "bachelor"),
+    notation: notation.with(twoside: twoside, outlined: degree != "bachelor", title: t("notation")),
     // 参考文献页 | Bibliography Page
-    bilingual-bibliography: bilingual-bibliography.with(bibliography),
+    bilingual-bibliography: bilingual-bibliography.with(bibliography, title: t("bibliography")),
     // 致谢页 | Acknowledge Page
-    acknowledge: acknowledge.with(anonymous: anonymous, twoside: twoside),
+    acknowledge: acknowledge.with(anonymous: anonymous, twoside: twoside, title: t("acknowledge")),
     // 声明页 | Declaration Page
-    declaration: declaration.with(degree: degree, anonymous: anonymous, twoside: twoside),
+    declaration: declaration.with(degree: degree, anonymous: anonymous, twoside: twoside, title: t("declaration")),
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
     achievement: achievement.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 论文训练记录表 | Record Sheet Page
     record-sheet: record-sheet.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 指导教师/指导小组评语页 | Advisor Comments Page
-    comments: comments.with(degree: degree, anonymous: anonymous, twoside: twoside),
+    comments: comments.with(degree: degree, anonymous: anonymous, twoside: twoside, title: t("comments")),
     // 答辩委员会决议书 | Committee Resolution Page
     resolution: resolution.with(degree: degree, anonymous: anonymous, twoside: twoside),
   )

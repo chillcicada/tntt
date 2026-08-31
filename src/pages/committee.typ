@@ -3,7 +3,6 @@
 /// - anonymous (bool): Whether to use anonymous mode.
 /// - twoside (bool, str): Whether to use two-sided layout.
 /// - degree (str): The degree.
-/// - lang (str): The language of the document.
 /// - title (content, str): The title of the committee page.
 /// - outlined (bool): Whether to outline the page.
 /// - bookmarked (bool): Whether to add a bookmark for the page.
@@ -16,13 +15,13 @@
 /// - defenders (dictionary): The dictionary of defenders, where keys are roles and values are lists of names.
 /// - defenders-title (content, str): The title for the defenders section.
 /// - defenders-columns (array): The widths of the grid columns for defenders.
+/// - anonymous-review (content, str): The content to display for anonymous review.
 /// -> content
 #let committee(
   // from entry
   anonymous: false,
   twoside: false,
   degree: "master",
-  lang: "zh",
   // options
   title: [学位论文指导小组、公开评阅人和答辩委员会名单],
   outlined: false,
@@ -36,6 +35,7 @@
   defenders: (:),
   defenders-title: [答辩委员会名单],
   defenders-columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm),
+  anonymous-review: [无（全隐名评阅）],
 ) = {
   if anonymous or degree == "bachelor" { return }
 
@@ -50,8 +50,6 @@
     v(2pt)
   }
   let length-checker = it => it.len() == 3 // expect (name, title, affiliation)
-
-  let preset-anonymous-review = (zh: [无（全隐名评阅）], en: [None (Double-anonymous review)])
 
   /// Render
   twoside-pagebreak(twoside)
@@ -76,7 +74,7 @@
     if type(reviewers) == array {
       if reviewers != () {
         grid(columns: reviewers-columns, ..reviewers.filter(length-checker).flatten())
-      } else { preset-anonymous-review.at(lang, default: reviewers) }
+      } else { anonymous-review }
     } else { reviewers }
   }
 

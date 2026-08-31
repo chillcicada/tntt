@@ -1,0 +1,37 @@
+[zh]
+outline = "大纲"
+figure-table-list = "插图和附表清单"
+master-list = "插图和附表清单"
+figure-list = "插图清单"
+table-list = "附表清单"
+equation-list = "公式清单"
+notation = "符号和缩略语说明"
+declaration = "声　明"
+bibliography = "参考文献"
+acknowledge = "致　谢"
+comments = "指导教师学术评语"
+
+anonymous-review = "无（全隐名评阅）"
+
+error-lang = "不支持的语言："
+error-degree = "不支持的学位："
+error-degree-type = "不支持的学位类型："
+
+[en]
+outline = "Contents"
+figure-table-list = "List of Figures and Tables"
+master-list = "List of Figures and Tables"
+figure-list = "List of Figures"
+table-list = "List of Tables"
+equation-list = "List of Equations"
+notation = "Nomenclature"
+declaration = "Declaration"
+bibliography = "References"
+acknowledge = "Acknowledgements"
+comments = "Comments from the Thesis Supervisor"
+
+anonymous-review = "None (Double-anonymous review)"
+
+error-lang = "Unsupported language: "
+error-degree = "Unsupported degree: "
+error-degree-type = "Unsupported degree type: "

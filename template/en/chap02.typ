@@ -50,7 +50,7 @@ should use lossless PNG. By default, only the first page of an inserted PDF is
 used.
 
 #figure(
-  align(center, image("fig/example-image-a.pdf", width: 50%)),
+  align(center, image("../fig/example-image-a.pdf", width: 50%)),
   kind: image,
   caption: [Example image],
 ) <fig:example>
@@ -75,11 +75,11 @@ a grid, as in @fig:multi-image.
     columns: (1fr, 1fr),
     column-gutter: 1cm,
     align(center)[
-      #image("fig/example-image-a.pdf", width: 85%)
+      #image("../fig/example-image-a.pdf", width: 85%)
       (a) Subfigure A
     ],
     align(center)[
-      #image("fig/example-image-b.pdf", width: 85%)
+      #image("../fig/example-image-b.pdf", width: 85%)
       (b) Subfigure B
     ],
   ),

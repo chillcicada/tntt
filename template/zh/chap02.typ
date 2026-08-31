@@ -49,7 +49,7 @@
 格式的图片只取第一页。
 
 #figure(
-  align(center, image("fig/example-image-a.pdf", width: 50%)),
+  align(center, image("../fig/example-image-a.pdf", width: 50%)),
   kind: image,
   caption: [示例图片标题],
 ) <fig:example>
@@ -70,11 +70,11 @@
     columns: (1fr, 1fr),
     column-gutter: 1cm,
     align(center)[
-      #image("fig/example-image-a.pdf", width: 85%)
+      #image("../fig/example-image-a.pdf", width: 85%)
       (a) 分图 A
     ],
     align(center)[
-      #image("fig/example-image-b.pdf", width: 85%)
+      #image("../fig/example-image-b.pdf", width: 85%)
       (b) 分图 B
     ],
   ),

@@ -22,7 +22,7 @@
   margin: 3cm,
   paper: "a4",
   fallback: true,
-  use-fakebold: true,
+  use-fakebold: auto,
   use-latexref: false,
   unnumbered-label: "-",
   extra-prefixes: (),
@@ -36,6 +36,7 @@
   import cuti: show-cn-fakebold
 
   region = if region == auto { if lang == "zh" { "cn" } else { "us" } } else { region }
+  use-fakebold = if use-fakebold == auto { lang == "zh" } else { use-fakebold }
 
   // Apply LaTeX/i-figured reference compatibility
   show: if use-latexref { show-latexref.with(default-prefixes + extra-prefixes) } else { it => it }

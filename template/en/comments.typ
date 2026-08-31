@@ -1,5 +1,3 @@
-#let comments-content = [
-  The thesis presents …
-]
+The thesis presents …
 
 // The title parameter may be used for “Comments from the Thesis Supervision Committee”.
