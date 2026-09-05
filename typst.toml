@@ -1,6 +1,6 @@
 [package]
 name = "tntt"
-version = "0.5.4"
+version = "0.6.0"
 entrypoint = "src/lib.typ"
 authors = ["chillcicada"]
 license = "MIT"
@@ -9,9 +9,9 @@ repository = "https://github.com/tuna/thuthesis-typst"
 keywords = ["Tsinghua University", "thesis", "template", "THU"]
 categories = ["thesis"]
 exclude = [".*", "build", "contrib", "scripts", "tests"]
-compiler = "0.14.0"
+compiler = "0.15.1"
 
 [template]
 path = "template"
-entrypoint = "main.typ"
+entrypoint = "thesis.typ"
 thumbnail = "thumbnail.png"

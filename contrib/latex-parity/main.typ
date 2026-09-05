@@ -1,9 +1,8 @@
 #!/usr/bin/env -S typst c
-// #import "@preview/tntt:0.5.4" as tntt
+// #import "@preview/tntt:0.6.0" as tntt
 #import "../../src/lib.typ" as tntt
 
-// This entrypoint intentionally uses the TnTT 0.5.x page-level API. The
-// LaTeX-aligned instance API is introduced together with the new core later.
+// This reference document uses TnTT's page-level API.
 #let font-family = (
   SongTi: ((name: "TeX Gyre Termes", covers: "latin-in-cjk"), "FandolSong", "FandolKai"),
   HeiTi: ((name: "TeX Gyre Heros", covers: "latin-in-cjk"), "FandolHei"),

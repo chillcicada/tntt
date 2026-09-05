@@ -13,7 +13,7 @@ for degree in bachelor master doctor postdoc; do
         typst compile --root . --font-path fonts \
           --input "degree=$degree" --input "lang=$lang" \
           --input "anonymous=$anonymous" --input "twoside=$twoside" \
-          template/main.typ "$destination/$name.pdf"
+          template/thesis.typ "$destination/$name.pdf"
       done
     done
   done

@@ -18,6 +18,8 @@ TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归
 
 ## 使用
 
+TnTT 0.6.0 要求 Typst 0.15.1 或更新版本。
+
 您可以在 [Typst Web][Typst] 应用中使用此模板：仪表板上单击「**Start from template**」，搜索 `tntt` 即可创建项目；或直接单击[此处][Quick Start]来快速创建。
 
 您也可以使用 `typst` 命令行工具来创建基于此模板的新项目：
@@ -29,11 +31,11 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加如下内容来导入此模板。
 
 ```typ
-#import "@preview/tntt:0.5.4"
+#import "@preview/tntt:0.6.0"
 #import tntt: define-config
 ```
 
-此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 [`template/main.typ`][Template] 开始编辑论文。英文论文使用同一入口，并将 `lang` 设为 `"en"`。
+此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 [`template/thesis.typ`][Template] 开始编辑论文。英文论文使用同一入口，并将 `lang` 设为 `"en"`。
 
 > [!WARNING]
 >
@@ -74,12 +76,12 @@ typst init @preview/tntt
 curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# 在 typst 编译时指定字体路径，假设 main.typ 为入口文件
-typst compile main.typ --font-path fonts
+# 在 typst 编译时指定字体路径，假设 thesis.typ 为入口文件
+typst compile thesis.typ --font-path fonts
 # 或（适用于克隆源代码仓库的用户）
-typst compile template/main.typ --root . --font-path fonts
+typst compile template/thesis.typ --root . --font-path fonts
 # 将 typst 文件视作脚本运行（仅适用于克隆源仓库代码的 UNIX 用户）
-# ./template/main.typ --root .. --font-path fonts
+# ./template/thesis.typ --root . --font-path fonts
 ```
 
 对于使用 VSCode + Tinymist 的用户（其他编辑器及更多设置请参考 [Tinymist 文档][Tinymist Docs]）：
@@ -141,6 +143,8 @@ TnTT is the recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghu
 
 ## Usage
 
+TnTT 0.6.0 requires Typst 0.15.1 or later.
+
 You can use this template in the [Typst Web][Typst] by clicking "Start from template" on the dashboard and searching for `tntt` to create a project, or simply click [here][Quick Start] to get started quickly.
 
 Alternatively, you can use the `typst` command-line tool to create a new project based on this template:
@@ -152,11 +156,11 @@ typst init @preview/tntt
 Of course, you can also import the template in any Typst file by adding:
 
 ```typ
-#import "@preview/tntt:0.5.4"
+#import "@preview/tntt:0.6.0"
 #import tntt: define-config
 ```
 
-In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify [`template/main.typ`][Template]. The same entrypoint supports English theses when `lang` is set to `"en"`.
+In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify [`template/thesis.typ`][Template]. The same entrypoint supports English theses when `lang` is set to `"en"`.
 
 > [!WARNING]
 >
@@ -197,12 +201,12 @@ This template includes built-in font configuration for Windows 10/11 systems, Ch
 curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# Specify the font path when compiling, assuming main.typ is the entry file
-typst compile main.typ --font-path fonts
+# Specify the font path when compiling, assuming thesis.typ is the entry file
+typst compile thesis.typ --font-path fonts
 # Or (for users who cloned the source repository)
-typst compile template/main.typ --root . --font-path fonts
+typst compile template/thesis.typ --root . --font-path fonts
 # Run typst file as script (for UNIX users who cloned the source repository only)
-# ./template/main.typ --root .. --font-path fonts
+# ./template/thesis.typ --root . --font-path fonts
 ```
 
 For users of VSCode with Tinymist (other editors and more options are documented in the [Tinymist Documentation][Tinymist Docs]):
@@ -253,7 +257,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 <!-- Markdown Links -->
 
 [Typst]: https://typst.app
-[Quick Start]: https://typst.app/app?template=tntt&version=0.5.4
+[Quick Start]: https://typst.app/app?template=tntt&version=0.6.0
 [Typst Docs]: https://typst.app/docs
 [Typst CN]: https://typst.dev
 [simple-handout-template]: https://github.com/chillcicada/simple-handout-template
@@ -267,7 +271,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
-[Template]: template/main.typ
+[Template]: template/thesis.typ
 [Extended Examples]: https://github.com/tuna/thuthesis-typst/tree/main/contrib
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE

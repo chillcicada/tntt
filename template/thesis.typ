@@ -1,6 +1,6 @@
 #!/usr/bin/env -S typst c
 // Published packages use the first import. Repository builds use the second.
-// #import "@preview/tntt:0.5.4" as tntt
+// #import "@preview/tntt:0.6.0" as tntt
 #import "../src/lib.typ" as tntt
 
 // Replace these open fonts if your institution requires another font set.

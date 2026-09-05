@@ -8,6 +8,7 @@ on:
       - "scripts/**"
       - "src/**"
       - "template/**"
+      - "typst.toml"
       - "tests/visual/**"
   workflow_dispatch:
 
