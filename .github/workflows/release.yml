@@ -21,7 +21,7 @@ jobs:
         with:
           typst-version: latest
       - name: Prepare open fonts
-        run: make -C template FONT_DIR=../fonts fonts
+        run: bash scripts/fonts.sh fonts
       - name: Determine and check package metadata
         run: |
           PKG_PREFIX=$(grep -oP 'name\s*=\s*"\K[^"]*' typst.toml)
@@ -37,7 +37,7 @@ jobs:
       - name: Prepare package files
         run: |
           # Update thumbnail
-          typst c -f png --pages 3 --font-path fonts --root . template/main.typ thumbnail.png
+          typst c -f png --pages 3 --font-path fonts --root . --input lang=zh template/main.typ thumbnail.png
 
           # Template adjustments
           sed -i '/@preview\/tntt/s|^[[:space:]]*//[[:space:]]*||' template/main.typ

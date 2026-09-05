@@ -33,7 +33,7 @@ typst init @preview/tntt
 #import tntt: define-config
 ```
 
-此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 `template/thesis.typ` 开始编辑您的论文。英文论文可以从 [`template/main-en.typ`][English Template] 开始。
+此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 [`template/main.typ`][Template] 开始编辑论文。英文论文使用同一入口，并将 `lang` 设为 `"en"`。
 
 > [!WARNING]
 >
@@ -74,12 +74,12 @@ typst init @preview/tntt
 curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# 在 typst 编译时指定字体路径，假设 thesis.typ 为入口文件
-typst compile thesis.typ --font-path fonts
+# 在 typst 编译时指定字体路径，假设 main.typ 为入口文件
+typst compile main.typ --font-path fonts
 # 或（适用于克隆源代码仓库的用户）
-typst compile template/thesis.typ --root . --font-path fonts
+typst compile template/main.typ --root . --font-path fonts
 # 将 typst 文件视作脚本运行（仅适用于克隆源仓库代码的 UNIX 用户）
-# ./template/thesis.typ --root .. --font-path fonts
+# ./template/main.typ --root .. --font-path fonts
 ```
 
 对于使用 VSCode + Tinymist 的用户（其他编辑器及更多设置请参考 [Tinymist 文档][Tinymist Docs]）：
@@ -155,7 +155,7 @@ Of course, you can also import the template in any Typst file by adding:
 #import tntt: define-config
 ```
 
-In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify `template/thesis.typ`. For a thesis written in English, start from [`template/main-en.typ`][English Template].
+In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify [`template/main.typ`][Template]. The same entrypoint supports English theses when `lang` is set to `"en"`.
 
 > [!WARNING]
 >
@@ -196,12 +196,12 @@ This template includes built-in font configuration for Windows 10/11 systems, Ch
 curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
 unzip -q fonts.zip && rm fonts.zip
 
-# Specify the font path when compiling, assuming thesis.typ is the entry file
-typst compile thesis.typ --font-path fonts
+# Specify the font path when compiling, assuming main.typ is the entry file
+typst compile main.typ --font-path fonts
 # Or (for users who cloned the source repository)
-typst compile template/thesis.typ --root . --font-path fonts
+typst compile template/main.typ --root . --font-path fonts
 # Run typst file as script (for UNIX users who cloned the source repository only)
-# ./template/thesis.typ --root .. --font-path fonts
+# ./template/main.typ --root .. --font-path fonts
 ```
 
 For users of VSCode with Tinymist (other editors and more options are documented in the [Tinymist Documentation][Tinymist Docs]):
@@ -263,7 +263,6 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
-[Template]: template/thesis.typ
-[English Template]: template/main-en.typ
+[Template]: template/main.typ
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE

@@ -6,11 +6,17 @@ on:
     paths:
       - "src/**"
       - "template/**"
+      - "scripts/**"
+      - "typst.toml"
+      - ".github/workflows/build.yml"
   pull_request:
     types: [opened, edited, synchronize]
     paths:
       - "src/**"
       - "template/**"
+      - "scripts/**"
+      - "typst.toml"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
 jobs:
   render-paper:
@@ -23,16 +29,13 @@ jobs:
         with:
           typst-version: 0.15.1
       - name: Prepare open fonts
-        run: make -C template FONT_DIR=../fonts fonts
+        run: bash scripts/fonts.sh fonts
       - name: Render templates
-        run: |
-          typst compile --root . --font-path fonts template/main.typ main.pdf
-          typst compile --root . --font-path fonts template/main-en.typ main-en.pdf
+        run: bash scripts/build.sh
       - name: Upload Artifacts
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v7
         with:
           name: thesis
-          path: |
-            main.pdf
-            main-en.pdf
+          path: build/nightly/*.pdf
+          if-no-files-found: error

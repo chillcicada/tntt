@@ -1,7 +1,7 @@
 name: LaTeX layout parity
 on:
   pull_request:
-    paths: [".github/workflows/layout-parity.yml", "src/**", "tests/visual/**", "template/**"]
+    paths: [".github/workflows/layout-parity.yml", "src/**", "scripts/**", "tests/visual/**", "template/**"]
   workflow_dispatch:
 jobs:
   prepare-fonts:
@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Download open fonts
-        run: make -C template fonts
+        run: bash scripts/fonts.sh fonts
       - uses: actions/upload-artifact@v7
         with:
           name: typst-fonts
-          path: template/fonts
+          path: fonts
           if-no-files-found: error
           retention-days: 1
   layout-parity:
@@ -48,7 +48,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: typst-fonts
-          path: template/fonts
+          path: fonts
       - name: Build LaTeX reference in TeX Live
         run: |
           mkdir -p build/latex
@@ -81,9 +81,9 @@ jobs:
         run: |
           case="${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}"
           if [ "${{ matrix.language }}" = chinese ]; then
-            source=main.typ
+            lang=zh
           else
-            source=main-en.typ
+            lang=en
           fi
           if [ "${{ matrix.output }}" = print ]; then
             twoside=true
@@ -91,11 +91,12 @@ jobs:
             twoside=false
           fi
           mkdir -p build/typst
-          typst compile --root . --font-path template/fonts \
+          typst compile --root . --font-path fonts \
+            --input lang="$lang" \
             --input degree=${{ matrix.degree }} \
             --input degree-type=academic \
             --input twoside="$twoside" \
-            "template/$source" "build/typst/$case.pdf"
+            template/main.typ "build/typst/$case.pdf"
           python3 tests/visual/check.py \
             "build/latex/$case.pdf" \
             "build/typst/$case.pdf" \
