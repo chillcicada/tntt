@@ -8,6 +8,8 @@
 
 /// Define the configuration for the document.
 ///
+/// - lang (str): The document language, either "zh" or "en".
+/// - region (str, auto): The language region. Defaults to "cn" for Chinese and "us" for English.
 /// - degree (str): The degree.
 /// - degree-type (str): The degree-type type.
 /// - anonymous (str, bool): Whether to use anonymous mode.
@@ -18,6 +20,7 @@
 /// -> dictionary
 #let define-config(
   lang: "zh",
+  region: auto,
   degree: "bachelor",
   degree-type: "academic",
   anonymous: false,
@@ -30,15 +33,17 @@
   import "pages/cover.typ": cover, cover-en
   import "utils/font.typ": _use-cjk-fonts, _use-en-font, _use-fonts
 
-  let t = k => toml("lang.toml").at(lang).at(k)
-
   lang = sys.inputs.at("lang", default: lang)
+  region = sys.inputs.at("region", default: region)
   degree = sys.inputs.at("degree", default: degree)
   degree-type = sys.inputs.at("degree-type", default: degree-type)
   anonymous = if sys.inputs.at("anonymous", default: anonymous) in (true, "true") { true } else { false }
   twoside = sys.inputs.at("twoside", default: twoside)
 
-  assert(lang in ("zh", "en"), message: t("error-lang") + lang)
+  let translations = toml("lang.toml")
+  assert(lang in translations, message: "Unsupported language / 不支持的语言: " + lang)
+  let t = k => translations.at(lang).at(k)
+
   assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: t("error-degree") + degree)
   assert(degree-type in ("academic",), message: t("error-degree-type") + degree-type)
 
@@ -51,6 +56,7 @@
     /// config ///
     /// ------ ///
     lang: lang,
+    region: region,
     info: info,
     fonts: fonts,
     degree-type: degree-type,
@@ -68,7 +74,7 @@
     /// layouts ///
     /// ------- ///
     // 文档元配置 | Document Meta Configuration
-    meta: meta.with(info: info, lang: lang, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
+    meta: meta.with(info: info, lang: lang, region: region, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
     doc: doc.with(header-display: degree != "bachelor", fonts: fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
