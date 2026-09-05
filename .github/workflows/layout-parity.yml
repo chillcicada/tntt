@@ -96,7 +96,7 @@ jobs:
             --input degree=${{ matrix.degree }} \
             --input degree-type=academic \
             --input twoside="$twoside" \
-            template/main.typ "build/typst/$case.pdf"
+            contrib/latex-parity/main.typ "build/typst/$case.pdf"
           python3 tests/visual/check.py \
             "build/latex/$case.pdf" \
             "build/typst/$case.pdf" \
