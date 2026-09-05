@@ -18,3 +18,9 @@ for degree in bachelor master doctor postdoc; do
     done
   done
 done
+
+# Keep the long reference example healthy without distributing it to new users.
+for lang in zh en; do
+  typst compile --root . --font-path fonts --input "lang=$lang" \
+    contrib/latex-parity/main.typ "$destination/reference-$lang.pdf"
+done

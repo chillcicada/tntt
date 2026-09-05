@@ -6,6 +6,7 @@ on:
     paths:
       - "src/**"
       - "template/**"
+      - "contrib/**"
       - "scripts/**"
       - "typst.toml"
       - ".github/workflows/build.yml"
@@ -14,6 +15,7 @@ on:
     paths:
       - "src/**"
       - "template/**"
+      - "contrib/**"
       - "scripts/**"
       - "typst.toml"
       - ".github/workflows/build.yml"

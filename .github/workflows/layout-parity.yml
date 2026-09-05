@@ -1,7 +1,7 @@
 name: LaTeX layout parity
 on:
   pull_request:
-    paths: [".github/workflows/layout-parity.yml", "src/**", "scripts/**", "tests/visual/**", "template/**"]
+    paths: [".github/workflows/layout-parity.yml", "src/**", "scripts/**", "tests/visual/**", "template/**", "contrib/**"]
   workflow_dispatch:
 jobs:
   prepare-fonts:
