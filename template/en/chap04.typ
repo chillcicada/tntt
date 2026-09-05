@@ -1,8 +1,8 @@
 = Citing References
 
 Typst reads BibLaTeX databases natively and generates citations and reference
-lists with CSL styles. `bibliography-thu` provides a unified wrapper around this
-functionality.
+lists with CSL styles. The template's `bilingual-bibliography` function extends
+this functionality for bilingual entries.
 
 == Numeric Citations
 
@@ -30,16 +30,20 @@ into a range.
 
 == Author–Year Citations
 
-Set `bibliography-style: "author-year"` in the document configuration to enable
-author–year citations throughout. Narrative citations use `form: "prose"`, and
-parenthetical citations use the ordinary citation form.
+Select an author–year CSL style when the bibliography is rendered:
+
+```typ
+#bilingual-bibliography(style: "gb-7714-2015-author-date")
+```
+
+The citation labels in the body remain unchanged. Narrative citations use
+`form: "prose"`, and parenthetical citations use the ordinary citation form.
 
 This example uses numeric citations and therefore continues to show references
-@zhangkun1994 and @zhukezhen1973 from the same database. After the root file is
-switched to `author-year`, both in-text citations and the reference list use the
-author–year format.
+@zhangkun1994 and @zhukezhen1973 from the same database. After the
+`bilingual-bibliography` call in the root file selects the style above, both
+in-text citations and the reference list use the author–year format.
 
-Every item in the reference list should normally be cited in the text. To display
-the complete database supplied with the repository, this example sets `full:
-true` in `bibliography-thu`; a formal thesis normally retains the default and
-prints only the entries actually cited.
+Every item in the reference list should normally be cited in the text.
+`bilingual-bibliography` currently defaults to `full: true` and prints the entire
+database. A formal thesis can pass `full: false` to print only cited entries.

@@ -1,7 +1,7 @@
 = 引用文献的标注
 
 Typst 原生读取 BibLaTeX 数据库，并通过 CSL 样式生成引用和参考文献。
-`bibliography-thu` 将这一能力统一包装。
+模板的 `bilingual-bibliography` 函数在这一能力上处理双语条目。
 
 == 顺序编码制
 
@@ -25,14 +25,18 @@ CSL 也不显示 `@key[页码]`
 
 == 著者-出版年制
 
-著者—出版年制由文档配置中的 `bibliography-style: "author-year"`
-统一启用，无需改变正文中的引用标签。 叙述式引用可使用
-`form: "prose"`，括号式引用使用普通引用形式。
+著者—出版年制可在输出参考文献时通过 CSL 样式启用：
+
+```typ
+#bilingual-bibliography(style: "gb-7714-2015-author-date")
+```
+
+正文中的引用标签无需改变。叙述式引用可使用 `form: "prose"`，括号式引用使用普通引用形式。
 
 本示例采用顺序编码制，因此这里仍按同一数据库展示引用 @zhangkun1994 和
-@zhukezhen1973；将根文件的参考文献样式切换为 `author-year`
-后，正文和文后列表会一起变为著者—出版年格式。
+@zhukezhen1973；将根文件中的 `bilingual-bibliography` 调用改为上述样式后，
+正文和文后列表会一起变为著者—出版年格式。
 
-每条列入参考文献表的文献通常都应在正文中标注。为了完整展示仓库自带数据库，本示例在
-`bibliography-thu` 中使用
-`full: true`；正式论文一般保留默认值，只输出实际引用的条目。
+每条列入参考文献表的文献通常都应在正文中标注。`bilingual-bibliography`
+当前默认使用 `full: true` 展示数据库中的全部条目；正式论文可传入 `full: false`，
+只输出实际引用的条目。
