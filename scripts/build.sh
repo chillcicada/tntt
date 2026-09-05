@@ -24,3 +24,6 @@ for lang in zh en; do
   typst compile --root . --font-path fonts --input "lang=$lang" \
     contrib/latex-parity/main.typ "$destination/reference-$lang.pdf"
 done
+
+typst compile --root . --font-path fonts contrib/writing-packages.typ \
+  "$destination/writing-packages.pdf"

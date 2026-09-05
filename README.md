@@ -95,7 +95,8 @@ typst compile template/main.typ --root . --font-path fonts
 
 ---
 
-更多使用说明与示例已内置在[模板][Template]中，建议从模板创建项目以获得更好的体验。
+精简的起步文档位于[模板][Template]. 完整的双语论文和常用写作软件包示例位于
+[扩展示例][Extended Examples]. 建议从起步模板创建项目, 再按需复制扩展示例.
 
 ## 预览
 
@@ -217,7 +218,10 @@ For users of the Typst Webapp, since the required Chinese fonts are not provided
 
 ---
 
-Further instructions and examples are included in the [template][Template]. Starting a project from the template is recommended for a better experience.
+The [template][Template] provides a concise starting document. The
+[extended examples][Extended Examples] contain a complete bilingual thesis and
+optional writing-package demonstrations. Start with the template, then copy the
+examples that the thesis needs.
 
 ## Preview
 
@@ -264,5 +268,6 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
 [Template]: template/main.typ
+[Extended Examples]: https://github.com/tuna/thuthesis-typst/tree/main/contrib
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE
