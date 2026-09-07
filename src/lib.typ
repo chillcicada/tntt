@@ -15,7 +15,7 @@
 /// - anonymous (str, bool): Whether to use anonymous mode.
 /// - twoside (str, bool): Whether to use two-sided printing.
 /// - bibliography (array, bytes, none, str): The bibliography entry.
-/// - fonts (dictionary): The font family to use.
+/// - fonts (dictionary, str): The font family to use.
 /// - info (dictionary): The information to be displayed in the document.
 /// -> dictionary
 #let define-config(
@@ -33,19 +33,26 @@
   import "pages/cover.typ": cover, cover-en
   import "utils/font.typ": _use-cjk-fonts, _use-en-font, _use-fonts
 
+  let t = k => toml("lang.toml").at(lang).at(k)
+
   lang = sys.inputs.at("lang", default: lang)
   region = sys.inputs.at("region", default: region)
   degree = sys.inputs.at("degree", default: degree)
   degree-type = sys.inputs.at("degree-type", default: degree-type)
   anonymous = if sys.inputs.at("anonymous", default: anonymous) in (true, "true") { true } else { false }
   twoside = sys.inputs.at("twoside", default: twoside)
+  fonts = sys.inputs.at("fonts", default: fonts)
 
-  let translations = toml("lang.toml")
-  assert(lang in translations, message: "Unsupported language / 不支持的语言: " + lang)
-  let t = k => translations.at(lang).at(k)
+  assert(lang in ("zh", "en"), message: "Unsupported language / 不支持的语言: " + lang)
+  assert(type(fonts) == dictionary or fonts in ("windows", "macos", "fandol", "ubuntu"))
 
   assert(degree in ("bachelor", "master", "doctor", "postdoc"), message: t("error-degree") + degree)
   assert(degree-type in ("academic",), message: t("error-degree-type") + degree-type)
+
+  // Use a new dictionary to store the fonts, so that we can ensure the type hints for the `fonts` parameter.
+  let _fonts = if type(fonts) == dictionary {
+    if fonts.at("base", default: none) == none { fonts } else { toml("fonts.toml").at(fonts.remove("base")) + fonts }
+  } else { toml("fonts.toml").at(fonts) }
 
   info.title = parsed-title(info.title)
   info.author = if anonymous { "" } else { info.author }
@@ -58,7 +65,7 @@
     lang: lang,
     region: region,
     info: info,
-    fonts: fonts,
+    fonts: _fonts,
     degree-type: degree-type,
     degree: degree,
     twoside: twoside,
@@ -76,7 +83,7 @@
     // 文档元配置 | Document Meta Configuration
     meta: meta.with(info: info, lang: lang, region: region, extra-prefixes: ("alg:",)), // info of meta cannot be overwritten
     // 文稿设置 | Document Layout Configuration
-    doc: doc.with(header-display: degree != "bachelor", fonts: fonts, extra-fig-kinds: ("algorithm",)),
+    doc: doc.with(header-display: degree != "bachelor", fonts: _fonts, extra-fig-kinds: ("algorithm",)),
     // 前辅文设置 | Front Matter Layout Configuration
     front-matter: front-matter.with(twoside: twoside),
     // 正文设置 | Main Matter Layout Configuration
@@ -91,21 +98,21 @@
     /// pages ///
     /// ----- ///
     // 字体展示页 | Fonts Display Page
-    fonts-display: fonts-display.with(fonts: fonts),
+    fonts-display: fonts-display.with(fonts: _fonts),
     // 中文封面页 | Cover Page
-    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, fonts: fonts, doc-info: info),
+    cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, fonts: _fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
     cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, fonts: fonts),
     // 书脊页 | Spine Page
-    spine: spine.with(twoside: twoside, anonymous: anonymous, fonts: fonts),
+    spine: spine.with(twoside: twoside, anonymous: anonymous, fonts: _fonts),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
     committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside, anonymous-review: t("anonymous-review")),
     // 授权页 | Copyright Page
     copyright: copyright.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 中文摘要页 | Abstract Page
-    abstract: abstract.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
+    abstract: abstract.with(twoside: twoside, outlined: degree != "bachelor", fonts: _fonts),
     // 英文摘要页 | Abstract (English) Page
-    abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts),
+    abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", fonts: _fonts),
     // 目录页 | Outline Page
     outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts, title: t("outline")),
     // 总清单页 | Master List Page

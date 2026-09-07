@@ -17,11 +17,11 @@
   // from entry
   info: (:),
   lang: "zh",
-  // options
   region: auto,
+  // options
   margin: 3cm,
   paper: "a4",
-  fallback: true,
+  fallback: false,
   use-fakebold: auto,
   use-latexref: false,
   unnumbered-label: "-",
