@@ -19,8 +19,12 @@
   title: auto,
   outlined: true,
   bookmarked: true,
+  resume-title: [个人简历],
   resume: [],
+  achievement-title: [在学期间完成的相关学术成果],
+  paper-title: [学术论文：],
   paper: [],
+  patent-title: [专利：],
   patent: [],
 ) = {
   if anonymous { return }
@@ -38,12 +42,12 @@
 
   if degree != "bachelor" {
     show heading.where(level: 2): it => { align(center, text(size: use-size("四号"), it.body)) }
-    heading(level: 2, numbering: none, outlined: false, bookmarked: false, [个人简历])
+    heading(level: 2, numbering: none, outlined: false, bookmarked: false, resume-title)
     v(8pt)
     resume
     v(8pt)
     par[]
-    heading(level: 2, numbering: none, outlined: false, bookmarked: false, [在学期间完成的相关学术成果])
+    heading(level: 2, numbering: none, outlined: false, bookmarked: false, achievement-title)
     if is-not-empty(paper) or is-not-empty(patent) { v(1.7em) }
   }
 
@@ -52,7 +56,7 @@
   show heading.where(level: 2): it => { text(size: use-size("四号"), it.body) }
 
   if is-not-empty(paper) {
-    heading(level: 2, numbering: none, outlined: false, bookmarked: false, [学术论文：])
+    heading(level: 2, numbering: none, outlined: false, bookmarked: false, paper-title)
     v(1pt)
     paper
     par[]
@@ -60,7 +64,7 @@
   }
 
   if is-not-empty(patent) {
-    heading(level: 2, numbering: none, outlined: false, bookmarked: false, [专利：])
+    heading(level: 2, numbering: none, outlined: false, bookmarked: false, patent-title)
     v(1pt)
     patent
   }

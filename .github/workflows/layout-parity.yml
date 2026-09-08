@@ -1,0 +1,110 @@
+name: LaTeX layout parity
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/layout-parity.yml"
+      - "contrib/**"
+      - "scripts/**"
+      - "src/**"
+      - "template/**"
+      - "typst.toml"
+      - "tests/visual/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-fonts:
+    name: Prepare Typst fonts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download open fonts
+        run: bash scripts/fonts.sh fonts
+      - uses: actions/upload-artifact@v7
+        with:
+          name: typst-fonts
+          path: fonts
+          if-no-files-found: error
+          retention-days: 1
+
+  layout-parity:
+    name: ${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
+    needs: prepare-fonts
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    container:
+      image: texlive/texlive:latest
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        degree: [bachelor, master, doctor, postdoc]
+        language: [chinese, english]
+        output: [electronic, print]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          repository: tuna/thuthesis
+          ref: b50ce596c248964fe04f317a8fe9b1a0f6b34174
+          path: latex-reference
+      - name: Install comparison dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends poppler-utils python3-pil xz-utils
+      - uses: typst-community/setup-typst@v5
+        with:
+          typst-version: 0.15.1
+      - uses: actions/download-artifact@v8
+        with:
+          name: typst-fonts
+          path: fonts
+      - name: Build comparison bundle
+        run: |
+          bash tests/visual/run.sh \
+            "${{ matrix.degree }}" \
+            "${{ matrix.language }}" \
+            "${{ matrix.output }}" \
+            latex-reference \
+            build/artifacts
+      - name: Upload case bundle
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: layout-parity-case-${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
+          path: build/artifacts
+          if-no-files-found: error
+          retention-days: 1
+
+  merge-comparisons:
+    name: Merge comparison bundles
+    needs: layout-parity
+    if: ${{ always() && needs.layout-parity.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge case artifacts
+        id: merge
+        uses: actions/upload-artifact/merge@v7
+        with:
+          name: layout-parity-review
+          pattern: layout-parity-case-*
+          delete-merged: true
+          retention-days: 7
+          compression-level: 0
+      - name: Add review instructions to summary
+        env:
+          GITHUB_ARTIFACT_URL: ${{ steps.merge.outputs.artifact-url }}
+        run: |
+          {
+            echo '## LaTeX layout parity review'
+            echo
+            echo 'Each case contains complete and focused comparisons.'
+            echo 'Open `comparison.pdf` for a three-column LaTeX, Typst, and overlay view.'
+            echo 'The same directory includes both original PDFs, a full-size overlay, a JSON page report, and build logs.'
+            echo
+            echo "[Download the consolidated review artifact]($GITHUB_ARTIFACT_URL)"
+          } >> "$GITHUB_STEP_SUMMARY"

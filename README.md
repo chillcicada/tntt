@@ -18,6 +18,8 @@ TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归
 
 ## 使用
 
+TnTT 0.6.0 要求 Typst 0.15.1 或更新版本。
+
 您可以在 [Typst Web][Typst] 应用中使用此模板：仪表板上单击「**Start from template**」，搜索 `tntt` 即可创建项目；或直接单击[此处][Quick Start]来快速创建。
 
 您也可以使用 `typst` 命令行工具来创建基于此模板的新项目：
@@ -29,11 +31,11 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加如下内容来导入此模板。
 
 ```typ
-#import "@preview/tntt:0.5.4"
+#import "@preview/tntt:0.6.0"
 #import tntt: define-config
 ```
 
-此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 `template/thesis.typ` 开始编辑您的论文。
+此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 [`template/thesis.typ`][Template] 开始编辑论文。英文论文使用同一入口，并将 `lang` 设为 `"en"`。
 
 > [!WARNING]
 >
@@ -79,7 +81,7 @@ typst compile thesis.typ --font-path fonts
 # 或（适用于克隆源代码仓库的用户）
 typst compile template/thesis.typ --root . --font-path fonts
 # 将 typst 文件视作脚本运行（仅适用于克隆源仓库代码的 UNIX 用户）
-# ./template/thesis.typ --root .. --font-path fonts
+# ./template/thesis.typ --root . --font-path fonts
 ```
 
 对于使用 VSCode + Tinymist 的用户（其他编辑器及更多设置请参考 [Tinymist 文档][Tinymist Docs]）：
@@ -87,9 +89,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 ```jsonc
 // .vscode/settings.json
 {
-  "tinymist.fontPaths": [
-    "${workspaceFolder}/fonts"
-  ]
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"],
 }
 ```
 
@@ -97,7 +97,8 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 ---
 
-更多使用说明与示例已内置在[模板][Template]中，建议从模板创建项目以获得更好的体验。
+精简的起步文档位于[模板][Template]. 完整的双语论文和常用写作软件包示例位于
+[扩展示例][Extended Examples]. 建议从起步模板创建项目, 再按需复制扩展示例.
 
 ## 预览
 
@@ -142,6 +143,8 @@ TnTT is the recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghu
 
 ## Usage
 
+TnTT 0.6.0 requires Typst 0.15.1 or later.
+
 You can use this template in the [Typst Web][Typst] by clicking "Start from template" on the dashboard and searching for `tntt` to create a project, or simply click [here][Quick Start] to get started quickly.
 
 Alternatively, you can use the `typst` command-line tool to create a new project based on this template:
@@ -153,11 +156,11 @@ typst init @preview/tntt
 Of course, you can also import the template in any Typst file by adding:
 
 ```typ
-#import "@preview/tntt:0.5.4"
+#import "@preview/tntt:0.6.0"
 #import tntt: define-config
 ```
 
-In addition, due to frequency updates, you can clone the source repository to use the latest nightly version, and then modify `template/thesis.typ` to edit your thesis.
+In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify [`template/thesis.typ`][Template]. The same entrypoint supports English theses when `lang` is set to `"en"`.
 
 > [!WARNING]
 >
@@ -203,7 +206,7 @@ typst compile thesis.typ --font-path fonts
 # Or (for users who cloned the source repository)
 typst compile template/thesis.typ --root . --font-path fonts
 # Run typst file as script (for UNIX users who cloned the source repository only)
-# ./template/thesis.typ --root .. --font-path fonts
+# ./template/thesis.typ --root . --font-path fonts
 ```
 
 For users of VSCode with Tinymist (other editors and more options are documented in the [Tinymist Documentation][Tinymist Docs]):
@@ -211,9 +214,7 @@ For users of VSCode with Tinymist (other editors and more options are documented
 ```jsonc
 // .vscode/settings.json
 {
-  "tinymist.fontPaths": [
-    "${workspaceFolder}/fonts"
-  ]
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"],
 }
 ```
 
@@ -221,7 +222,10 @@ For users of the Typst Webapp, since the required Chinese fonts are not provided
 
 ---
 
-Further instructions and examples are included in the [template][Template]. Starting a project from the template is recommended for a better experience.
+The [template][Template] provides a concise starting document. The
+[extended examples][Extended Examples] contain a complete bilingual thesis and
+optional writing-package demonstrations. Start with the template, then copy the
+examples that the thesis needs.
 
 ## Preview
 
@@ -253,7 +257,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 <!-- Markdown Links -->
 
 [Typst]: https://typst.app
-[Quick Start]: https://typst.app/app?template=tntt&version=0.5.4
+[Quick Start]: https://typst.app/app?template=tntt&version=0.6.0
 [Typst Docs]: https://typst.app/docs
 [Typst CN]: https://typst.dev
 [simple-handout-template]: https://github.com/chillcicada/simple-handout-template
@@ -267,7 +271,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
-
 [Template]: template/thesis.typ
+[Extended Examples]: https://github.com/tuna/thuthesis-typst/tree/main/contrib
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE

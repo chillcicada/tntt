@@ -15,6 +15,7 @@
 /// - defenders (dictionary): The dictionary of defenders, where keys are roles and values are lists of names.
 /// - defenders-title (content, str): The title for the defenders section.
 /// - defenders-columns (array): The widths of the grid columns for defenders.
+/// - anonymous-review (content, str): The content to display for anonymous review.
 /// -> content
 #let committee(
   // from entry
@@ -34,6 +35,7 @@
   defenders: (:),
   defenders-title: [答辩委员会名单],
   defenders-columns: (2.75cm, 2.98cm, 4.63cm, 4.63cm),
+  anonymous-review: [无（全隐名评阅）],
 ) = {
   if anonymous or degree == "bachelor" { return }
 
@@ -72,7 +74,7 @@
     if type(reviewers) == array {
       if reviewers != () {
         grid(columns: reviewers-columns, ..reviewers.filter(length-checker).flatten())
-      } else { [无（全隐名评阅）] }
+      } else { anonymous-review }
     } else { reviewers }
   }
 

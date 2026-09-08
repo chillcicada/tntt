@@ -4,13 +4,21 @@ default:
   @just --list --unsorted
 
 # update thumbnail
-thumbnail:
-  @typst c -f png --pages 3 --root . template/thesis.typ thumbnail.png
+thumbnail: fonts
+  @typst c -f png --pages 3 --root . --font-path fonts --input lang=zh template/thesis.typ thumbnail.png
 
 # build pdf
-build:
-  @typst c --root . template/thesis.typ
+build lang="zh": fonts
+  @typst c --root . --font-path fonts --input lang={{lang}} template/thesis.typ
 
 # export profile
-profile:
-  @typst c --root . template/thesis.typ --timings record.json
+profile: fonts
+  @typst c --root . --font-path fonts template/thesis.typ --timings record.json
+
+# download checksum-pinned open fonts
+fonts:
+  @bash scripts/fonts.sh fonts
+
+# compile the degree/language/anonymous/twoside matrix
+smoke: fonts
+  @bash scripts/build.sh

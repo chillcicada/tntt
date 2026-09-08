@@ -56,7 +56,7 @@
 
 /// Abstract Page (English version), Inherited from the Chinese version
 #let abstract-en = abstract.with(
-  title: [Abstract],
+  title: [ABSTRACT],
   embeded: false,
   back: [*Keywords: *],
   back-font: "SongTi",
