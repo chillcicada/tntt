@@ -43,8 +43,9 @@
   if anonymous or degree != "bachelor" { return }
 
   import "../utils/font.typ": use-size
-  import "../utils/text.typ": v-text
   import "../utils/util.typ": parsed-title, twoside-pagebreak
+
+  let v-text(str, spacing: 3.6pt) = stack(dir: ttb, ..str.clusters(), spacing: spacing)
 
   twoside-pagebreak(twoside)
 

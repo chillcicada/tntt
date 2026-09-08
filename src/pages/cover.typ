@@ -24,8 +24,9 @@
   info-item-width: none,
 ) = {
   import "../utils/font.typ": _use-cjk-fonts, _use-fonts, use-size
-  import "../utils/text.typ": distr-text, fixed-text, space-text
   import "../utils/util.typ": is-not-empty
+
+  let fixed-text(str, width) = text(tracking: (width - str.clusters().len() * 1em) / (str.clusters().len() - 1), str)
 
   info = doc-info + info
 
@@ -97,7 +98,7 @@
   if has-co-supervisor { info.co-supervisor = format-supervisor(info.co-supervisor) }
 
   let format-info(items) = grid(
-    align: (center + horizon, left + horizon, left), columns: (2.80cm, 0.82cm, 5.62cm), row-gutter: 0.715cm,
+    align: (center + horizon, center + horizon, left), columns: (2.80cm, 0.82cm, 5.62cm), row-gutter: 0.715cm,
     ..items.keys().map(k => (format-info-item(items.at(k)), "：", info.at(k))).flatten()
   )
 
@@ -113,16 +114,21 @@
   set align(center)
   if is-not-empty(content) { content } else if degree == "bachelor" {
     set page(margin: (top: 3.8cm, bottom: 3.2cm, x: 3cm))
-    v(2em)
-    image("../assets/logo.png", width: 7.81cm)
-    v(-1em)
-    text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", space-text("综合论文训练"))
-    v(1em)
+    v(34pt)
+    stack(
+      dir: ltr,
+      h(5pt),
+      image("../assets/thu-fig-logo.pdf", width: 49pt),
+      h(10pt),
+      align(horizon, image("../assets/thu-text-logo.pdf", width: 112pt, height: 41pt, fit: "stretch")),
+    )
+    text(size: use-size("小初"), font: use-fonts("HeiTi"), weight: "bold", text("综合论文训练", tracking: 0.3em))
+    v(1.4em)
     set par(leading: 0.95em)
     text(size: use-size("一号"), font: use-fonts("HeiTi"), info.title.join("\n"))
     set par(leading: 0.6em)
-    placed-top(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), 35.88em)
-    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -1.15em)
+    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("FangSong"), format-info(info-items)), -16.8em)
+    placed-bottom(text(size: use-size("三号"), font: use-cjk-fonts("SongTi"), display-zh(info.date)), -5em)
   } else {
     set page(margin: (x: 4cm, y: 6cm))
     set par(leading: 1.15em, spacing: 1.32em)
@@ -167,17 +173,13 @@
   let use-fonts = name => _use-fonts(fonts, name)
   let use-anonymous = width => block(width: width, fill: black, "", outset: (y: 2pt))
 
-  assert(
-    info-items.keys().all(k => k in info),
-    message: "Required info-items for info:" + info-items.keys().filter(k => k not in info).join(", "),
-  )
-
   let placed-content(dy, content) = place(bottom + center, content, dy: dy)
   let format-supervisor(items) = grid(
     align: (right, left), columns: (5.95cm, 1fr), rows: 1.1cm, column-gutter: 9.5pt,
     ..items
-      .keys()
-      .map(k => (items.at(k) + " : ", if anonymous { use-anonymous(10em) } else { info.at(k).intersperse("") }))
+      .pairs()
+      .filter(((k, _)) => info.at(k, default: ()) != ())
+      .map(((k, v)) => (v + " : ", if anonymous { use-anonymous(10em) } else { info.at(k).intersperse("") }))
       .flatten()
   )
 

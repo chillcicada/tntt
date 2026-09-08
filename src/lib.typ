@@ -4,7 +4,6 @@
 #import "imports.typ": *
 #import "utils/util.typ": *
 #import "utils/font.typ": use-size
-#import "utils/text.typ": distr-text, fixed-text, mask-text, space-text, v-text
 
 /// Define the configuration for the document.
 ///
@@ -73,9 +72,9 @@
     /// --------- ///
     /// utilities ///
     /// --------- ///
-    use-fonts: _use-fonts.with(fonts),
-    use-en-font: _use-en-font.with(fonts),
-    use-cjk-fonts: _use-cjk-fonts.with(fonts),
+    use-fonts: _use-fonts.with(_fonts),
+    use-en-font: _use-en-font.with(_fonts),
+    use-cjk-fonts: _use-cjk-fonts.with(_fonts),
     use-twoside: twoside-pagebreak.with(twoside),
     /// ------- ///
     /// layouts ///
@@ -88,12 +87,14 @@
     front-matter: front-matter.with(twoside: twoside),
     // 正文设置 | Main Matter Layout Configuration
     main-matter: main-matter.with(twoside: twoside, equation-numbering: "(1-1)", heading-numbering: (
-      formats: ((zh: "第1章", en: "1").at(lang), "1.1"), depth: 4,  supplyment: " ",
-    )),
+      zh: (formats: ("第1章", "1.1"), depth: 4, supplyment: "　"),
+      en: (formats: ((..n) => "CHAPTER " + numbering("1", ..n), "1.1"), depth: 4, supplyment: ""),
+    ).at(lang)),
     // 后辅文设置 | Back Matter Layout Configuration
     back-matter: back-matter.with(twoside: twoside, heading-numbering: (
-      formats: ((zh: "附录A", en: ((..n) => "Appendix " + numbering("A", ..n))).at(lang), "A.1"), depth: 4, supplyment: " ",
-    )),
+      zh: (formats: ("附录A", "A.1"), depth: 4, supplyment: "　"),
+      en: (formats: ((..n) => "APPENDIX " + numbering("A", ..n), "A.1"), depth: 4, supplyment: ""),
+    ).at(lang)),
     /// ----- ///
     /// pages ///
     /// ----- ///
@@ -102,11 +103,12 @@
     // 中文封面页 | Cover Page
     cover: cover.with(degree: degree, degree-type: degree-type, anonymous: anonymous, fonts: _fonts, doc-info: info),
     // 英文封面页 | Cover (English) Page
-    cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, fonts: fonts),
+    cover-en: cover-en.with(degree: degree, degree-type: degree-type, twoside: twoside, anonymous: anonymous, fonts: _fonts),
     // 书脊页 | Spine Page
     spine: spine.with(twoside: twoside, anonymous: anonymous, fonts: _fonts),
     // 学位论文指导小组、公开评阅人和答辩委员会名单页 | Thesis Committee Page
-    committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside, anonymous-review: t("anonymous-review")),
+    committee: committee.with(degree: degree, anonymous: anonymous, twoside: twoside, title: t("committee"),
+      supervisors-title: t("supervisors"), reviewers-title: t("reviewers"), defenders-title: t("defenders"), anonymous-review: t("anonymous-review")),
     // 授权页 | Copyright Page
     copyright: copyright.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 中文摘要页 | Abstract Page
@@ -114,7 +116,7 @@
     // 英文摘要页 | Abstract (English) Page
     abstract-en: abstract-en.with(twoside: twoside, outlined: degree != "bachelor", fonts: _fonts),
     // 目录页 | Outline Page
-    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", fonts: fonts, title: t("outline")),
+    outline-wrapper: outline-wrapper.with(twoside: twoside, outlined: degree != "bachelor", fonts: _fonts, title: t("outline")),
     // 总清单页 | Master List Page
     master-list: master-list.with(twoside: twoside, outlined: degree != "bachelor", title: t("master-list")),
     // 插图和附表清单页 | Figure and Table Index Page
@@ -132,7 +134,7 @@
     // 致谢页 | Acknowledge Page
     acknowledge: acknowledge.with(anonymous: anonymous, twoside: twoside, title: t("acknowledge")),
     // 声明页 | Declaration Page
-    declaration: declaration.with(degree: degree, anonymous: anonymous, twoside: twoside, title: t("declaration")),
+    declaration: declaration.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 个人简历、在学期间完成的相关学术成果说明页 | Resume & Achievement Page
     achievement: achievement.with(degree: degree, anonymous: anonymous, twoside: twoside),
     // 论文训练记录表 | Record Sheet Page
@@ -140,6 +142,6 @@
     // 指导教师/指导小组评语页 | Advisor Comments Page
     comments: comments.with(degree: degree, anonymous: anonymous, twoside: twoside, title: t("comments")),
     // 答辩委员会决议书 | Committee Resolution Page
-    resolution: resolution.with(degree: degree, anonymous: anonymous, twoside: twoside),
+    resolution: resolution.with(degree: degree, anonymous: anonymous, twoside: twoside, title: t("resolution")),
   )
 }
